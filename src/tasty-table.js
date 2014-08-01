@@ -19,11 +19,19 @@ angular.module('tastyTable', [])
       this.$scope = $scope;
     },
     link: function(scope, element, attrs) {
-      var resource, setDirectivesValues;
+      var resource, setDirectivesValues, buildUrl,
+          updateResource;
 
       if (!attrs.resource) {
         throw 'AngularJS tastyTable directive miss the resource attribute';
       }
+
+      scope.query = {
+        'page': 'page',
+        'count': 'count',
+        'sortBy': 'sort-by',
+        'sortOrder': 'sort-order',
+      };
 
       scope.rows = [];
       scope.header = {
@@ -36,6 +44,7 @@ angular.module('tastyTable', [])
         'sortOrder': 'asc'
       };
       scope.resourcePagination = {};
+      scope.url = "";
 
       setDirectivesValues = function (resource) {
         if (!resource) {
@@ -49,29 +58,46 @@ angular.module('tastyTable', [])
         scope.resourcePagination = resource.pagination;
       };
 
+      buildUrl = function(resourceQuery, filterBy) {
+        var value;
+        for (var attrname in filterBy) { 
+          resourceQuery[attrname] = filterBy[attrname]; 
+        }
+        return Object.keys(resourceQuery).map(function(key) {
+          value = resourceQuery[key];
+          if (scope.query[key]) {
+            key = scope.query[key];
+          }
+          if (value) {
+            return encodeURIComponent(key) + '=' + encodeURIComponent(value);
+          }
+        }).join('&');
+      }
+
+      updateResource = function(resourceQuery, filterBy) {
+        scope.url = buildUrl(resourceQuery, filterBy)
+        scope[attrs.resource](scope.url).then(function (resource) {
+          setDirectivesValues(resource);
+        });
+      }
+
       // AngularJs $watch callbacks
       scope.$watch('resourceQuery', function (newValue, oldValue){
         if (newValue !== oldValue) {
-          scope[attrs.resource](newValue, scope[attrs.filterBy]).then(function (resource) {
-            setDirectivesValues(resource);
-          });
+          updateResource(newValue, scope[attrs.filterBy]);
         }
       }, true);
 
       if (attrs.filterBy) {
         scope.$watch(attrs.filterBy, function (newValue, oldValue){
           if (newValue !== oldValue) {
-            scope[attrs.resource](scope.resourceQuery, newValue).then(function (resource) {
-              setDirectivesValues(resource);
-            });
+            updateResource(scope.resourceQuery, newValue);
           }
         }, true);
       }
 
       // Init
-      scope[attrs.resource](scope.resourceQuery, scope[attrs.filterBy]).then(function (resource) {
-        setDirectivesValues(resource);
-      });
+      updateResource(scope.resourceQuery, scope[attrs.filterBy]);
     }
   };
 })
