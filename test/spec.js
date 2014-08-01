@@ -3,24 +3,24 @@
 describe("Directive", function () {
 
   describe("tastyTable", function () {
-    var $rootScope, $scope, $compile;
-    var element, createDirective, elementSelected;
+    var $scope, element, 
+    createDirective, elementSelected;
 
     beforeEach(module('tastyTable'));
 
-    beforeEach(inject(function (_$rootScope_, _$compile_) {
-      $rootScope = _$rootScope_;
-      $compile = _$compile_;
+    beforeEach(inject(function ($rootScope, $compile) {
+      $scope = $rootScope;
       element = angular.element(''+
-      '<table tasty-table>'+
+      '<table tasty-table resource="getResource">'+
       '</table>');
-      $compile(element)($rootScope);
-      $rootScope.pagination = {};
-      $rootScope.resourceQuery = {};
-      $rootScope.$digest();
+      $compile(element)($scope);
+      $scope.getResource = function () {
+      };
+      $scope.$digest();
     }));
 
     it("should ..", function () {
+      console.log($scope)
       expect(true).toEqual(true);
     });
 
@@ -37,7 +37,7 @@ describe("Directive", function () {
       $rootScope = _$rootScope_;
       $compile = _$compile_;
       element = angular.element(''+
-      '<table tasty-table>'+
+      '<table>'+
       '  <thead tasty-thead></thead>'+
       '</table>');
       $compile(element)($rootScope);
@@ -57,13 +57,7 @@ describe("Directive", function () {
     beforeEach(inject(function (_$rootScope_, _$compile_) {
       $rootScope = _$rootScope_;
       $compile = _$compile_;
-      element = angular.element(''+
-      '<div tasty-table>'+
-      ' <table>'+
-      '   <thead tasty-thead></thead>'+
-      ' </table>'+
-      ' <div tasty-table-pagination></div>'+
-      '</div>');
+      element = angular.element('<div tasty-pagination></div>');
       $compile(element)($rootScope);
       $rootScope.pagination = {};
       $rootScope.resourceQuery = {};

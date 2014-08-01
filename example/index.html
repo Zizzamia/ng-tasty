@@ -49,7 +49,11 @@
     .controller('AppCtrl', ['$scope', '$http', function($scope, $http) {
 
       $scope.getResource = function (resourceQuery, filterBy) {
-        return $http.get('table.json').then(function (response) {
+        return $http({
+          url: 'table.json',
+          method: "GET",
+          params: resourceQuery
+        }).then(function (response) {
           return {
             'rows': response.data.rows,
             'header': response.data.header,
@@ -57,7 +61,7 @@
             'sortBy': response.data.sortBy
           }
         }, function (response) {
-          console.log('bad')
+          console.log('Bad')
           return false;
         });
       }
