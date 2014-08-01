@@ -1,0 +1,31 @@
+<div>
+  <div>
+    <div class="btn-group">
+      <button type="button" class="btn btn-default" 
+      ng-repeat="count in pagListCount" 
+      ng-class="{active: count == pagination.count}" 
+      ng-click="page.setCount(count)" ng-bind="count"></button>
+    </div>
+  </div>
+  <div>
+    <ul>
+      <li ng-class="{disabled: pagHideMinRange }">
+        <span ng-click="page.previous()">&laquo;</span>
+      </li>
+      <li ng-repeat="numPage in rangePage" ng-class="{active: numPage == pagination.page}">
+        <span ng-click="page.get(numPage)">
+          <span ng-bind="numPage"></span>
+          <span ng-if="numPage == pagination.page">(current)</span>
+        </span>
+      </li>
+      <li ng-class="{disabled: pagHideMaxRange }">
+        <span ng-click="page.remaining()">&raquo;</span>
+      </li>
+    </ul>
+  </div>
+  <div>
+    <p>Page <span ng-bind="pagination.page"></span> 
+    of <span ng-bind="pagination.pages"></span>,
+    of <span ng-bind="pagination.size"></span> entries</p>
+  </div>
+</div>

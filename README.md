@@ -1,4 +1,4 @@
 tasty-table
 ===========
 
-A tasty async AngularJS Table
+A tasty async [AngularJS]() Table directive.

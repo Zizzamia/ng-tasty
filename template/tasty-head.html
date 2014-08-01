@@ -1,0 +1,9 @@
+<tr>
+  <th ng-repeat="column in header.columns" 
+  ng-class="{active: column.key == header.sortBy}"
+  ng-click="sortBy(column)">
+    <span ng-bind="column.name"></span>
+    <span ng-if="isSortUp(column)" class="fa fa-sort-up"></span>
+    <span ng-if="isSortDown(column)" class="fa fa-sort-down"></span>
+  </th> 
+</tr>

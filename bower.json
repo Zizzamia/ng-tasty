@@ -1,0 +1,23 @@
+{
+  "name": "tasty-table",
+  "version": "0.1.0",
+  "homepage": "https://github.com/Zizzamia/tasty-table",
+  "authors": [
+    "@zizzamia"
+  ],
+  "description": "A tasty async AngularJS Table directive.",
+  "dependencies": {
+    "angular": "1.2.20",
+    "angular-mocks": "1.2.20",
+    "bootstrap": "3.2.0",
+    "components-font-awesome": "4.1.0"
+  },
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "components",
+    "test",
+    "tests"
+  ]
+}
