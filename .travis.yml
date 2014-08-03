@@ -13,4 +13,4 @@ before_script:
   - sh -e /etc/init.d/xvfb start
 
 script:
-  - karma start --browsers Firefox --single-run
+  - karma start test/karma.conf.js --browsers Firefox --single-run
