@@ -1,5 +1,6 @@
 tasty-table
 ===========
+[![Build Status](https://secure.travis-ci.org/Zizzamia/tasty-table.png)](http://travis-ci.org/Zizzamia/tasty-table)
 
 A tasty async [AngularJS]() Table directive.
 
