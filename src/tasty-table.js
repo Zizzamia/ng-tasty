@@ -1,5 +1,5 @@
+(function() {
 'use strict';
-
 /**
  * @ngdoc directive
  * @name tastyTable
@@ -25,7 +25,7 @@ angular.module('tastyTable', [])
       if (!attrs.resource) {
         throw 'AngularJS tastyTable directive: miss the resource attribute';
       } else if (!scope[attrs.resource]) {
-        throw 'AngularJS tastyTable directive: the resource ('+ 
+        throw 'AngularJS tastyTable directive: the resource ('+
               attrs.resource + ') callback it\'s undefined';
       }
 
@@ -46,7 +46,7 @@ angular.module('tastyTable', [])
       scope.thead = false;
       scope.pagination = false;
       scope.resourcePagination = {};
-      scope.url = "";
+      scope.url = '';
 
       setDirectivesValues = function (resource) {
         if (!resource) {
@@ -57,12 +57,12 @@ angular.module('tastyTable', [])
           'columns': resource.header,
           'sortBy': resource.sortBy,
           'sortOrder': resource.sortOrder
-        }
+        };
         scope.resourcePagination = resource.pagination;
       };
 
       joinObjects = function(objOne, objTwo) {
-        for (var attrname in objTwo) { 
+        for (var attrname in objTwo) {
           if (objTwo[attrname]) {
             objOne[attrname] = objTwo[attrname];
           }
@@ -89,19 +89,18 @@ angular.module('tastyTable', [])
           }
           return encodeURIComponent(key) + '=' + encodeURIComponent(value);
         }).join('&');
-      }
+      };
 
       scope.updateResource = function() {
-        scope.url = buildUrl(scope.sortingQuery, scope.paginationQuery, scope[attrs.filters])
+        scope.url = buildUrl(scope.sortingQuery, scope.paginationQuery, scope[attrs.filters]);
         scope[attrs.resource](scope.url).then(function (resource) {
           setDirectivesValues(resource);
         });
-      }
+      };
 
       // AngularJs $watch callbacks
       if (attrs.filters) {
         scope.$watch(attrs.filters, function (newValue, oldValue){
-          console.log(newValue)
           if (newValue !== oldValue) {
             scope.updateResource();
           }
@@ -124,7 +123,7 @@ angular.module('tastyTable', [])
  */
 .directive('tastyThead', ['$timeout', function($timeout) {
   return {
-    restrict: "AE",
+    restrict: 'AE',
     require: '^tastyTable',
     scope: {},
     templateUrl: '../template/tasty-head.html',
@@ -137,14 +136,14 @@ angular.module('tastyTable', [])
         tastyTable.$scope.sortingQuery = {
           'sortBy': undefined,
           'sortOrder': 'asc'
-        }
+        };
       });
 
       scope.fields = {};
 
       cleanFieldName =  function (key) {
         return key.replace(/[^a-zA-Z0-9-]+/g, '-').toLowerCase();
-      }
+      };
 
       setFields = function () {
         var lenHeader, i;
@@ -158,11 +157,11 @@ angular.module('tastyTable', [])
         if (scope.header.sortOrder === 'dsc') {
           scope.header.sortBy = '-' + scope.header.sortBy;
         }
-      }
+      };
 
       scope.sortBy = function (field) {
         var fieldName;
-        fieldName = cleanFieldName(field.key)
+        fieldName = cleanFieldName(field.key);
         if (scope.header.sortBy == fieldName) {
           scope.header.sortBy = '-' + fieldName;
           tastyTable.$scope.sortingQuery.sortOrder = 'dsc';
@@ -178,14 +177,14 @@ angular.module('tastyTable', [])
           return false;
         }
         return scope.header.sortBy == '-' + scope.fields[field.key].sort;
-      }
+      };
 
       scope.isSortDown = function(field) {
         if (scope.fields[field.key] === undefined) {
           return false;
         }
         return scope.header.sortBy == scope.fields[field.key].sort;
-      }
+      };
 
       tastyTable.$scope.$watch('header', function (newValue, oldValue){
         if (newValue && (newValue !== oldValue)) {
@@ -200,7 +199,7 @@ angular.module('tastyTable', [])
         }
       }, true);
     }
-  }
+  };
 }])
 
 /**
@@ -218,13 +217,13 @@ angular.module('tastyTable', [])
  */
 .directive('tastyPagination', ['$timeout', function($timeout) {
   return {
-    restrict: "AE",
+    restrict: 'AE',
     require: '^tastyTable',
     scope: {},
     templateUrl: '../template/tasty-pagination.html',
     link: function (scope, element, attrs, tastyTable) {
-      var getPage, setCount, setPaginationRange, 
-          setPreviousRange, setRemainingRange, 
+      var getPage, setCount, setPaginationRange,
+          setPreviousRange, setRemainingRange,
           setPaginationRanges, init, range;
 
       // Pagination it's called
@@ -243,7 +242,7 @@ angular.module('tastyTable', [])
       scope.pagListCount = [5, 25, 50, 100];
 
       // Internal variable
-      scope.pagination = {};      
+      scope.pagination = {};
       scope.pagMinRange = 1;
       scope.pagMaxRange = 1;
       init = true;
@@ -252,13 +251,13 @@ angular.module('tastyTable', [])
       range = function(min, max) {
         var list;
         list = [];
-        min = parseInt(min, 10); 
+        min = parseInt(min, 10);
         max = parseInt(max, 10);
         for (var i = min; i < max; i++) {
           list.push(i);
         }
         return list;
-      }
+      };
 
       getPage = function (numPage) {
         tastyTable.$scope.paginationQuery.page = numPage;
@@ -267,7 +266,7 @@ angular.module('tastyTable', [])
       setCount = function(count) {
         var maxItems;
         maxItems = count * scope.pagination.page;
-        if (maxItems > scope.pagination.size) { 
+        if (maxItems > scope.pagination.size) {
           tastyTable.$scope.paginationQuery.page = Math.ceil(scope.pagination.size / count);
         }
         tastyTable.$scope.paginationQuery.count = count;
@@ -280,7 +279,7 @@ angular.module('tastyTable', [])
           currentPage = scope.pagination.pages;
         }
         scope.pagMinRange = (currentPage - 2) > 0 ? (currentPage - 2) : 1;
-        scope.pagMaxRange = (currentPage + 2)
+        scope.pagMaxRange = (currentPage + 2);
         scope.pagination.page  = currentPage;
         setPaginationRanges();
       };
@@ -330,16 +329,16 @@ angular.module('tastyTable', [])
         'setCount': setCount,
         'previous': setPreviousRange,
         'remaining': setRemainingRange
-      }
+      };
 
       tastyTable.$scope.$watch('resourcePagination', function (newValue, oldValue){
-        if (newValue && (newValue !== oldValue || init == true)) {
+        if (newValue && (newValue !== oldValue || init === true)) {
           scope.pagination = {
-            'count': newValue.count, 
-            'page': newValue.page, 
-            'pages': newValue.pages, 
+            'count': newValue.count,
+            'page': newValue.page,
+            'pages': newValue.pages,
             'size': newValue.size
-          }
+          };
           setPaginationRange();
           init = false;
         }
@@ -351,5 +350,6 @@ angular.module('tastyTable', [])
         }
       }, true);
     }
-  }
+  };
 }]);
+}).call(this);
