@@ -20,6 +20,8 @@ function dynamicSort(property) {
   }
 };
 
+var prevSortBy, prevSortOrder;
+
 app.get('/', function(req, res){
   res.render('index.html');
 });
@@ -63,21 +65,33 @@ app.get('/table.json', function(req, res){
     { "name": "Starbucks", "star": "★", "sf-location": "Union Square" },
     { "name": "Flywheel Coffee Roasters", "star": "★★★★★", "sf-location": "Upper Haight" }
   ];
+  count = req.query.count;
+  page = req.query.page;
   if (req.query['sort-by']) {
     sortBy = req.query['sort-by'];
     if (req.query['sort-order'] === 'dsc') {
       sortBy = '-' + sortBy;
     }
     rows.sort(dynamicSort(sortBy));
+    if (prevSortBy != sortBy) {
+      page = 1;
+    }
+    if (req.query['sort-order']) {
+      if (prevSortOrder != req.query['sort-order']) {
+        page = 1;
+      }
+    } 
   }
   pagination = {
-    "count": req.query.count,
-    "page": req.query.page,
-    "pages": Math.ceil(rows.length / req.query.count),
+    "count": count,
+    "page": page,
+    "pages": Math.ceil(rows.length / count),
     "size": rows.length
   };
   toRow = pagination.count * pagination.page;
   fromRow = toRow - pagination.count;
+  prevSortBy = req.query['sort-by'];
+  prevSortOrder = req.query['sort-order'];
   var items = {
     "header": [
       {
