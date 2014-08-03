@@ -8,4 +8,5 @@ node_js:
   - npm install --quiet -g grunt-cli karma
   - npm install
 
- script: grunt
+ script:
+  - grunt test
