@@ -11,7 +11,7 @@
  *
  */
 angular.module('tastyTable', [])
-.directive('tastyTable', function(){
+.directive('tastyTable', function($timeout){
   return {
     restrict: 'A',
     scope: true,
@@ -19,8 +19,8 @@ angular.module('tastyTable', [])
       this.$scope = $scope;
     },
     link: function(scope, element, attrs) {
-      var resource, setDirectivesValues, joinObjects,
-          buildUrl, updateResource;
+      var resource, setDirectivesValues, setProperty, joinObjects,
+          buildUrl, updateResourceWatch, initParamsWatch;
 
       if (!attrs.resource) {
         throw 'AngularJS tastyTable directive: miss the resource attribute';
@@ -40,8 +40,7 @@ angular.module('tastyTable', [])
         'columns': []
       };
       scope.rows = [];
-      scope.sortingQuery = {};
-      scope.paginationQuery = {};
+      scope.params = {};
       
       scope.thead = false;
       scope.pagination = false;
@@ -61,27 +60,37 @@ angular.module('tastyTable', [])
         scope.resourcePagination = resource.pagination;
       };
 
-      joinObjects = function(objOne, objTwo) {
-        for (var attrname in objTwo) {
-          if (objTwo[attrname]) {
-            objOne[attrname] = objTwo[attrname];
-          }
+      setProperty = function(objOne, objTwo, attrname) {
+        if (objTwo[attrname]) {
+          objOne[attrname] = objTwo[attrname];
         }
         return objOne;
       };
 
-      buildUrl = function(sortingQuery, paginationQuery, filters) {
+      joinObjects = function(objOne, objTwo) {
+        for (var attrname in objTwo) {
+          setProperty(objOne, objTwo, attrname);
+        }
+        return objOne;
+      };
+
+      buildUrl = function(params, filters) {
         var urlQuery, value, url;
         urlQuery = {};
+        console.log(scope.thead)
+        console.log(scope.pagination)
         if (scope.thead) {
-          urlQuery = joinObjects(urlQuery, sortingQuery);
+          urlQuery = setProperty(urlQuery, params, 'sortBy');
+          urlQuery = setProperty(urlQuery, params, 'sortOrder');
         }
         if (scope.pagination) {
-          urlQuery = joinObjects(urlQuery, paginationQuery);
+          urlQuery = setProperty(urlQuery, params, 'page');
+          urlQuery = setProperty(urlQuery, params, 'count');
         }
         if (attrs.filters) {
           urlQuery = joinObjects(urlQuery, filters);
         }
+        console.log(urlQuery)
         return Object.keys(urlQuery).map(function(key) {
           value = urlQuery[key];
           if (scope.query[key]) {
@@ -91,21 +100,29 @@ angular.module('tastyTable', [])
         }).join('&');
       };
 
-      scope.updateResource = function() {
-        scope.url = buildUrl(scope.sortingQuery, scope.paginationQuery, scope[attrs.filters]);
-        scope[attrs.resource](scope.url).then(function (resource) {
-          setDirectivesValues(resource);
-        });
+      updateResourceWatch = function (newValue, oldValue){
+        if (newValue !== oldValue) {
+          scope.url = buildUrl(scope.params, scope[attrs.filters]);
+          console.log(scope.url)
+          scope[attrs.resource](scope.url).then(function (resource) {
+            setDirectivesValues(resource);
+          });
+        }
       };
+
+      $timeout(function() {
+        console.log('init')
+        scope.params['sortBy'] = undefined;
+        scope.params['sortOrder'] = 'asc';
+        scope.params['page'] = 1;
+        scope.params['count'] = 5;
+      }, 100);
 
       // AngularJs $watch callbacks
       if (attrs.filters) {
-        scope.$watch(attrs.filters, function (newValue, oldValue){
-          if (newValue !== oldValue) {
-            scope.updateResource();
-          }
-        }, true);
+        scope.$watch(attrs.filters, updateResourceWatch, true);
       }
+      scope.$watch('params', updateResourceWatch, true);
     }
   };
 })
@@ -121,7 +138,7 @@ angular.module('tastyTable', [])
   </table>
  *
  */
-.directive('tastyThead', ['$timeout', function($timeout) {
+.directive('tastyThead', function($timeout) {
   return {
     restrict: 'AE',
     require: '^tastyTable',
@@ -132,14 +149,9 @@ angular.module('tastyTable', [])
 
       // Thead it's called
       tastyTable.$scope.thead = true;
-      $timeout(function() {
-        tastyTable.$scope.sortingQuery = {
-          'sortBy': undefined,
-          'sortOrder': 'asc'
-        };
-      });
 
       scope.fields = {};
+      init = true;
 
       cleanFieldName =  function (key) {
         return key.replace(/[^a-zA-Z0-9-]+/g, '-').toLowerCase();
@@ -164,12 +176,12 @@ angular.module('tastyTable', [])
         fieldName = cleanFieldName(field.key);
         if (scope.header.sortBy == fieldName) {
           scope.header.sortBy = '-' + fieldName;
-          tastyTable.$scope.sortingQuery.sortOrder = 'dsc';
+          tastyTable.$scope.params.sortOrder = 'dsc';
         } else {
           scope.header.sortBy = fieldName;
-          tastyTable.$scope.sortingQuery.sortOrder = 'asc';
+          tastyTable.$scope.params.sortOrder = 'asc';
         }
-        tastyTable.$scope.sortingQuery.sortBy = field.key;
+        tastyTable.$scope.params.sortBy = field.key;
       };
 
       scope.isSortUp = function(field) {
@@ -192,15 +204,9 @@ angular.module('tastyTable', [])
           setFields();
         }
       });
-
-      tastyTable.$scope.$watch('sortingQuery', function (newValue, oldValue){
-        if (newValue !== oldValue) {
-          tastyTable.$scope.updateResource();
-        }
-      }, true);
     }
   };
-}])
+})
 
 /**
  * @ngdoc directive
@@ -215,7 +221,7 @@ angular.module('tastyTable', [])
   </div>
  *
  */
-.directive('tastyPagination', ['$timeout', function($timeout) {
+.directive('tastyPagination', function($timeout) {
   return {
     restrict: 'AE',
     require: '^tastyTable',
@@ -228,12 +234,6 @@ angular.module('tastyTable', [])
 
       // Pagination it's called
       tastyTable.$scope.pagination = true;
-      $timeout(function() {
-        tastyTable.$scope.paginationQuery = {
-          'page': 1,
-          'count': 5,
-        };
-      });
 
       /* In the future you will have a way to change
        * these values by an isolate optional scope variable,
@@ -260,16 +260,16 @@ angular.module('tastyTable', [])
       };
 
       getPage = function (numPage) {
-        tastyTable.$scope.paginationQuery.page = numPage;
+        tastyTable.$scope.params.page = numPage;
       };
 
       setCount = function(count) {
         var maxItems;
         maxItems = count * scope.pagination.page;
         if (maxItems > scope.pagination.size) {
-          tastyTable.$scope.paginationQuery.page = Math.ceil(scope.pagination.size / count);
+          tastyTable.$scope.params.page = Math.ceil(scope.pagination.size / count);
         }
-        tastyTable.$scope.paginationQuery.count = count;
+        tastyTable.$scope.params.count = count;
       };
 
       setPaginationRange = function () {
@@ -332,7 +332,7 @@ angular.module('tastyTable', [])
       };
 
       tastyTable.$scope.$watch('resourcePagination', function (newValue, oldValue){
-        if (newValue && (newValue !== oldValue || init === true)) {
+        if (newValue && (newValue !== oldValue)) {
           scope.pagination = {
             'count': newValue.count,
             'page': newValue.page,
@@ -340,16 +340,9 @@ angular.module('tastyTable', [])
             'size': newValue.size
           };
           setPaginationRange();
-          init = false;
         }
       });
-
-      tastyTable.$scope.$watch('paginationQuery', function (newValue, oldValue){
-        if (newValue !== oldValue) {
-          tastyTable.$scope.updateResource();
-        }
-      }, true);
     }
   };
-}]);
+});
 }).call(this);

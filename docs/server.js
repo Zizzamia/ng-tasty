@@ -92,6 +92,13 @@ app.get('/table.json', function(req, res){
   fromRow = toRow - pagination.count;
   prevSortBy = req.query['sort-by'];
   prevSortOrder = req.query['sort-order'];
+
+  if (fromRow >= 0 && toRow >= 0) {
+    rowToShow = rows.slice(fromRow, toRow)
+  } else {
+    rowToShow = rows;
+  }
+  
   var items = {
     "header": [
       {
@@ -107,7 +114,7 @@ app.get('/table.json', function(req, res){
         "name": "SF Location"
       }
     ],
-    "rows": rows.slice(fromRow, toRow),
+    "rows": rowToShow,
     "pagination": pagination,
     "sort-by": req.query['sort-by'],
     "sort-order": req.query['sort-order']

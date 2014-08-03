@@ -22,6 +22,7 @@
     "protractor": "^0.20.1"
   },
   "scripts": {
+    "postinstall": "bower install",
     "start": "node docs/server.js",
     "pretest": "npm install",
     "test": "karma start test/karma.conf.js  --single-run",
