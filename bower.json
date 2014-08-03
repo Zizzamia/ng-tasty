@@ -8,9 +8,11 @@
   "description": "A tasty async AngularJS Table directive.",
   "dependencies": {
     "angular": "1.2.20",
+    "angular-bootstrap": "0.11.0",
     "angular-mocks": "1.2.20",
     "bootstrap": "3.2.0",
-    "components-font-awesome": "4.1.0"
+    "components-font-awesome": "4.1.0",
+    "rainbow": "1.1.9"
   },
   "license": "MIT",
   "ignore": [

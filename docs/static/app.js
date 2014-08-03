@@ -1,0 +1,85 @@
+angular.module('myApp', [
+  'tastyTable',
+  'myApp.controllers',
+  'ui.bootstrap'
+]);
+angular.module('myApp.controllers', [])
+.config(function($httpProvider){
+  delete $httpProvider.defaults.headers.common['X-Requested-With'];
+})
+.controller('AppCtrl', ['$scope', '$http', function($scope, $http) {
+
+  $scope.filterBy = {
+    'time': 'ciao'
+  };
+
+  $scope.filterByThree = {
+    'time': 'ciao'
+  };
+
+  $scope.open = function(toOpen) {
+    $scope.table = true;
+    $scope.tableOne = true;
+    $scope.tableTwo = true;
+    $scope.tableThree = true;
+    if (toOpen === 'complete') {
+      $scope.table = false;
+    } else if (toOpen === 'sorting') {
+      $scope.tableOne = false;
+    } else if (toOpen === 'pagination') {
+      $scope.tableTwo = false;
+    } else {
+      $scope.tableThree = false;
+    }
+  }
+  $scope.open('complete');
+
+  $scope.getResource = function (params) {
+    $scope.urlApi = 'table.json?' + params;
+    return $http.get($scope.urlApi).then(function (response) {
+      return {
+        'rows': response.data.rows,
+        'header': response.data.header,
+        'pagination': response.data.pagination,
+        'sortBy': response.data['sort-by'],
+        'sortOrder': response.data['sort-order']
+      }
+    });
+  }
+
+  $scope.getResourceOne = function (params) {
+    $scope.urlApiOne = 'table.json?' + params;
+    return $http.get($scope.urlApiOne).then(function (response) {
+      return {
+        'rows': response.data.rows,
+        'header': response.data.header,
+        'sortBy': response.data['sort-by'],
+        'sortOrder': response.data['sort-order']
+      }
+    });
+  }
+
+  $scope.getResourceTwo = function (params) {
+    $scope.urlApiTwo = 'table.json?' + params;
+    return $http.get($scope.urlApiTwo).then(function (response) {
+      return {
+        'rows': response.data.rows,
+        'header': response.data.header,
+        'pagination': response.data.pagination,
+        'sortBy': response.data['sort-by'],
+        'sortOrder': response.data['sort-order']
+      }
+    });
+  }
+
+  $scope.getResourceThree = function (params) {
+    $scope.urlApiThree = 'table.json?' + params;
+    return $http.get($scope.urlApiThree).then(function (response) {
+      return {
+        'rows': response.data.rows,
+        'header': response.data.header
+      }
+    });
+  }
+
+}]);

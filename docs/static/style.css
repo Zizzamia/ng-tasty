@@ -1,0 +1,15 @@
+.close {
+  float: none;
+  box-sizing: border-box;
+  color: rgb(0, 0, 128);
+  display: inline;
+  font-family: Consolas, 'Liberation Mono', Courier, monospace;
+  font-size: 13px;
+  height: auto;
+  line-height: 19px;
+  white-space: pre-wrap;
+  width: auto;
+  word-wrap: break-word;
+  font-weight: normal;
+  opacity: 1;
+}
