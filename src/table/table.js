@@ -1,5 +1,3 @@
-(function() {
-'use strict';
 /**
  * @ngdoc directive
  * @name tastyTable
@@ -10,8 +8,8 @@
   </table>
  *
  */
-angular.module('tastyTable', [])
-.directive('tastyTable', function($timeout){
+angular.module('ngTasty.table', [])
+.directive('tastyTable', ['$timeout', function($timeout){
   return {
     restrict: 'A',
     scope: true,
@@ -19,6 +17,7 @@ angular.module('tastyTable', [])
       this.$scope = $scope;
     },
     link: function(scope, element, attrs) {
+      'use strict';
       var resource, setDirectivesValues, setProperty, joinObjects,
           buildUrl, updateResourceWatch, initParamsWatch;
 
@@ -77,8 +76,6 @@ angular.module('tastyTable', [])
       buildUrl = function(params, filters) {
         var urlQuery, value, url;
         urlQuery = {};
-        console.log(scope.thead)
-        console.log(scope.pagination)
         if (scope.thead) {
           urlQuery = setProperty(urlQuery, params, 'sortBy');
           urlQuery = setProperty(urlQuery, params, 'sortOrder');
@@ -90,7 +87,6 @@ angular.module('tastyTable', [])
         if (attrs.filters) {
           urlQuery = joinObjects(urlQuery, filters);
         }
-        console.log(urlQuery)
         return Object.keys(urlQuery).map(function(key) {
           value = urlQuery[key];
           if (scope.query[key]) {
@@ -103,7 +99,6 @@ angular.module('tastyTable', [])
       updateResourceWatch = function (newValue, oldValue){
         if (newValue !== oldValue) {
           scope.url = buildUrl(scope.params, scope[attrs.filters]);
-          console.log(scope.url)
           scope[attrs.resource](scope.url).then(function (resource) {
             setDirectivesValues(resource);
           });
@@ -111,7 +106,6 @@ angular.module('tastyTable', [])
       };
 
       $timeout(function() {
-        console.log('init')
         scope.params['sortBy'] = undefined;
         scope.params['sortOrder'] = 'asc';
         scope.params['page'] = 1;
@@ -125,7 +119,7 @@ angular.module('tastyTable', [])
       scope.$watch('params', updateResourceWatch, true);
     }
   };
-})
+}])
 
 /**
  * @ngdoc directive
@@ -138,13 +132,14 @@ angular.module('tastyTable', [])
   </table>
  *
  */
-.directive('tastyThead', function($timeout) {
+.directive('tastyThead', function() {
   return {
     restrict: 'AE',
     require: '^tastyTable',
     scope: {},
-    templateUrl: '../template/tasty-head.html',
+    templateUrl: 'template/table/tasty-head.html',
     link: function (scope, element, attrs, tastyTable) {
+      'use strict';
       var cleanFieldName, setFields, init;
 
       // Thead it's called
@@ -221,13 +216,14 @@ angular.module('tastyTable', [])
   </div>
  *
  */
-.directive('tastyPagination', function($timeout) {
+.directive('tastyPagination', function() {
   return {
     restrict: 'AE',
     require: '^tastyTable',
     scope: {},
-    templateUrl: '../template/tasty-pagination.html',
+    templateUrl: 'template/table/tasty-pagination.html',
     link: function (scope, element, attrs, tastyTable) {
+      'use strict';
       var getPage, setCount, setPaginationRange,
           setPreviousRange, setRemainingRange,
           setPaginationRanges, init, range;
@@ -345,4 +341,3 @@ angular.module('tastyTable', [])
     }
   };
 });
-}).call(this);

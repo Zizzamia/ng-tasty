@@ -2,7 +2,7 @@ module.exports = function(config) {
   config.set({
 
     // base path that will be used to resolve all patterns (eg. files, exclude)
-    basePath: '../',
+    basePath: '.',
 
     // frameworks to use
     // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
@@ -12,22 +12,10 @@ module.exports = function(config) {
     files: [
       'components/angular/angular.min.js',
       'components/angular-mocks/angular-mocks.js',
-      'src/tasty-table.js',
-      'template/tasty-table-head.html',
-      'template/tasty-table-pagination.html',
-      'test/spec.js'
+      'src/**/*.js',
+      'test/spec.js',
+      'template/table/*.js'
     ],
-
-    // preprocess matching files before serving them to the browser
-    // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
-    preprocessors: {
-      'template/*.html': 'ng-html2js'
-    },
-
-    ngHtml2JsPreprocessor: {
-      // strip this from the file path
-      stripPrefix: ''
-    },
 
     // test results reporter to use
     // possible values: 'dots', 'progress', 'spec'

@@ -1,13 +1,13 @@
-tasty-table
+ng-tasty
 ===========
 [![Build Status](https://secure.travis-ci.org/Zizzamia/tasty-table.png)](http://travis-ci.org/Zizzamia/tasty-table)
 
-A tasty async [AngularJS]() Table directive.
+A tasty async [AngularJS]() directives.
 
 
 ## Getting Started
 
-To get you started you can simply clone the tasty-table repository
+To get you started you can simply clone the ng-tasty repository
 
 ### Install Dependencies
 

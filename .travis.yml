@@ -2,15 +2,10 @@ language: node_js
 node_js:
   - "0.10"
 
-before_install:
-  - npm install -g grunt-cli
-  - npm install -g karma-cli
-  - npm install -g bower
-
 before_script:
-  - bower install
-  - export DISPLAY=:99.0
-  - sh -e /etc/init.d/xvfb start
+ - export DISPLAY=:99.0
+ - sh -e /etc/init.d/xvfb start
+ - npm install --quiet -g grunt-cli karma
+ - npm install
 
-script:
-  - karma start test/karma.conf.js --browsers Firefox --single-run
+script: grunt

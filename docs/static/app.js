@@ -1,5 +1,5 @@
 angular.module('myApp', [
-  'tastyTable',
+  'ngTasty.table',
   'myApp.controllers',
   'ui.bootstrap'
 ]);

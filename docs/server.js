@@ -5,6 +5,7 @@ app.set('views', 'docs/');
 app.engine('html', require('ejs').renderFile);
 app.use('/static',  express.static('docs/static'));
 app.use('/components',  express.static('components'));
+app.use('/dist',  express.static('dist'));
 app.use('/src',  express.static('src'));
 app.use('/template',  express.static('template'));
 

@@ -1,12 +1,11 @@
-"use strict";
+describe('Directive', function () {
+  'use strict';
 
-describe("Directive", function () {
-
-  describe("tastyTable complete", function () {
+  describe('ngTasty table complete', function () {
     var $scope, element, 
     createDirective, elementSelected;
 
-    beforeEach(module('tastyTable'));
+    beforeEach(module('ngTasty.table'));
 
     beforeEach(inject(function ($rootScope, $compile) {
       $scope = $rootScope;
@@ -19,7 +18,7 @@ describe("Directive", function () {
       $scope.$digest();
     }));
 
-    it("should ..", function () {
+    it('should ..', function () {
       expect(true).toEqual(true);
     });
   });
