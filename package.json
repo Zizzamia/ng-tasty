@@ -1,6 +1,6 @@
 {
   "name": "ng-tasty",
-  "version": "0.1.0",
+  "version": "0.2.1",
   "description": "A tasty async AngularJS directives.",
   "main": "index.js",
   "directories": {
@@ -33,12 +33,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/Zizzamia/tasty-table.git"
+    "url": "https://github.com/Zizzamia/ng-tasty.git"
   },
   "author": "Leonardo Zizzamia",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/Zizzamia/tasty-table/issues"
+    "url": "https://github.com/Zizzamia/ng-tasty/issues"
   },
-  "homepage": "https://github.com/Zizzamia/tasty-table"
+  "homepage": "https://github.com/Zizzamia/ng-tasty"
 }
