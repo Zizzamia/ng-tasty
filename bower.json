@@ -12,7 +12,8 @@
     "angular-mocks": "1.2.20",
     "bootstrap": "3.2.0",
     "components-font-awesome": "4.1.0",
-    "rainbow": "1.1.9"
+    "rainbow": "1.1.9",
+    "ng-tasty": "0.2.1"
   },
   "license": "MIT",
   "ignore": [

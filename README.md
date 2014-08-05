@@ -1,21 +1,32 @@
-ng-tasty
-===========
-[![Build Status](https://secure.travis-ci.org/Zizzamia/ng-tasty.png)](http://travis-ci.org/Zizzamia/ng-tasty)
+# ng-tasty [![Build Status](https://secure.travis-ci.org/Zizzamia/ng-tasty.png)](http://travis-ci.org/Zizzamia/ng-tasty)
+> A tasty suite async [AngularJS](https://angularjs.org/) directives.
 
-A tasty async [AngularJS]() directives.
+## Quick start
+
+Installing via Bower
+```
+bower install ng-tasty
+```
+
+Include the required library:
+``` html
+<script src="bower_components/ng-tasty/ng-tasty.min.js"></script>
+```
+
+Inject the `ngTasty` module into your app:
+``` JavaScript
+angular.module('myApp', ['ngTasty']);
+```
 
 
-## Getting Started
-
-To get you started you can simply clone the ng-tasty repository
-
-### Install Dependencies
-
+## Development
 For running the demo and test the directive you just need install
 all the dependencies by `npm`, the [node package manager][npm]. 
 
 ```
+npm install -g gulp
 npm install
+bower install
 ```
 
 ### Run demo app

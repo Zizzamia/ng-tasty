@@ -149,7 +149,7 @@ gulp.task('build', function() {
   var metaHeader = banner + grunt.config('meta.modules') + '\n';
 
   gulp.src(srcFiles)
-    .pipe(concat(filename + '-' + pkg.version + '.js'))
+    .pipe(concat(filename + '.js'))
     .pipe(header(metaHeader))
     .pipe(gulp.dest(dist))
     .pipe(uglify())
@@ -161,7 +161,7 @@ gulp.task('build', function() {
                    grunt.config('meta.tplmodules') + '\n';
 
   gulp.src(srcFiles.concat(tpljsFiles))
-    .pipe(concat(filename + '-tpls-' + pkg.version + '.js'))
+    .pipe(concat(filename + '-tpls.js'))
     .pipe(header(metaHeader))
     .pipe(gulp.dest(dist))
     .pipe(uglify())
