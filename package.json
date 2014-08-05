@@ -32,13 +32,14 @@
     "underscore": "^1.6.0"
   },
   "scripts": {
-    "start": "node docs/server.js"
+    "start": "node docs/server.js port=5000",
+    "start_docs": "node docs/server.js port=25907"
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/Zizzamia/ng-tasty.git"
   },
-  "author": "Leonardo Zizzamia",
+  "author": "@zizzamia",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/Zizzamia/ng-tasty/issues"

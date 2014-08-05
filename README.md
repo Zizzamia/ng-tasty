@@ -31,11 +31,12 @@ bower install
 
 ### Run demo app
 
-We have preconfigured the demo with a simple development web server.  The simplest way to start
-this server is:
+We have preconfigured the demo with a simple development web server.  
+The simplest way to start this server is:
 
 ```
 npm start
+// Running on http://localhost:5000/
 ```
 
 

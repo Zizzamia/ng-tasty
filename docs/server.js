@@ -21,10 +21,15 @@ function dynamicSort(property) {
   }
 };
 
-var prevSortBy, prevSortOrder;
+var prevSortBy, prevSortOrder, base;
 
 app.get('/', function(req, res){
-  res.render('index.html');
+  if (args.port == 25907) {
+    base = '/ng-tasty';
+  } else {
+    base = '';
+  }
+  res.render('index.html', { base: base });
 });
 
 app.get('/ng-tasty/table.json', function(req, res){
@@ -123,4 +128,11 @@ app.get('/ng-tasty/table.json', function(req, res){
   res.json(items);
 });
 
-app.listen(25907);
+var args = {}
+process.argv.forEach(function (val, index, array) {
+  if (val.indexOf('=') > 0) {
+    args[val.split("=")[0]] = val.split("=")[1];
+  }
+});
+
+app.listen(args.port);
