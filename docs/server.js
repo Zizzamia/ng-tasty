@@ -27,7 +27,7 @@ app.get('/', function(req, res){
   res.render('index.html');
 });
 
-app.get('/table.json', function(req, res){
+app.get('/ng-tasty/table.json', function(req, res){
   var items, pagination, rows, sortBy, fromRow, toRow;
   rows = [
     { "name": "Ritual Coffee Roasters", "star": "★★★★★", "sf-location": "Hayes Valley"},
