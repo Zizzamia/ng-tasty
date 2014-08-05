@@ -8,15 +8,6 @@ module.exports = function(config) {
     // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
     frameworks: ['jasmine'],
 
-    // list of files / patterns to load in the browser
-    files: [
-      'components/angular/angular.min.js',
-      'components/angular-mocks/angular-mocks.js',
-      'src/**/*.js',
-      'test/spec.js',
-      'template/table/*.js'
-    ],
-
     // test results reporter to use
     // possible values: 'dots', 'progress', 'spec'
     // available reporters: https://npmjs.org/browse/keyword/karma-reporter

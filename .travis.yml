@@ -3,7 +3,7 @@ node_js:
   - "0.10"
 
 before_install:
-  - npm install -g grunt-cli
+  - npm install -g gulp
   - npm install -g karma
   - npm install -g bower
 
@@ -13,4 +13,6 @@ before_script:
  - npm install
  - bower install
 
-script: grunt
+script:
+ - gulp html2js
+ - gulp travis
