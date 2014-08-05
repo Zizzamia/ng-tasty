@@ -37,7 +37,7 @@ There are two kinds of tests in the angular-seed application: Unit tests and End
 The easiest way to run the unit tests is to use the supplied npm script:
 
 ```
-npm test
+gulp test
 ```
 
 ### End to end testing

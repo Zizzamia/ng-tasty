@@ -4,15 +4,13 @@ var _ = require('underscore');
 var gulp = require('gulp'); 
 var concat = require("gulp-concat");
 var header = require('gulp-header');
-var jshint = require('gulp-jshint');
 var html2js = require('gulp-html2js');
+var jshint = require('gulp-jshint');
 var karma = require('gulp-karma');
 var rename = require('gulp-rename');
-var path = require('path');
 var tap = require('gulp-tap');
-var grunt = require('grunt');
-var markdown = require('node-markdown').Markdown;
 var uglify = require('gulp-uglify');
+var grunt = require('grunt');
 
 var testFiles = [
   'components/angular/angular.min.js',
@@ -100,8 +98,7 @@ gulp.task('build', function() {
     meta: {
       modules: 'angular.module("ngTasty", [<%= srcModules %>]);',
       tplmodules: 'angular.module("ngTasty.tpls", [<%= tplModules %>]);',
-      all: 'angular.module("ngTasty", ["ngTasty.tpls", <%= srcModules %>]);',
-      banner: banner
+      all: 'angular.module("ngTasty", ["ngTasty.tpls", <%= srcModules %>]);'
     }
   });
 
@@ -112,17 +109,7 @@ gulp.task('build', function() {
   function findModule(name) {
     if (foundModules[name]) { return; }
     foundModules[name] = true;
-
-    function breakup(text, separator) {
-      return text.replace(/[A-Z]/g, function (match) {
-        return separator + match;
-      });
-    }
-    function ucwords(text) {
-      return text.replace(/^([a-z])|\s+([a-z])/g, function ($1) {
-        return $1.toUpperCase();
-      });
-    }
+    
     function enquote(str) {
       return '"' + str + '"';
     }
@@ -130,40 +117,12 @@ gulp.task('build', function() {
     var module = {
       name: name,
       moduleName: enquote('ngTasty.' + name),
-      displayName: ucwords(breakup(name, ' ')),
       srcFiles: grunt.file.expand('src/'+name+'/*.js'),
       tplFiles: grunt.file.expand('template/'+name+'/*.html'),
       tpljsFiles: grunt.file.expand('template/'+name+'/*.html.js'),
       tplModules: grunt.file.expand('template/'+name+'/*.html').map(enquote),
-      dependencies: dependenciesForModule(name)
     };
-    module.dependencies.forEach(findModule);
     grunt.config('modules', grunt.config('modules').concat(module));
-  }
-
-  function dependenciesForModule(name) {
-    var deps = [];
-    grunt.file.expand('src/' + name + '/*.js')
-    .map(grunt.file.read)
-    .forEach(function(contents) {
-      //Strategy: find where module is declared,
-      //and from there get everything inside the [] and split them by comma
-      var moduleDeclIndex = contents.indexOf('angular.module(');
-      var depArrayStart = contents.indexOf('[', moduleDeclIndex);
-      var depArrayEnd = contents.indexOf(']', depArrayStart);
-      var dependencies = contents.substring(depArrayStart + 1, depArrayEnd);
-      dependencies.split(',').forEach(function(dep) {
-        if (dep.indexOf('ngTasty.') > -1) {
-          var depName = dep.trim().replace('ngTasty.','').replace(/['"]/g,'');
-          if (deps.indexOf(depName) < 0) {
-            deps.push(depName);
-            //Get dependencies for this new dependency
-            deps = deps.concat(dependenciesForModule(depName));
-          }
-        }
-      });
-    });
-    return deps;
   }
 
   grunt.file.expand({
@@ -187,7 +146,7 @@ gulp.task('build', function() {
     return a.concat(b);
   });
 
-  var metaHeader = grunt.config('meta.banner') + grunt.config('meta.modules') + '\n';
+  var metaHeader = banner + grunt.config('meta.modules') + '\n';
 
   gulp.src(srcFiles)
     .pipe(concat(filename + '-' + pkg.version + '.js'))
@@ -197,7 +156,7 @@ gulp.task('build', function() {
     .pipe(rename({extname: '.min.js'}))
     .pipe(gulp.dest(dist));
 
-  var metaHeader = grunt.config('meta.banner') + 
+  var metaHeader = banner + 
                    grunt.config('meta.all') + '\n' +
                    grunt.config('meta.tplmodules') + '\n';
 
