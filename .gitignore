@@ -1,6 +1,9 @@
 # Mac
 .DS_Store
 
+#Fabric
+fabfile.py
+
 # Build
 dist
 
