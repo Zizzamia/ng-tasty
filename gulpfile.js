@@ -16,8 +16,7 @@ var testFiles = [
   'components/angular/angular.min.js',
   'components/angular-mocks/angular-mocks.js',
   'src/**/*.js',
-  'test/spec.js',
-  'template/table/*.js'
+  'template/table/*.html.js'
 ];
 
 gulp.task('jshint', function() {
@@ -58,10 +57,16 @@ gulp.task('travis', function() {
 });
 
 gulp.task('watch', function() {
+
+  gulp.watch('template/**/*.html', function (event) {
+    gulp.run('html2js');
+  });
+
   gulp.src(testFiles)
     .pipe(karma({
       configFile: 'karma.conf.js',
-      action: 'watch'
+      action: 'watch',
+      browsers: ['Chrome']
     }));
 });
 

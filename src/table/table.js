@@ -18,8 +18,6 @@ angular.module('ngTasty.table', [])
     },
     link: function(scope, element, attrs) {
       'use strict';
-      var resource, setDirectivesValues, setProperty, joinObjects,
-          buildUrl, updateResourceWatch, initParamsWatch;
 
       if (!attrs.resource) {
         throw 'AngularJS tastyTable directive: miss the resource attribute';
@@ -46,7 +44,7 @@ angular.module('ngTasty.table', [])
       scope.resourcePagination = {};
       scope.url = '';
 
-      setDirectivesValues = function (resource) {
+      scope.setDirectivesValues = function (resource) {
         if (!resource) {
           return false;
         }
@@ -59,33 +57,35 @@ angular.module('ngTasty.table', [])
         scope.resourcePagination = resource.pagination;
       };
 
-      setProperty = function(objOne, objTwo, attrname) {
+      scope.setProperty = function(objOne, objTwo, attrname) {
         if (objTwo[attrname]) {
           objOne[attrname] = objTwo[attrname];
         }
         return objOne;
       };
 
-      joinObjects = function(objOne, objTwo) {
+      scope.joinObjects = function(objOne, objTwo) {
         for (var attrname in objTwo) {
-          setProperty(objOne, objTwo, attrname);
+          scope.setProperty(objOne, objTwo, attrname);
         }
         return objOne;
       };
 
-      buildUrl = function(params, filters) {
+      scope.buildUrl = function(params, filters) {
         var urlQuery, value, url;
         urlQuery = {};
+        //console.log(params)
+        //console.log(filters)
         if (scope.thead) {
-          urlQuery = setProperty(urlQuery, params, 'sortBy');
-          urlQuery = setProperty(urlQuery, params, 'sortOrder');
+          urlQuery = scope.setProperty(urlQuery, params, 'sortBy');
+          urlQuery = scope.setProperty(urlQuery, params, 'sortOrder');
         }
         if (scope.pagination) {
-          urlQuery = setProperty(urlQuery, params, 'page');
-          urlQuery = setProperty(urlQuery, params, 'count');
+          urlQuery = scope.setProperty(urlQuery, params, 'page');
+          urlQuery = scope.setProperty(urlQuery, params, 'count');
         }
         if (attrs.filters) {
-          urlQuery = joinObjects(urlQuery, filters);
+          urlQuery = scope.joinObjects(urlQuery, filters);
         }
         return Object.keys(urlQuery).map(function(key) {
           value = urlQuery[key];
@@ -96,27 +96,37 @@ angular.module('ngTasty.table', [])
         }).join('&');
       };
 
-      updateResourceWatch = function (newValue, oldValue){
-        if (newValue !== oldValue) {
-          scope.url = buildUrl(scope.params, scope[attrs.filters]);
-          scope[attrs.resource](scope.url).then(function (resource) {
-            setDirectivesValues(resource);
-          });
-        }
+      scope.updateResource = function() {
+        scope.url = scope.buildUrl(scope.params, scope[attrs.filters]);
+        scope[attrs.resource](scope.url).then(function (resource) {
+          scope.setDirectivesValues(resource);
+        });
       };
 
-      $timeout(function() {
-        scope.params['sortBy'] = undefined;
-        scope.params['sortOrder'] = 'asc';
-        scope.params['page'] = 1;
-        scope.params['count'] = 5;
-      }, 100);
-
+      scope.initDirective = function () {
+        $timeout(function() {
+          scope.params['sortBy'] = undefined;
+          scope.params['sortOrder'] = 'asc';
+          scope.params['page'] = 1;
+          scope.params['count'] = 5;
+          scope.updateResource();
+        }, 100);
+      };
+      
       // AngularJs $watch callbacks
       if (attrs.filters) {
-        scope.$watch(attrs.filters, updateResourceWatch, true);
+        scope.$watch(attrs.filters, function (newValue, oldValue){
+          if (newValue !== oldValue) {
+            scope.updateResource();
+          }
+        }, true);
       }
-      scope.$watch('params', updateResourceWatch, true);
+      scope.$watch('params', function (newValue, oldValue){
+        if (newValue !== oldValue) {
+          scope.updateResource();
+        }
+      }, true);
+      scope.initDirective();
     }
   };
 }])

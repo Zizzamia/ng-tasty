@@ -20,16 +20,23 @@ angular.module('myApp', ['ngTasty']);
 
 
 ## Development
-For running the demo and test the directive you just need install
+For running the dev enviroment you just need install
 all the dependencies by `npm`, the [node package manager][npm]. 
 
 ```
 npm install -g gulp
+npm install -g bower
 npm install
 bower install
 ```
 
-### Run demo app
+Run dev enviroment, it's a watch script with several task running
+like jshint, html2js, build and unit test on the js build files.
+```
+gulp watch
+```
+
+#### Run demo app
 
 We have preconfigured the demo with a simple development web server.  
 The simplest way to start this server is:
@@ -39,12 +46,7 @@ npm start
 // Running on http://localhost:5000/
 ```
 
-
-## Testing
-
-There are two kinds of tests in the angular-seed application: Unit tests and End to End tests.
-
-### Running Unit Tests
+#### Unit Tests
 
 The easiest way to run the unit tests is to use the supplied npm script:
 
@@ -52,13 +54,13 @@ The easiest way to run the unit tests is to use the supplied npm script:
 gulp test
 ```
 
-### End to end testing
+#### End to end testing
 
 Once you have ensured that the development web server hosting our application is up and running
 and WebDriver is updated, you can run the end-to-end tests using the supplied npm script:
 
 ```
-npm run protractor
+gulp protractor
 ```
 
 ## Contact
