@@ -59,7 +59,14 @@ describe('Directive', function () {
         'columns': []
       });
       expect(element.scope().rows).toEqual([]);
-      expect(element.scope().params).toEqual({});
+      expect(element.scope().params).toEqual({ 
+        sortBy : undefined, 
+        sortOrder : 'asc', 
+        page : 1, 
+        count : 5, 
+        thead : true, 
+        pagination : true 
+      });
       expect(element.scope().thead).toEqual(true);
       expect(element.scope().pagination).toEqual(true);
       expect(element.scope().resourcePagination).toEqual({});
@@ -109,7 +116,13 @@ describe('Directive', function () {
         'columns': []
       });
       expect(element.scope().rows).toEqual([]);
-      expect(element.scope().params).toEqual({});
+      expect(element.scope().params).toEqual({ 
+        sortBy : undefined, 
+        sortOrder : 'asc', 
+        page : 1, 
+        count : 5, 
+        thead : true 
+      });
       expect(element.scope().thead).toEqual(true);
       expect(element.scope().pagination).toEqual(false);
       expect(element.scope().resourcePagination).toEqual({});
@@ -161,7 +174,13 @@ describe('Directive', function () {
         'columns': []
       });
       expect(element.scope().rows).toEqual([]);
-      expect(element.scope().params).toEqual({});
+      expect(element.scope().params).toEqual({ 
+        sortBy : undefined, 
+        sortOrder : 'asc', 
+        page : 1, 
+        count : 5, 
+        pagination : true 
+      });
       expect(element.scope().thead).toEqual(false);
       expect(element.scope().pagination).toEqual(true);
       expect(element.scope().resourcePagination).toEqual({});
@@ -215,7 +234,12 @@ describe('Directive', function () {
         'columns': []
       });
       expect(element.scope().rows).toEqual([]);
-      expect(element.scope().params).toEqual({});
+      expect(element.scope().params).toEqual({ 
+        sortBy : undefined, 
+        sortOrder : 'asc', 
+        page : 1, 
+        count : 5 
+      });
       expect(element.scope().thead).toEqual(false);
       expect(element.scope().pagination).toEqual(false);
       expect(element.scope().resourcePagination).toEqual({});

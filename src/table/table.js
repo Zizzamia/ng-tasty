@@ -18,6 +18,7 @@ angular.module('ngTasty.table', [])
     },
     link: function(scope, element, attrs) {
       'use strict';
+      var debounce;
 
       if (!attrs.resource) {
         throw 'AngularJS tastyTable directive: miss the resource attribute';
@@ -96,21 +97,31 @@ angular.module('ngTasty.table', [])
         }).join('&');
       };
 
-      scope.updateResource = function() {
+      debounce = function(func, wait, immediate) {
+        var timeout;
+        return function() {
+          var context = this, args = arguments;
+          clearTimeout(timeout);
+          timeout = setTimeout(function() {
+            timeout = null;
+            func.apply(context, args);
+          }, wait);
+        };
+      };
+
+      scope.updateResource = debounce(function() {
         scope.url = scope.buildUrl(scope.params, scope[attrs.filters]);
         scope[attrs.resource](scope.url).then(function (resource) {
           scope.setDirectivesValues(resource);
         });
-      };
+      }, 100);
 
       scope.initDirective = function () {
-        $timeout(function() {
-          scope.params['sortBy'] = undefined;
-          scope.params['sortOrder'] = 'asc';
-          scope.params['page'] = 1;
-          scope.params['count'] = 5;
-          scope.updateResource();
-        }, 100);
+        scope.params['sortBy'] = undefined;
+        scope.params['sortOrder'] = 'asc';
+        scope.params['page'] = 1;
+        scope.params['count'] = 5;
+        scope.updateResource();
       };
       
       // AngularJs $watch callbacks
@@ -154,6 +165,7 @@ angular.module('ngTasty.table', [])
 
       // Thead it's called
       tastyTable.$scope.thead = true;
+      tastyTable.$scope.params['thead'] = true;
 
       scope.fields = {};
       init = true;
@@ -240,6 +252,7 @@ angular.module('ngTasty.table', [])
 
       // Pagination it's called
       tastyTable.$scope.pagination = true;
+      tastyTable.$scope.params['pagination'] = true;
 
       /* In the future you will have a way to change
        * these values by an isolate optional scope variable,

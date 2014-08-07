@@ -62,6 +62,11 @@ gulp.task('watch', function() {
     gulp.run('html2js');
   });
 
+  gulp.watch('src/**/*.js', function (event) {
+    gulp.run('jshint');
+    gulp.run('build');
+  });
+
   gulp.src(testFiles)
     .pipe(karma({
       configFile: 'karma.conf.js',
@@ -69,9 +74,6 @@ gulp.task('watch', function() {
       browsers: ['Chrome']
     }));
 });
-
-
-
 
 grunt.initConfig({
   modules: [], //to be filled in by build task
@@ -81,7 +83,6 @@ grunt.initConfig({
 })
 
 gulp.task('build', function() {
-
   var pkg = grunt.file.readJSON('package.json');
   var filename = 'ng-tasty';
   var dist = 'dist';
