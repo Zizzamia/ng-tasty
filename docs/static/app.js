@@ -35,7 +35,7 @@ angular.module('myApp.controllers', [])
   $scope.open('complete');
 
   $scope.getResource = function (params) {
-    $scope.urlApi = 'ng-tasty/table.json?' + params;
+    $scope.urlApi = 'table.json?' + params;
     return $http.get($scope.urlApi).then(function (response) {
       return {
         'rows': response.data.rows,
@@ -48,7 +48,7 @@ angular.module('myApp.controllers', [])
   }
 
   $scope.getResourceOne = function (params) {
-    $scope.urlApiOne = 'ng-tasty/table.json?' + params;
+    $scope.urlApiOne = 'table.json?' + params;
     return $http.get($scope.urlApiOne).then(function (response) {
       return {
         'rows': response.data.rows,
@@ -60,7 +60,7 @@ angular.module('myApp.controllers', [])
   }
 
   $scope.getResourceTwo = function (params) {
-    $scope.urlApiTwo = 'ng-tasty/table.json?' + params;
+    $scope.urlApiTwo = 'table.json?' + params;
     return $http.get($scope.urlApiTwo).then(function (response) {
       return {
         'rows': response.data.rows,
@@ -73,7 +73,7 @@ angular.module('myApp.controllers', [])
   }
 
   $scope.getResourceThree = function (params) {
-    $scope.urlApiThree = 'ng-tasty/table.json?' + params;
+    $scope.urlApiThree = 'table.json?' + params;
     return $http.get($scope.urlApiThree).then(function (response) {
       return {
         'rows': response.data.rows,
@@ -81,5 +81,4 @@ angular.module('myApp.controllers', [])
       }
     });
   }
-
 }]);
