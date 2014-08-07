@@ -1,0 +1,13 @@
+<pre><code data-language="javascript">$scope.getResourceOne = function (params) {
+  $scope.urlApiOne = 'table.json?' + params;
+  return $http.get($scope.urlApiOne).then(function (response) {
+    return {
+      'rows': response.data.rows,
+      'header': response.data.header,
+      'sortBy': response.data['sort-by'],
+      'sortOrder': response.data['sort-order']
+    }
+  });
+}
+</code>
+</pre>

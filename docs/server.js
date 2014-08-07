@@ -29,7 +29,7 @@ app.get('/', function(req, res){
   } else {
     base = '';
   }
-  res.render('index.html', { base: base });
+  res.render('template/index.html', { base: base });
 });
 
 app.get('/ng-tasty/table.json', function(req, res){

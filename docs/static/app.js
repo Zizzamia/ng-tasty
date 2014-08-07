@@ -10,11 +10,11 @@ angular.module('myApp.controllers', [])
 .controller('AppCtrl', ['$scope', '$http', function($scope, $http) {
 
   $scope.filterBy = {
-    'time': 'ciao'
+    'time': 'now'
   };
 
   $scope.filterByThree = {
-    'time': 'ciao'
+    'time': 'now'
   };
 
   $scope.open = function(toOpen) {

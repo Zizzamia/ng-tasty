@@ -1,3 +1,26 @@
+.content {
+  margin-left: 240px;
+  padding: 52px 38px;
+  max-width: 960px;
+}
+
+
+.left-nav {
+  position: fixed;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  padding: 38px 0;
+  width: 240px;
+  overflow-y: auto;
+  background-color: #f8f8f8;
+  border-right: 1px solid #e7e7e7;
+}
+
+.left-nav a.head h1 {
+  padding: 12px 0 0 22px;
+}
+
 .close {
   float: none;
   box-sizing: border-box;
@@ -12,4 +35,21 @@
   word-wrap: break-word;
   font-weight: normal;
   opacity: 1;
+}
+
+.code .nav-tabs {
+  border-bottom: 1px solid #ccc;
+}
+.code pre, .code code {
+  border-top: none;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+.code .nav-tabs>li.active>a, 
+.code .nav-tabs>li.active>a:hover, 
+.code .nav-tabs>li.active>a:focus {
+  background-color: #f8f8f8;
+  border: 1px solid #ccc;
+  border-bottom-color: transparent;
 }

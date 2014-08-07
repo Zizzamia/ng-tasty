@@ -1,0 +1,14 @@
+<pre><code data-language="javascript">$scope.filterByThree = {
+  'time': 'now'
+}
+$scope.getResourceThree = function (params) {
+  $scope.urlApiThree = 'table.json?' + params;
+  return $http.get($scope.urlApiThree).then(function (response) {
+    return {
+      'rows': response.data.rows,
+      'header': response.data.header
+    }
+  });
+}
+</code>
+</pre>

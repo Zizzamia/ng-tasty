@@ -1,0 +1,14 @@
+<pre><code data-language="javascript">$scope.getResourceTwo = function (params) {
+  $scope.urlApiTwo = 'table.json?' + params;
+  return $http.get($scope.urlApiTwo).then(function (response) {
+    return {
+      'rows': response.data.rows,
+      'header': response.data.header,
+      'pagination': response.data.pagination,
+      'sortBy': response.data['sort-by'],
+      'sortOrder': response.data['sort-order']
+    }
+  });
+}
+</code>
+</pre>
