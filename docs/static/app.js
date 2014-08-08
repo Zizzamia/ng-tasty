@@ -1,5 +1,6 @@
 angular.module('myApp', [
   'ngTasty',
+  'ui.bootstrap',
   'myApp.controllers'
 ]);
 angular.module('myApp.controllers', [])
