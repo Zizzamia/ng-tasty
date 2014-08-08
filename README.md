@@ -1,7 +1,7 @@
 # ng-tasty [![Build Status](https://secure.travis-ci.org/Zizzamia/ng-tasty.png)](http://travis-ci.org/Zizzamia/ng-tasty)
 > A lightweight, flexible, and tasty collection of reusable UI components for [AngularJS](https://angularjs.org/).
 
-Live demo visit http://zizzamia.com/ng-tasty/!
+Live demo visit http://zizzamia.com/ng-tasty/
 
 ## Quick start
 
@@ -12,7 +12,7 @@ bower install ng-tasty
 
 Include the required library:
 ``` html
-<script src="bower_components/ng-tasty/ng-tasty.min.js"></script>
+<script src="bower_components/ng-tasty/ng-tasty-tpls.min.js"></script>
 ```
 
 Inject the `ngTasty` module into your app:
