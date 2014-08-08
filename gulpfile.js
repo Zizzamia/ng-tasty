@@ -4,7 +4,7 @@ var _ = require('underscore');
 var gulp = require('gulp'); 
 var concat = require("gulp-concat");
 var header = require('gulp-header');
-var html2js = require('gulp-html2js');
+var html2js = require('gulp-ng-html2js');
 var jshint = require('gulp-jshint');
 var karma = require('gulp-karma');
 var rename = require('gulp-rename');
@@ -29,7 +29,7 @@ gulp.task('html2js', function() {
   gulp.src('template/**/*.html')
     .pipe(html2js({
       module: null, // no bundle module for all the html2js templates
-      base: '.'
+       prefix: "template/"
     }))
     .pipe(rename({
       extname: ".html.js"
@@ -83,6 +83,7 @@ grunt.initConfig({
 })
 
 gulp.task('build', function() {
+  gulp.run('html2js');
   gulp.src('template/**/*.html')
     .pipe(gulp.dest('dist/template/'));
 

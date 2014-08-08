@@ -158,7 +158,7 @@ angular.module('ngTasty.table', [])
     restrict: 'AE',
     require: '^tastyTable',
     scope: {},
-    templateUrl: 'template/table/tasty-head.html',
+    templateUrl: 'template/table/head.html',
     link: function (scope, element, attrs, tastyTable) {
       'use strict';
       var cleanFieldName, setFields, init;
@@ -243,7 +243,7 @@ angular.module('ngTasty.table', [])
     restrict: 'AE',
     require: '^tastyTable',
     scope: {},
-    templateUrl: 'template/table/tasty-pagination.html',
+    templateUrl: 'template/table/pagination.html',
     link: function (scope, element, attrs, tastyTable) {
       'use strict';
       var getPage, setCount, setPaginationRange,

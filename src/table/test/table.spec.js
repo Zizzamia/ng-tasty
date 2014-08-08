@@ -3,8 +3,8 @@ describe('Directive', function () {
 
   beforeEach(module('ngMock'));
   beforeEach(module('ngTasty.table'));
-  beforeEach(module('template/table/tasty-head.html'));
-  beforeEach(module('template/table/tasty-pagination.html'));
+  beforeEach(module('template/table/head.html'));
+  beforeEach(module('template/table/pagination.html'));
 
   describe('ngTasty table complete', function () {
     var $scope, $timeout, $httpBackend, element, params, 

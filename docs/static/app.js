@@ -1,12 +1,8 @@
 angular.module('myApp', [
-  'ngTasty.table',
-  'myApp.controllers',
-  'ui.bootstrap'
+  'ngTasty',
+  'myApp.controllers'
 ]);
 angular.module('myApp.controllers', [])
-.config(function($httpProvider){
-  delete $httpProvider.defaults.headers.common['X-Requested-With'];
-})
 .controller('AppCtrl', ['$scope', '$http', function($scope, $http) {
 
   $scope.countTest = 1;
