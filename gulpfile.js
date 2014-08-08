@@ -83,6 +83,9 @@ grunt.initConfig({
 })
 
 gulp.task('build', function() {
+  gulp.src('template/**/*.html')
+    .pipe(gulp.dest('dist/template/'));
+
   var pkg = grunt.file.readJSON('package.json');
   var filename = 'ng-tasty';
   var dist = 'dist';
