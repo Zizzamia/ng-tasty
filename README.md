@@ -1,6 +1,8 @@
 # ng-tasty [![Build Status](https://secure.travis-ci.org/Zizzamia/ng-tasty.png)](http://travis-ci.org/Zizzamia/ng-tasty)
 > A lightweight, flexible, and tasty collection of reusable UI components for [AngularJS](https://angularjs.org/).
 
+Live demo visit http://zizzamia.com/ng-tasty/!
+
 ## Quick start
 
 Installing via Bower
