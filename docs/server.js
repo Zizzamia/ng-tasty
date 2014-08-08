@@ -23,6 +23,14 @@ function dynamicSort(property) {
 
 var prevSortBy, prevSortOrder, base;
 
+app.use(function(req, res, next) {
+  if (req.url === "/ng-tasty") {
+    res.redirect(301, req.url + '/');
+  } else {
+    next();
+  }
+});
+
 app.get('/', function(req, res){
   if (args.port == 25907) {
     base = '/ng-tasty';
