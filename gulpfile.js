@@ -86,6 +86,7 @@ gulp.task('build', function() {
   gulp.run('html2js');
   gulp.src('template/**/*.html')
     .pipe(gulp.dest('dist/template/'));
+  gulp.run('test');
 
   var pkg = grunt.file.readJSON('package.json');
   var filename = 'ng-tasty';
