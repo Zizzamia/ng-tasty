@@ -9,6 +9,8 @@ angular.module('myApp.controllers', [])
 })
 .controller('AppCtrl', ['$scope', '$http', function($scope, $http) {
 
+  $scope.countTest = 1;
+
   $scope.filterBy = {
     'time': 'now'
   };
@@ -37,6 +39,8 @@ angular.module('myApp.controllers', [])
   $scope.getResource = function (params) {
     $scope.urlApi = 'table.json?' + params;
     return $http.get($scope.urlApi).then(function (response) {
+      $scope.response = JSON.stringify(response.data, undefined, 2);
+      $scope.countTest += 1;
       return {
         'rows': response.data.rows,
         'header': response.data.header,
@@ -50,6 +54,8 @@ angular.module('myApp.controllers', [])
   $scope.getResourceOne = function (params) {
     $scope.urlApiOne = 'table.json?' + params;
     return $http.get($scope.urlApiOne).then(function (response) {
+      $scope.responseTwo = JSON.stringify(response.data, undefined, 2);
+      $scope.countTest += 1;
       return {
         'rows': response.data.rows,
         'header': response.data.header,
@@ -62,6 +68,8 @@ angular.module('myApp.controllers', [])
   $scope.getResourceTwo = function (params) {
     $scope.urlApiTwo = 'table.json?' + params;
     return $http.get($scope.urlApiTwo).then(function (response) {
+      $scope.responseThree = JSON.stringify(response.data, undefined, 2);
+      $scope.countTest += 1;
       return {
         'rows': response.data.rows,
         'header': response.data.header,
@@ -75,6 +83,8 @@ angular.module('myApp.controllers', [])
   $scope.getResourceThree = function (params) {
     $scope.urlApiThree = 'table.json?' + params;
     return $http.get($scope.urlApiThree).then(function (response) {
+      $scope.responseFour = JSON.stringify(response.data, undefined, 2);
+      $scope.countTest += 1;
       return {
         'rows': response.data.rows,
         'header': response.data.header

@@ -125,6 +125,20 @@
           <%= include example-js-4.html %>
         </div>
       </tab>
+      <tab heading="Response">
+        <div ng-hide="table">
+          <pre><code data-language="javascript" ng-bind="response"></code></pre>
+        </div>
+        <div ng-hide="tableOne">
+          <pre><code data-language="javascript" ng-bind="responseTwo"></code></pre>
+        </div>
+        <div ng-hide="tableTwo">
+          <pre><code data-language="javascript" ng-bind="responseThree"></code></pre>
+        </div>
+        <div ng-hide="tableThree">
+          <pre><code data-language="javascript" ng-bind="responseFour"></code></pre>
+        </div>
+      </tab>
     </tabset>
   </div>
 </div>

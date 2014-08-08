@@ -1,5 +1,5 @@
 # ng-tasty [![Build Status](https://secure.travis-ci.org/Zizzamia/ng-tasty.png)](http://travis-ci.org/Zizzamia/ng-tasty)
-> A tasty suite async [AngularJS](https://angularjs.org/) directives.
+> A lightweight, flexible, and tasty collection of reusable UI components for [AngularJS](https://angularjs.org/).
 
 ## Quick start
 

@@ -89,8 +89,8 @@ app.get('/table.json', function(req, res){
     } 
   }
   pagination = {
-    "count": count,
-    "page": page,
+    "count": parseInt(count),
+    "page": parseInt(page),
     "pages": Math.ceil(rows.length / count),
     "size": rows.length
   };
