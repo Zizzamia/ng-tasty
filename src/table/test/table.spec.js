@@ -1,6 +1,6 @@
 describe('Directive', function () {
   'use strict';
-  var $scope, $timeout, $httpBackend;
+  var $scope, $timeout, $httpBackend, $compile;
   var element, params, urlToCall, filters, createDirective, 
   elementSelected, expected, completeJSON, sortingJSON, paginationJSON,
   filtersJSON;
@@ -10,6 +10,36 @@ describe('Directive', function () {
   beforeEach(module('mockedAPIResponse'));
   beforeEach(module('template/table/head.html'));
   beforeEach(module('template/table/pagination.html'));
+
+
+  describe('ngTasty table configs', function () {
+    beforeEach(inject(function ($rootScope, _$compile_) {
+      $scope = $rootScope.$new();
+      $compile = _$compile_;
+    }));
+
+    it('should return a throw message if the resource is not set', function () {
+      function errorFunctionWrapper() {
+        element = angular.element('<div tasty-table></div>');
+        $compile(element)($scope);
+        $scope.$digest();
+      }
+      expect(errorFunctionWrapper).toThrow('AngularJS tastyTable directive: miss the resource attribute');
+    });
+
+    it('should return a throw message if the resource set it\'s undefined', function () {
+      function errorFunctionWrapper() {
+        element = angular.element('<div tasty-table resource="getResource"></div>');
+        $compile(element)($scope);
+        $scope.$digest();
+      }
+      expected = 'AngularJS tastyTable directive: the resource (getResource) callback it\'s undefined'
+      expect(errorFunctionWrapper).toThrow(expected);
+    });
+  });
+
+
+
 
   describe('ngTasty table complete', function () {
     beforeEach(inject(function ($rootScope, $compile, $http, _$httpBackend_, _$timeout_, _completeJSON_) {
@@ -50,17 +80,18 @@ describe('Directive', function () {
     }));
 
     it('should have these element.scope() value as default', function () {
-      //console.log($scope)
       expect(element.scope().query).toEqual({
         'page': 'page',
         'count': 'count',
         'sortBy': 'sort-by',
         'sortOrder': 'sort-order',
       });
+      expect(element.scope().url).toEqual('');
       expect(element.scope().header).toEqual({
         'columns': []
       });
       expect(element.scope().rows).toEqual([]);
+      expect(element.scope().pagination).toEqual({});
       expect(element.scope().params).toEqual({ 
         sortBy : undefined, 
         sortOrder : 'asc', 
@@ -69,10 +100,8 @@ describe('Directive', function () {
         thead : true, 
         pagination : true 
       });
-      expect(element.scope().thead).toEqual(true);
-      expect(element.scope().pagination).toEqual(true);
-      expect(element.scope().resourcePagination).toEqual({});
-      expect(element.scope().url).toEqual('');
+      expect(element.scope().theadDirective).toEqual(true);
+      expect(element.scope().paginationDirective).toEqual(true);
     });
 
     it('should return the right url after called buildUrl', function () {
@@ -129,10 +158,12 @@ describe('Directive', function () {
         'sortBy': 'sort-by',
         'sortOrder': 'sort-order',
       });
+      expect(element.scope().url).toEqual('');
       expect(element.scope().header).toEqual({
         'columns': []
       });
       expect(element.scope().rows).toEqual([]);
+      expect(element.scope().pagination).toEqual({});
       expect(element.scope().params).toEqual({ 
         sortBy : undefined, 
         sortOrder : 'asc', 
@@ -140,10 +171,8 @@ describe('Directive', function () {
         count : 5, 
         thead : true 
       });
-      expect(element.scope().thead).toEqual(true);
-      expect(element.scope().pagination).toEqual(false);
-      expect(element.scope().resourcePagination).toEqual({});
-      expect(element.scope().url).toEqual('');
+      expect(element.scope().theadDirective).toEqual(true);
+      expect(element.scope().paginationDirective).toEqual(false);   
     });
 
     it('should return the right url after called buildUrl', function () {
@@ -209,10 +238,12 @@ describe('Directive', function () {
         'sortBy': 'sort-by',
         'sortOrder': 'sort-order',
       });
+      expect(element.scope().url).toEqual('');
       expect(element.scope().header).toEqual({
         'columns': []
       });
       expect(element.scope().rows).toEqual([]);
+      expect(element.scope().pagination).toEqual({});
       expect(element.scope().params).toEqual({ 
         sortBy : undefined, 
         sortOrder : 'asc', 
@@ -220,10 +251,8 @@ describe('Directive', function () {
         count : 5, 
         pagination : true 
       });
-      expect(element.scope().thead).toEqual(false);
-      expect(element.scope().pagination).toEqual(true);
-      expect(element.scope().resourcePagination).toEqual({});
-      expect(element.scope().url).toEqual('');
+      expect(element.scope().theadDirective).toEqual(false);
+      expect(element.scope().paginationDirective).toEqual(true);
     });
 
     it('should return the right url after called buildUrl', function () {
@@ -291,20 +320,20 @@ describe('Directive', function () {
         'sortBy': 'sort-by',
         'sortOrder': 'sort-order',
       });
+      expect(element.scope().url).toEqual('');
       expect(element.scope().header).toEqual({
         'columns': []
       });
       expect(element.scope().rows).toEqual([]);
+      expect(element.scope().pagination).toEqual({});
       expect(element.scope().params).toEqual({ 
         sortBy : undefined, 
         sortOrder : 'asc', 
         page : 1, 
         count : 5 
       });
-      expect(element.scope().thead).toEqual(false);
-      expect(element.scope().pagination).toEqual(false);
-      expect(element.scope().resourcePagination).toEqual({});
-      expect(element.scope().url).toEqual('');
+      expect(element.scope().theadDirective).toEqual(false);
+      expect(element.scope().paginationDirective).toEqual(false);
     });
 
     it('should return the right url after called buildUrl', function () {

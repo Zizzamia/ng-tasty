@@ -34,10 +34,12 @@ app.use(function(req, res, next) {
 app.get('/', function(req, res){
   if (args.port == 25907) {
     base = '/ng-tasty';
+    ngTasty = '/ng-tasty/components/ng-tasty/ng-tasty-tpls.js';
   } else {
     base = '';
+    ngTasty = '/dist/ng-tasty-tpls.js';
   }
-  res.render('template/index.html', { base: base });
+  res.render('template/index.html', { base: base, ngTasty: ngTasty });
 });
 
 app.get('/table.json', function(req, res){

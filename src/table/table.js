@@ -15,7 +15,8 @@ angular.module('ngTasty.table', [])
     'count': 'count',
     'sortBy': 'sort-by',
     'sortOrder': 'sort-order',
-  }
+  },
+  resource: undefined
 })
 .controller('TableController', [
   '$scope', 
@@ -25,26 +26,37 @@ angular.module('ngTasty.table', [])
   function($scope, $attrs, $timeout, tableConfig) {
     'use strict';
     this.$scope = $scope;
-    $scope.query = angular.isDefined($attrs.query) ? $scope.$parent.$eval($attrs.query) : tableConfig.query;
 
-    if (!$attrs.resource) {
+    // Default configs
+    $scope.query = tableConfig.query;
+    $scope.resource = tableConfig.resource;
+
+    // Set custom configs
+    if (angular.isDefined($attrs.query)) {
+      $scope.query = $scope.$parent.$eval($attrs.query);
+    }
+    if (!angular.isDefined($attrs.resource)) {
       throw 'AngularJS tastyTable directive: miss the resource attribute';
-    } else if (!$scope[$attrs.resource]) {
-      throw 'AngularJS tastyTable directive: the resource ('+
+    } else {
+      $scope.resource = $scope.$parent.$eval($attrs.resource);
+      if (!$scope.resource) {
+        throw 'AngularJS tastyTable directive: the resource ('+
             $attrs.resource + ') callback it\'s undefined';
+      }
     }
 
+    $scope.url = '';
     $scope.header = {
       'columns': []
     };
     $scope.rows = [];
     $scope.params = {};
-    
-    $scope.thead = false;
-    $scope.pagination = false;
-    $scope.resourcePagination = {};
-    $scope.url = '';
+    $scope.pagination = {};
+    $scope.theadDirective = false;
+    $scope.paginationDirective = false;
 
+    // In TableController, by using `this` we build an API 
+    // for other directives to talk to this one.
     this.debounce = function(func, wait, immediate) {
       var timeout;
       return function() {
@@ -56,6 +68,9 @@ angular.module('ngTasty.table', [])
         }, wait);
       };
     };
+    this.activate = function(directiveName) {
+      $scope[directiveName + 'Directive'] = true;
+    }
 
     $scope.setDirectivesValues = function (resource) {
       if (!resource) {
@@ -67,7 +82,7 @@ angular.module('ngTasty.table', [])
         'sortBy': resource.sortBy,
         'sortOrder': resource.sortOrder
       };
-      $scope.resourcePagination = resource.pagination;
+      $scope.pagination = resource.pagination;
     };
 
     $scope.setProperty = function(objOne, objTwo, attrname) {
@@ -87,13 +102,11 @@ angular.module('ngTasty.table', [])
     $scope.buildUrl = function(params, filters) {
       var urlQuery, value, url;
       urlQuery = {};
-      //console.log(params)
-      //console.log(filters)
-      if ($scope.thead) {
+      if ($scope.theadDirective) {
         urlQuery = $scope.setProperty(urlQuery, params, 'sortBy');
         urlQuery = $scope.setProperty(urlQuery, params, 'sortOrder');
       }
-      if ($scope.pagination) {
+      if ($scope.paginationDirective) {
         urlQuery = $scope.setProperty(urlQuery, params, 'page');
         urlQuery = $scope.setProperty(urlQuery, params, 'count');
       }
@@ -170,7 +183,7 @@ angular.module('ngTasty.table', [])
       var cleanFieldName, setFields, init;
 
       // Thead it's called
-      tastyTable.$scope.thead = true;
+      tastyTable.activate('thead');
       tastyTable.$scope.params['thead'] = true;
 
       scope.fields = {};
@@ -223,7 +236,7 @@ angular.module('ngTasty.table', [])
 
       tastyTable.$scope.$watch('header', function (newValue, oldValue){
         if (newValue && (newValue !== oldValue)) {
-          scope.header = tastyTable.$scope.header;
+          scope.header = newValue;
           setFields();
         }
       });
@@ -257,7 +270,7 @@ angular.module('ngTasty.table', [])
           setPaginationRanges, init, range;
 
       // Pagination it's called
-      tastyTable.$scope.pagination = true;
+      tastyTable.activate('pagination');
       tastyTable.$scope.params['pagination'] = true;
 
       /* In the future you will have a way to change
@@ -356,14 +369,9 @@ angular.module('ngTasty.table', [])
         'remaining': setRemainingRange
       };
 
-      tastyTable.$scope.$watch('resourcePagination', function (newValue, oldValue){
+      tastyTable.$scope.$watch('pagination', function (newValue, oldValue){
         if (newValue && (newValue !== oldValue)) {
-          scope.pagination = {
-            'count': newValue.count,
-            'page': newValue.page,
-            'pages': newValue.pages,
-            'size': newValue.size
-          };
+          scope.pagination = newValue;
           setPaginationRange();
         }
       });
