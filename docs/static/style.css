@@ -4,13 +4,16 @@
   max-width: 960px;
 }
 
+h1, h2 {
+  margin-top: 0;
+}
 
 .left-nav {
   position: fixed;
   left: 0;
   top: 0;
   bottom: 0;
-  padding: 38px 0;
+  padding: 24px 0;
   width: 240px;
   overflow-y: auto;
   background-color: #f8f8f8;
@@ -18,7 +21,37 @@
 }
 
 .left-nav a.head h1 {
+  margin-top: 0;
+  padding: 0 0 0 22px;
+}
+.left-nav .head {
   padding: 12px 0 0 22px;
+}
+
+.left-nav ul {
+  margin: 20px 0;
+  padding: 0;
+}
+
+.left-nav li {
+  list-style: none;
+}
+
+.left-nav li a {
+  display: block;
+  padding: 4px 20px 4px 0;
+  font-size: 16px;
+  font-weight: 500;
+  color: #999;
+  width: 70%;
+}
+
+.left-nav li a:hover, 
+.left-nav li a:focus {
+  color: #563d7c;
+  text-decoration: none;
+  background-color: transparent;
+  border-right: 1px solid #563d7c;
 }
 
 .close {
