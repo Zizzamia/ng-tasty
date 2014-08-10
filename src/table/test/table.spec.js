@@ -1,20 +1,22 @@
 describe('Directive', function () {
   'use strict';
+  var $scope, $timeout, $httpBackend;
+  var element, params, urlToCall, filters, createDirective, 
+  elementSelected, expected, completeJSON, sortingJSON, paginationJSON,
+  filtersJSON;
 
   beforeEach(module('ngMock'));
   beforeEach(module('ngTasty.table'));
+  beforeEach(module('mockedAPIResponse'));
   beforeEach(module('template/table/head.html'));
   beforeEach(module('template/table/pagination.html'));
 
   describe('ngTasty table complete', function () {
-    var $scope, $timeout, $httpBackend, element, params, 
-    urlToCall, filters, createDirective, 
-    elementSelected, expected;
-
-    beforeEach(inject(function ($rootScope, $compile, $http, _$httpBackend_, _$timeout_) {
-      $scope = $rootScope;
+    beforeEach(inject(function ($rootScope, $compile, $http, _$httpBackend_, _$timeout_, _completeJSON_) {
+      $scope = $rootScope.$new();
       $timeout = _$timeout_;
       $httpBackend = _$httpBackend_;
+      completeJSON = _completeJSON_;
       $scope.getResource = function (params) {
         return $http.get('api.json?'+params).then(function (response) {
           return {
@@ -43,8 +45,8 @@ describe('Directive', function () {
       '  </table>'+
       '  <div tasty-pagination></div>'+
       '</div>');
-      $compile(element)($rootScope);
-      $rootScope.$digest();
+      $compile(element)($scope);
+      $scope.$digest();
     }));
 
     it('should have these element.scope() value as default', function () {
@@ -73,21 +75,36 @@ describe('Directive', function () {
       expect(element.scope().url).toEqual('');
     });
 
-    //it('should return the right url after called buildUrl', function () {
-    //  urlToCall = 'api.json?sort-order=asc&page=1&count=5&city=sf';
-    //  $httpBackend.whenGET(urlToCall).respond({});
-    //  $timeout.flush();
-    //  $httpBackend.flush();
-    //});
+    it('should return the right url after called buildUrl', function () {
+      urlToCall = 'api.json?sort-order=asc&page=1&count=5&city=sf';
+      $httpBackend.whenGET(urlToCall).respond(completeJSON);
+      $timeout.flush();
+      $httpBackend.flush();
+      $scope.$digest();
+      expect(element.scope().rows[0].name).toEqual('Ritual Coffee Roasters');
+      expect(element.scope().rows.length).toEqual(5);
+    });
   });
   
-  describe('ngTasty table withs sorting', function () {
-    var $scope, element, params, filters, 
-    createDirective, elementSelected, expected;
 
-    beforeEach(inject(function ($rootScope, $compile) {
-      $scope = $rootScope;
+
+
+  describe('ngTasty table withs sorting', function () {
+    beforeEach(inject(function ($rootScope, $compile, $http, _$httpBackend_, _$timeout_, _sortingJSON_) {
+      $scope = $rootScope.$new();
+      $timeout = _$timeout_;
+      $httpBackend = _$httpBackend_;
+      sortingJSON = _sortingJSON_;
       $scope.getResource = function (params) {
+        return $http.get('api.json?'+params).then(function (response) {
+          return {
+            'rows': response.data.rows,
+            'header': response.data.header,
+            'pagination': response.data.pagination,
+            'sortBy': response.data['sort-by'],
+            'sortOrder': response.data['sort-order']
+          };
+        });
       };
       element = angular.element(''+
       '<table tasty-table resource="getResource">'+
@@ -100,8 +117,8 @@ describe('Directive', function () {
       '    </tr>'+
       '  </tbody>'+
       '</table>');
-      $compile(element)($rootScope);
-      $rootScope.$digest();
+      $compile(element)($scope);
+      $scope.$digest();
     }));
 
     it('should have these element.scope() value as default', function () {
@@ -128,15 +145,37 @@ describe('Directive', function () {
       expect(element.scope().resourcePagination).toEqual({});
       expect(element.scope().url).toEqual('');
     });
+
+    it('should return the right url after called buildUrl', function () {
+      urlToCall = 'api.json?sort-order=asc';
+      $httpBackend.whenGET(urlToCall).respond(sortingJSON);
+      $timeout.flush();
+      $httpBackend.flush();
+      $scope.$digest();
+      expect(element.scope().rows[0].name).toEqual('Ritual Coffee Roasters');
+      expect(element.scope().rows.length).toEqual(35);
+    });
   });
+  
+
+
 
   describe('ngTasty table with pagination', function () {
-    var $scope, element, params, filters, 
-    createDirective, elementSelected, expected;
-
-    beforeEach(inject(function ($rootScope, $compile) {
-      $scope = $rootScope;
+    beforeEach(inject(function ($rootScope, $compile, $http, _$httpBackend_, _$timeout_, _paginationJSON_) {
+      $scope = $rootScope.$new();
+      $timeout = _$timeout_;
+      $httpBackend = _$httpBackend_;
+      paginationJSON = _paginationJSON_;
       $scope.getResource = function (params) {
+        return $http.get('api.json?'+params).then(function (response) {
+          return {
+            'rows': response.data.rows,
+            'header': response.data.header,
+            'pagination': response.data.pagination,
+            'sortBy': response.data['sort-by'],
+            'sortOrder': response.data['sort-order']
+          };
+        });
       };
       element = angular.element(''+
       '<div tasty-table resource="getResource">'+
@@ -158,8 +197,8 @@ describe('Directive', function () {
       '  </table>'+
       '  <div tasty-pagination></div>'+
       '</div>');
-      $compile(element)($rootScope);
-      $rootScope.$digest();
+      $compile(element)($scope);
+      $scope.$digest();
     }));
 
     it('should have these element.scope() value as default', function () {
@@ -186,15 +225,37 @@ describe('Directive', function () {
       expect(element.scope().resourcePagination).toEqual({});
       expect(element.scope().url).toEqual('');
     });
+
+    it('should return the right url after called buildUrl', function () {
+      urlToCall = 'api.json?page=1&count=5';
+      $httpBackend.whenGET(urlToCall).respond(paginationJSON);
+      $timeout.flush();
+      $httpBackend.flush();
+      $scope.$digest();
+      expect(element.scope().rows[0].name).toEqual('Ritual Coffee Roasters');
+      expect(element.scope().rows.length).toEqual(5);
+    });
   });
 
-  describe('ngTasty table with filtes', function () {
-    var $scope, element, params, filters, 
-    createDirective, elementSelected, expected;
 
-    beforeEach(inject(function ($rootScope, $compile) {
-      $scope = $rootScope;
+
+
+  describe('ngTasty table with filtes', function () {
+    beforeEach(inject(function ($rootScope, $compile, $http, _$httpBackend_, _$timeout_, _filtersJSON_) {
+      $scope = $rootScope.$new();
+      $timeout = _$timeout_;
+      $httpBackend = _$httpBackend_;
+      filtersJSON = _filtersJSON_;
       $scope.getResource = function (params) {
+        return $http.get('api.json?'+params).then(function (response) {
+          return {
+            'rows': response.data.rows,
+            'header': response.data.header,
+            'pagination': response.data.pagination,
+            'sortBy': response.data['sort-by'],
+            'sortOrder': response.data['sort-order']
+          };
+        });
       };
       $scope.filters = {
         'city': 'sf'
@@ -218,8 +279,8 @@ describe('Directive', function () {
       '    </tbody>'+
       '  </table>'+
       '</div>');
-      $compile(element)($rootScope);
-      $rootScope.$digest();
+      $compile(element)($scope);
+      $scope.$digest();
     }));
 
     it('should have these element.scope() value as default', function () {
@@ -244,6 +305,16 @@ describe('Directive', function () {
       expect(element.scope().pagination).toEqual(false);
       expect(element.scope().resourcePagination).toEqual({});
       expect(element.scope().url).toEqual('');
+    });
+
+    it('should return the right url after called buildUrl', function () {
+      urlToCall = 'api.json?city=sf';
+      $httpBackend.whenGET(urlToCall).respond(filtersJSON);
+      $timeout.flush();
+      $httpBackend.flush();
+      $scope.$digest();
+      expect(element.scope().rows[0].name).toEqual('Ritual Coffee Roasters');
+      expect(element.scope().rows.length).toEqual(35);
     });
   });
 });

@@ -1,5 +1,5 @@
 .content {
-  margin-left: 240px;
+  margin-left: 260px;
   padding: 52px 38px;
   max-width: 960px;
 }
@@ -14,7 +14,7 @@ h1, h2 {
   top: 0;
   bottom: 0;
   padding: 24px 0;
-  width: 240px;
+  width: 260px;
   overflow-y: auto;
   background-color: #f8f8f8;
   border-right: 1px solid #e7e7e7;

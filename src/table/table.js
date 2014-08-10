@@ -9,136 +9,142 @@
  *
  */
 angular.module('ngTasty.table', [])
+.constant('tableConfig', {
+  query: {
+    'page': 'page',
+    'count': 'count',
+    'sortBy': 'sort-by',
+    'sortOrder': 'sort-order',
+  }
+})
+.controller('TableController', [
+  '$scope', 
+  '$attrs',
+  '$timeout', 
+  'tableConfig',
+  function($scope, $attrs, $timeout, tableConfig) {
+    'use strict';
+    this.$scope = $scope;
+    $scope.query = angular.isDefined($attrs.query) ? $scope.$parent.$eval($attrs.query) : tableConfig.query;
+
+    if (!$attrs.resource) {
+      throw 'AngularJS tastyTable directive: miss the resource attribute';
+    } else if (!$scope[$attrs.resource]) {
+      throw 'AngularJS tastyTable directive: the resource ('+
+            $attrs.resource + ') callback it\'s undefined';
+    }
+
+    $scope.header = {
+      'columns': []
+    };
+    $scope.rows = [];
+    $scope.params = {};
+    
+    $scope.thead = false;
+    $scope.pagination = false;
+    $scope.resourcePagination = {};
+    $scope.url = '';
+
+    this.debounce = function(func, wait, immediate) {
+      var timeout;
+      return function() {
+        var context = this, args = arguments;
+        $timeout.cancel(timeout);
+        timeout = $timeout(function() {
+          timeout = null;
+          func.apply(context, args);
+        }, wait);
+      };
+    };
+
+    $scope.setDirectivesValues = function (resource) {
+      if (!resource) {
+        return false;
+      }
+      $scope.rows = resource.rows;
+      $scope.header = {
+        'columns': resource.header,
+        'sortBy': resource.sortBy,
+        'sortOrder': resource.sortOrder
+      };
+      $scope.resourcePagination = resource.pagination;
+    };
+
+    $scope.setProperty = function(objOne, objTwo, attrname) {
+      if (objTwo[attrname]) {
+        objOne[attrname] = objTwo[attrname];
+      }
+      return objOne;
+    };
+
+    $scope.joinObjects = function(objOne, objTwo) {
+      for (var attrname in objTwo) {
+        $scope.setProperty(objOne, objTwo, attrname);
+      }
+      return objOne;
+    };
+
+    $scope.buildUrl = function(params, filters) {
+      var urlQuery, value, url;
+      urlQuery = {};
+      //console.log(params)
+      //console.log(filters)
+      if ($scope.thead) {
+        urlQuery = $scope.setProperty(urlQuery, params, 'sortBy');
+        urlQuery = $scope.setProperty(urlQuery, params, 'sortOrder');
+      }
+      if ($scope.pagination) {
+        urlQuery = $scope.setProperty(urlQuery, params, 'page');
+        urlQuery = $scope.setProperty(urlQuery, params, 'count');
+      }
+      if ($attrs.filters) {
+        urlQuery = $scope.joinObjects(urlQuery, filters);
+      }
+      return Object.keys(urlQuery).map(function(key) {
+        value = urlQuery[key];
+        if ($scope.query[key]) {
+          key = $scope.query[key];
+        }
+        return encodeURIComponent(key) + '=' + encodeURIComponent(value);
+      }).join('&');
+    };
+
+    $scope.updateResource = this.debounce(function() {
+      $scope.url = $scope.buildUrl($scope.params, $scope[$attrs.filters]);
+      $scope[$attrs.resource]($scope.url).then(function (resource) {
+        $scope.setDirectivesValues(resource);
+      });
+    }, 100);
+
+    $scope.initDirective = function () {
+      $scope.params['sortBy'] = undefined;
+      $scope.params['sortOrder'] = 'asc';
+      $scope.params['page'] = 1;
+      $scope.params['count'] = 5;
+      $scope.updateResource();
+    };
+    
+    // AngularJs $watch callbacks
+    if ($attrs.filters) {
+      $scope.$watch($attrs.filters, function (newValue, oldValue){
+        if (newValue !== oldValue) {
+          $scope.updateResource();
+        }
+      }, true);
+    }
+    $scope.$watch('params', function (newValue, oldValue){
+      if (newValue !== oldValue) {
+        $scope.updateResource();
+      }
+    }, true);
+    $scope.initDirective();
+  }
+])
 .directive('tastyTable', ['$timeout', function($timeout){
   return {
     restrict: 'A',
     scope: true,
-    controller: function ($scope) {
-      this.$scope = $scope;
-    },
-    link: function(scope, element, attrs) {
-      'use strict';
-      var debounce;
-
-      if (!attrs.resource) {
-        throw 'AngularJS tastyTable directive: miss the resource attribute';
-      } else if (!scope[attrs.resource]) {
-        throw 'AngularJS tastyTable directive: the resource ('+
-              attrs.resource + ') callback it\'s undefined';
-      }
-
-      scope.query = {
-        'page': 'page',
-        'count': 'count',
-        'sortBy': 'sort-by',
-        'sortOrder': 'sort-order',
-      };
-
-      scope.header = {
-        'columns': []
-      };
-      scope.rows = [];
-      scope.params = {};
-      
-      scope.thead = false;
-      scope.pagination = false;
-      scope.resourcePagination = {};
-      scope.url = '';
-
-      scope.setDirectivesValues = function (resource) {
-        if (!resource) {
-          return false;
-        }
-        scope.rows = resource.rows;
-        scope.header = {
-          'columns': resource.header,
-          'sortBy': resource.sortBy,
-          'sortOrder': resource.sortOrder
-        };
-        scope.resourcePagination = resource.pagination;
-      };
-
-      scope.setProperty = function(objOne, objTwo, attrname) {
-        if (objTwo[attrname]) {
-          objOne[attrname] = objTwo[attrname];
-        }
-        return objOne;
-      };
-
-      scope.joinObjects = function(objOne, objTwo) {
-        for (var attrname in objTwo) {
-          scope.setProperty(objOne, objTwo, attrname);
-        }
-        return objOne;
-      };
-
-      scope.buildUrl = function(params, filters) {
-        var urlQuery, value, url;
-        urlQuery = {};
-        //console.log(params)
-        //console.log(filters)
-        if (scope.thead) {
-          urlQuery = scope.setProperty(urlQuery, params, 'sortBy');
-          urlQuery = scope.setProperty(urlQuery, params, 'sortOrder');
-        }
-        if (scope.pagination) {
-          urlQuery = scope.setProperty(urlQuery, params, 'page');
-          urlQuery = scope.setProperty(urlQuery, params, 'count');
-        }
-        if (attrs.filters) {
-          urlQuery = scope.joinObjects(urlQuery, filters);
-        }
-        return Object.keys(urlQuery).map(function(key) {
-          value = urlQuery[key];
-          if (scope.query[key]) {
-            key = scope.query[key];
-          }
-          return encodeURIComponent(key) + '=' + encodeURIComponent(value);
-        }).join('&');
-      };
-
-      debounce = function(func, wait, immediate) {
-        var timeout;
-        return function() {
-          var context = this, args = arguments;
-          clearTimeout(timeout);
-          timeout = setTimeout(function() {
-            timeout = null;
-            func.apply(context, args);
-          }, wait);
-        };
-      };
-
-      scope.updateResource = debounce(function() {
-        scope.url = scope.buildUrl(scope.params, scope[attrs.filters]);
-        scope[attrs.resource](scope.url).then(function (resource) {
-          scope.setDirectivesValues(resource);
-        });
-      }, 100);
-
-      scope.initDirective = function () {
-        scope.params['sortBy'] = undefined;
-        scope.params['sortOrder'] = 'asc';
-        scope.params['page'] = 1;
-        scope.params['count'] = 5;
-        scope.updateResource();
-      };
-      
-      // AngularJs $watch callbacks
-      if (attrs.filters) {
-        scope.$watch(attrs.filters, function (newValue, oldValue){
-          if (newValue !== oldValue) {
-            scope.updateResource();
-          }
-        }, true);
-      }
-      scope.$watch('params', function (newValue, oldValue){
-        if (newValue !== oldValue) {
-          scope.updateResource();
-        }
-      }, true);
-      scope.initDirective();
-    }
+    controller: 'TableController'
   };
 }])
 
