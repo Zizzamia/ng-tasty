@@ -13,6 +13,7 @@ var uglify = require('gulp-uglify');
 var grunt = require('grunt');
 
 var testFiles = [
+  'components/jquery/dist/jquery.min.js',
   'components/angular/angular.min.js',
   'components/angular-mocks/angular-mocks.js',
   'src/**/*.js',

@@ -68,9 +68,15 @@ angular.module('ngTasty.table', [])
         }, wait);
       };
     };
+
     this.activate = function(directiveName) {
       $scope[directiveName + 'Directive'] = true;
-    }
+      $scope.params[directiveName] = true;
+    };
+
+    this.setParams = function(key, value) {
+      $scope.params[key] = value;
+    };
 
     $scope.setDirectivesValues = function (resource) {
       if (!resource) {
@@ -184,7 +190,6 @@ angular.module('ngTasty.table', [])
 
       // Thead it's called
       tastyTable.activate('thead');
-      tastyTable.$scope.params['thead'] = true;
 
       scope.fields = {};
       init = true;
@@ -212,12 +217,12 @@ angular.module('ngTasty.table', [])
         fieldName = cleanFieldName(field.key);
         if (scope.header.sortBy == fieldName) {
           scope.header.sortBy = '-' + fieldName;
-          tastyTable.$scope.params.sortOrder = 'dsc';
+          tastyTable.setParams('sortOrder', 'dsc');
         } else {
           scope.header.sortBy = fieldName;
-          tastyTable.$scope.params.sortOrder = 'asc';
+          tastyTable.setParams('sortOrder', 'asc');
         }
-        tastyTable.$scope.params.sortBy = field.key;
+        tastyTable.setParams('sortBy', field.key);
       };
 
       scope.isSortUp = function(field) {
@@ -271,7 +276,6 @@ angular.module('ngTasty.table', [])
 
       // Pagination it's called
       tastyTable.activate('pagination');
-      tastyTable.$scope.params['pagination'] = true;
 
       /* In the future you will have a way to change
        * these values by an isolate optional scope variable,
@@ -298,16 +302,17 @@ angular.module('ngTasty.table', [])
       };
 
       getPage = function (numPage) {
-        tastyTable.$scope.params.page = numPage;
+        tastyTable.setParams('page', numPage);
       };
 
       setCount = function(count) {
-        var maxItems;
+        var maxItems, page;
         maxItems = count * scope.pagination.page;
         if (maxItems > scope.pagination.size) {
-          tastyTable.$scope.params.page = Math.ceil(scope.pagination.size / count);
+          page = Math.ceil(scope.pagination.size / count);
+          tastyTable.setParams('page', page);
         }
-        tastyTable.$scope.params.count = count;
+        tastyTable.setParams('count', count);
       };
 
       setPaginationRange = function () {

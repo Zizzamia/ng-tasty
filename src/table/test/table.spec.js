@@ -3,7 +3,7 @@ describe('Directive', function () {
   var $scope, $timeout, $httpBackend, $compile;
   var element, params, urlToCall, filters, createDirective, 
   elementSelected, expected, completeJSON, sortingJSON, paginationJSON,
-  filtersJSON;
+  filtersJSON, tastyTable, tastyPagination, paginationJSONCount25;
 
   beforeEach(module('ngMock'));
   beforeEach(module('ngTasty.table'));
@@ -190,11 +190,13 @@ describe('Directive', function () {
 
 
   describe('ngTasty table with pagination', function () {
-    beforeEach(inject(function ($rootScope, $compile, $http, _$httpBackend_, _$timeout_, _paginationJSON_) {
+    beforeEach(inject(function ($rootScope, $compile, $http, _$httpBackend_, 
+      _$timeout_, _paginationJSON_, _paginationJSONCount25_) {
       $scope = $rootScope.$new();
       $timeout = _$timeout_;
       $httpBackend = _$httpBackend_;
       paginationJSON = _paginationJSON_;
+      paginationJSONCount25 = _paginationJSONCount25_;
       $scope.getResource = function (params) {
         return $http.get('api.json?'+params).then(function (response) {
           return {
@@ -224,13 +226,19 @@ describe('Directive', function () {
       '      </tr>'+
       '    </tbody>'+
       '  </table>'+
-      '  <div tasty-pagination></div>'+
+      '  <tasty-pagination></tasty-pagination>'+
       '</div>');
-      $compile(element)($scope);
+      tastyTable = $compile(element)($scope);
+      tastyPagination = tastyTable.find('tasty-pagination');
+      $scope.$digest();
+      urlToCall = 'api.json?page=1&count=5';
+      $httpBackend.whenGET(urlToCall).respond(paginationJSON);
+      $timeout.flush();
+      $httpBackend.flush();
       $scope.$digest();
     }));
 
-    it('should have these element.scope() value as default', function () {
+    it('should have these element.scope() value after 100ms', function () {
       //console.log($scope)
       expect(element.scope().query).toEqual({
         'page': 'page',
@@ -238,12 +246,15 @@ describe('Directive', function () {
         'sortBy': 'sort-by',
         'sortOrder': 'sort-order',
       });
-      expect(element.scope().url).toEqual('');
-      expect(element.scope().header).toEqual({
-        'columns': []
+      expect(element.scope().url).toEqual('page=1&count=5');
+      expect(element.scope().header.columns.length).toEqual(3);
+      expect(element.scope().rows.length).toEqual(5);
+      expect(element.scope().pagination).toEqual({ 
+        'count' : 5, 
+        'page' : 1,
+        'pages' : 7, 
+        'size' : 35 
       });
-      expect(element.scope().rows).toEqual([]);
-      expect(element.scope().pagination).toEqual({});
       expect(element.scope().params).toEqual({ 
         sortBy : undefined, 
         sortOrder : 'asc', 
@@ -256,20 +267,87 @@ describe('Directive', function () {
     });
 
     it('should return the right url after called buildUrl', function () {
-      urlToCall = 'api.json?page=1&count=5';
-      $httpBackend.whenGET(urlToCall).respond(paginationJSON);
-      $timeout.flush();
-      $httpBackend.flush();
-      $scope.$digest();
       expect(element.scope().rows[0].name).toEqual('Ritual Coffee Roasters');
       expect(element.scope().rows.length).toEqual(5);
+    });
+
+    it("should have these isolateScope value as default", function () {
+      expect(tastyPagination.isolateScope().pagination).toEqual({ 
+        'count' : 5, 
+        'page' : 1,
+        'pages' : 7, 
+        'size' : 35 
+      });
+      expect(tastyPagination.isolateScope().pagListCount).toEqual([5, 25]);
+      expect(tastyPagination.isolateScope().pagMinRange).toEqual(1);
+      expect(tastyPagination.isolateScope().pagMaxRange).toEqual(6);
+    });
+
+    it("should generate page count button using ng-repeat", function () {
+      elementSelected = element.find('[ng-repeat="count in pagListCount"]');
+      expect(elementSelected.length).toEqual(2);
+    });
+    
+    it('should use correct class for the selected page count', function () {
+      elementSelected = element.find('[ng-repeat="count in pagListCount"]');
+      expect(elementSelected.eq(0)).toHaveClass('active');
+      expect(elementSelected.eq(1)).not.toHaveClass('active');
+      tastyPagination.isolateScope().page.setCount(25);
+      $scope.$digest();
+      urlToCall = 'api.json?page=1&count=25';
+      $httpBackend.whenGET(urlToCall).respond(paginationJSONCount25);
+      $timeout.flush();
+      $httpBackend.flush();
+      expect(tastyPagination.isolateScope().pagination).toEqual({ 
+        'count' : 25, 
+        'page' : 1,
+        'pages' : 2, 
+        'size' : 35 
+      });
+      expect(elementSelected.eq(0)).not.toHaveClass('active');
+      expect(elementSelected.eq(1)).toHaveClass('active');
+    });
+    
+    it('should update params.page when page.get is clicked', function () {
+      tastyPagination.isolateScope().page.get(1);
+      expect(element.scope().params.page).toEqual(1);
+    });
+    
+    it('should update params.count when page.setCount is clicked', function () {
+      tastyPagination.isolateScope().page.setCount(25)
+      expect(element.scope().params.count).toEqual(25);
+      expect(element.scope().params.page).toEqual(1);
+    });
+
+    it('should update pagMinRange and pagMaxRange when page.previous and page.remaining are clicked', function () {
+      expect(tastyPagination.isolateScope().pagMinRange).toEqual(1);
+      expect(tastyPagination.isolateScope().pagMaxRange).toEqual(6);
+      tastyPagination.isolateScope().page.previous();
+      expect(tastyPagination.isolateScope().pagMinRange).toEqual(1);
+      expect(tastyPagination.isolateScope().pagMaxRange).toEqual(6);
+      tastyPagination.isolateScope().page.remaining();
+      expect(tastyPagination.isolateScope().pagMinRange).toEqual(2);
+      expect(tastyPagination.isolateScope().pagMaxRange).toEqual(7);
+      tastyPagination.isolateScope().page.previous();
+      expect(tastyPagination.isolateScope().pagMinRange).toEqual(1);
+      expect(tastyPagination.isolateScope().pagMaxRange).toEqual(6);
+    });
+
+    it('should update rangePage when page.previous and page.remaining are clicked', function () {
+      expect(tastyPagination.isolateScope().rangePage).toEqual([1,2,3,4,5]);
+      tastyPagination.isolateScope().page.previous();
+      expect(tastyPagination.isolateScope().rangePage).toEqual([1,2,3,4,5]);
+      tastyPagination.isolateScope().page.remaining();
+      expect(tastyPagination.isolateScope().rangePage).toEqual([2,3,4,5,6]);
+      tastyPagination.isolateScope().page.previous();
+      expect(tastyPagination.isolateScope().rangePage).toEqual([1,2,3,4,5]);
     });
   });
 
 
 
 
-  describe('ngTasty table with filtes', function () {
+  describe('ngTasty table with filters', function () {
     beforeEach(inject(function ($rootScope, $compile, $http, _$httpBackend_, _$timeout_, _filtersJSON_) {
       $scope = $rootScope.$new();
       $timeout = _$timeout_;
