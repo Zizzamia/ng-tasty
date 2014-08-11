@@ -203,7 +203,7 @@ angular.module('ngTasty.table', [])
         lenHeader = scope.header.columns.length;
         for (i = 0; i < lenHeader; i++) {
           scope.fields[scope.header.columns[i].key] = {
-            'width': 100 / lenHeader,
+            'width': parseFloat((100 / lenHeader).toFixed(2)),
             'sort': cleanFieldName(scope.header.columns[i].key)
           };
         }

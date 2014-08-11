@@ -1,9 +1,9 @@
 describe('Directive', function () {
   'use strict';
   var $scope, $timeout, $httpBackend, $compile;
-  var element, params, urlToCall, filters, createDirective, 
+  var element, params, urlToCall, filters, createDirective, field,
   elementSelected, expected, completeJSON, sortingJSON, paginationJSON,
-  filtersJSON, tastyTable, tastyPagination, paginationJSONCount25;
+  filtersJSON, tastyTable, tastyPagination, tastyThead, paginationJSONCount25;
 
   beforeEach(module('ngMock'));
   beforeEach(module('ngTasty.table'));
@@ -33,7 +33,7 @@ describe('Directive', function () {
         $compile(element)($scope);
         $scope.$digest();
       }
-      expected = 'AngularJS tastyTable directive: the resource (getResource) callback it\'s undefined'
+      expected = 'AngularJS tastyTable directive: the resource (getResource) callback it\'s undefined';
       expect(errorFunctionWrapper).toThrow(expected);
     });
   });
@@ -146,7 +146,12 @@ describe('Directive', function () {
       '    </tr>'+
       '  </tbody>'+
       '</table>');
-      $compile(element)($scope);
+      tastyTable = $compile(element)($scope);
+      tastyThead = tastyTable.find('[tasty-thead=""]');
+      urlToCall = 'api.json?sort-order=asc';
+      $httpBackend.whenGET(urlToCall).respond(sortingJSON);
+      $timeout.flush();
+      $httpBackend.flush();
       $scope.$digest();
     }));
 
@@ -158,12 +163,15 @@ describe('Directive', function () {
         'sortBy': 'sort-by',
         'sortOrder': 'sort-order',
       });
-      expect(element.scope().url).toEqual('');
-      expect(element.scope().header).toEqual({
-        'columns': []
+      expect(element.scope().url).toEqual('sort-order=asc');
+      expect(element.scope().header.columns.length).toEqual(3);
+      expect(element.scope().rows.length).toEqual(35);
+      expect(element.scope().pagination).toEqual({ 
+        'count' : null, 
+        'page' : null, 
+        'pages' : null, 
+        'size' : 35
       });
-      expect(element.scope().rows).toEqual([]);
-      expect(element.scope().pagination).toEqual({});
       expect(element.scope().params).toEqual({ 
         sortBy : undefined, 
         sortOrder : 'asc', 
@@ -176,13 +184,55 @@ describe('Directive', function () {
     });
 
     it('should return the right url after called buildUrl', function () {
-      urlToCall = 'api.json?sort-order=asc';
-      $httpBackend.whenGET(urlToCall).respond(sortingJSON);
-      $timeout.flush();
-      $httpBackend.flush();
-      $scope.$digest();
       expect(element.scope().rows[0].name).toEqual('Ritual Coffee Roasters');
       expect(element.scope().rows.length).toEqual(35);
+    });
+
+    it('should have these isolateScope value as default', function () {
+      expect(tastyThead.isolateScope().fields).toEqual({ 
+        'name' : { 'width' : 33.33, 'sort' : 'name' }, 
+        'star' : { 'width' : 33.33, 'sort' : 'star' }, 
+        'sf-location' : { 'width' : 33.33, 'sort' : 'sf-location' } 
+      });
+    });
+
+    it('should set params.sortBy when scope.sortBy is clicked', function () {
+      field = {'key': 'sf-location', 'name': 'SF Location'};
+      tastyThead.isolateScope().sortBy(field);
+      expect(element.scope().params.sortBy).toEqual('sf-location');
+      field =  {'key': 'star', 'name': 'star'};
+      tastyThead.isolateScope().sortBy(field);
+      expect(element.scope().params.sortBy).toEqual('star');
+    });
+
+    it('should sorting ascending and descending scope.header.sortBy when scope.sortBy is clicked', function () {
+      field = {'key': 'sf-location', 'name': 'SF Location'};
+      tastyThead.isolateScope().sortBy(field);
+      expect(tastyThead.isolateScope().header.sortBy).toEqual('sf-location');
+      tastyThead.isolateScope().sortBy(field);
+      expect(tastyThead.isolateScope().header.sortBy).toEqual('-sf-location');
+    });
+
+    it('should return true or false to indicate if a specific key is sorted up', function () {
+      var isSortUp;
+      field = {'key': 'sf-location', 'name': 'SF Location'};
+      tastyThead.isolateScope().sortBy(field);
+      isSortUp = tastyThead.isolateScope().isSortUp(field);
+      expect(isSortUp).toEqual(false);
+      tastyThead.isolateScope().sortBy(field);
+      isSortUp = tastyThead.isolateScope().isSortUp(field);
+      expect(isSortUp).toEqual(true);
+    });
+
+    it('should return true or false to indicate if a specific key is sorted down', function () {
+      var isSortDown;
+      field = {'key': 'sf-location', 'name': 'SF Location'};
+      tastyThead.isolateScope().sortBy(field);
+      isSortDown = tastyThead.isolateScope().isSortDown(field);
+      expect(isSortDown).toEqual(true);
+      tastyThead.isolateScope().sortBy(field);
+      isSortDown = tastyThead.isolateScope().isSortDown(field);
+      expect(isSortDown).toEqual(false);
     });
   });
   
@@ -230,7 +280,6 @@ describe('Directive', function () {
       '</div>');
       tastyTable = $compile(element)($scope);
       tastyPagination = tastyTable.find('tasty-pagination');
-      $scope.$digest();
       urlToCall = 'api.json?page=1&count=5';
       $httpBackend.whenGET(urlToCall).respond(paginationJSON);
       $timeout.flush();
@@ -271,7 +320,7 @@ describe('Directive', function () {
       expect(element.scope().rows.length).toEqual(5);
     });
 
-    it("should have these isolateScope value as default", function () {
+    it('should have these isolateScope value as default', function () {
       expect(tastyPagination.isolateScope().pagination).toEqual({ 
         'count' : 5, 
         'page' : 1,
@@ -283,7 +332,7 @@ describe('Directive', function () {
       expect(tastyPagination.isolateScope().pagMaxRange).toEqual(6);
     });
 
-    it("should generate page count button using ng-repeat", function () {
+    it('should generate page count button using ng-repeat', function () {
       elementSelected = element.find('[ng-repeat="count in pagListCount"]');
       expect(elementSelected.length).toEqual(2);
     });
@@ -314,7 +363,7 @@ describe('Directive', function () {
     });
     
     it('should update params.count when page.setCount is clicked', function () {
-      tastyPagination.isolateScope().page.setCount(25)
+      tastyPagination.isolateScope().page.setCount(25);
       expect(element.scope().params.count).toEqual(25);
       expect(element.scope().params.page).toEqual(1);
     });
