@@ -56,17 +56,18 @@ The easiest way to run the unit tests is to use the supplied npm script:
 gulp test
 ```
 
-#### End to end testing
-
-Once you have ensured that the development web server hosting our application is up and running
-and WebDriver is updated, you can run the end-to-end tests using the supplied npm script:
+During development
 
 ```
-gulp protractor
+gulp watch
 ```
 
-## Contact
+## Creator
 
-The project was created by [@zizzamia](https://twitter.com/Zizzamia). 
+**Leonardo Zizzamia**
+
+- <http://twitter.com/zizzamia>
+- <http://github.com/zizzamia>
+
 
 [npm]: https://www.npmjs.org/

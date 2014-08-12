@@ -17,14 +17,31 @@
     <a href="/" class="head">
       <h1>#ngTasty</h1>
     </a>
+    <p class="version">v0.2.2</p>
     <div class="head">
       <iframe src="http://ghbtns.com/github-btn.html?user=zizzamia&repo=ng-tasty&type=watch&count=true&size=large"
       allowtransparency="true" frameborder="0" scrolling="0" width="220" height="40"></iframe>
       <iframe src="http://ghbtns.com/github-btn.html?user=zizzamia&type=follow&count=true&size=large"
       allowtransparency="true" frameborder="0" scrolling="0" width="220" height="40"></iframe>
+    </div>
+    <div class="head">
       <ul>
         <li><a href="/#QuickStart">Quick Start</a></li>
+      </ul>
+      <h4>Directive</h4>
+      <ul>
         <li><a href="/#Table">Table</a></li>
+      </ul>
+      <h4>Service</h4>
+      <ul>
+        <li><a href="/#Debounce">Debounce</a></li>
+        <li><a href="/#SetProperty">Set Property</a></li>
+        <li><a href="/#JoinObjects">JoinObjects</a></li>
+      </ul>
+      <h4>Filter</h4>
+      <ul>
+        <li><a href="/#CleanFieldName">Clean Field Name</a></li>
+        <li><a href="/#Range">Range</a></li>
       </ul>
     </div>
   </div>
@@ -38,8 +55,29 @@
       <p>Inject the ngTasty module into your app:</p>
       <pre><code data-language="javascript">angular.module('myApp', ['ngTasty']);</code></pre>
     </div>
+    <br />
+    <br />
     <div id="Table">
       <%= include table/index.html %>
+    </div>
+    <br />
+    <br />
+    <div id="Debounce">
+      <%= include service/debounce.html %>
+    </div>
+    <div id="SetProperty">
+      <%= include service/set-property.html %>
+    </div>
+    <div id="JoinObjects">
+      <%= include service/join-objects.html %>
+    </div>
+    <br />
+    <br />
+    <div id="CleanFieldName">
+      <%= include filter/clean-field-name.html %>
+    </div>
+    <div id="Range">
+      <%= include filter/range.html %>
     </div>
   </div>
   <script src="<%= base %>/components/angular/angular.min.js"></script>

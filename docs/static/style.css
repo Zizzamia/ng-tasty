@@ -16,20 +16,30 @@ h1, h2 {
   padding: 24px 0;
   width: 260px;
   overflow-y: auto;
-  background-color: #f8f8f8;
+  background-color: #f7f7f7;
   border-right: 1px solid #e7e7e7;
 }
 
+.left-nav .head {
+  padding: 0 0 20px 22px;
+}
+
 .left-nav a.head h1 {
-  margin-top: 0;
+  color: #554433;
+  margin: 0;
   padding: 0 0 0 22px;
 }
-.left-nav .head {
-  padding: 12px 0 0 22px;
+
+.left-nav p.version {
+  padding: 0 0 24px 22px;
+}
+
+.left-nav h4 {
+  margin-bottom: 0;
 }
 
 .left-nav ul {
-  margin: 20px 0;
+  margin: 0 0 20px;
   padding: 0;
 }
 
@@ -40,18 +50,18 @@ h1, h2 {
 .left-nav li a {
   display: block;
   padding: 4px 20px 4px 0;
-  font-size: 16px;
+  font-size: 15px;
   font-weight: 500;
   color: #999;
-  width: 70%;
+  width: 90%;
 }
 
 .left-nav li a:hover, 
 .left-nav li a:focus {
-  color: #563d7c;
+  color: #8b3d13;
   text-decoration: none;
   background-color: transparent;
-  border-right: 1px solid #563d7c;
+  border-right: 1px solid #8b3d13;
 }
 
 .close {
