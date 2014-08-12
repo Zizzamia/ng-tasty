@@ -44,11 +44,11 @@ angular.module('ngTasty.filter.range', [])
   return function(start, stop, step) {
     var list;
     list = [];
-    if (stop === undefined){
+    if (typeof stop === 'undefined'){
       stop = start;
       start = 0;
     }
-    if (step === undefined){
+    if (typeof step === 'undefined'){
       step = 1;
     }
     if ((step > 0 && start >= stop) || (step < 0 && start <= stop)){

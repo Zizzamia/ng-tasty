@@ -17,8 +17,9 @@ describe('Service', function () {
     });
   });
 
+
   describe('setProperty', function() {
-    var setProperty;
+    var setProperty, obj1, obj2;
 
     beforeEach(function () {
       inject(function (_setProperty_) {
@@ -29,7 +30,52 @@ describe('Service', function () {
     it('shoule be service', function () {
       expect(setProperty).not.toBeNull();
     });
+
+    it('shoule return the origin object', function () {
+      obj1 = {
+        'name': 'Ritual Coffee Roasters',
+        'sf-location': 'Hayes Valley'
+      };
+      obj2 = {
+        'la-location': undefined,
+        'ny-location': null
+      };
+      expect(setProperty(obj1, obj2, undefined)).toEqual(obj1);
+      expect(setProperty(obj1, obj2, 'la-location')).toEqual(obj1);
+      expect(setProperty(obj1, obj2, 'ny-location')).toEqual(obj1);
+    });
+
+    it('shoule return the origin object with the ney property set', function () {
+      obj1 = {
+        'name': 'Ritual Coffee Roasters',
+        'sf-location': 'Hayes Valley'
+      };
+      obj2 = {
+        'star': '★★★★★',
+        'is-good': true,
+        'is-in-new-york': false
+      };
+      expect(setProperty(obj1, obj2, 'star')).toEqual({
+        'name': 'Ritual Coffee Roasters',
+        'sf-location': 'Hayes Valley',
+        'star': '★★★★★'
+      });
+      expect(setProperty(obj1, obj2, 'is-good')).toEqual({
+        'name': 'Ritual Coffee Roasters',
+        'sf-location': 'Hayes Valley',
+        'star': '★★★★★',
+        'is-good': true
+      });
+      expect(setProperty(obj1, obj2, 'is-in-new-york')).toEqual({
+        'name': 'Ritual Coffee Roasters',
+        'sf-location': 'Hayes Valley',
+        'star': '★★★★★',
+        'is-good': true,
+        'is-in-new-york': false
+      });
+    });
   });
+
 
   describe('joinObjects', function() {
     var joinObjects;
