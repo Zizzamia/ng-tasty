@@ -6,6 +6,8 @@ describe('Directive', function () {
   filtersJSON, tastyTable, tastyPagination, tastyThead, paginationJSONCount25;
 
   beforeEach(module('ngMock'));
+  beforeEach(module('ngTasty.filter'));
+  beforeEach(module('ngTasty.service'));
   beforeEach(module('ngTasty.table'));
   beforeEach(module('mockedAPIResponse'));
   beforeEach(module('template/table/head.html'));
