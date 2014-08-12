@@ -13,6 +13,14 @@
       : Total number of items in all pages.</p>
     </li>
   </ul>
+  <p>Settings can be provided as attributes in the <code>&lt;tasty-thead&gt;</code>.</p>
+  <ul>
+    <li>
+      <p><code>not-sort-by</code><i class="glyphicon glyphicon-eye-open"></i>
+      : list key columns not want sort
+      </p>
+    </li>
+  </ul>
 </div>
 <div class="row">
 	<div class="col-md-12 show-grid">
@@ -55,7 +63,7 @@
       <h4>Table only with sorting</h4>
       <div tasty-table resource="getResourceOne"> 
         <table class="table table-striped table-condensed">
-          <thead tasty-thead></thead>
+          <thead tasty-thead not-sort-by="notSortBy"></thead>
           <tbody>
             <tr ng-repeat="row in rows">
               <td>{{ row.name }}</td>

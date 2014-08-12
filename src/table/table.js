@@ -166,7 +166,9 @@ angular.module('ngTasty.table', [
     return {
       restrict: 'AE',
       require: '^tastyTable',
-      scope: {},
+      scope: {
+        'notSortBy': '='
+      },
       templateUrl: 'template/table/head.html',
       link: function (scope, element, attrs, tastyTable) {
         'use strict';
@@ -192,6 +194,9 @@ angular.module('ngTasty.table', [
         };
 
         scope.sortBy = function (field) {
+          if (scope.notSortBy && scope.notSortBy.indexOf(field.key) >= 0) {
+            return false;
+          }
           var fieldName;
           fieldName = $filter('cleanFieldName')(field.key);
           if (scope.header.sortBy == fieldName) {

@@ -48,6 +48,7 @@ angular.module('myApp.controllers', [])
     });
   }
 
+  $scope.notSortBy = ['sf-location'];
   $scope.getResourceOne = function (params) {
     $scope.urlApiOne = 'table.json?' + params;
     return $http.get($scope.urlApiOne).then(function (response) {

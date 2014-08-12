@@ -1,4 +1,6 @@
-<pre><code data-language="javascript">$scope.getResourceOne = function (params) {
+<pre><code data-language="javascript">$scope.notSortBy = ['sf-location'];
+
+$scope.getResourceOne = function (params) {
   $scope.urlApiOne = 'table.json?' + params;
   return $http.get($scope.urlApiOne).then(function (response) {
     return {

@@ -83,6 +83,9 @@ app.get('/table.json', function(req, res){
   ];
   count = req.query.count;
   page = req.query.page;
+  if (req.query['sort-order'] && !req.query['sort-by']) {
+    req.query['sort-by'] = 'name';
+  }
   if (req.query['sort-by']) {
     sortBy = req.query['sort-by'];
     if (req.query['sort-order'] === 'dsc') {
