@@ -28,7 +28,7 @@ angular.module('ngTasty.service.debounce', [])
           func.apply(context, args);
         }, wait);
       };
-    }
+    };
   }
 ]);
 
@@ -45,7 +45,7 @@ angular.module('ngTasty.service.setProperty', [])
       objOne[attrname] = objTwo[attrname];
     }
     return objOne;
-  }
+  };
 });
 
 /**

@@ -80,6 +80,17 @@ h1, h2 {
   opacity: 1;
 }
 
+.docs-head {
+  margin: 30px 0 20px;
+}
+.docs-body {
+  margin: 10px 0;
+}
+
+.example {
+  margin: 20px 0;
+}
+
 .code .nav-tabs {
   border-bottom: 1px solid #ccc;
 }

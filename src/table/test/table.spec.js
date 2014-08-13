@@ -104,7 +104,12 @@ describe('Directive', function () {
         'columns': []
       });
       expect(element.scope().rows).toEqual([]);
-      expect(element.scope().pagination).toEqual({});
+      expect(element.scope().pagination).toEqual({
+        'count': 5,
+        'page': 1,
+        'pages': 1,
+        'size': 1
+      });
       expect(element.scope().params.sortBy).toEqual(undefined);
       expect(element.scope().params.sortOrder).toEqual('asc');
       expect(element.scope().params.page).toEqual(1);
@@ -513,7 +518,12 @@ describe('Directive', function () {
         'columns': []
       });
       expect(element.scope().rows).toEqual([]);
-      expect(element.scope().pagination).toEqual({});
+      expect(element.scope().pagination).toEqual({
+        'count': 5,
+        'page': 1,
+        'pages': 1,
+        'size': 1
+      });
       expect(element.scope().params).toEqual({ 
         sortBy : undefined, 
         sortOrder : 'asc', 

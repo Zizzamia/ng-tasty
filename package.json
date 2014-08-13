@@ -1,6 +1,6 @@
 {
   "name": "ng-tasty",
-  "version": "0.2.3",
+  "version": "0.2.4",
   "description": "A tasty async AngularJS directives.",
   "main": "index.js",
   "directories": {
