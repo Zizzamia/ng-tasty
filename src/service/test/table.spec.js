@@ -19,7 +19,7 @@ describe('Service', function () {
 
 
   describe('setProperty', function() {
-    var setProperty, obj1, obj2;
+    var setProperty, obj1, obj2, experctedObj;
 
     beforeEach(function () {
       inject(function (_setProperty_) {
@@ -40,9 +40,13 @@ describe('Service', function () {
         'la-location': undefined,
         'ny-location': null
       };
-      expect(setProperty(obj1, obj2, undefined)).toEqual(obj1);
-      expect(setProperty(obj1, obj2, 'la-location')).toEqual(obj1);
-      expect(setProperty(obj1, obj2, 'ny-location')).toEqual(obj1);
+      experctedObj = {
+        'name': 'Ritual Coffee Roasters',
+        'sf-location': 'Hayes Valley'
+      };
+      expect(setProperty(obj1, obj2, undefined)).toEqual(experctedObj);
+      expect(setProperty(obj1, obj2, 'la-location')).toEqual(experctedObj);
+      expect(setProperty(obj1, obj2, 'ny-location')).toEqual(experctedObj);
     });
 
     it('shoule return the origin object with the ney property set', function () {

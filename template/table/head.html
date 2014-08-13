@@ -1,6 +1,8 @@
 <tr>
   <th ng-repeat="column in header.columns" 
-  ng-class="{active: column.key == header.sortBy}"
+  ng-class="{'sortable': fields[column.key].sortable, 
+             'active': fields[column.key].active}"
+  ng-style="fields[column.key].width" 
   ng-click="sortBy(column)">
     <span ng-bind="column.name"></span>
     <span ng-if="isSortUp(column)" class="fa fa-sort-up"></span>

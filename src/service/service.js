@@ -40,7 +40,8 @@ angular.module('ngTasty.service.debounce', [])
 angular.module('ngTasty.service.setProperty', [])
 .factory('setProperty', function() {
   return function(objOne, objTwo, attrname) {
-    if (angular.isDefined(objTwo[attrname])) {
+    if (typeof objTwo[attrname] !== 'undefined' && 
+        objTwo[attrname] !== null) {
       objOne[attrname] = objTwo[attrname];
     }
     return objOne;

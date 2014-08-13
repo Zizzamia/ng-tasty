@@ -81,8 +81,8 @@ angular.module('ngTasty.table', [
       $scope.rows = resource.rows;
       $scope.header = {
         'columns': resource.header,
-        'sortBy': resource.sortBy,
-        'sortOrder': resource.sortOrder
+        'sortBy': resource.sortBy || $scope.params.sortBy,
+        'sortOrder': resource.sortOrder || $scope.params.sortOrder
       };
       $scope.pagination = resource.pagination;
     };
@@ -172,22 +172,32 @@ angular.module('ngTasty.table', [
       templateUrl: 'template/table/head.html',
       link: function (scope, element, attrs, tastyTable) {
         'use strict';
-        var setFields;
-
         // Thead it's called
         tastyTable.activate('thead');
 
         scope.fields = {};
 
-        setFields = function () {
-          var lenHeader, i;
+        scope.setFields = function () {
+          var lenHeader, width, i, active, sortable;
           lenHeader = scope.header.columns.length;
-          for (i = 0; i < lenHeader; i++) {
-            scope.fields[scope.header.columns[i].key] = {
-              'width': parseFloat((100 / lenHeader).toFixed(2)),
-              'sort': $filter('cleanFieldName')(scope.header.columns[i].key)
+          scope.header.columns.forEach(function (column) {
+            width = parseFloat((100 / lenHeader).toFixed(2));
+            sortable = true;
+            active = false;
+            if (scope.notSortBy) {
+              sortable = scope.notSortBy.indexOf(column.key) < 0;
+            }
+            if (column.key === scope.header.sortBy ||
+                column.key === '-' + scope.header.sortBy) {
+              active = true;
+            }
+            scope.fields[column.key] = {
+              'active': active,
+              'sortable': sortable,
+              'width': { 'width': width + '%' },
+              'sort': $filter('cleanFieldName')(column.key)
             };
-          }
+          });
           if (scope.header.sortOrder === 'dsc') {
             scope.header.sortBy = '-' + scope.header.sortBy;
           }
@@ -226,7 +236,7 @@ angular.module('ngTasty.table', [
         tastyTable.$scope.$watch('header', function (newValue, oldValue){
           if (newValue && (newValue !== oldValue)) {
             scope.header = newValue;
-            setFields();
+            scope.setFields();
           }
         });
       }

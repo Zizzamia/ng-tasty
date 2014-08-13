@@ -1,6 +1,6 @@
 describe('Directive', function () {
   'use strict';
-  var $scope, $timeout, $httpBackend, $compile;
+  var $rootScope, $scope, $timeout, $httpBackend, $compile;
   var element, params, urlToCall, filters, createDirective, field,
   elementSelected, expected, completeJSON, sortingJSON, paginationJSON,
   filtersJSON, tastyTable, tastyPagination, tastyThead, paginationJSONCount25;
@@ -119,7 +119,8 @@ describe('Directive', function () {
 
 
   describe('ngTasty table withs sorting', function () {
-    beforeEach(inject(function ($rootScope, $compile, $http, _$httpBackend_, _$timeout_, _sortingJSON_) {
+    beforeEach(inject(function (_$rootScope_, $compile, $http, _$httpBackend_, _$timeout_, _sortingJSON_) {
+      $rootScope = _$rootScope_;
       $scope = $rootScope.$new();
       $timeout = _$timeout_;
       $httpBackend = _$httpBackend_;
@@ -190,20 +191,37 @@ describe('Directive', function () {
     });
 
     it('should have these isolateScope value as default', function () {
-      expect(tastyThead.isolateScope().fields).toEqual({ 
-        'name' : { 'width' : 33.33, 'sort' : 'name' }, 
-        'star' : { 'width' : 33.33, 'sort' : 'star' }, 
-        'sf-location' : { 'width' : 33.33, 'sort' : 'sf-location' } 
+      expect(tastyThead.isolateScope().fields.name).toEqual({ 
+        'active': false,
+        'sortable': true,
+        'width' : { 'width' : '33.33%' },
+        'sort' : 'name'
+      });
+      expect(tastyThead.isolateScope().fields.star).toEqual({ 
+        'active': false,
+        'sortable': true,
+        'width' : { 'width' : '33.33%' },
+        'sort' : 'star'
+      });
+      expect(tastyThead.isolateScope().fields['sf-location']).toEqual({
+        'active': false,
+        'sortable': false,
+        'width' : { 'width' : '33.33%' },
+        'sort' : 'sf-location'
       });
     });
 
     it('should set params.sortBy when scope.sortBy is clicked', function () {
       field = {'key': 'name', 'name': 'Name'};
       tastyThead.isolateScope().sortBy(field);
+      tastyThead.isolateScope().setFields();
       expect(element.scope().params.sortBy).toEqual('name');
+      expect(tastyThead.isolateScope().fields.name.active).toEqual(true);
       field =  {'key': 'star', 'name': 'star'};
       tastyThead.isolateScope().sortBy(field);
+      tastyThead.isolateScope().setFields();
       expect(element.scope().params.sortBy).toEqual('star');
+      expect(tastyThead.isolateScope().fields.star.active).toEqual(true);
     });
 
     it('should not set params.sortBy when scope.sortBy is one of the notSortBy keys', function () {
@@ -243,6 +261,28 @@ describe('Directive', function () {
       tastyThead.isolateScope().sortBy(field);
       isSortDown = tastyThead.isolateScope().isSortDown(field);
       expect(isSortDown).toEqual(false);
+    });
+
+    it('should set the last sortBy and sortOrder params when doesn\'t back from backend', function () {
+      sortingJSON['sortOrder'] = undefined;
+      field = field =  {'key': 'star', 'name': 'star'};
+      tastyThead.isolateScope().sortBy(field);
+      $scope.$digest();
+      urlToCall = 'api.json?sort-by=star&sort-order=asc';
+      $httpBackend.whenGET(urlToCall).respond(sortingJSON);
+      $timeout.flush();
+      $httpBackend.flush();
+      expect(tastyThead.isolateScope().header.sortBy).toEqual('star');
+      expect(tastyThead.isolateScope().header.sortOrder).toEqual('asc');
+      field = field =  {'key': 'name', 'name': 'Name'};
+      tastyThead.isolateScope().sortBy(field);
+      $scope.$digest();
+      urlToCall = 'api.json?sort-by=name&sort-order=asc';
+      $httpBackend.whenGET(urlToCall).respond(sortingJSON);
+      $timeout.flush();
+      $httpBackend.flush();
+      expect(tastyThead.isolateScope().header.sortBy).toEqual('name');
+      expect(tastyThead.isolateScope().header.sortOrder).toEqual('asc');
     });
   });
   
