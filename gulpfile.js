@@ -11,6 +11,7 @@ var rename = require('gulp-rename');
 var tap = require('gulp-tap');
 var uglify = require('gulp-uglify');
 var grunt = require('grunt');
+var zip = require('gulp-zip');
 
 var testFiles = [
   'components/jquery/dist/jquery.min.js',
@@ -178,4 +179,8 @@ gulp.task('build', function() {
     .pipe(uglify())
     .pipe(rename({extname: '.min.js'}))
     .pipe(gulp.dest(dist));
+
+  gulp.src('dist/**/*')
+    .pipe(zip(pkg.version + '.zip'))
+    .pipe(gulp.dest('releases'));
 });

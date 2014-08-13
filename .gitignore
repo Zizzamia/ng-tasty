@@ -6,6 +6,7 @@ fabfile.py
 
 # Build
 dist
+releases
 
 # Node
 node_modules

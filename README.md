@@ -45,7 +45,7 @@ The simplest way to start this server is:
 
 ```
 npm start
-// Running on http://localhost:5000/
+// Running on http://localhost:3000/
 ```
 
 #### Unit Tests
@@ -54,12 +54,6 @@ The easiest way to run the unit tests is to use the supplied npm script:
 
 ```
 gulp test
-```
-
-During development
-
-```
-gulp watch
 ```
 
 ## Creator
