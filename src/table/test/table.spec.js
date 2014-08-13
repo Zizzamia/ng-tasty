@@ -26,7 +26,8 @@ describe('Directive', function () {
         $compile(element)($scope);
         $scope.$digest();
       }
-      expect(errorFunctionWrapper).toThrow('AngularJS tastyTable directive: miss the resource attribute');
+      expected = 'AngularJS tastyTable directive: need the resource or resource-callback attribute';
+      expect(errorFunctionWrapper).toThrow(expected);
     });
 
     it('should return a throw message if the resource set it\'s undefined', function () {
@@ -35,7 +36,17 @@ describe('Directive', function () {
         $compile(element)($scope);
         $scope.$digest();
       }
-      expected = 'AngularJS tastyTable directive: the resource (getResource) callback it\'s undefined';
+      expected = 'AngularJS tastyTable directive: the resource (getResource) it\'s not an object';
+      expect(errorFunctionWrapper).toThrow(expected);
+    });
+
+    it('should return a throw message if the resource-callback set it\'s undefined', function () {
+      function errorFunctionWrapper() {
+        element = angular.element('<div tasty-table resource-callback="getResource"></div>');
+        $compile(element)($scope);
+        $scope.$digest();
+      }
+      expected = 'AngularJS tastyTable directive: the resource-callback (getResource) it\'s not a function';
       expect(errorFunctionWrapper).toThrow(expected);
     });
   });
@@ -43,7 +54,7 @@ describe('Directive', function () {
 
 
 
-  describe('ngTasty table complete', function () {
+  describe('ngTasty table complete server side', function () {
     beforeEach(inject(function ($rootScope, $compile, $http, _$httpBackend_, _$timeout_, _completeJSON_) {
       $scope = $rootScope.$new();
       $timeout = _$timeout_;
@@ -64,7 +75,7 @@ describe('Directive', function () {
         'city': 'sf'
       };
       element = angular.element(''+
-      '<div tasty-table resource="getResource" filters="filters">'+
+      '<div tasty-table resource-callback="getResource" filters="filters">'+
       '  <table>'+
       '    <thead tasty-thead></thead>'+
       '    <tbody>'+
@@ -118,7 +129,7 @@ describe('Directive', function () {
 
 
 
-  describe('ngTasty table withs sorting', function () {
+  describe('ngTasty table withs sorting server side', function () {
     beforeEach(inject(function (_$rootScope_, $compile, $http, _$httpBackend_, _$timeout_, _sortingJSON_) {
       $rootScope = _$rootScope_;
       $scope = $rootScope.$new();
@@ -138,7 +149,7 @@ describe('Directive', function () {
       };
       $scope.notSortBy = ['sf-location'];
       element = angular.element(''+
-      '<table tasty-table resource="getResource">'+
+      '<table tasty-table resource-callback="getResource">'+
       '  <thead tasty-thead not-sort-by="notSortBy"></thead>'+
       '  <tbody>'+
       '    <tr ng-repeat="row in rows">'+
@@ -289,7 +300,7 @@ describe('Directive', function () {
 
 
 
-  describe('ngTasty table with pagination', function () {
+  describe('ngTasty table with pagination server side', function () {
     beforeEach(inject(function ($rootScope, $compile, $http, _$httpBackend_, 
       _$timeout_, _paginationJSON_, _paginationJSONCount25_) {
       $scope = $rootScope.$new();
@@ -309,7 +320,7 @@ describe('Directive', function () {
         });
       };
       element = angular.element(''+
-      '<div tasty-table resource="getResource">'+
+      '<div tasty-table resource-callback="getResource">'+
       '  <table>'+
       '    <thead>'+
       '      <tr>'+
@@ -446,7 +457,7 @@ describe('Directive', function () {
 
 
 
-  describe('ngTasty table with filters', function () {
+  describe('ngTasty table with filters server side', function () {
     beforeEach(inject(function ($rootScope, $compile, $http, _$httpBackend_, _$timeout_, _filtersJSON_) {
       $scope = $rootScope.$new();
       $timeout = _$timeout_;
@@ -467,7 +478,7 @@ describe('Directive', function () {
         'city': 'sf'
       };
       element = angular.element(''+
-      '<div tasty-table resource="getResource" filters="filters">'+
+      '<div tasty-table resource-callback="getResource" filters="filters">'+
       '  <table>'+
       '    <thead>'+
       '      <tr>'+

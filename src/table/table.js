@@ -22,7 +22,8 @@ angular.module('ngTasty.table', [
     'sortBy': 'sort-by',
     'sortOrder': 'sort-order',
   },
-  resource: undefined
+  resource: undefined,
+  resourceCallback: undefined
 })
 .controller('TableController', [
   '$scope', 
@@ -38,18 +39,30 @@ angular.module('ngTasty.table', [
     // Default configs
     $scope.query = tableConfig.query;
     $scope.resource = tableConfig.resource;
+    $scope.resourceCallback = tableConfig.resourceCallback;
 
     // Set custom configs
     if (angular.isDefined($attrs.query)) {
       $scope.query = $scope.$parent.$eval($attrs.query);
     }
-    if (!angular.isDefined($attrs.resource)) {
-      throw 'AngularJS tastyTable directive: miss the resource attribute';
-    } else {
+    if (!angular.isDefined($attrs.resource) && !angular.isDefined($attrs.resourceCallback)) {
+      throw 'AngularJS tastyTable directive: need the resource or resource-callback attribute';
+    }
+    if (angular.isDefined($attrs.resource)) {
       $scope.resource = $scope.$parent.$eval($attrs.resource);
-      if (!$scope.resource) {
+      if (!angular.isObject($scope.resource)) {
         throw 'AngularJS tastyTable directive: the resource ('+
-            $attrs.resource + ') callback it\'s undefined';
+            $attrs.resource + ') it\'s not an object';
+      } else if (!$scope.resource.header && !$scope.resource.rows) {
+        throw 'AngularJS tastyTable directive: the resource ('+
+            $attrs.resource + ') has the property header or rows undefined';
+      }
+    }
+    if (angular.isDefined($attrs.resourceCallback)) {
+      $scope.resourceCallback = $scope.$parent.$eval($attrs.resourceCallback);
+      if (!angular.isFunction($scope.resourceCallback)) {
+        throw 'AngularJS tastyTable directive: the resource-callback ('+
+            $attrs.resourceCallback + ') it\'s not a function';
       }
     }
 
@@ -78,12 +91,12 @@ angular.module('ngTasty.table', [
       if (!resource) {
         return false;
       }
-      $scope.rows = resource.rows;
       $scope.header = {
         'columns': resource.header,
         'sortBy': resource.sortBy || $scope.params.sortBy,
         'sortOrder': resource.sortOrder || $scope.params.sortOrder
       };
+      $scope.rows = resource.rows;
       $scope.pagination = resource.pagination;
     };
 
@@ -112,7 +125,7 @@ angular.module('ngTasty.table', [
 
     $scope.updateResource = debounce(function() {
       $scope.url = $scope.buildUrl($scope.params, $scope[$attrs.filters]);
-      $scope[$attrs.resource]($scope.url).then(function (resource) {
+      $scope.resourceCallback($scope.url).then(function (resource) {
         $scope.setDirectivesValues(resource);
       });
     }, 100);
