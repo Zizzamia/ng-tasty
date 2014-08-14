@@ -3,10 +3,6 @@
   "version": "0.2.4",
   "description": "A tasty async AngularJS directives.",
   "main": "index.js",
-  "directories": {
-    "example": "example",
-    "test": "test"
-  },
   "devDependencies": {
     "ejs": "~1.0.0",
     "express": "3.x",
