@@ -1,7 +1,7 @@
 {
   "name": "ng-tasty",
-  "version": "0.2.4",
-  "description": "A tasty async AngularJS directives.",
+  "version": "0.2.5-rc.1",
+  "description": "A lightweight, flexible, and tasty collection of reusable UI components for AngularJS.",
   "main": "index.js",
   "devDependencies": {
     "ejs": "~1.0.0",
