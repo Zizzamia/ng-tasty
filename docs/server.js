@@ -92,14 +92,6 @@ app.get('/table.json', function(req, res){
       sortBy = '-' + sortBy;
     }
     rows.sort(dynamicSort(sortBy));
-    if (prevSortBy != sortBy) {
-      page = 1;
-    }
-    if (req.query['sort-order']) {
-      if (prevSortOrder != req.query['sort-order']) {
-        page = 1;
-      }
-    } 
   }
   pagination = {
     "count": parseInt(count),
