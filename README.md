@@ -56,6 +56,14 @@ The easiest way to run the unit tests is to use the supplied npm script:
 gulp test
 ```
 
+## Changelog
+
+### v0.2.4 (master, released on August 13th 2014)
+- Added a new table that has sorting and pagination client side
+- Improved `setDirectivesValues` in `ngTasty.table`
+- Fixed issues in `ngTasty.filter.range`
+- Fixed issue in `ngTasty.service.setProperty`
+
 ## Creator
 
 **Leonardo Zizzamia**

@@ -8,6 +8,23 @@ h1, h2 {
   margin-top: 0;
 }
 
+.ng-tasty-title {
+  margin: 0 0 80px 0;
+}
+
+.ng-tasty-title p {
+  width: 400px;
+  color: #554433;
+  font-size: 20px;
+  font-style: italic;
+}
+
+.spacer {
+  display: inline-block;
+  width: 3em;
+  height: 3em;
+}
+
 .left-nav {
   position: fixed;
   left: 0;

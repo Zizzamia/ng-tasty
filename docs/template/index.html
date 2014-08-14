@@ -4,8 +4,8 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
-  <title></title>
-  <meta name="description" content="">
+  <title>#ngTasty</title>
+  <meta name="description" content="A lightweight, flexible, and tasty collection of reusable UI components for AngularJS.">
   
   <link rel="stylesheet" href="<%= base %>/components/bootstrap/dist/css/bootstrap.css">
   <link rel="stylesheet" href="<%= base %>/components/components-font-awesome/css/font-awesome.css">
@@ -18,12 +18,6 @@
       <h1>#ngTasty</h1>
     </a>
     <p class="version">v0.2.4</p>
-    <div class="head">
-      <iframe src="http://ghbtns.com/github-btn.html?user=zizzamia&repo=ng-tasty&type=watch&count=true&size=large"
-      allowtransparency="true" frameborder="0" scrolling="0" width="240" height="40"></iframe>
-      <iframe src="http://ghbtns.com/github-btn.html?user=zizzamia&type=follow&count=true&size=large"
-      allowtransparency="true" frameborder="0" scrolling="0" width="240" height="40"></iframe>
-    </div>
     <div class="head">
       <ul>
         <li><a href="/#QuickStart">Quick Start</a></li>
@@ -51,54 +45,7 @@
     </div>
   </div>
   <div class="content">
-    <div id="QuickStart">
-      <h2>Quick start</h2>
-      <p>Installing via Bower</p>
-      <pre><code data-language="shell">bower install ng-tasty</code></pre>
-      <p>Include the required library:</p>
-      <pre><code data-language="html">&lt;script src="bower_components/ng-tasty/ng-tasty-tpls.min.js"&gt;&lt;/script&gt;</code></pre>
-      <p>Inject the ngTasty module into your app:</p>
-      <pre><code data-language="javascript">angular.module('myApp', ['ngTasty']);</code></pre>
-    </div>
-    <div>
-      <br />
-      <br />
-      <div id="Table" ng-controller="TableCtrl">
-        <%= include table/index.html %>
-      </div>
-      <br />
-      <br />
-      <div id="TableServerSide" ng-controller="TableServerSideCtrl">
-        <%= include table-server-side/index.html %>
-      </div>
-    </div>
-    <!--
-    <div ng-controller="ServiceCtrl">
-      <br />
-      <br />
-      <div id="Debounce">
-        <%= include service/debounce.html %>
-      </div>
-      <div id="SetProperty">
-        <%= include service/set-property.html %>
-      </div>
-      <div id="JoinObjects">
-        <%= include service/join-objects.html %>
-      </div>
-    </div>
-    -->
-    <div ng-controller="FilterCtrl">
-      <br />
-      <br />
-      <!--
-      <div id="CleanFieldName">
-        <%= include filter/clean-field-name.html %>
-      </div>
-      -->
-      <div id="Range">
-        <%= include filter/range.html %>
-      </div>
-    </div>
+    <%= include home.html %>
   </div>
   <script src="<%= base %>/components/angular/angular.min.js"></script>
   <script src="<%= base %>/components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
