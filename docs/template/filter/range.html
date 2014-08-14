@@ -1,4 +1,67 @@
 <div class="page-header">
-  <h2>Range <small>(ngTasty.service.range)</small></h2>
-  <p></p>
+  <h2>Range<small>
+  (<a target="_blank" href="https://github.com/Zizzamia/ng-tasty/blob/master/src/filter/filter.js#L42">ngTasty.service.range</a>)
+  </small></h2>
+</div>
+<div class="row">
+  <div class="col-md-6">
+    <div class="form-group">
+      <label class="col-sm-2 control-label">Start</label>
+      <div class="col-sm-10">
+        <input class="form-control input-sm" ng-model="start" />
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="col-sm-2 control-label">Stop</label>
+      <div class="col-sm-10">
+        <input class="form-control input-sm" ng-model="stop" />
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="col-sm-2 control-label">Step</label>
+      <div class="col-sm-10">
+        <input class="form-control input-sm" ng-model="step" />
+      </div>
+    </div>
+    <p><b>Range 1 :</b> <span ng-repeat="n in [] | range:start:stop:step"> {{ n }} </span></p>
+    <p><b>Range 2 :</b> <span ng-repeat="n in [] | range:start:stop"> {{ n }} </span></p>
+    <p><b>Range 3 :</b> <span ng-repeat="n in [] | range:start"> {{ n }} </span></p>
+    <br />
+  </div>
+  <div class="col-md-6">
+    <p>Create a list containing arithmetic progressions. The arguments must be plain integers.</p>
+    <p>If the step argument is omitted, it defaults to 1. If the start argument is omitted, it defaults to 0.</p>
+  </div>
+  <div class="col-md-12">
+    <tabset class="code">
+      <tab heading="Markup">
+        <div ng-hide="range">
+<pre ng-non-bindable><code data-language="html"><label>Start</label><div class="form-group">
+  <label class="col-sm-2 control-label">Start</label>
+  <div class="col-sm-10">
+    <input class="form-control input-sm" ng-model="start" />
+  </div>
+</div>
+<div class="form-group">
+  <label class="col-sm-2 control-label">Stop</label>
+  <div class="col-sm-10">
+    <input class="form-control input-sm" ng-model="stop" />
+  </div>
+</div>
+<div class="form-group">
+  <label class="col-sm-2 control-label">Step</label>
+  <div class="col-sm-10">
+    <input class="form-control input-sm" ng-model="step" />
+  </div>
+</div>
+
+<p><b>Range 1 :</b> <span ng-repeat="n in [] | range:start:stop:step"> {{ n }} </span></p>
+<p><b>Range 2 :</b> <span ng-repeat="n in [] | range:start:stop"> {{ n }} </span></p>
+<p><b>Range 3 :</b> <span ng-repeat="n in [] | range:start"> {{ n }} </span></p>
+</code>
+</pre>
+        </div>
+      </tab>
+    </tabset>
+  </div>
 </div>

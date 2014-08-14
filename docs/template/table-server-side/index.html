@@ -1,10 +1,11 @@
+<div class="page-header">
+  <h2>Table server side<small>
+  (<a target="_blank" href="https://github.com/Zizzamia/ng-tasty/blob/master/src/table/table.js">ngTasty.table</a>)
+  </small></h2>
+</div>
 <div class="row">
   <div class="col-md-12 docs-head">
-    <h2>Table <small>(ngTasty.table)</small></h2>
     <p>A lightweight table directive with sorting, pagination and filtering support.</p>
-    <p>Can use as client or server-side sorting and pagination. To activate the client-side,
-    you need passing a javascript object by the resource attribute, instead for the server-side
-    you need passing a callback function by the resource callback</p> 
     <p>Settings can be provided as attributes in the <code>&lt;tasty-table&gt;</code>.</p>
     <ul>
       <li>
@@ -28,26 +29,26 @@
     </ul>
   </div>
 	<div class="col-md-12 docs-body">
-    <h4>Table with sorting, pagination and filtering</h4>
     <div class="btn-group btn-group-justified">
       <div class="btn-group">
         <button type="button" class="btn btn-default" ng-class="{'btn-info':!table}" 
         ng-click="open('complete')">Complete</button>
       </div>
       <div class="btn-group"> 
-        <button type="button" class="btn btn-default" ng-class="{'btn-info':!tableOne}" 
+        <button type="button" class="btn btn-default" ng-class="{'btn-info':!tableTwo}" 
         ng-click="open('sorting')">Sorting</button>
       </div>
       <div class="btn-group"> 
-        <button type="button" class="btn btn-default" ng-class="{'btn-info':!tableTwo}" 
+        <button type="button" class="btn btn-default" ng-class="{'btn-info':!tableThree}" 
         ng-click="open('pagination')">Pagination</button>
       </div>
       <div class="btn-group"> 
-        <button type="button" class="btn btn-default" ng-class="{'btn-info':!tableThree}" 
+        <button type="button" class="btn btn-default" ng-class="{'btn-info':!tableFour}" 
         ng-click="open('filtering')">Filtering</button>
       </div>
     </div>
     <div collapse="table" class="example">
+      <h4>Table with sorting, pagination and filtering</h4>
       <div tasty-table resource-callback="getResource" filters="filterBy"> 
         <table class="table table-striped table-condensed">
           <thead tasty-thead></thead>
@@ -63,7 +64,7 @@
       </div>
       <pre>Api url : {{ urlApi }}</pre>
     </div>
-    <div collapse="tableOne">
+    <div collapse="tableTwo">
       <h4>Table only with sorting</h4>
       <div tasty-table resource-callback="getResourceOne"> 
         <table class="table table-striped table-condensed">
@@ -79,7 +80,7 @@
       </div>
       <pre>Api url : {{ urlApiOne }}</pre>
     </div>
-    <div collapse="tableTwo">
+    <div collapse="tableThree">
       <h4>Table only with pagination</h4>
       <div tasty-table resource-callback="getResourceTwo"> 
         <table class="table table-striped table-condensed">
@@ -102,7 +103,7 @@
       </div>
       <pre>Api url : {{ urlApiTwo }}</pre>
     </div>
-    <div collapse="tableThree">
+    <div collapse="tableFour">
       <h4>Table only with filters</h4>
       <div tasty-table resource-callback="getResourceThree" filters="filterByThree"> 
         <table class="table table-striped table-condensed">
@@ -129,13 +130,13 @@
         <div ng-hide="table">
           <%= include example-html-1.html %>
         </div>
-        <div ng-hide="tableOne">
+        <div ng-hide="tableTwo">
           <%= include example-html-2.html %>
         </div>
-        <div ng-hide="tableTwo">
+        <div ng-hide="tableThree">
           <%= include example-html-3.html %>
         </div>
-        <div ng-hide="tableThree">
+        <div ng-hide="tableFour">
           <%= include example-html-4.html %>
         </div>
       </tab>
@@ -143,13 +144,13 @@
         <div ng-hide="table">
           <%= include example-js-1.html %>
         </div>
-        <div ng-hide="tableOne">
+        <div ng-hide="tableTwo">
           <%= include example-js-2.html %>
         </div>
-        <div ng-hide="tableTwo">
+        <div ng-hide="tableThree">
           <%= include example-js-3.html %>
         </div>
-        <div ng-hide="tableThree">
+        <div ng-hide="tableFour">
           <%= include example-js-4.html %>
         </div>
       </tab>
@@ -157,13 +158,13 @@
         <div ng-hide="table">
           <pre><code data-language="javascript" ng-bind="response"></code></pre>
         </div>
-        <div ng-hide="tableOne">
+        <div ng-hide="tableTwo">
           <pre><code data-language="javascript" ng-bind="responseTwo"></code></pre>
         </div>
-        <div ng-hide="tableTwo">
+        <div ng-hide="tableThree">
           <pre><code data-language="javascript" ng-bind="responseThree"></code></pre>
         </div>
-        <div ng-hide="tableThree">
+        <div ng-hide="tableFour">
           <pre><code data-language="javascript" ng-bind="responseFour"></code></pre>
         </div>
       </tab>

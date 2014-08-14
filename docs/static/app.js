@@ -5,9 +5,21 @@ angular.module('myApp', [
 ]);
 angular.module('myApp.controllers', [])
 .controller('AppCtrl', ['$scope', '$http', function($scope, $http) {
-
-  $scope.countTest = 1;
-
+}])
+.controller('TableCtrl', ['$scope', '$http', function($scope, $http) {
+  $scope.open = function(toOpen) {
+    $scope.table = true;
+    $scope.tableTwo = true;
+    $scope.tableThree = true;
+    if (toOpen === 'complete') {
+      $scope.table = false;
+    } else if (toOpen === 'sorting') {
+      $scope.tableTwo = false;
+    } else if (toOpen === 'pagination') {
+      $scope.tableThree = false;
+    }
+  }
+  $scope.open('complete');
   $scope.resource = {
     "header": [
       {
@@ -60,29 +72,32 @@ angular.module('myApp.controllers', [])
       { "name": "Starbucks", "star": "★", "sf-location": "Union Square" },
       { "name": "Flywheel Coffee Roasters", "star": "★★★★★", "sf-location": "Upper Haight" }
     ]
-  }
-
+  };
+  $scope.notSortBy = ['sf-location'];
+}])
+.controller('TableServerSideCtrl', ['$scope', '$http', function($scope, $http) {
+  
   $scope.filterBy = {
     'time': 'now'
   };
-
+  
   $scope.filterByThree = {
     'time': 'now'
   };
 
   $scope.open = function(toOpen) {
     $scope.table = true;
-    $scope.tableOne = true;
     $scope.tableTwo = true;
     $scope.tableThree = true;
+    $scope.tableFour = true;
     if (toOpen === 'complete') {
       $scope.table = false;
     } else if (toOpen === 'sorting') {
-      $scope.tableOne = false;
-    } else if (toOpen === 'pagination') {
       $scope.tableTwo = false;
-    } else {
+    } else if (toOpen === 'pagination') {
       $scope.tableThree = false;
+    } else if (toOpen === 'filter') {
+      $scope.tableFour = false;
     }
   }
   $scope.open('complete');
@@ -143,4 +158,11 @@ angular.module('myApp.controllers', [])
       }
     });
   }
+}])
+.controller('ServiceCtrl', ['$scope', '$http', function($scope, $http) {
+}])
+.controller('FilterCtrl', ['$scope', '$http', function($scope, $http) {
+  $scope.start = 1;
+  $scope.stop = 10;
+  $scope.step = 2;
 }]);

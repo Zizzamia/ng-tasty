@@ -1,6 +1,10 @@
+<div class="page-header">
+  <h2>Table<small>
+  (<a target="_blank" href="https://github.com/Zizzamia/ng-tasty/blob/master/src/table/table.js">ngTasty.table</a>)
+  </small></h2>
+</div>
 <div class="row">
   <div class="col-md-12 docs-head">
-    <h2>Table <small>(ngTasty.table)</small></h2>
     <p>A lightweight table directive with sorting, pagination and filtering support.</p>
     <p>Settings can be provided as attributes in the <code>&lt;tasty-table&gt;</code>.</p>
     <ul>
@@ -20,7 +24,6 @@
     </ul>
   </div>
 	<div class="col-md-12 docs-body">
-    <h4>Table with sorting and pagination</h4>
     <div class="btn-group btn-group-justified">
       <div class="btn-group">
         <button type="button" class="btn btn-default" ng-class="{'btn-info':!table}" 
@@ -36,6 +39,7 @@
       </div>
     </div>
     <div collapse="table" class="example">
+      <h4>Table with sorting and pagination</h4>
       <div tasty-table resource="resource"> 
         <table class="table table-striped table-condensed">
           <thead tasty-thead></thead>
@@ -92,10 +96,10 @@
         <div ng-hide="table">
           <%= include example-html-1.html %>
         </div>
-        <div ng-hide="tableOne">
+        <div ng-hide="tableTwo">
           <%= include example-html-2.html %>
         </div>
-        <div ng-hide="tableTwo">
+        <div ng-hide="tableThree">
           <%= include example-html-3.html %>
         </div>
       </tab>
@@ -103,10 +107,10 @@
         <div ng-hide="table">
           <%= include example-js-1.html %>
         </div>
-        <div ng-hide="tableOne">
+        <div ng-hide="tableTwo">
           <%= include example-js-2.html %>
         </div>
-        <div ng-hide="tableTwo">
+        <div ng-hide="tableThree">
           <%= include example-js-3.html %>
         </div>
       </tab>

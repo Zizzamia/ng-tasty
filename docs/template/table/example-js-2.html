@@ -1,15 +1,25 @@
 <pre><code data-language="javascript">$scope.notSortBy = ['sf-location'];
 
-$scope.getResourceOne = function (params) {
-  $scope.urlApiOne = 'table.json?' + params;
-  return $http.get($scope.urlApiOne).then(function (response) {
-    return {
-      'rows': response.data.rows,
-      'header': response.data.header,
-      'sortBy': response.data['sort-by'],
-      'sortOrder': response.data['sort-order']
+$scope.resource = 
+  "header": [
+    {
+      "key": "name", 
+      "name": "Name"
+    },
+    {
+      "key": "star", 
+      "name": "star"
+    },
+    {
+      "key": "sf-location", 
+      "name": "SF Location"
     }
-  });
-}
+  ],
+  "rows": [
+    { "name": "Ritual Coffee Roasters", "star": "★★★★★", "sf-location": "Hayes Valley"},
+    ...
+    { "name": "Flywheel Coffee Roasters", "star": "★★★★★", "sf-location": "Upper Haight" }
+  ]
+};
 </code>
 </pre>

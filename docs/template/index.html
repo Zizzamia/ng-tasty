@@ -17,7 +17,7 @@
     <a href="/" class="head">
       <h1>#ngTasty</h1>
     </a>
-    <p class="version">v0.2.3</p>
+    <p class="version">v0.2.4</p>
     <div class="head">
       <iframe src="http://ghbtns.com/github-btn.html?user=zizzamia&repo=ng-tasty&type=watch&count=true&size=large"
       allowtransparency="true" frameborder="0" scrolling="0" width="240" height="40"></iframe>
@@ -31,17 +31,21 @@
       <h4>Directive</h4>
       <ul>
         <li><a href="/#Table">Table</a></li>
-        <li><a href="/#TableSeverSide">Table server side</a></li>
+        <li><a href="/#TableServerSide">Table server side</a></li>
       </ul>
+      <!--
       <h4>Service</h4>
       <ul>
         <li><a href="/#Debounce">Debounce</a></li>
         <li><a href="/#SetProperty">Set Property</a></li>
         <li><a href="/#JoinObjects">JoinObjects</a></li>
       </ul>
+      -->
       <h4>Filter</h4>
       <ul>
+        <!--
         <li><a href="/#CleanFieldName">Clean Field Name</a></li>
+        -->
         <li><a href="/#Range">Range</a></li>
       </ul>
     </div>
@@ -56,34 +60,44 @@
       <p>Inject the ngTasty module into your app:</p>
       <pre><code data-language="javascript">angular.module('myApp', ['ngTasty']);</code></pre>
     </div>
-    <br />
-    <br />
-    <div id="Table">
-      <%= include table/index.html %>
+    <div>
+      <br />
+      <br />
+      <div id="Table" ng-controller="TableCtrl">
+        <%= include table/index.html %>
+      </div>
+      <br />
+      <br />
+      <div id="TableServerSide" ng-controller="TableServerSideCtrl">
+        <%= include table-server-side/index.html %>
+      </div>
     </div>
-    <br />
-    <br />
-    <div id="TableSeverSide">
-      <%= include table-server-side/index.html %>
+    <!--
+    <div ng-controller="ServiceCtrl">
+      <br />
+      <br />
+      <div id="Debounce">
+        <%= include service/debounce.html %>
+      </div>
+      <div id="SetProperty">
+        <%= include service/set-property.html %>
+      </div>
+      <div id="JoinObjects">
+        <%= include service/join-objects.html %>
+      </div>
     </div>
-    <br />
-    <br />
-    <div id="Debounce">
-      <%= include service/debounce.html %>
-    </div>
-    <div id="SetProperty">
-      <%= include service/set-property.html %>
-    </div>
-    <div id="JoinObjects">
-      <%= include service/join-objects.html %>
-    </div>
-    <br />
-    <br />
-    <div id="CleanFieldName">
-      <%= include filter/clean-field-name.html %>
-    </div>
-    <div id="Range">
-      <%= include filter/range.html %>
+    -->
+    <div ng-controller="FilterCtrl">
+      <br />
+      <br />
+      <!--
+      <div id="CleanFieldName">
+        <%= include filter/clean-field-name.html %>
+      </div>
+      -->
+      <div id="Range">
+        <%= include filter/range.html %>
+      </div>
     </div>
   </div>
   <script src="<%= base %>/components/angular/angular.min.js"></script>

@@ -14,6 +14,20 @@ angular.module('ngTasty.service', [
  * @name 
  *
  */
+angular.module('ngTasty.service.filterInt', [])
+.factory('filterInt', function() {
+  return function (value) {
+    if(/^(\-|\+)?([0-9]+|Infinity)$/.test(value))
+      return Number(value);
+    return NaN;
+  }
+});
+
+/**
+ * @ngdoc 
+ * @name 
+ *
+ */
 angular.module('ngTasty.service.debounce', [])
 .factory('debounce', [
   '$timeout',

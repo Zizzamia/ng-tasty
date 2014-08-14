@@ -1,17 +1,23 @@
-<pre><code data-language="javascript">$scope.filterBy = {
-  'time': 'now'
-};
-$scope.getResource = function (params) {
-  $scope.urlApi = 'table.json?' + params;
-  return $http.get($scope.urlApi).then(function (response) {
-    return {
-      'rows': response.data.rows,
-      'header': response.data.header,
-      'pagination': response.data.pagination,
-      'sortBy': response.data['sort-by'],
-      'sortOrder': response.data['sort-order']
+<pre><code data-language="javascript">$scope.resource = 
+  "header": [
+    {
+      "key": "name", 
+      "name": "Name"
+    },
+    {
+      "key": "star", 
+      "name": "star"
+    },
+    {
+      "key": "sf-location", 
+      "name": "SF Location"
     }
-  });
-}
+  ],
+  "rows": [
+    { "name": "Ritual Coffee Roasters", "star": "★★★★★", "sf-location": "Hayes Valley"},
+    ...
+    { "name": "Flywheel Coffee Roasters", "star": "★★★★★", "sf-location": "Upper Haight" }
+  ]
+};
 </code>
 </pre>

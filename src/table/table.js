@@ -407,7 +407,7 @@ angular.module('ngTasty.table', [
           } else {
             scope.pagListCount = [5, 25, 50, 100];
           }
-          scope.rangePage = $filter('range')(scope.pagMinRange, scope.pagMaxRange);
+          scope.rangePage = $filter('range')([], scope.pagMinRange, scope.pagMaxRange);
         };
 
         scope.page = {
