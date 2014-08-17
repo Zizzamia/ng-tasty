@@ -9,8 +9,12 @@ Installing via Bower
 ```
 bower install ng-tasty
 ```
+or installing Via NPM
+```
+npm install ng-tasty
+```
 
-Include the required library:
+Include the required bower component:
 ``` html
 <script src="bower_components/ng-tasty/ng-tasty-tpls.min.js"></script>
 ```
