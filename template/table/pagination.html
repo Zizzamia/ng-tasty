@@ -1,5 +1,5 @@
 <div class="row">
-  <div class="col-md-3 text-left">
+  <div class="col-xs-3 text-left">
     <div class="btn-group">
       <button type="button" class="btn btn-default" 
       ng-repeat="count in pagListCount" 
@@ -7,7 +7,7 @@
       ng-click="page.setCount(count)" ng-bind="count"></button>
     </div>
   </div>
-  <div class="col-md-6 text-center">
+  <div class="col-xs-6 text-center">
     <ul class="pagination">
       <li ng-class="{disabled: pagHideMinRange}">
         <span ng-click="page.previous()">&laquo;</span>
@@ -24,7 +24,7 @@
       </li>
     </ul>
   </div>
-  <div class="col-md-3 text-right">
+  <div class="col-xs-3 text-right">
     <p>Page <span ng-bind="pagination.page"></span> 
     of <span ng-bind="pagination.pages"></span>,
     of <span ng-bind="pagination.size"></span> entries</p>

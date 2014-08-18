@@ -1,7 +1,7 @@
 describe('Directive', function () {
   'use strict';
   var $rootScope, $scope, $timeout, $httpBackend, $compile;
-  var element, params, urlToCall, filters, createDirective, field,
+  var element, params, urlToCall, filters, createDirective, field, elm,
   elementSelected, expected, completeJSON, sortingJSON, paginationJSON,
   filtersJSON, tastyTable, tastyPagination, tastyThead, paginationJSONCount25;
 
@@ -457,6 +457,21 @@ describe('Directive', function () {
       tastyPagination.isolateScope().page.previous();
       expect(tastyPagination.isolateScope().rangePage).toEqual([1,2,3,4,5]);
     });
+
+    it('has the class col-xs-3 in pagination counting', function () {
+      elm = tastyPagination.find('.text-left');
+      expect(angular.element(elm).hasClass('col-xs-3')).toBe(true);
+    });
+
+    it('has the class col-xs-6 in pagination center', function () {
+      elm = tastyPagination.find('.text-center');
+      expect(angular.element(elm).hasClass('col-xs-6')).toBe(true);
+    });
+
+    it('has the class col-xs-3 in pagination right', function () {
+      elm = tastyPagination.find('.text-right');
+      expect(angular.element(elm).hasClass('col-xs-3')).toBe(true);
+    });
   });
 
 
@@ -506,7 +521,6 @@ describe('Directive', function () {
     }));
 
     it('should have these element.scope() value as default', function () {
-      //console.log($scope)
       expect(element.scope().query).toEqual({
         'page': 'page',
         'count': 'count',
