@@ -5,11 +5,11 @@ Live demo visit http://zizzamia.com/ng-tasty/
 
 ## Quick start
 
-Installing via Bower
+Installing via [Bower](http://bower.io/search/?q=ng-tasty)
 ```
 bower install ng-tasty
 ```
-or installing Via NPM
+or installing via [NPM](https://www.npmjs.org/package/ng-tasty)
 ```
 npm install ng-tasty
 ```

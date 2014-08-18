@@ -1,7 +1,8 @@
 .content {
-  margin-left: 260px;
+  margin-left: 234px;
   padding: 52px 38px;
   max-width: 960px;
+  min-width: 700px;
 }
 
 h1, h2 {
@@ -13,7 +14,7 @@ h1, h2 {
 }
 
 .ng-tasty-title p {
-  width: 400px;
+  width: 100%;
   color: #554433;
   font-size: 20px;
   font-style: italic;
@@ -31,7 +32,7 @@ h1, h2 {
   top: 0;
   bottom: 0;
   padding: 24px 0;
-  width: 260px;
+  width: 234px;
   overflow-y: auto;
   background-color: #f7f7f7;
   border-right: 1px solid #e7e7e7;
@@ -51,34 +52,51 @@ h1, h2 {
   padding: 0 0 24px 22px;
 }
 
-.left-nav h4 {
+.left-nav .head h4 {
   margin-bottom: 0;
+  font-size: 15px;
 }
 
-.left-nav ul {
+.left-nav .head ul {
   margin: 0 0 20px;
   padding: 0;
 }
 
-.left-nav li {
+.left-nav .head li {
   list-style: none;
 }
 
-.left-nav li a {
+.left-nav .head li a {
   display: block;
   padding: 4px 20px 4px 0;
-  font-size: 15px;
+  font-size: 14px;
   font-weight: 500;
   color: #999;
   width: 90%;
 }
 
-.left-nav li a:hover, 
-.left-nav li a:focus {
+.left-nav .head li a:hover, 
+.left-nav .head li a:focus {
   color: #8b3d13;
   text-decoration: none;
   background-color: transparent;
   border-right: 1px solid #8b3d13;
+}
+
+.left-nav .bottom {
+  position: absolute;
+  bottom: 0px;
+  padding: 0 0 20px 22px;
+  color: #999;
+  font-size: 13px;
+}
+.left-nav .bottom ul {
+  padding-left: 0;
+}
+.left-nav .bottom li {
+  display: inline;
+  padding: 0 2px;
+  font-size: 13px;
 }
 
 .close {
