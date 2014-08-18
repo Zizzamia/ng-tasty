@@ -4,7 +4,38 @@ angular.module('myApp', [
   'myApp.controllers'
 ]);
 angular.module('myApp.controllers', [])
-.controller('AppCtrl', ['$scope', '$http', function($scope, $http) {
+.controller('AppCtrl', ['$scope', '$modal', function($scope, $modal) {
+  $scope.showDownloadModal = function() {
+    var modalInstance = $modal.open({
+      templateUrl: 'downloadModal.html',
+      controller: 'DownloadCtrl'
+    });
+  };
+}])
+.controller('DownloadCtrl', ['$scope', '$modalInstance', function($scope, $modalInstance) {
+  $scope.options = {
+    version: '0.2.4',
+    minified: true,
+    tpls: true
+  };
+
+  $scope.download = function (version) {
+    var options = $scope.options;
+    var baseUrl = 'https://raw.githubusercontent.com/Zizzamia/bower-ng-tasty';
+    var downloadUrl = [baseUrl + '/v' + options.version + '/ng-tasty'];
+    if (options.tpls) {
+      downloadUrl.push('-tpls');
+    }
+    if (options.minified) {
+      downloadUrl.push('.min');
+    }
+    downloadUrl.push('.js');
+    return downloadUrl.join('');
+  };
+
+  $scope.cancel = function () {
+    $modalInstance.dismiss();
+  };
 }])
 .controller('TableCtrl', ['$scope', '$http', function($scope, $http) {
   $scope.open = function(toOpen) {

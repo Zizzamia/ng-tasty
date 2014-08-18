@@ -99,6 +99,10 @@ h1, h2 {
   font-size: 13px;
 }
 
+.btn-lg .version {
+  font-size: 12px;
+}
+
 .close {
   float: none;
   box-sizing: border-box;
