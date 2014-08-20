@@ -1,15 +1,15 @@
-# #ngTasty [![Bower version](https://badge.fury.io/bo/ng-tasty.svg)](http://badge.fury.io/bo/ng-tasty) [![NPM version](https://badge.fury.io/js/ng-tasty.svg)](http://badge.fury.io/js/ng-tasty) [![Build Status](https://secure.travis-ci.org/Zizzamia/ng-tasty.svg)](http://travis-ci.org/Zizzamia/ng-tasty)
+# #ngTasty [![Bower version](bower-badge)](bower) [![NPM version](npm-badge)](npm) [![NPM Downloads](npm-downloads)](npm) [![Build Status](travis-badge)](travis)
 > A lightweight, flexible, and tasty collection of reusable UI components for [AngularJS](https://angularjs.org/).
 
 Live demo visit http://zizzamia.com/ng-tasty/
 
 ## Quick start
 
-Installing via [Bower](http://bower.io/search/?q=ng-tasty)
+Installing via [Bower](bower)
 ```
 bower install ng-tasty
 ```
-or installing via [NPM](https://www.npmjs.org/package/ng-tasty)
+or installing via [NPM](npm)
 ```
 npm install ng-tasty
 ```
@@ -27,7 +27,7 @@ angular.module('myApp', ['ngTasty']);
 
 ## Development
 For running the dev enviroment you just need install
-all the dependencies by `npm`, the [node package manager][npm]. 
+all the dependencies by `npm`, the [node package manager][npm-site]. 
 
 ```
 npm install -g gulp
@@ -70,10 +70,16 @@ gulp test
 
 ## Creator
 
-**Leonardo Zizzamia**
+Designed and built by Leonardo Zizzamia, like grandma used to make.
 
 - <http://twitter.com/zizzamia>
 - <http://github.com/zizzamia>
 
-
-[npm]: https://www.npmjs.org/
+[bower]: https://github.com/Zizzamia/bower-ng-tasty
+[bower-badge]: https://badge.fury.io/bo/ng-tasty.svg
+[npm-site]: https://www.npmjs.org/
+[npm]: https://www.npmjs.org/package/ng-tasty
+[npm-badge]: https://badge.fury.io/js/ng-tasty.svg
+[npm-downloads]: http://img.shields.io/npm/dm/ng-tasty.svg
+[travis]: https://secure.travis-ci.org/Zizzamia/ng-tasty.svg
+[travis-badge]: https://secure.travis-ci.org/Zizzamia/ng-tasty.svg
