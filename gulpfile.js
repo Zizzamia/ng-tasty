@@ -199,11 +199,11 @@ gulp.task('build-dist', function() {
     all: 'angular.module("ngTasty", ["ngTasty.tpls", <%= srcModules %>]);'
   };
   var banner = ['/*',
-               ' * ' + pkg.name,
-               ' * ' + pkg.homepage + '\n',
-               ' * Version: ' + pkg.version + ' - ' + moment().format("YYYY-MM-DD"),
-               ' * License: ' + pkg.license,
-               ' */\n'].join('\n');
+                ' * ' + pkg.name,
+                ' * ' + pkg.homepage + '\n',
+                ' * Version: ' + pkg.version + ' - ' + moment().format("YYYY-MM-DD"),
+                ' * License: ' + pkg.license,
+                ' */\n'].join('\n');
 
   tplModules = tplModules.filter(function(tpls) { 
     return tpls.length > 0;

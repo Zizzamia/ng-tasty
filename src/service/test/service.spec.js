@@ -3,6 +3,32 @@ describe('Service', function () {
 
   beforeEach(module('ngTasty.service'));
 
+  describe('tastyUtil', function() {
+    var tastyUtil;
+
+    beforeEach(function () {
+      inject(function (_tastyUtil_) {
+        tastyUtil = _tastyUtil_;
+      });
+    });
+
+    it('should be service"', function () {
+      expect(tastyUtil).not.toBeNull();
+    });
+
+    it('should be contain the debounce service"', function () {
+      expect(tastyUtil.debounce).not.toBeNull();
+    });
+
+    it('should be contain the setProperty service"', function () {
+      expect(tastyUtil.setProperty).not.toBeNull();
+    });
+
+    it('should be contain the joinObjects service"', function () {
+      expect(tastyUtil.joinObjects).not.toBeNull();
+    });
+  });
+
   describe('debounce', function() {
     var debounce;
 
@@ -12,7 +38,7 @@ describe('Service', function () {
       });
     });
 
-    it('shoule be service"', function () {
+    it('should be service"', function () {
       expect(debounce).not.toBeNull();
     });
   });
@@ -27,11 +53,11 @@ describe('Service', function () {
       });
     });
 
-    it('shoule be service', function () {
+    it('should be service', function () {
       expect(setProperty).not.toBeNull();
     });
 
-    it('shoule return the origin object', function () {
+    it('should return the origin object', function () {
       obj1 = {
         'name': 'Ritual Coffee Roasters',
         'sf-location': 'Hayes Valley'
@@ -49,7 +75,7 @@ describe('Service', function () {
       expect(setProperty(obj1, obj2, 'ny-location')).toEqual(experctedObj);
     });
 
-    it('shoule return the origin object with the ney property set', function () {
+    it('should return the origin object with the ney property set', function () {
       obj1 = {
         'name': 'Ritual Coffee Roasters',
         'sf-location': 'Hayes Valley'
@@ -90,7 +116,7 @@ describe('Service', function () {
       });
     });
 
-    it('shoule be service', function () {
+    it('should be service', function () {
       expect(joinObjects).not.toBeNull();
     });
   });

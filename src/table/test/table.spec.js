@@ -174,7 +174,6 @@ describe('Directive', function () {
     }));
 
     it('should have these element.scope() value as default', function () {
-      //console.log($scope)
       expect(element.scope().query).toEqual({
         'page': 'page',
         'count': 'count',
@@ -354,7 +353,6 @@ describe('Directive', function () {
     }));
 
     it('should have these element.scope() value after 100ms', function () {
-      //console.log($scope)
       expect(element.scope().query).toEqual({
         'page': 'page',
         'count': 'count',

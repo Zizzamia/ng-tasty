@@ -5,6 +5,7 @@
  */
 angular.module('ngTasty.filter', [
   'ngTasty.filter.cleanFieldName',
+  'ngTasty.filter.filterInt',
   'ngTasty.filter.range'
 ]);
 
@@ -28,6 +29,22 @@ angular.module('ngTasty.filter.cleanFieldName', [])
 
 /**
  * @ngdoc filter
+ * @name filterInt
+ * @kind function
+ *
+ */
+angular.module('ngTasty.filter.filterInt', [])
+.filter('filterInt', function() {
+  return function (input) {
+    if(/^(\-|\+)?([0-9]+|Infinity)$/.test(input)) {
+      return Number(input);
+    }
+    return NaN;
+  };
+});
+
+/**
+ * @ngdoc filter
  * @name range
  * @kind function
  *
@@ -39,31 +56,28 @@ angular.module('ngTasty.filter.cleanFieldName', [])
  * @example
   ng-repeat="n in [] | range:1:30"
  */
-angular.module('ngTasty.filter.range', ['ngTasty.service.filterInt'])
-.filter('range', [
-  'filterInt',
-  function(filterInt) {
-    return function(input, start, stop, step) {
-      start = filterInt(start);
-      stop = filterInt(stop);
-      step = filterInt(step);
-      if (isNaN(start)) {
-        start = 0;
-      }
-      if (isNaN(stop)) {
-        stop = start;
-        start = 0;
-      }
-      if (isNaN(step)) {
-        step = 1;
-      }
-      if ((step > 0 && start >= stop) || (step < 0 && start <= stop)){
-        return [];
-      }
-      for (var i = start; step > 0 ? i < stop : i > stop; i += step){
-        input.push(i);
-      }
-      return input;
-    };
-  }
-]);
+angular.module('ngTasty.filter.range', [])
+.filter('range', function($filter) {
+  return function(input, start, stop, step) {
+    start = $filter('filterInt')(start);
+    stop = $filter('filterInt')(stop);
+    step = $filter('filterInt')(step);
+    if (isNaN(start)) {
+      start = 0;
+    }
+    if (isNaN(stop)) {
+      stop = start;
+      start = 0;
+    }
+    if (isNaN(step)) {
+      step = 1;
+    }
+    if ((step > 0 && start >= stop) || (step < 0 && start <= stop)){
+      return [];
+    }
+    for (var i = start; step > 0 ? i < stop : i > stop; i += step){
+      input.push(i);
+    }
+    return input;
+  };
+});

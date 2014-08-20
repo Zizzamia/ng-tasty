@@ -4,6 +4,7 @@
  *
  */
 angular.module('ngTasty.service', [
+  'ngTasty.service.tastyUtil',
   'ngTasty.service.debounce',
   'ngTasty.service.setProperty',
   'ngTasty.service.joinObjects'
@@ -14,13 +15,17 @@ angular.module('ngTasty.service', [
  * @name 
  *
  */
-angular.module('ngTasty.service.filterInt', [])
-.factory('filterInt', function() {
-  return function (value) {
-    if(/^(\-|\+)?([0-9]+|Infinity)$/.test(value))
-      return Number(value);
-    return NaN;
-  }
+angular.module('ngTasty.service.tastyUtil', [
+  'ngTasty.service.debounce',
+  'ngTasty.service.setProperty',
+  'ngTasty.service.joinObjects'
+])
+.factory('tastyUtil', function(debounce, setProperty, joinObjects) {
+  return {
+    'debounce': debounce,
+    'setProperty': setProperty,
+    'joinObjects': joinObjects
+  };
 });
 
 /**
@@ -29,22 +34,19 @@ angular.module('ngTasty.service.filterInt', [])
  *
  */
 angular.module('ngTasty.service.debounce', [])
-.factory('debounce', [
-  '$timeout',
-  function($timeout) {
-    return function(func, wait, immediate) {
-      var timeout;
-      return function() {
-        var context = this, args = arguments;
-        $timeout.cancel(timeout);
-        timeout = $timeout(function() {
-          timeout = null;
-          func.apply(context, args);
-        }, wait);
-      };
+.factory('debounce', function($timeout) {
+  return function(func, wait, immediate) {
+    var timeout;
+    return function() {
+      var context = this, args = arguments;
+      $timeout.cancel(timeout);
+      timeout = $timeout(function() {
+        timeout = null;
+        func.apply(context, args);
+      }, wait);
     };
-  }
-]);
+  };
+});
 
 /**
  * @ngdoc 
@@ -68,14 +70,11 @@ angular.module('ngTasty.service.setProperty', [])
  *
  */
 angular.module('ngTasty.service.joinObjects', [])
-.factory('joinObjects', [
-  'setProperty',
-  function(setProperty) {
-    return function(objOne, objTwo) {
-      for (var attrname in objTwo) {
-        setProperty(objOne, objTwo, attrname);
-      }
-      return objOne;
-    };
-  }
-]);
+.factory('joinObjects', function(setProperty) {
+  return function(objOne, objTwo) {
+    for (var attrname in objTwo) {
+      setProperty(objOne, objTwo, attrname);
+    }
+    return objOne;
+  };
+});
