@@ -1,4 +1,4 @@
-# #ngTasty [![Bower version](bower-badge)](bower) [![NPM version](npm-badge)](npm) [![NPM Downloads](npm-downloads)](npm) [![Build Status](travis-badge)](travis)
+# #ngTasty [![Bower version]([bower-badge])]([bower]) [![NPM version]([npm-badge])]([npm]) [![NPM Downloads]([npm-downloads])]([npm]) [![Build Status]([travis-badge])]([travis])
 > A lightweight, flexible, and tasty collection of reusable UI components for [AngularJS](https://angularjs.org/).
 
 Live demo visit http://zizzamia.com/ng-tasty/
