@@ -65,6 +65,16 @@ gulp.task('test', function() {
 });
 
 gulp.task('travis', function() {
+  gulp.src(testFiles)
+    .pipe(karma({
+      configFile: 'karma.conf.js',
+      action: 'run',
+      reporters: ['dots'],
+      browsers: ['Firefox']
+    }));
+});
+
+gulp.task('full-test', function() {
   gulp.src([
     'components/jquery/dist/jquery.min.js',
     'components/angular/angular.min.js',
