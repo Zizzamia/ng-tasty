@@ -23,7 +23,9 @@ angular.module('ngTasty.table', [
     'sortOrder': 'sort-order',
   },
   resource: undefined,
-  resourceCallback: undefined
+  resourceCallback: undefined,
+  listCount: [5, 25, 50, 100],
+  itemsPerPage: 5
 })
 .controller('TableController', function($scope, $attrs, $timeout, $filter, tableConfig, tastyUtil) {
   'use strict';
@@ -51,7 +53,10 @@ angular.module('ngTasty.table', [
   $scope.theadDirective = false;
   $scope.paginationDirective = false;
 
-  // Set custom configs
+  /* Set custom configs
+   * In the future you will have a way to change
+   * these values by an isolate optional scope variable,
+   * more info here https://github.com/angular/angular.js/issues/6404 */
   if (angular.isDefined($attrs.query)) {
     $scope.query = $scope.$parent.$eval($attrs.query);
   }
@@ -303,12 +308,24 @@ angular.module('ngTasty.table', [
   </div>
  *
  */
+.controller('TablePaginationController', function($scope, $attrs, tableConfig) {
+  if (angular.isDefined($attrs.itemsPerPage)) {
+    $scope.itemsPerPage = $scope.$parent.$eval($attrs.itemsPerPage);
+  }
+  if (angular.isDefined($attrs.listCount)) {
+    $scope.listCount = $scope.$parent.$eval($attrs.listCount);
+  }
+  // Default configs
+  $scope.itemsPerPage = $scope.itemsPerPage || tableConfig.itemsPerPage;
+  $scope.listCount = $scope.listCount || tableConfig.listCount;
+})
 .directive('tastyPagination', function($filter) {
   return {
     restrict: 'AE',
     require: '^tastyTable',
     scope: {},
     templateUrl: 'template/table/pagination.html',
+    controller: 'TablePaginationController',
     link: function (scope, element, attrs, tastyTable) {
       'use strict';
       var getPage, setCount, setPaginationRange,
@@ -317,12 +334,6 @@ angular.module('ngTasty.table', [
 
       // Pagination it's called
       tastyTable.activate('pagination');
-
-      /* In the future you will have a way to change
-       * these values by an isolate optional scope variable,
-       * more info here https://github.com/angular/angular.js/issues/6404 */
-      scope.numPaginations = 5;
-      scope.pagListCount = [5, 25, 50, 100];
 
       // Internal variable
       scope.pagination = {};
@@ -360,7 +371,7 @@ angular.module('ngTasty.table', [
           return false;
         }
         scope.pagMaxRange = scope.pagMinRange;
-        scope.pagMinRange = scope.pagMaxRange - scope.numPaginations;
+        scope.pagMinRange = scope.pagMaxRange - scope.itemsPerPage;
         setPaginationRanges();
       };
 
@@ -369,28 +380,28 @@ angular.module('ngTasty.table', [
           return false;
         }
         scope.pagMinRange = scope.pagMaxRange;
-        scope.pagMaxRange = scope.pagMinRange + scope.numPaginations;
+        scope.pagMaxRange = scope.pagMinRange + scope.itemsPerPage;
         if (scope.pagMaxRange > scope.pagination.pages) {
           scope.pagMaxRange = scope.pagination.pages;
         }
-        scope.pagMinRange = scope.pagMaxRange - scope.numPaginations;
+        scope.pagMinRange = scope.pagMaxRange - scope.itemsPerPage;
         setPaginationRanges();
       };
 
       setPaginationRanges =  function () {
         scope.pagMinRange = scope.pagMinRange > 0 ? scope.pagMinRange : 1;
-        scope.pagMaxRange = scope.pagMinRange + scope.numPaginations;
+        scope.pagMaxRange = scope.pagMinRange + scope.itemsPerPage;
         if (scope.pagMaxRange > scope.pagination.pages) {
           scope.pagMaxRange = scope.pagination.pages + 1;
         }
         scope.pagHideMinRange = scope.pagMinRange <= 1;
         scope.pagHideMaxRange = scope.pagMaxRange >= scope.pagination.pages;
         if (scope.pagination.size < 50) {
-          scope.pagListCount = [5, 25];
+          scope.listCount = [5, 25];
         } else if (scope.pagination.size < 100) {
-          scope.pagListCount = [5, 25, 50];
+          scope.listCount = [5, 25, 50];
         } else {
-          scope.pagListCount = [5, 25, 50, 100];
+          scope.listCount = [5, 25, 50, 100];
         }
         scope.rangePage = $filter('range')([], scope.pagMinRange, scope.pagMaxRange);
       };
