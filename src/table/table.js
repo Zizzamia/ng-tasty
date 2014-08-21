@@ -165,7 +165,7 @@ angular.module('ngTasty.table', [
     $scope.params['sortBy'] = undefined;
     $scope.params['sortOrder'] = 'asc';
     $scope.params['page'] = 1;
-    $scope.params['count'] = 5;
+    $scope.params['count'] = undefined;
     if ($scope.clientSide) {
       $scope.updateClientSideResource();
     } else {
@@ -346,6 +346,7 @@ angular.module('ngTasty.table', [
 
       setCount = function(count) {
         var maxItems, page;
+        //scope.pagination.count = count;
         maxItems = count * scope.pagination.page;
         if (maxItems > scope.pagination.size) {
           page = Math.ceil(scope.pagination.size / count);
@@ -357,6 +358,7 @@ angular.module('ngTasty.table', [
       setPaginationRange = function () {
         var currentPage, totalPages;
         currentPage = scope.pagination.page;
+        //scope.pagination.count = scope.itemsPerPage;
         if (currentPage > scope.pagination.pages) {
           currentPage = scope.pagination.pages;
         }
@@ -390,7 +392,7 @@ angular.module('ngTasty.table', [
 
       setPaginationRanges =  function () {
         scope.pagMinRange = scope.pagMinRange > 0 ? scope.pagMinRange : 1;
-        scope.pagMaxRange = scope.pagMinRange + scope.itemsPerPage;
+        scope.pagMaxRange = scope.pagMinRange + 5;
         if (scope.pagMaxRange > scope.pagination.pages) {
           scope.pagMaxRange = scope.pagination.pages + 1;
         }
@@ -418,6 +420,9 @@ angular.module('ngTasty.table', [
           setPaginationRange();
         }
       }, true);
+
+      // Init Pagination
+      scope.page.setCount(scope.itemsPerPage);
     }
   };
 });

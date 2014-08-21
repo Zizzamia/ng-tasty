@@ -189,13 +189,11 @@ describe('Directive', function () {
         'pages' : null, 
         'size' : 35
       });
-      expect(element.scope().params).toEqual({ 
-        sortBy : undefined, 
-        sortOrder : 'asc', 
-        page : 1, 
-        count : 5, 
-        thead : true 
-      });
+      expect(element.scope().params.sortBy).toEqual(undefined);
+      expect(element.scope().params.sortOrder).toEqual('asc');
+      expect(element.scope().params.page).toEqual(1);
+      expect(element.scope().params.count).toEqual(undefined);
+      expect(element.scope().params.thead).toEqual(true);
       expect(element.scope().theadDirective).toEqual(true);
       expect(element.scope().paginationDirective).toEqual(false);   
     });
@@ -300,6 +298,157 @@ describe('Directive', function () {
       expect(tastyThead.isolateScope().header.sortOrder).toEqual('asc');
     });
   });
+
+
+
+
+  describe('ngTasty table with pagination', function () {
+    beforeEach(inject(function ($rootScope, $compile, _$timeout_, _sortingJSON_) {
+      $scope = $rootScope.$new();
+      $timeout = _$timeout_;
+      $scope.resource = _sortingJSON_;
+      $scope.itemsPerPage = 10;
+      $scope.listItemsPerPage = [5, 10, 20, 40, 80];
+      element = angular.element(''+
+      '<div tasty-table resource="resource">'+
+      '  <table>'+
+      '    <thead>'+
+      '      <tr>'+
+      '        <th>Name</th>'+
+      '        <th>Star</th>'+
+      '        <th>SF Location</th>'+
+      '      </tr>'+
+      '    </thead>'+
+      '    <tbody>'+
+      '      <tr ng-repeat="row in rows">'+
+      '        <td>{{ row.name }}</td>'+
+      '        <td>{{ row.star }}</td>'+
+      '        <td>{{ row[\'sf-location\'] }}</td>'+
+      '      </tr>'+
+      '    </tbody>'+
+      '  </table>'+
+      '  <tasty-pagination items-per-page="itemsPerPage" '+
+      '  list-items-per-page="listItemsPerPage"></tasty-pagination>'+
+      '</div>');
+      tastyTable = $compile(element)($scope);
+      tastyPagination = tastyTable.find('tasty-pagination');
+      $timeout.flush();
+      $scope.$digest();
+    }));
+
+    it('should have these element.scope() value after 100ms', function () {
+      expect(element.scope().query).toEqual({
+        'page': 'page',
+        'count': 'count',
+        'sortBy': 'sort-by',
+        'sortOrder': 'sort-order',
+      });
+      expect(element.scope().url).toEqual('');
+      expect(element.scope().header.columns.length).toEqual(3);
+      expect(element.scope().rows.length).toEqual(10);
+      expect(element.scope().pagination.count).toEqual(10);
+      expect(element.scope().pagination.page).toEqual(1);
+      expect(element.scope().pagination.pages).toEqual(4);
+      expect(element.scope().pagination.size).toEqual(35);
+      expect(element.scope().params.sortBy).toEqual(undefined);
+      expect(element.scope().params.sortOrder).toEqual('asc');
+      expect(element.scope().params.page).toEqual(1);
+      expect(element.scope().params.count).toEqual(10);
+      expect(element.scope().params.pagination).toEqual(true);
+      expect(element.scope().theadDirective).toEqual(false);
+      expect(element.scope().paginationDirective).toEqual(true);
+    });
+
+    it('should return the right url after called buildUrl', function () {
+      expect(element.scope().rows[0].name).toEqual('Ritual Coffee Roasters');
+      expect(element.scope().rows.length).toEqual(10);
+    });
+
+    it('should have these isolateScope value as default', function () {
+      expect(tastyPagination.isolateScope().pagination.count).toEqual(10);
+      expect(tastyPagination.isolateScope().pagination.page).toEqual(1);
+      expect(tastyPagination.isolateScope().pagination.pages).toEqual(4);
+      expect(tastyPagination.isolateScope().pagination.size).toEqual(35);
+      expect(tastyPagination.isolateScope().listItemsPerPageShow).toEqual([5, 10, 20]);
+      expect(tastyPagination.isolateScope().pagMinRange).toEqual(1);
+      expect(tastyPagination.isolateScope().pagMaxRange).toEqual(5);
+    });
+
+    it('should generate page count button using ng-repeat', function () {
+      elementSelected = element.find('[ng-repeat="count in listItemsPerPageShow"]');
+      expect(elementSelected.length).toEqual(3);
+    });
+    
+    it('should use correct class for the selected page count', function () {
+      elementSelected = element.find('[ng-repeat="count in listItemsPerPageShow"]');
+      expect(elementSelected.eq(0)).not.toHaveClass('active');
+      expect(elementSelected.eq(1)).toHaveClass('active');
+      expect(elementSelected.eq(2)).not.toHaveClass('active');
+      tastyPagination.isolateScope().page.setCount(20);
+      $scope.$digest();
+      $timeout.flush();
+      expect(tastyPagination.isolateScope().pagination).toEqual({ 
+        'count' : 20, 
+        'page' : 1,
+        'pages' : 2, 
+        'size' : 35 
+      });
+      expect(elementSelected.eq(0)).not.toHaveClass('active');
+      expect(elementSelected.eq(1)).not.toHaveClass('active');
+      expect(elementSelected.eq(2)).toHaveClass('active');
+    });
+    
+    it('should update params.page when page.get is clicked', function () {
+      tastyPagination.isolateScope().page.get(1);
+      expect(element.scope().params.page).toEqual(1);
+    });
+    
+    it('should update params.count when page.setCount is clicked', function () {
+      tastyPagination.isolateScope().page.setCount(25);
+      expect(element.scope().params.count).toEqual(25);
+      expect(element.scope().params.page).toEqual(1);
+    });
+
+    it('should update pagMinRange and pagMaxRange when page.previous and page.remaining are clicked', function () {
+      expect(tastyPagination.isolateScope().pagMinRange).toEqual(1);
+      expect(tastyPagination.isolateScope().pagMaxRange).toEqual(5);
+      tastyPagination.isolateScope().page.previous();
+      expect(tastyPagination.isolateScope().pagMinRange).toEqual(1);
+      expect(tastyPagination.isolateScope().pagMaxRange).toEqual(5);
+      tastyPagination.isolateScope().page.remaining();
+      expect(tastyPagination.isolateScope().pagMinRange).toEqual(1);
+      expect(tastyPagination.isolateScope().pagMaxRange).toEqual(5);
+      tastyPagination.isolateScope().page.previous();
+      expect(tastyPagination.isolateScope().pagMinRange).toEqual(1);
+      expect(tastyPagination.isolateScope().pagMaxRange).toEqual(5);
+    });
+
+    it('should update rangePage when page.previous and page.remaining are clicked', function () {
+      expect(tastyPagination.isolateScope().rangePage).toEqual([1,2,3,4]);
+      tastyPagination.isolateScope().page.previous();
+      expect(tastyPagination.isolateScope().rangePage).toEqual([1,2,3,4]);
+      tastyPagination.isolateScope().page.remaining();
+      expect(tastyPagination.isolateScope().rangePage).toEqual([1,2,3,4]);
+      tastyPagination.isolateScope().page.previous();
+      expect(tastyPagination.isolateScope().rangePage).toEqual([1,2,3,4]);
+    });
+
+    it('has the class col-xs-3 in pagination counting', function () {
+      elm = tastyPagination.find('.text-left');
+      expect(angular.element(elm).hasClass('col-xs-3')).toBe(true);
+    });
+
+    it('has the class col-xs-6 in pagination center', function () {
+      elm = tastyPagination.find('.text-center');
+      expect(angular.element(elm).hasClass('col-xs-6')).toBe(true);
+    });
+
+    it('has the class col-xs-3 in pagination right', function () {
+      elm = tastyPagination.find('.text-right');
+      expect(angular.element(elm).hasClass('col-xs-3')).toBe(true);
+    });
+  });
+
   
 
 
@@ -536,12 +685,10 @@ describe('Directive', function () {
         'pages': 1,
         'size': 1
       });
-      expect(element.scope().params).toEqual({ 
-        sortBy : undefined, 
-        sortOrder : 'asc', 
-        page : 1, 
-        count : 5 
-      });
+      expect(element.scope().params.sortBy).toEqual(undefined);
+      expect(element.scope().params.sortOrder).toEqual('asc');
+      expect(element.scope().params.page).toEqual(1);
+      expect(element.scope().params.count).toEqual(undefined);
       expect(element.scope().theadDirective).toEqual(false);
       expect(element.scope().paginationDirective).toEqual(false);
     });
