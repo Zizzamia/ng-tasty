@@ -391,18 +391,18 @@ describe('Directive', function () {
         'pages' : 7, 
         'size' : 35 
       });
-      expect(tastyPagination.isolateScope().listCount).toEqual([5, 25]);
+      expect(tastyPagination.isolateScope().listItemsPerPageShow).toEqual([5, 25]);
       expect(tastyPagination.isolateScope().pagMinRange).toEqual(1);
       expect(tastyPagination.isolateScope().pagMaxRange).toEqual(6);
     });
 
     it('should generate page count button using ng-repeat', function () {
-      elementSelected = element.find('[ng-repeat="count in listCount"]');
+      elementSelected = element.find('[ng-repeat="count in listItemsPerPageShow"]');
       expect(elementSelected.length).toEqual(2);
     });
     
     it('should use correct class for the selected page count', function () {
-      elementSelected = element.find('[ng-repeat="count in listCount"]');
+      elementSelected = element.find('[ng-repeat="count in listItemsPerPageShow"]');
       expect(elementSelected.eq(0)).toHaveClass('active');
       expect(elementSelected.eq(1)).not.toHaveClass('active');
       tastyPagination.isolateScope().page.setCount(25);

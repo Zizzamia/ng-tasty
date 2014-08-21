@@ -24,7 +24,7 @@ angular.module('ngTasty.table', [
   },
   resource: undefined,
   resourceCallback: undefined,
-  listCount: [5, 25, 50, 100],
+  listItemsPerPage: [5, 25, 50, 100],
   itemsPerPage: 5
 })
 .controller('TableController', function($scope, $attrs, $timeout, $filter, tableConfig, tastyUtil) {
@@ -312,12 +312,12 @@ angular.module('ngTasty.table', [
   if (angular.isDefined($attrs.itemsPerPage)) {
     $scope.itemsPerPage = $scope.$parent.$eval($attrs.itemsPerPage);
   }
-  if (angular.isDefined($attrs.listCount)) {
-    $scope.listCount = $scope.$parent.$eval($attrs.listCount);
+  if (angular.isDefined($attrs.listItemsPerPage)) {
+    $scope.listItemsPerPage = $scope.$parent.$eval($attrs.listItemsPerPage);
   }
   // Default configs
   $scope.itemsPerPage = $scope.itemsPerPage || tableConfig.itemsPerPage;
-  $scope.listCount = $scope.listCount || tableConfig.listCount;
+  $scope.listItemsPerPage = $scope.listItemsPerPage || tableConfig.listItemsPerPage;
 })
 .directive('tastyPagination', function($filter) {
   return {
@@ -396,12 +396,11 @@ angular.module('ngTasty.table', [
         }
         scope.pagHideMinRange = scope.pagMinRange <= 1;
         scope.pagHideMaxRange = scope.pagMaxRange >= scope.pagination.pages;
-        if (scope.pagination.size < 50) {
-          scope.listCount = [5, 25];
-        } else if (scope.pagination.size < 100) {
-          scope.listCount = [5, 25, 50];
-        } else {
-          scope.listCount = [5, 25, 50, 100];
+        for (var i = 2; i < scope.listItemsPerPage.length; i++) {
+          if (scope.pagination.size < scope.listItemsPerPage[i]) {
+            scope.listItemsPerPageShow = scope.listItemsPerPage.slice(0, i);
+            break;
+          }
         }
         scope.rangePage = $filter('range')([], scope.pagMinRange, scope.pagMaxRange);
       };
