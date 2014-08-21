@@ -14,7 +14,7 @@ angular.module('myApp.controllers', [])
 }])
 .controller('DownloadCtrl', ['$scope', '$modalInstance', function($scope, $modalInstance) {
   $scope.options = {
-    version: '0.2.4',
+    version: '0.2.5',
     minified: true,
     tpls: true
   };
@@ -105,6 +105,9 @@ angular.module('myApp.controllers', [])
     ]
   };
   $scope.notSortBy = ['sf-location'];
+
+  $scope.itemsPerPage = 10;
+  $scope.listItemsPerPage = [10, 20, 40, 80];  
 }])
 .controller('TableServerSideCtrl', ['$scope', '$http', function($scope, $http) {
   
@@ -127,7 +130,7 @@ angular.module('myApp.controllers', [])
       $scope.tableTwo = false;
     } else if (toOpen === 'pagination') {
       $scope.tableThree = false;
-    } else if (toOpen === 'filter') {
+    } else if (toOpen === 'filtering') {
       $scope.tableFour = false;
     }
   }

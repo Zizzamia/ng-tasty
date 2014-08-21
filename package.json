@@ -1,6 +1,6 @@
 {
   "name": "ng-tasty",
-  "version": "0.2.5-rc.3",
+  "version": "0.2.5",
   "description": "A lightweight, flexible, and tasty collection of reusable UI components for AngularJS.",
   "main": "index.js",
   "devDependencies": {
@@ -32,7 +32,9 @@
   },
   "scripts": {
     "start": "node docs/server.js port=3000",
-    "start_docs": "node docs/server.js port=25907"
+    "start_docs": "node docs/server.js port=25907",
+    "test": "gulp test",
+    "watch": "gulp watch"
   },
   "repository": {
     "type": "git",

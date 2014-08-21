@@ -22,6 +22,19 @@
         </p>
       </li>
     </ul>
+    <p>Settings can be provided as attributes in the <code>&lt;tasty-pagination&gt;</code>.</p>
+    <ul>
+      <li>
+        <p><code>items-per-page</code> (Defaults: 5) 
+        : Maximum number of items per page.
+        </p>
+      </li>
+      <li>
+        <p><code>list-items-per-page</code> (Defaults: [5, 25, 50, 100])
+        : list possible choice for items per page.
+        </p>
+      </li>
+    </ul>
   </div>
 	<div class="col-md-12 docs-body">
     <div class="btn-group btn-group-justified">
@@ -88,7 +101,8 @@
             </tr>
           </tbody>
         </table>
-        <div tasty-pagination></div>
+        <div tasty-pagination items-per-page="itemsPerPage" 
+        list-items-per-page="listItemsPerPage"></div>
       </div>
     </div>
     <tabset class="code">
