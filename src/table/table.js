@@ -11,9 +11,7 @@
 angular.module('ngTasty.table', [
   'ngTasty.filter.cleanFieldName',
   'ngTasty.filter.range',
-  'ngTasty.service.debounce',
-  'ngTasty.service.setProperty',
-  'ngTasty.service.joinObjects'
+  'ngTasty.service.tastyUtil'
 ])
 .constant('tableConfig', {
   query: {

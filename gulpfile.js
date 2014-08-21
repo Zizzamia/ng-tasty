@@ -182,7 +182,7 @@ gulp.task('get-modules-name', function() {
           return getExtension(file) === '.html';
         });
         files.forEach(function (file) {
-          tplModules.push(enquote('template/' + file));
+          tplModules.push(enquote('template/' + directory + '/' + file));
         });
       });
     })
@@ -219,8 +219,8 @@ gulp.task('build-dist', function() {
   gulp.src('src/*/*.js')
     .pipe(concat(filename + '.js'))
     .pipe(header(metaHeader, dict))
-    .pipe(gulp.dest(dist))
     .pipe(ngAnnotate())
+    .pipe(gulp.dest(dist))
     .pipe(uglify({mangle: false}))
     .pipe(header(banner, dict))
     .pipe(rename({extname: '.min.js'}))
@@ -233,8 +233,8 @@ gulp.task('build-dist', function() {
   gulp.src(['src/*/*.js', 'template/*/*.html.js'])
     .pipe(concat(filename + '-tpls.js'))
     .pipe(header(metaHeader, dict))
-    .pipe(gulp.dest(dist))
     .pipe(ngAnnotate())
+    .pipe(gulp.dest(dist))
     .pipe(uglify({mangle: false}))
     .pipe(header(banner, dict))
     .pipe(rename({extname: '.min.js'}))
