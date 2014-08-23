@@ -1,5 +1,5 @@
 # #ngTasty [![Bower version](https://badge.fury.io/bo/ng-tasty.svg)](https://github.com/Zizzamia/bower-ng-tasty) [![NPM version](https://badge.fury.io/js/ng-tasty.svg)](https://www.npmjs.org/package/ng-tasty) [![NPM Downloads](http://img.shields.io/npm/dm/ng-tasty.svg)](https://www.npmjs.org/package/ng-tasty) [![Build Status](https://secure.travis-ci.org/Zizzamia/ng-tasty.svg)](https://travis-ci.org/Zizzamia/ng-tasty)
-> A lightweight, flexible, and tasty collection of reusable UI components for [AngularJS](https://angularjs.org/).
+> A lightweight, flexible, and tasty collection of reusable UI components for [AngularJS](https://angularjs.org/), like grandma used to make.
 
 Live demo visit http://zizzamia.com/ng-tasty/
 
