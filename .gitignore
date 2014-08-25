@@ -17,3 +17,6 @@ components
 
 # Template
 template/**/*.js
+
+#benchpress
+benchpress-build

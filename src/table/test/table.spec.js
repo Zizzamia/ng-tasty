@@ -204,12 +204,10 @@ describe('Directive', function () {
     });
 
     it('should have these isolateScope value as default', function () {
-      expect(tastyThead.isolateScope().fields.name).toEqual({ 
-        'active': false,
-        'sortable': true,
-        'width' : { 'width' : '33.33%' },
-        'sort' : 'name'
-      });
+      expect(tastyThead.isolateScope().fields.name.active).toEqual(true);
+      expect(tastyThead.isolateScope().fields.name.sortable).toEqual(true);
+      expect(tastyThead.isolateScope().fields.name.width).toEqual({ 'width' : '33.33%' });
+      expect(tastyThead.isolateScope().fields.name.sort).toEqual('name');
       expect(tastyThead.isolateScope().fields.star).toEqual({ 
         'active': false,
         'sortable': true,

@@ -56,13 +56,13 @@ angular.module('ngTasty.table', [
    * these values by an isolate optional scope variable,
    * more info here https://github.com/angular/angular.js/issues/6404 */
   if (angular.isDefined($attrs.query)) {
-    $scope.query = $scope.$parent.$eval($attrs.query);
+    $scope.query = $scope.$parent[$attrs.query];
   }
   if (!angular.isDefined($attrs.resource) && !angular.isDefined($attrs.resourceCallback)) {
     throw 'AngularJS tastyTable directive: need the resource or resource-callback attribute';
   }
   if (angular.isDefined($attrs.resource)) {
-    $scope.resource = $scope.$parent.$eval($attrs.resource);
+    $scope.resource = $scope.$parent[$attrs.resource];
     if (!angular.isObject($scope.resource)) {
       throw 'AngularJS tastyTable directive: the resource ('+
         $attrs.resource + ') it\'s not an object';
@@ -72,7 +72,7 @@ angular.module('ngTasty.table', [
     }
   }
   if (angular.isDefined($attrs.resourceCallback)) {
-    $scope.resourceCallback = $scope.$parent.$eval($attrs.resourceCallback);
+    $scope.resourceCallback = $scope.$parent[$attrs.resourceCallback];
     if (!angular.isFunction($scope.resourceCallback)) {
       throw 'AngularJS tastyTable directive: the resource-callback ('+
         $attrs.resourceCallback + ') it\'s not a function';
@@ -92,12 +92,15 @@ angular.module('ngTasty.table', [
   };
 
   $scope.setDirectivesValues = function (resource) {
+    var sortBy;
     if (!resource) {
       return false;
     }
+    sortBy = resource.sortBy || $scope.params.sortBy;
+    sortBy = sortBy || resource.header[0].key;
     $scope.header = {
       'columns': resource.header,
-      'sortBy': resource.sortBy || $scope.params.sortBy,
+      'sortBy': sortBy,
       'sortOrder': resource.sortOrder || $scope.params.sortOrder
     };
     $scope.rows = resource.rows;
@@ -188,6 +191,14 @@ angular.module('ngTasty.table', [
       }
     }
   }, true);
+  if ($scope.resource) {
+    $scope.$parent.$watch($attrs.resource, function (newValue, oldValue){
+      if (newValue !== oldValue) {
+        $scope.resource = newValue;
+        $scope.updateClientSideResource();
+      }
+    }, true);
+  }
 
   // Init table
   $scope.initTable();
@@ -308,10 +319,10 @@ angular.module('ngTasty.table', [
  */
 .controller('TablePaginationController', function($scope, $attrs, tableConfig) {
   if (angular.isDefined($attrs.itemsPerPage)) {
-    $scope.itemsPerPage = $scope.$parent.$eval($attrs.itemsPerPage);
+    $scope.itemsPerPage = $scope.$parent[$attrs.itemsPerPage];
   }
   if (angular.isDefined($attrs.listItemsPerPage)) {
-    $scope.listItemsPerPage = $scope.$parent.$eval($attrs.listItemsPerPage);
+    $scope.listItemsPerPage = $scope.$parent[$attrs.listItemsPerPage];
   }
   // Default configs
   $scope.itemsPerPage = $scope.itemsPerPage || tableConfig.itemsPerPage;
