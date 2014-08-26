@@ -9,6 +9,10 @@ h1, h2 {
   margin-top: 0;
 }
 
+iframe {
+  margin: 0 0 8px 0;
+}
+
 .ng-tasty-title {
   margin: 0 0 80px 0;
 }

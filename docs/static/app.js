@@ -59,7 +59,7 @@ angular.module('myApp.controllers', [])
       },
       {
         "key": "star", 
-        "name": "star"
+        "name": "Star"
       },
       {
         "key": "sf-location", 
@@ -68,8 +68,7 @@ angular.module('myApp.controllers', [])
     ],
     "rows": [
       { "name": "Ritual Coffee Roasters", "star": "★★★★★", "sf-location": "Hayes Valley"},
-      { "name": "coffee bar", "star": "★★★★", "sf-location": "financial distric"},
-      { "name": "blue bootle", "star": "★★★★★", "sf-location": "hayes valley" },
+      { "name": "Blue Bottle", "star": "★★★★★", "sf-location": "Hayes Valley" },
       { "name": "CoffeeShop", "star": "★★★", "sf-location": "Bernal Heights" },
       { "name": "Spike's Coffee & Teas", "star": "★★★", "sf-location": "Castro" },
       { "name": "La Boulange", "star": "★★", "sf-location": "Cole Valley" },
@@ -99,7 +98,6 @@ angular.module('myApp.controllers', [])
       { "name": "House of Snacks", "star": "★★★", "sf-location": "The Presidio" },
       { "name": "The Brew", "star": "★★★", "sf-location": "Russian Hill" },
       { "name": "Wicked Grounds", "star": "★★★", "sf-location": "SOMA" },
-      { "name": "farm:table", "star": "★★★", "sf-location": "Tenderloin" },
       { "name": "Starbucks", "star": "★", "sf-location": "Union Square" },
       { "name": "Flywheel Coffee Roasters", "star": "★★★★★", "sf-location": "Upper Haight" }
     ]
