@@ -112,6 +112,9 @@ angular.module('ngTasty.table', [
     if ($scope.theadDirective) {
       reverse = $scope.header.sortOrder === 'asc' ? false : true;
       $scope.rows = $filter('orderBy')($scope.rows, $scope.header.sortBy, reverse);
+      //$scope.rows = $filter('orderBy')($scope.rows, function(item) {
+      //  return item[$scope.header.sortBy];
+      //}, reverse);
     }
     if ($scope.paginationDirective) {
       $scope.pagination.page = $scope.params.page;

@@ -133,6 +133,141 @@ describe('Directive', function () {
   
 
 
+  describe('ngTasty table withs sorting', function () {
+    beforeEach(inject(function ($rootScope, $compile, _$timeout_, _sortingJSON_) {
+      $scope = $rootScope.$new();
+      $timeout = _$timeout_;
+      $scope.resource = _sortingJSON_;
+      element = angular.element(''+
+      '<table tasty-table resource="resource">'+
+      '  <thead tasty-thead></thead>'+
+      '  <tbody>'+
+      '    <tr ng-repeat="row in rows">'+
+      '      <td>{{ row.name }}</td>'+
+      '      <td>{{ row.star }}</td>'+
+      '      <td>{{ row[\'sf-location\'] }}</td>'+
+      '    </tr>'+
+      '  </tbody>'+
+      '</table>');
+      tastyTable = $compile(element)($scope);
+      tastyThead = tastyTable.find('[tasty-thead=""]');
+      $timeout.flush();
+      $scope.$digest();
+    }));
+
+    it('should have these element.scope() value as default', function () {
+      expect(element.scope().query).toEqual({
+        'page': 'page',
+        'count': 'count',
+        'sortBy': 'sort-by',
+        'sortOrder': 'sort-order',
+      });
+      expect(element.scope().url).toEqual('');
+      expect(element.scope().header.columns.length).toEqual(3);
+      expect(element.scope().rows.length).toEqual(35);
+      expect(element.scope().pagination).toEqual({ 
+        'count' : null, 
+        'page' : null, 
+        'pages' : null, 
+        'size' : 35
+      });
+      expect(element.scope().params.sortBy).toEqual(undefined);
+      expect(element.scope().params.sortOrder).toEqual('asc');
+      expect(element.scope().params.page).toEqual(1);
+      expect(element.scope().params.count).toEqual(undefined);
+      expect(element.scope().params.thead).toEqual(true);
+      expect(element.scope().theadDirective).toEqual(true);
+      expect(element.scope().paginationDirective).toEqual(false);   
+    });
+
+    it('should return the right url after called buildUrl', function () {
+      expect(element.scope().rows[0].name).toEqual('Andytown Coffee Roasters');
+      expect(element.scope().rows.length).toEqual(35);
+    });
+
+    it('should have these isolateScope value as default', function () {
+      expect(tastyThead.isolateScope().fields.name.active).toEqual(true);
+      expect(tastyThead.isolateScope().fields.name.sortable).toEqual(true);
+      expect(tastyThead.isolateScope().fields.name.width).toEqual({ 'width' : '33.33%' });
+      expect(tastyThead.isolateScope().fields.name.sort).toEqual('name');
+      expect(tastyThead.isolateScope().fields.star).toEqual({ 
+        'active': false,
+        'sortable': true,
+        'width' : { 'width' : '33.33%' },
+        'sort' : 'star'
+      });
+      expect(tastyThead.isolateScope().fields['sf-location'].active).toEqual(false);
+      expect(tastyThead.isolateScope().fields['sf-location'].sortable).toEqual(true);
+      expect(tastyThead.isolateScope().fields['sf-location'].width).toEqual({ 'width' : '33.33%' });
+      expect(tastyThead.isolateScope().fields['sf-location'].sort).toEqual('sf-location');
+    });
+
+    it('should set params.sortBy when scope.sortBy is clicked', function () {
+      field = {'key': 'name', 'name': 'Name'};
+      tastyThead.isolateScope().sortBy(field);
+      tastyThead.isolateScope().setFields();
+      expect(element.scope().params.sortBy).toEqual('name');
+      expect(tastyThead.isolateScope().fields.name.active).toEqual(true);
+      field =  {'key': 'star', 'name': 'star'};
+      tastyThead.isolateScope().sortBy(field);
+      tastyThead.isolateScope().setFields();
+      expect(element.scope().params.sortBy).toEqual('star');
+      expect(tastyThead.isolateScope().fields.star.active).toEqual(true);
+    });
+
+    it('should sorting ascending and descending scope.header.sortBy when scope.sortBy is clicked', function () {
+      field =  {'key': 'star', 'name': 'star'};
+      tastyThead.isolateScope().sortBy(field);
+      $scope.$digest();
+      $timeout.flush();
+      expect(tastyThead.isolateScope().header.sortBy).toEqual('star');
+      expect(element.scope().rows[0].name).toEqual('Starbucks');
+      tastyThead.isolateScope().sortBy(field);
+      $scope.$digest();
+      $timeout.flush();
+      expect(tastyThead.isolateScope().header.sortBy).toEqual('-star');
+      expect(element.scope().rows[0].name).toEqual('Ritual Coffee Roasters');
+    });
+
+    it('should sorting ascending and descending with a key contains a dash (-)', function () {
+      field =  { 'key': 'sf-location', 'name': 'SF Location'};
+      tastyThead.isolateScope().sortBy(field);
+      $scope.$digest();
+      $timeout.flush();
+      expect(tastyThead.isolateScope().header.sortBy).toEqual('sf-location');
+      expect(element.scope().rows[0].name).toEqual('CoffeeShop');
+      tastyThead.isolateScope().sortBy(field);
+      $scope.$digest();
+      $timeout.flush();
+      expect(tastyThead.isolateScope().header.sortBy).toEqual('-sf-location');
+      expect(element.scope().rows[0].name).toEqual('Flywheel Coffee Roasters');
+    });
+
+    it('should return true or false to indicate if a specific key is sorted up', function () {
+      var isSortUp;
+      field = field =  {'key': 'star', 'name': 'star'};
+      tastyThead.isolateScope().sortBy(field);
+      isSortUp = tastyThead.isolateScope().isSortUp(field);
+      expect(isSortUp).toEqual(false);
+      tastyThead.isolateScope().sortBy(field);
+      isSortUp = tastyThead.isolateScope().isSortUp(field);
+      expect(isSortUp).toEqual(true);
+    });
+
+    it('should return true or false to indicate if a specific key is sorted down', function () {
+      var isSortDown;
+      field = field =  {'key': 'star', 'name': 'star'};
+      tastyThead.isolateScope().sortBy(field);
+      isSortDown = tastyThead.isolateScope().isSortDown(field);
+      expect(isSortDown).toEqual(true);
+      tastyThead.isolateScope().sortBy(field);
+      isSortDown = tastyThead.isolateScope().isSortDown(field);
+      expect(isSortDown).toEqual(false);
+    });
+  });
+
+
+
 
   describe('ngTasty table withs sorting server side', function () {
     beforeEach(inject(function (_$rootScope_, $compile, $http, _$httpBackend_, _$timeout_, _sortingJSON_) {
@@ -448,7 +583,6 @@ describe('Directive', function () {
   });
 
   
-
 
 
   describe('ngTasty table with pagination server side', function () {
