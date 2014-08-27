@@ -108,13 +108,18 @@ angular.module('ngTasty.table', [
   };
 
   $scope.buildClientResource = function() {
-    var fromRow, toRow, rowToShow, reverse;
+    var fromRow, toRow, rowToShow, reverse, listSortBy;
     if ($scope.theadDirective) {
       reverse = $scope.header.sortOrder === 'asc' ? false : true;
-      $scope.rows = $filter('orderBy')($scope.rows, $scope.header.sortBy, reverse);
-      //$scope.rows = $filter('orderBy')($scope.rows, function(item) {
-      //  return item[$scope.header.sortBy];
-      //}, reverse);
+      listSortBy = [function(item) {
+        return item[$scope.header.sortBy];
+      }];
+      if ($scope.header.columns[0].key !== $scope.header.sortBy) {
+        listSortBy.push(function(item) {
+          return item[$scope.header.columns[0].key];
+        });
+      }
+      $scope.rows = $filter('orderBy')($scope.rows, listSortBy, reverse);
     }
     if ($scope.paginationDirective) {
       $scope.pagination.page = $scope.params.page;

@@ -28,11 +28,9 @@ app.controller('DataController', function($rootScope, $scope) {
   benchmarkSteps.push({
     name: '$apply',
     fn: function() {
-
       $rootScope.$apply(function() {
         $scope.resource.rows = [];
       });
-
       if ($scope.resource.rows.length !== self.ngRepeatCount) {
         $scope.resource.rows = [];
         for (var i = 0; i < self.ngRepeatCount; i++) {
@@ -43,9 +41,7 @@ app.controller('DataController', function($rootScope, $scope) {
           });
         }
       }
-
       $rootScope.$apply();
-
     }
   });
 });

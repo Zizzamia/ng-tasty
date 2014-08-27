@@ -14,7 +14,7 @@ angular.module('myApp.controllers', [])
 }])
 .controller('DownloadCtrl', ['$scope', '$modalInstance', function($scope, $modalInstance) {
   $scope.options = {
-    version: '0.2.5',
+    version: '0.2.6',
     minified: true,
     tpls: true
   };

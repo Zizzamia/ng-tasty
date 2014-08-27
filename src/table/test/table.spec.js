@@ -221,7 +221,7 @@ describe('Directive', function () {
       $scope.$digest();
       $timeout.flush();
       expect(tastyThead.isolateScope().header.sortBy).toEqual('star');
-      expect(element.scope().rows[0].name).toEqual('Starbucks');
+      expect(element.scope().rows[0].name).toEqual('Peet\'s');
       tastyThead.isolateScope().sortBy(field);
       $scope.$digest();
       $timeout.flush();
