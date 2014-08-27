@@ -61,7 +61,12 @@ npm test
 
 ## Changelog
 
-### v0.2.5 (master, released on August 21th 2014)
+### v0.2.6 (master, released on August 26th 2014)
+- Improved sorting by key [#27](https://github.com/Zizzamia/ng-tasty/issues/27)
+- Fixed issue about refresh external scope variable [#25](https://github.com/Zizzamia/ng-tasty/issues/25)
+- Initial Benchmarks by using Benchpress [#26](https://github.com/Zizzamia/ng-tasty/issues/26)
+
+### v0.2.5 (released on August 21th 2014)
 - Added items-per-page and list-items-per-page settings in table pagination [#15](https://github.com/Zizzamia/ng-tasty/issues/15)
 - Added ngTasty.service.tastyUtil [#24](https://github.com/Zizzamia/ng-tasty/issues/24)
 - Removed all the Grunt dependence [#23](https://github.com/Zizzamia/ng-tasty/issues/23)
