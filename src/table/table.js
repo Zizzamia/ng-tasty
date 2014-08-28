@@ -190,7 +190,7 @@ angular.module('ngTasty.table', [
       }
     }, true);
   }
-  $scope.$watch('params', function (newValue, oldValue){
+  $scope.$watchCollection('params', function (newValue, oldValue){
     if (newValue !== oldValue) {
       if ($scope.clientSide) {
         $scope.updateClientSideResource();
@@ -198,7 +198,7 @@ angular.module('ngTasty.table', [
         $scope.updateServerSideResource();
       }
     }
-  }, true);
+  });
   if ($scope.resource) {
     $scope.$parent.$watch($attrs.resource, function (newValue, oldValue){
       if (newValue !== oldValue) {
@@ -243,12 +243,13 @@ angular.module('ngTasty.table', [
       // Thead it's called
       tastyTable.activate('thead');
 
-      scope.fields = {};
+      scope.columns = [];
 
-      scope.setFields = function () {
-        var lenHeader, width, i, active, sortable;
+      scope.setColumns = function () {
+        var lenHeader, width, i, active, sortable, sort;
+        scope.columns = [];
         lenHeader = scope.header.columns.length;
-        scope.header.columns.forEach(function (column) {
+        scope.header.columns.forEach(function (column, index) {
           width = parseFloat((100 / lenHeader).toFixed(2));
           sortable = true;
           active = false;
@@ -259,12 +260,16 @@ angular.module('ngTasty.table', [
               '-' + column.key === scope.header.sortBy) {
             active = true;
           }
-          scope.fields[column.key] = {
+          sort = $filter('cleanFieldName')(column.key);
+          scope.columns.push({
+            'key': column.key,
+            'name': column.name,
             'active': active,
             'sortable': sortable,
             'width': { 'width': width + '%' },
-            'sort': $filter('cleanFieldName')(column.key)
-          };
+            'isSortUp': scope.header.sortBy === '-' + sort,
+            'isSortDown': scope.header.sortBy === sort
+          });
         });
         if (scope.header.sortOrder === 'dsc' &&
             scope.header.sortBy[0] !== '-') {
@@ -272,42 +277,39 @@ angular.module('ngTasty.table', [
         }
       };
 
-      scope.sortBy = function (field) {
-        if (scope.notSortBy && scope.notSortBy.indexOf(field.key) >= 0) {
+      scope.sortBy = function (column) {
+        if (scope.notSortBy && scope.notSortBy.indexOf(column.key) >= 0) {
           return false;
         }
-        var fieldName;
-        fieldName = $filter('cleanFieldName')(field.key);
-        if (scope.header.sortBy == fieldName) {
-          scope.header.sortBy = '-' + fieldName;
+        var columnName;
+        columnName = $filter('cleanFieldName')(column.key);
+        if (scope.header.sortBy == columnName) {
+          scope.header.sortBy = '-' + columnName;
           tastyTable.setParams('sortOrder', 'dsc');
         } else {
-          scope.header.sortBy = fieldName;
+          scope.header.sortBy = columnName;
           tastyTable.setParams('sortOrder', 'asc');
         }
-        tastyTable.setParams('sortBy', field.key);
+        tastyTable.setParams('sortBy', column.key);
       };
 
-      scope.isSortUp = function(field) {
-        if (scope.fields[field.key] === undefined) {
-          return false;
+      scope.classToShow = function (column) {
+        var listClassToShow = [];
+        if (column.sortable) {
+          listClassToShow.push('sortable');
         }
-        return scope.header.sortBy == '-' + scope.fields[field.key].sort;
-      };
-
-      scope.isSortDown = function(field) {
-        if (scope.fields[field.key] === undefined) {
-          return false;
+        if (column.active) {
+          listClassToShow.push('active');
         }
-        return scope.header.sortBy == scope.fields[field.key].sort;
+        return listClassToShow;
       };
 
-      tastyTable.$scope.$watch('header', function (newValue, oldValue){
+      tastyTable.$scope.$watchCollection('header', function (newValue, oldValue){
         if (newValue && (newValue !== oldValue)) {
           scope.header = newValue;
-          scope.setFields();
+          scope.setColumns();
         }
-      }, true);
+      });
     }
   };
 })
@@ -375,7 +377,6 @@ angular.module('ngTasty.table', [
       setPaginationRange = function () {
         var currentPage, totalPages;
         currentPage = scope.pagination.page;
-        //scope.pagination.count = scope.itemsPerPage;
         if (currentPage > scope.pagination.pages) {
           currentPage = scope.pagination.pages;
         }
@@ -415,6 +416,8 @@ angular.module('ngTasty.table', [
         }
         scope.pagHideMinRange = scope.pagMinRange <= 1;
         scope.pagHideMaxRange = scope.pagMaxRange >= scope.pagination.pages;
+        scope.classPageMinRange = scope.pagHideMinRange ? 'disabled' : '';
+        scope.classPageMaxRange = scope.pagHideMaxRange ? 'disabled' : '';
         for (var i = 2; i < scope.listItemsPerPage.length; i++) {
           if (scope.pagination.size < scope.listItemsPerPage[i]) {
             scope.listItemsPerPageShow = scope.listItemsPerPage.slice(0, i);
@@ -424,6 +427,20 @@ angular.module('ngTasty.table', [
         scope.rangePage = $filter('range')([], scope.pagMinRange, scope.pagMaxRange);
       };
 
+      scope.classPaginationCount = function (count) {
+        if (count == scope.pagination.count) {
+          return 'active';
+        }
+        return '';
+      };
+
+      scope.classNumPage = function (numPage) {
+        if (numPage == scope.pagination.page) {
+          return 'active';
+        }
+        return false;
+      };
+
       scope.page = {
         'get': getPage,
         'setCount': setCount,
@@ -431,12 +448,12 @@ angular.module('ngTasty.table', [
         'remaining': setRemainingRange
       };
 
-      tastyTable.$scope.$watch('pagination', function (newValue, oldValue){
+      tastyTable.$scope.$watchCollection('pagination', function (newValue, oldValue){
         if (newValue && (newValue !== oldValue)) {
           scope.pagination = newValue;
           setPaginationRange();
         }
-      }, true);
+      });
 
       // Init Pagination
       scope.page.setCount(scope.itemsPerPage);

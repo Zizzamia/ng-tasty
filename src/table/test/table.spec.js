@@ -186,33 +186,28 @@ describe('Directive', function () {
     });
 
     it('should have these isolateScope value as default', function () {
-      expect(tastyThead.isolateScope().fields.name.active).toEqual(true);
-      expect(tastyThead.isolateScope().fields.name.sortable).toEqual(true);
-      expect(tastyThead.isolateScope().fields.name.width).toEqual({ 'width' : '33.33%' });
-      expect(tastyThead.isolateScope().fields.name.sort).toEqual('name');
-      expect(tastyThead.isolateScope().fields.star).toEqual({ 
-        'active': false,
-        'sortable': true,
-        'width' : { 'width' : '33.33%' },
-        'sort' : 'star'
-      });
-      expect(tastyThead.isolateScope().fields['sf-location'].active).toEqual(false);
-      expect(tastyThead.isolateScope().fields['sf-location'].sortable).toEqual(true);
-      expect(tastyThead.isolateScope().fields['sf-location'].width).toEqual({ 'width' : '33.33%' });
-      expect(tastyThead.isolateScope().fields['sf-location'].sort).toEqual('sf-location');
+      expect(tastyThead.isolateScope().columns[0].active).toEqual(true);
+      expect(tastyThead.isolateScope().columns[0].sortable).toEqual(true);
+      expect(tastyThead.isolateScope().columns[0].width).toEqual({ 'width' : '33.33%' });
+      expect(tastyThead.isolateScope().columns[1].active).toEqual(false);
+      expect(tastyThead.isolateScope().columns[1].sortable).toEqual(true);
+      expect(tastyThead.isolateScope().columns[1].width).toEqual({ 'width' : '33.33%' });
+      expect(tastyThead.isolateScope().columns[2].active).toEqual(false);
+      expect(tastyThead.isolateScope().columns[2].sortable).toEqual(true);
+      expect(tastyThead.isolateScope().columns[2].width).toEqual({ 'width' : '33.33%' });
     });
 
     it('should set params.sortBy when scope.sortBy is clicked', function () {
       field = {'key': 'name', 'name': 'Name'};
       tastyThead.isolateScope().sortBy(field);
-      tastyThead.isolateScope().setFields();
+      tastyThead.isolateScope().setColumns();
       expect(element.scope().params.sortBy).toEqual('name');
-      expect(tastyThead.isolateScope().fields.name.active).toEqual(true);
-      field =  {'key': 'star', 'name': 'star'};
+      expect(tastyThead.isolateScope().columns[0].active).toEqual(true);
+      field =  {'key': 'star', 'name': 'Star'};
       tastyThead.isolateScope().sortBy(field);
-      tastyThead.isolateScope().setFields();
+      tastyThead.isolateScope().setColumns();
       expect(element.scope().params.sortBy).toEqual('star');
-      expect(tastyThead.isolateScope().fields.star.active).toEqual(true);
+      expect(tastyThead.isolateScope().columns[1].active).toEqual(true);
     });
 
     it('should sorting ascending and descending scope.header.sortBy when scope.sortBy is clicked', function () {
@@ -244,25 +239,23 @@ describe('Directive', function () {
     });
 
     it('should return true or false to indicate if a specific key is sorted up', function () {
-      var isSortUp;
       field = field =  {'key': 'star', 'name': 'star'};
       tastyThead.isolateScope().sortBy(field);
-      isSortUp = tastyThead.isolateScope().isSortUp(field);
-      expect(isSortUp).toEqual(false);
+      $scope.$digest();
+      expect(tastyThead.isolateScope().columns[1].isSortUp).toEqual(false);
       tastyThead.isolateScope().sortBy(field);
-      isSortUp = tastyThead.isolateScope().isSortUp(field);
-      expect(isSortUp).toEqual(true);
+      $scope.$digest();
+      expect(tastyThead.isolateScope().columns[1].isSortUp).toEqual(true);
     });
 
     it('should return true or false to indicate if a specific key is sorted down', function () {
-      var isSortDown;
       field = field =  {'key': 'star', 'name': 'star'};
       tastyThead.isolateScope().sortBy(field);
-      isSortDown = tastyThead.isolateScope().isSortDown(field);
-      expect(isSortDown).toEqual(true);
+      $scope.$digest();
+      expect(tastyThead.isolateScope().columns[1].isSortDown).toEqual(true);
       tastyThead.isolateScope().sortBy(field);
-      isSortDown = tastyThead.isolateScope().isSortDown(field);
-      expect(isSortDown).toEqual(false);
+      $scope.$digest();
+      expect(tastyThead.isolateScope().columns[1].isSortDown).toEqual(false);
     });
   });
 
@@ -339,39 +332,40 @@ describe('Directive', function () {
     });
 
     it('should have these isolateScope value as default', function () {
-      expect(tastyThead.isolateScope().fields.name.active).toEqual(true);
-      expect(tastyThead.isolateScope().fields.name.sortable).toEqual(true);
-      expect(tastyThead.isolateScope().fields.name.width).toEqual({ 'width' : '33.33%' });
-      expect(tastyThead.isolateScope().fields.name.sort).toEqual('name');
-      expect(tastyThead.isolateScope().fields.star).toEqual({ 
-        'active': false,
-        'sortable': true,
-        'width' : { 'width' : '33.33%' },
-        'sort' : 'star'
-      });
-      expect(tastyThead.isolateScope().fields['sf-location']).toEqual({
-        'active': false,
-        'sortable': false,
-        'width' : { 'width' : '33.33%' },
-        'sort' : 'sf-location'
-      });
+      expect(tastyThead.isolateScope().columns[0].active).toEqual(true);
+      expect(tastyThead.isolateScope().columns[0].sortable).toEqual(true);
+      expect(tastyThead.isolateScope().columns[0].width).toEqual({ 'width' : '33.33%' });
+      expect(tastyThead.isolateScope().columns[1].key).toEqual('star');
+      expect(tastyThead.isolateScope().columns[1].name).toEqual('Star');
+      expect(tastyThead.isolateScope().columns[1].active).toEqual(false);
+      expect(tastyThead.isolateScope().columns[1].sortable).toEqual(true);
+      expect(tastyThead.isolateScope().columns[1].width).toEqual({ 'width' : '33.33%' });
+      expect(tastyThead.isolateScope().columns[1].isSortUp).toEqual(false);
+      expect(tastyThead.isolateScope().columns[1].isSortDown).toEqual(false);
+      expect(tastyThead.isolateScope().columns[2].key).toEqual('sf-location');
+      expect(tastyThead.isolateScope().columns[2].name).toEqual('SF Location');
+      expect(tastyThead.isolateScope().columns[2].active).toEqual(false);
+      expect(tastyThead.isolateScope().columns[2].sortable).toEqual(false);
+      expect(tastyThead.isolateScope().columns[2].width).toEqual({ 'width' : '33.33%' });
+      expect(tastyThead.isolateScope().columns[2].isSortUp).toEqual(false);
+      expect(tastyThead.isolateScope().columns[2].isSortDown).toEqual(false);
     });
 
     it('should set params.sortBy when scope.sortBy is clicked', function () {
       field = {'key': 'name', 'name': 'Name'};
       tastyThead.isolateScope().sortBy(field);
-      tastyThead.isolateScope().setFields();
+      tastyThead.isolateScope().setColumns();
       expect(element.scope().params.sortBy).toEqual('name');
-      expect(tastyThead.isolateScope().fields.name.active).toEqual(true);
-      field =  {'key': 'star', 'name': 'star'};
+      expect(tastyThead.isolateScope().columns[0].active).toEqual(true);
+      field =  {'key': 'star', 'name': 'Star'};
       tastyThead.isolateScope().sortBy(field);
-      tastyThead.isolateScope().setFields();
+      tastyThead.isolateScope().setColumns();
       expect(element.scope().params.sortBy).toEqual('star');
-      expect(tastyThead.isolateScope().fields.star.active).toEqual(true);
+      expect(tastyThead.isolateScope().columns[1].active).toEqual(true);
     });
 
     it('should not set params.sortBy when scope.sortBy is one of the notSortBy keys', function () {
-      field =  {'key': 'star', 'name': 'star'};
+      field =  {'key': 'star', 'name': 'Star'};
       tastyThead.isolateScope().sortBy(field);
       expect(element.scope().params.sortBy).toEqual('star');
       field = {'key': 'sf-location', 'name': 'SF Location'};
@@ -380,7 +374,7 @@ describe('Directive', function () {
     });
 
     it('should sorting ascending and descending scope.header.sortBy when scope.sortBy is clicked', function () {
-      field =  {'key': 'star', 'name': 'star'};
+      field =  {'key': 'star', 'name': 'Star'};
       tastyThead.isolateScope().sortBy(field);
       expect(tastyThead.isolateScope().header.sortBy).toEqual('star');
       tastyThead.isolateScope().sortBy(field);
@@ -388,30 +382,28 @@ describe('Directive', function () {
     });
 
     it('should return true or false to indicate if a specific key is sorted up', function () {
-      var isSortUp;
-      field = field =  {'key': 'star', 'name': 'star'};
+      field = field =  {'key': 'star', 'name': 'Star'};
       tastyThead.isolateScope().sortBy(field);
-      isSortUp = tastyThead.isolateScope().isSortUp(field);
-      expect(isSortUp).toEqual(false);
+      $scope.$digest();
+      expect(tastyThead.isolateScope().columns[1].isSortUp).toEqual(false);
       tastyThead.isolateScope().sortBy(field);
-      isSortUp = tastyThead.isolateScope().isSortUp(field);
-      expect(isSortUp).toEqual(true);
+      $scope.$digest();
+      expect(tastyThead.isolateScope().columns[1].isSortUp).toEqual(true);
     });
 
     it('should return true or false to indicate if a specific key is sorted down', function () {
-      var isSortDown;
-      field = field =  {'key': 'star', 'name': 'star'};
+      field = field =  {'key': 'star', 'name': 'Star'};
       tastyThead.isolateScope().sortBy(field);
-      isSortDown = tastyThead.isolateScope().isSortDown(field);
-      expect(isSortDown).toEqual(true);
+      $scope.$digest();
+      expect(tastyThead.isolateScope().columns[1].isSortDown).toEqual(true);
       tastyThead.isolateScope().sortBy(field);
-      isSortDown = tastyThead.isolateScope().isSortDown(field);
-      expect(isSortDown).toEqual(false);
+      $scope.$digest();
+      expect(tastyThead.isolateScope().columns[1].isSortDown).toEqual(false);
     });
 
     it('should set the last sortBy and sortOrder params when doesn\'t back from backend', function () {
       sortingJSON['sortOrder'] = undefined;
-      field = field =  {'key': 'star', 'name': 'star'};
+      field = field =  {'key': 'star', 'name': 'Star'};
       tastyThead.isolateScope().sortBy(field);
       $scope.$digest();
       urlToCall = 'api.json?sort-by=star&sort-order=asc';

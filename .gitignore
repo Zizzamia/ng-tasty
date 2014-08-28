@@ -20,3 +20,5 @@ template/**/*.js
 
 #benchpress
 benchpress-build
+benchmarks/*
+!benchmarks/ngtasty

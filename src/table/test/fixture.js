@@ -8,7 +8,7 @@ angular.module('mockedAPIResponse',[])
     },
     {
       'key': 'star',
-      'name': 'star'
+      'name': 'Star'
     },
     {
       'key': 'sf-location',
@@ -59,7 +59,7 @@ angular.module('mockedAPIResponse',[])
     },
     {
       'key': 'star',
-      'name': 'star'
+      'name': 'Star'
     },
     {
       'key': 'sf-location',
@@ -260,7 +260,7 @@ angular.module('mockedAPIResponse',[])
     },
     {
       'key': 'star',
-      'name': 'star'
+      'name': 'Star'
     },
     {
       'key': 'sf-location',
@@ -310,7 +310,7 @@ angular.module('mockedAPIResponse',[])
     },
     {
       'key': 'star',
-      'name': 'star'
+      'name': 'Star'
     },
     {
       'key': 'sf-location',
@@ -460,7 +460,7 @@ angular.module('mockedAPIResponse',[])
     },
     {
       'key': 'star',
-      'name': 'star'
+      'name': 'Star'
     },
     {
       'key': 'sf-location',

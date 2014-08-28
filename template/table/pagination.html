@@ -3,23 +3,22 @@
     <div class="btn-group">
       <button type="button" class="btn btn-default" 
       ng-repeat="count in listItemsPerPageShow" 
-      ng-class="{active: count == pagination.count}" 
+      ng-class="classPaginationCount(count)" 
       ng-click="page.setCount(count)" ng-bind="count"></button>
     </div>
   </div>
   <div class="col-xs-6 text-center">
     <ul class="pagination">
-      <li ng-class="{disabled: pagHideMinRange}">
+      <li ng-class="classPageMinRange">
         <span ng-click="page.previous()">&laquo;</span>
       </li>
-      <li ng-repeat="numPage in rangePage" 
-      ng-class="{active: numPage == pagination.page}">
+      <li ng-repeat="numPage in rangePage" ng-class="classNumPage(numPage)">
         <span ng-click="page.get(numPage)">
           <span ng-bind="numPage"></span>
-          <span class="sr-only" ng-if="numPage == pagination.page">(current)</span>
+          <span class="sr-only" ng-if="classNumPage(numPage)">(current)</span>
         </span>
       </li>
-      <li ng-class="{disabled: pagHideMaxRange}">
+      <li ng-class="classPageMaxRange">
         <span ng-click="page.remaining()">&raquo;</span>
       </li>
     </ul>

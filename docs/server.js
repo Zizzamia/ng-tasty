@@ -1,6 +1,13 @@
 var express = require('express');
 var app = express();
 
+var args = {}
+process.argv.forEach(function (val, index, array) {
+  if (val.indexOf('=') > 0) {
+    args[val.split("=")[0]] = val.split("=")[1];
+  }
+});
+
 app.set('views', 'docs/');
 app.engine('html', require('ejs').renderFile);
 app.use('/static',  express.static('docs/static'));
@@ -22,6 +29,13 @@ function dynamicSort(property) {
 };
 
 var prevSortBy, prevSortOrder, base;
+if (args.port == 25907) {
+  base = '/ng-tasty';
+  ngTasty = '/ng-tasty/components/ng-tasty/ng-tasty-tpls.js';
+} else {
+  base = '';
+  ngTasty = '/dist/ng-tasty-tpls.js';
+}
 
 app.use(function(req, res, next) {
   if (req.url === "/ng-tasty") {
@@ -32,15 +46,13 @@ app.use(function(req, res, next) {
 });
 
 app.get('/', function(req, res){
-  if (args.port == 25907) {
-    base = '/ng-tasty';
-    ngTasty = '/ng-tasty/components/ng-tasty/ng-tasty-tpls.js';
-  } else {
-    base = '';
-    ngTasty = '/dist/ng-tasty-tpls.js';
-  }
   res.render('template/index.html', { base: base, ngTasty: ngTasty });
 });
+
+app.get('/table/benchmarks', function(req, res){
+  res.render('template/table/benchmarks.html', { base: base, ngTasty: ngTasty });
+});
+
 
 app.get('/table.json', function(req, res){
   var items, pagination, rows, sortBy, fromRow, toRow;
@@ -129,13 +141,6 @@ app.get('/table.json', function(req, res){
     "sort-order": req.query['sort-order']
   };
   res.json(items);
-});
-
-var args = {}
-process.argv.forEach(function (val, index, array) {
-  if (val.indexOf('=') > 0) {
-    args[val.split("=")[0]] = val.split("=")[1];
-  }
 });
 
 app.listen(args.port);
