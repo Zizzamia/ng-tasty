@@ -1,4 +1,8 @@
+var http = require('http');
 var express = require('express');
+var WebSocketServer = require('ws').Server;
+var Twit = require('twit');
+var config = require('./config');
 var app = express();
 
 var args = {};
@@ -7,6 +11,10 @@ process.argv.forEach(function (val, index, array) {
     args[val.split('=')[0]] = val.split('=')[1];
   }
 });
+
+var server = http.createServer(app);
+var wss = new WebSocketServer({ server: server });
+var T = new Twit(config.twitter_auth);
 
 app.set('views', 'docs/');
 app.engine('html', require('ejs').renderFile);
@@ -172,4 +180,33 @@ app.get('/table.json', function(req, res){
   res.json(items);
 });
 
-app.listen(args.port);
+wss.on('connection', function(ws) {
+  console.log('Client connected');
+
+  var _stream = null;
+
+  var stream = function(tag) {
+    _stream && _stream.stop();
+    _stream = T.stream('statuses/filter', { track: tag });
+
+    _stream.on('tweet', function(tweet) {
+      tweet.type = 'tweet';
+      ws.send(JSON.stringify(tweet));
+    });
+  };
+
+  ws.on('message', function(msg) {
+    var data = JSON.parse(msg);
+
+    console.log('Filter request: ' + data.tag);
+    stream(data.tag);
+  });
+
+  ws.on('close', function() {
+    console.log('client disconnect');
+    _stream && _stream.stop();
+  });
+
+});
+
+server.listen(args.port);

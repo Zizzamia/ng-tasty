@@ -163,3 +163,58 @@ iframe {
   border: 1px solid #ccc;
   border-bottom-color: transparent;
 }
+
+.tweets-box {
+  height: 400px;
+  overflow-x: hidden;
+  overflow-y: scroll;
+}
+
+.tweet {
+  display: block;
+  max-width: 99%;
+  min-width: 220px;
+  padding: 0px;
+  border-radius: 5px;
+  margin: 10px 0px;
+  border-color: rgb(238, 238, 238) rgb(221, 221, 221) rgb(187, 187, 187);
+  border-width: 1px;
+  border-style: solid;
+  box-shadow: rgba(0, 0, 0, 0.14902) 0px 1px 3px;
+  width: 500px;
+}
+
+.tweet .root {
+  padding: 8px 8px 0 8px;
+}
+
+.root img {
+  display: inline-block;
+  vertical-align: middle;
+  border-radius: 4px;
+  width: 48px;
+  height: 48px;
+  background-color: #fff;
+  margin-right: 7px;
+}
+
+.root .username {
+  display: inline-block;
+  vertical-align: top;
+  font-size: 17px;
+}
+
+.root .nickname {
+  color: #c9c9c9;
+  font-size: 14px;
+}
+
+.root .user {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.root .date {
+  color: #c9c9c9;
+  font-size: 13px;
+}

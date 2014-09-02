@@ -275,4 +275,30 @@ angular.module('myApp.controllers', [])
   $timeout(function () {
     Rainbow.color();
   });
+
+})
+.controller('WebSocketCtrl', function($scope, WebSocket) {
+  $scope.tweets = [];
+  $scope.tag = "mango";
+
+  window.ws = new WebSocket('ws://localhost:3000');
+  
+  ws.on('tweet', function(data) {
+    var tweet = {
+      created_at: new Date(data.created_at),
+      username: data.user.name,
+      screen_name: data.user.screen_name,
+      picture: data.user.profile_image_url,
+      text: data.text
+    };
+
+    $scope.$apply(function() {
+      $scope.tweets.push(tweets);
+    });
+
+    $scope.tagFilter = function() {
+      ws.send({tag: $scope.tag});
+    };
+
+  });
 });

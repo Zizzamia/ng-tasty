@@ -1,0 +1,31 @@
+<div class="page-header">
+	<h2>WebSocket<small>
+		(<a target="_blank" href="https://github.com/Zizzamia/ng-tasty/blob/master/src/filter/filter.js#L42">ngTasty.service.webSocket</a>)
+	</small></h2>
+</div>
+<div class="row">
+	<div class="col-xs-4">
+		<form ng-submit="tagFilter()">
+			<label>Search any text: <input class="form-control input-sm" type="text" ng-model="tag"></label>
+			<input type="submit" value="filter" class="btn btn-primary btn-sm">
+		</form>
+	</div>
+	<div class="col-xs-8">
+		<ul class="tweets-box">
+			<li class="tweet" ng-repeat="tweet in tweets">
+				<div class="root">
+					<p>
+						<img ng-src="{{tweet.picture}}" />
+							<span class="user">
+								<strong class="username">{{ tweet.username }}</strong>
+								<br />
+								<em class="nickname">@{{ tweet.screen_name }}</em>
+							</span>
+					</p>
+					<p class="text">{{ tweet.text }}</p>
+					<p class="date">{{ tweet.created_at | date: 'h:m a - d MMM yyyy' }}</p>
+				</div>
+			</li>
+		</ul>
+	</div>
+</div>
