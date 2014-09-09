@@ -61,7 +61,13 @@ npm test
 
 ## Changelog
 
-### v0.2.6 (master, released on August 26th 2014)
+### v0.2.7 (master, released on September 8th 2014)
+- Improved Performance more than 110%!!! [#28](https://github.com/Zizzamia/ng-tasty/issues/28)
+- Fixed pagination issue when there is only one row [#30](https://github.com/Zizzamia/ng-tasty/issues/30)
+- Added params object as response in the sorting/pagination server side table callback. [#31](https://github.com/Zizzamia/ng-tasty/issues/31)
+- Improved message errors [#32](https://github.com/Zizzamia/ng-tasty/issues/32)[#29](https://github.com/Zizzamia/ng-tasty/issues/29)
+
+### v0.2.6 (released on August 26th 2014)
 - Improved sorting by key [#27](https://github.com/Zizzamia/ng-tasty/issues/27)
 - Fixed issue about refresh external scope variable [#25](https://github.com/Zizzamia/ng-tasty/issues/25)
 - Initial Benchmarks by using Benchpress [#26](https://github.com/Zizzamia/ng-tasty/issues/26)
