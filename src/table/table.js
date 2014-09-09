@@ -46,7 +46,7 @@ angular.module('ngTasty.table', [
     'count': 5,
     'page': 1,
     'pages': 1,
-    'size': 1
+    'size': 0
   };
   $scope.theadDirective = false;
   $scope.paginationDirective = false;

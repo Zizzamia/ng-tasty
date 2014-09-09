@@ -104,12 +104,10 @@ describe('Directive', function () {
         'columns': []
       });
       expect(element.scope().rows).toEqual([]);
-      expect(element.scope().pagination).toEqual({
-        'count': 5,
-        'page': 1,
-        'pages': 1,
-        'size': 1
-      });
+      expect(element.scope().pagination.count).toEqual(5);
+      expect(element.scope().pagination.page).toEqual(1);
+      expect(element.scope().pagination.pages).toEqual(1);
+      expect(element.scope().pagination.size).toEqual(0);
       expect(element.scope().params.sortBy).toEqual(undefined);
       expect(element.scope().params.sortOrder).toEqual('asc');
       expect(element.scope().params.page).toEqual(1);
@@ -423,8 +421,96 @@ describe('Directive', function () {
       expect(tastyThead.isolateScope().header.sortOrder).toEqual('asc');
     });
   });
+  
 
 
+  
+  describe('ngTasty table with basic pagination', function () {
+    var $scope, $timeout, element, tastyTable, tastyPagination;
+
+    beforeEach(inject(function ($rootScope, $compile, _$timeout_) {
+      $scope = $rootScope.$new();
+      $timeout = _$timeout_;
+      $scope.resource = {
+        'header': [{ 'key': 'name', 'name': 'Name' },
+          { 'key': 'star', 'name': 'Star' },
+          { 'key': 'sf-location', 'name': 'SF Location'}
+        ],
+        'rows': [{
+          'name': 'Ritual Coffee Roasters',
+          'star': '★★★★★',
+          'sf-location': 'Hayes Valley'
+        }]
+      };
+      element = angular.element(''+
+      '<div tasty-table resource="resource">'+
+      '  <table>'+
+      '    <thead>'+
+      '      <tr>'+
+      '        <th>Name</th>'+
+      '        <th>Star</th>'+
+      '        <th>SF Location</th>'+
+      '      </tr>'+
+      '    </thead>'+
+      '    <tbody>'+
+      '      <tr ng-repeat="row in rows">'+
+      '        <td>{{ row.name }}</td>'+
+      '        <td>{{ row.star }}</td>'+
+      '        <td>{{ row[\'sf-location\'] }}</td>'+
+      '      </tr>'+
+      '    </tbody>'+
+      '  </table>'+
+      '  <tasty-pagination></tasty-pagination>'+
+      '</div>');
+      tastyTable = $compile(element)($scope);
+      tastyPagination = tastyTable.find('tasty-pagination');
+      $timeout.flush();
+      $scope.$digest();
+    }));
+
+    it('should have these element.scope() value after 100ms', function () {
+      expect(element.scope().query).toEqual({
+        'page': 'page',
+        'count': 'count',
+        'sortBy': 'sort-by',
+        'sortOrder': 'sort-order',
+      });
+      expect(element.scope().url).toEqual('');
+      expect(element.scope().header.columns.length).toEqual(3);
+      expect(element.scope().rows.length).toEqual(1);
+      expect(element.scope().pagination.count).toEqual(5);
+      expect(element.scope().pagination.page).toEqual(1);
+      expect(element.scope().pagination.pages).toEqual(1);
+      expect(element.scope().pagination.size).toEqual(1);
+      expect(element.scope().params.sortBy).toEqual(undefined);
+      expect(element.scope().params.sortOrder).toEqual('asc');
+      expect(element.scope().params.page).toEqual(1);
+      expect(element.scope().params.count).toEqual(5);
+      expect(element.scope().params.pagination).toEqual(true);
+      expect(element.scope().theadDirective).toEqual(false);
+      expect(element.scope().paginationDirective).toEqual(true);
+    });
+
+    it('should return the right url after called buildUrl', function () {
+      expect(element.scope().rows[0].name).toEqual('Ritual Coffee Roasters');
+      expect(element.scope().rows.length).toEqual(1);
+    });
+
+    it('should have these isolateScope value as default', function () {
+      expect(tastyPagination.isolateScope().pagination.count).toEqual(5);
+      expect(tastyPagination.isolateScope().pagination.page).toEqual(1);
+      expect(tastyPagination.isolateScope().pagination.pages).toEqual(1);
+      expect(tastyPagination.isolateScope().pagination.size).toEqual(1);
+      expect(tastyPagination.isolateScope().listItemsPerPageShow).toEqual([5, 25]);
+      expect(tastyPagination.isolateScope().pagMinRange).toEqual(1);
+      expect(tastyPagination.isolateScope().pagMaxRange).toEqual(2);
+    });
+
+    it('should generate page count button using ng-repeat', function () {
+      elementSelected = element.find('[ng-repeat="count in listItemsPerPageShow"]');
+      expect(elementSelected.length).toEqual(2);
+    });
+  });
 
 
   describe('ngTasty table with pagination', function () {
@@ -803,12 +889,10 @@ describe('Directive', function () {
         'columns': []
       });
       expect(element.scope().rows).toEqual([]);
-      expect(element.scope().pagination).toEqual({
-        'count': 5,
-        'page': 1,
-        'pages': 1,
-        'size': 1
-      });
+      expect(element.scope().pagination.count).toEqual(5);
+      expect(element.scope().pagination.page).toEqual(1);
+      expect(element.scope().pagination.pages).toEqual(1);
+      expect(element.scope().pagination.size).toEqual(0);
       expect(element.scope().params.sortBy).toEqual(undefined);
       expect(element.scope().params.sortOrder).toEqual('asc');
       expect(element.scope().params.page).toEqual(1);
