@@ -93,8 +93,12 @@ angular.module('ngTasty.table', [
 
   $scope.setDirectivesValues = function (resource) {
     var sortBy;
-    if (!resource) {
-      return false;
+    if (!angular.isObject(resource)) {
+      throw 'AngularJS tastyTable directive: the resource '+
+            'it\'s not an object';
+    } else if (!resource.header && !resource.rows) {
+      throw 'AngularJS tastyTable directive: the resource '+
+            'has the property header or rows undefined';
     }
     sortBy = resource.sortBy || $scope.params.sortBy;
     sortBy = sortBy || resource.header[0].key;

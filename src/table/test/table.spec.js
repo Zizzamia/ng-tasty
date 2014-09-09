@@ -53,6 +53,53 @@ describe('Directive', function () {
 
 
 
+  
+  describe('ngTasty table bad resource-callback implementation', function () {
+    beforeEach(inject(function ($rootScope, $compile, $http, _$httpBackend_, _$timeout_) {
+      $scope = $rootScope.$new();
+      $timeout = _$timeout_;
+      $httpBackend = _$httpBackend_;
+      $scope.getResource = function (paramsUrl, paramsObj) {
+        return $http.get('api.json?' + paramsUrl).then(function (response) {
+          return undefined;
+        });
+      };
+      $scope.filters = {
+        'city': 'sf'
+      };
+      element = angular.element(''+
+      '<div tasty-table resource-callback="getResource" filters="filters">'+
+      '  <table>'+
+      '    <thead tasty-thead></thead>'+
+      '    <tbody>'+
+      '      <tr ng-repeat="row in rows">'+
+      '        <td>{{ row.name }}</td>'+
+      '        <td>{{ row.star }}</td>'+
+      '        <td>{{ row[\'sf-location\'] }}</td>'+
+      '      </tr>'+
+      '    </tbody>'+
+      '  </table>'+
+      '  <div tasty-pagination></div>'+
+      '</div>');
+      $compile(element)($scope);
+      $scope.$digest();
+    }));
+
+    it('should return a throw message if the response is not a object', function () {
+      function errorFunctionWrapper() {
+        urlToCall = 'api.json?sort-order=asc&page=1&count=5&city=sf';
+        $httpBackend.whenGET(urlToCall).respond({});
+        $timeout.flush();
+        $httpBackend.flush();
+        $scope.$digest();
+      }
+      expected = 'AngularJS tastyTable directive: the resource it\'s not an object';
+      expect(errorFunctionWrapper).toThrow(expected);
+    });
+  });
+
+
+
 
   describe('ngTasty table complete server side', function () {
     beforeEach(inject(function ($rootScope, $compile, $http, _$httpBackend_, _$timeout_, _completeJSON_) {
@@ -137,6 +184,18 @@ describe('Directive', function () {
         thead : true, 
         pagination : true 
       });
+    });
+
+    it('should return a throw message if the response has the property header or rows defined', function () {
+      function errorFunctionWrapper() {
+        urlToCall = 'api.json?sort-order=asc&page=1&count=5&city=sf';
+        $httpBackend.whenGET(urlToCall).respond({});
+        $timeout.flush();
+        $httpBackend.flush();
+        $scope.$digest();
+      }
+      expected = 'AngularJS tastyTable directive: the resource has the property header or rows undefined';
+      expect(errorFunctionWrapper).toThrow(expected);
     });
   });
   
@@ -375,7 +434,7 @@ describe('Directive', function () {
       tastyThead.isolateScope().setColumns();
       expect(element.scope().params.sortBy).toEqual('name');
       expect(tastyThead.isolateScope().columns[0].active).toEqual(true);
-      field =  {'key': 'star', 'name': 'Star'};
+      field = {'key': 'star', 'name': 'Star'};
       tastyThead.isolateScope().sortBy(field);
       tastyThead.isolateScope().setColumns();
       expect(element.scope().params.sortBy).toEqual('star');
@@ -383,7 +442,7 @@ describe('Directive', function () {
     });
 
     it('should not set params.sortBy when scope.sortBy is one of the notSortBy keys', function () {
-      field =  {'key': 'star', 'name': 'Star'};
+      field = {'key': 'star', 'name': 'Star'};
       tastyThead.isolateScope().sortBy(field);
       expect(element.scope().params.sortBy).toEqual('star');
       field = {'key': 'sf-location', 'name': 'SF Location'};
@@ -392,7 +451,7 @@ describe('Directive', function () {
     });
 
     it('should sorting ascending and descending scope.header.sortBy when scope.sortBy is clicked', function () {
-      field =  {'key': 'star', 'name': 'Star'};
+      field = {'key': 'star', 'name': 'Star'};
       tastyThead.isolateScope().sortBy(field);
       expect(tastyThead.isolateScope().header.sortBy).toEqual('star');
       tastyThead.isolateScope().sortBy(field);
@@ -400,7 +459,7 @@ describe('Directive', function () {
     });
 
     it('should return true or false to indicate if a specific key is sorted up', function () {
-      field = field =  {'key': 'star', 'name': 'Star'};
+      field = {'key': 'star', 'name': 'Star'};
       tastyThead.isolateScope().sortBy(field);
       $scope.$digest();
       expect(tastyThead.isolateScope().columns[1].isSortUp).toEqual(false);
@@ -410,7 +469,7 @@ describe('Directive', function () {
     });
 
     it('should return true or false to indicate if a specific key is sorted down', function () {
-      field = field =  {'key': 'star', 'name': 'Star'};
+      field = {'key': 'star', 'name': 'Star'};
       tastyThead.isolateScope().sortBy(field);
       $scope.$digest();
       expect(tastyThead.isolateScope().columns[1].isSortDown).toEqual(true);
@@ -421,7 +480,7 @@ describe('Directive', function () {
 
     it('should set the last sortBy and sortOrder params when doesn\'t back from backend', function () {
       sortingJSON['sortOrder'] = undefined;
-      field = field =  {'key': 'star', 'name': 'Star'};
+      field = {'key': 'star', 'name': 'Star'};
       tastyThead.isolateScope().sortBy(field);
       $scope.$digest();
       urlToCall = 'api.json?sort-by=star&sort-order=asc';
@@ -430,7 +489,7 @@ describe('Directive', function () {
       $httpBackend.flush();
       expect(tastyThead.isolateScope().header.sortBy).toEqual('star');
       expect(tastyThead.isolateScope().header.sortOrder).toEqual('asc');
-      field = field =  {'key': 'name', 'name': 'Name'};
+      field = {'key': 'name', 'name': 'Name'};
       tastyThead.isolateScope().sortBy(field);
       $scope.$digest();
       urlToCall = 'api.json?sort-by=name&sort-order=asc';
@@ -446,8 +505,6 @@ describe('Directive', function () {
 
   
   describe('ngTasty table with basic pagination', function () {
-    var $scope, $timeout, element, tastyTable, tastyPagination;
-
     beforeEach(inject(function ($rootScope, $compile, _$timeout_) {
       $scope = $rootScope.$new();
       $timeout = _$timeout_;
