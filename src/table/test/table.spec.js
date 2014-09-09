@@ -60,8 +60,10 @@ describe('Directive', function () {
       $timeout = _$timeout_;
       $httpBackend = _$httpBackend_;
       completeJSON = _completeJSON_;
-      $scope.getResource = function (params) {
-        return $http.get('api.json?'+params).then(function (response) {
+      $scope.getResource = function (paramsUrl, paramsObj) {
+        return $http.get('api.json?' + paramsUrl).then(function (response) {
+          $scope.paramsUrl = paramsUrl;
+          $scope.paramsObj = paramsObj;
           return {
             'rows': response.data.rows,
             'header': response.data.header,
@@ -126,6 +128,15 @@ describe('Directive', function () {
       $scope.$digest();
       expect(element.scope().rows[0].name).toEqual('Ritual Coffee Roasters');
       expect(element.scope().rows.length).toEqual(5);
+      expect($scope.paramsUrl).toEqual('sort-order=asc&page=1&count=5&city=sf');
+      expect($scope.paramsObj).toEqual({ 
+        sortBy : undefined, 
+        sortOrder : 'asc', 
+        page : 1, 
+        count : 5, 
+        thead : true, 
+        pagination : true 
+      });
     });
   });
   
@@ -267,8 +278,10 @@ describe('Directive', function () {
       $timeout = _$timeout_;
       $httpBackend = _$httpBackend_;
       sortingJSON = _sortingJSON_;
-      $scope.getResource = function (params) {
-        return $http.get('api.json?'+params).then(function (response) {
+      $scope.getResource = function (paramsUrl, paramsObj) {
+        return $http.get('api.json?' + paramsUrl).then(function (response) {
+          $scope.paramsUrl = paramsUrl;
+          $scope.paramsObj = paramsObj;
           return {
             'rows': response.data.rows,
             'header': response.data.header,
@@ -321,7 +334,14 @@ describe('Directive', function () {
       expect(element.scope().params.count).toEqual(undefined);
       expect(element.scope().params.thead).toEqual(true);
       expect(element.scope().theadDirective).toEqual(true);
-      expect(element.scope().paginationDirective).toEqual(false);   
+      expect(element.scope().paginationDirective).toEqual(false);  
+      expect($scope.paramsUrl).toEqual('sort-order=asc');
+      expect($scope.paramsObj.sortBy).toEqual(undefined);
+      expect($scope.paramsObj.sortOrder).toEqual('asc');
+      expect($scope.paramsObj.page).toEqual(1);
+      expect($scope.paramsObj.count).toEqual(undefined);
+      expect($scope.paramsObj.thead).toEqual(true);
+      expect($scope.paramsObj.pagination).toEqual(undefined);
     });
 
     it('should return the right url after called buildUrl', function () {

@@ -165,7 +165,7 @@ angular.module('ngTasty.table', [
 
   $scope.updateServerSideResource = tastyUtil.debounce(function() {
     $scope.url = $scope.buildUrl($scope.params, $scope[$attrs.filters]);
-    $scope.resourceCallback($scope.url).then(function (resource) {
+    $scope.resourceCallback($scope.url, $scope.params).then(function (resource) {
       $scope.setDirectivesValues(resource);
     });
   }, 100);
