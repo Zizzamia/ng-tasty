@@ -2,7 +2,7 @@ var http = require('http');
 var express = require('express');
 var WebSocketServer = require('ws').Server;
 var Twit = require('twit');
-var config = require('./config');
+var config = require('./config.sample');
 var app = express();
 
 var args = {};
@@ -12,9 +12,16 @@ process.argv.forEach(function (val, index, array) {
   }
 });
 
+try {
+  config = require('./config');
+} catch(e) {
+  console.log('Warning: config file not found.');
+}
+
 var server = http.createServer(app);
 var wss = new WebSocketServer({ server: server });
 var T = new Twit(config.twitter_auth);
+
 
 app.set('views', 'docs/');
 app.engine('html', require('ejs').renderFile);
@@ -85,6 +92,14 @@ app.get('/filter/range.html', function(req, res){
   res.render('template/filter/range.html', { base: base, ngTasty: ngTasty });
 });
 
+app.get('/service/websocket', function(req, res) {
+  title = '#ngTasty - AngularJS websocket service';
+  res.render('template/index.html', { base: base, ngTasty: ngTasty, title: title });
+});
+app.get('/service/websocket.html', function(req, res) {
+  title = '#ngTasty - AngularJS websocket service';
+  res.render('template/service/websocket.html', { base: base, ngTasty: ngTasty, title: title });
+});
 
 app.get('/table/benchmarks', function(req, res){
   res.render('template/table/benchmarks.html', { base: base, ngTasty: ngTasty });
@@ -183,10 +198,21 @@ app.get('/table.json', function(req, res){
 wss.on('connection', function(ws) {
   console.log('Client connected');
 
+  if (config.twitter_auth.consumer_key === 'your-consumer-key') {
+    ws.send(JSON.stringify({
+      type:  'error',
+      title: 'Config Error!',
+      msg:   'You should update your docs/config.json'
+    }));
+  }
+
   var _stream = null;
 
   var stream = function(tag) {
-    _stream && _stream.stop();
+    if (_stream) {
+      _stream.stop();
+    }
+
     _stream = T.stream('statuses/filter', { track: tag });
 
     _stream.on('tweet', function(tweet) {
@@ -198,13 +224,20 @@ wss.on('connection', function(ws) {
   ws.on('message', function(msg) {
     var data = JSON.parse(msg);
 
+    if (!data.tag) {
+      return;
+    }
+
     console.log('Filter request: ' + data.tag);
     stream(data.tag);
   });
 
   ws.on('close', function() {
     console.log('client disconnect');
-    _stream && _stream.stop();
+    
+    if(_stream) {
+      _stream.stop();
+    }
   });
 
 });
