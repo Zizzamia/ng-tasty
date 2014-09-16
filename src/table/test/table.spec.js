@@ -173,8 +173,8 @@ describe('Directive', function () {
       $timeout.flush();
       $httpBackend.flush();
       $scope.$digest();
-      expect(element.scope().rows[0].name).toEqual('Ritual Coffee Roasters');
-      expect(element.scope().rows.length).toEqual(5);
+      expect(element.isolateScope().rows[0].name).toEqual('Ritual Coffee Roasters');
+      expect(element.isolateScope().rows.length).toEqual(5);
       expect($scope.paramsUrl).toEqual('sort-order=asc&page=1&count=5&city=sf');
       expect($scope.paramsObj).toEqual({ 
         sortBy : undefined, 

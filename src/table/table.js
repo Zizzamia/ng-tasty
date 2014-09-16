@@ -20,7 +20,6 @@ angular.module('ngTasty.table', [
     'sortBy': 'sort-by',
     'sortOrder': 'sort-order',
   },
-  resourceCallback: undefined,
   listItemsPerPage: [5, 25, 50, 100],
   itemsPerPage: 5,
   bindOnce: true
@@ -31,7 +30,6 @@ angular.module('ngTasty.table', [
 
   // Default configs
   $scope.query = $scope.query || tableConfig.query;
-  $scope.resourceCallback = tableConfig.resourceCallback;
 
   // Defualt variables
   $scope.clientSide = true;
@@ -67,7 +65,6 @@ angular.module('ngTasty.table', [
     }
   }
   if (angular.isDefined($attrs.resourceCallback)) {
-    $scope.resourceCallback = $scope.$parent[$attrs.resourceCallback];
     if (!angular.isFunction($scope.resourceCallback)) {
       throw 'AngularJS tastyTable directive: the resource-callback ('+
         $attrs.resourceCallback + ') it\'s not a function';
@@ -165,7 +162,7 @@ angular.module('ngTasty.table', [
   }, 100);
 
   $scope.updateServerSideResource = tastyUtil.debounce(function() {
-    $scope.url = $scope.buildUrl($scope.params, $scope[$attrs.filters]);
+    $scope.url = $scope.buildUrl($scope.params, $scope.filters);
     $scope.resourceCallback($scope.url, $scope.params).then(function (resource) {
       $scope.setDirectivesValues(resource);
     });
@@ -185,7 +182,7 @@ angular.module('ngTasty.table', [
   
   // AngularJs $watch callbacks
   if ($attrs.filters) {
-    $scope.$watch($attrs.filters, function (newValue, oldValue){
+    $scope.$watch('filters', function (newValue, oldValue){
       if (newValue !== oldValue) {
         $scope.updateServerSideResource();
       }
@@ -215,8 +212,10 @@ angular.module('ngTasty.table', [
   return {
     restrict: 'A',
     scope: {
+      'filters': '=?',
       'query': '=?',
-      'resource': '=?'
+      'resource': '=?',
+      'resourceCallback': '=?'
     },
     controller: 'TableController'
   };
