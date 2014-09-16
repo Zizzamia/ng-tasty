@@ -1,7 +1,7 @@
 var app = angular.module('eventDelegationBenchmark', ['ngTasty']);
 
 app.controller('DataController', function($rootScope, $scope) {
-  this.ngRepeatCount = 10000;
+  this.ngRepeatCount = 4000;
   var self = this;
   $scope.resource = {
     "header": [

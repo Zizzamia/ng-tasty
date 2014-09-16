@@ -142,29 +142,29 @@ describe('Directive', function () {
     }));
 
     it('should have these element.scope() value as default', function () {
-      expect(element.scope().query).toEqual({
+      expect(element.isolateScope().query).toEqual({
         'page': 'page',
         'count': 'count',
         'sortBy': 'sort-by',
         'sortOrder': 'sort-order',
       });
-      expect(element.scope().url).toEqual('');
-      expect(element.scope().header).toEqual({
+      expect(element.isolateScope().url).toEqual('');
+      expect(element.isolateScope().header).toEqual({
         'columns': []
       });
-      expect(element.scope().rows).toEqual([]);
-      expect(element.scope().pagination.count).toEqual(5);
-      expect(element.scope().pagination.page).toEqual(1);
-      expect(element.scope().pagination.pages).toEqual(1);
-      expect(element.scope().pagination.size).toEqual(0);
-      expect(element.scope().params.sortBy).toEqual(undefined);
-      expect(element.scope().params.sortOrder).toEqual('asc');
-      expect(element.scope().params.page).toEqual(1);
-      expect(element.scope().params.count).toEqual(5);
-      expect(element.scope().params.thead).toEqual(true);
-      expect(element.scope().params.pagination).toEqual(true);
-      expect(element.scope().theadDirective).toEqual(true);
-      expect(element.scope().paginationDirective).toEqual(true);
+      expect(element.isolateScope().rows).toEqual([]);
+      expect(element.isolateScope().pagination.count).toEqual(5);
+      expect(element.isolateScope().pagination.page).toEqual(1);
+      expect(element.isolateScope().pagination.pages).toEqual(1);
+      expect(element.isolateScope().pagination.size).toEqual(0);
+      expect(element.isolateScope().params.sortBy).toEqual(undefined);
+      expect(element.isolateScope().params.sortOrder).toEqual('asc');
+      expect(element.isolateScope().params.page).toEqual(1);
+      expect(element.isolateScope().params.count).toEqual(5);
+      expect(element.isolateScope().params.thead).toEqual(true);
+      expect(element.isolateScope().params.pagination).toEqual(true);
+      expect(element.isolateScope().theadDirective).toEqual(true);
+      expect(element.isolateScope().paginationDirective).toEqual(true);
     });
 
     it('should return the right url after called buildUrl', function () {
@@ -224,33 +224,33 @@ describe('Directive', function () {
     }));
 
     it('should have these element.scope() value as default', function () {
-      expect(element.scope().query).toEqual({
+      expect(element.isolateScope().query).toEqual({
         'page': 'page',
         'count': 'count',
         'sortBy': 'sort-by',
         'sortOrder': 'sort-order',
       });
-      expect(element.scope().url).toEqual('');
-      expect(element.scope().header.columns.length).toEqual(3);
-      expect(element.scope().rows.length).toEqual(35);
-      expect(element.scope().pagination).toEqual({ 
+      expect(element.isolateScope().url).toEqual('');
+      expect(element.isolateScope().header.columns.length).toEqual(3);
+      expect(element.isolateScope().rows.length).toEqual(35);
+      expect(element.isolateScope().pagination).toEqual({ 
         'count' : null, 
         'page' : null, 
         'pages' : null, 
         'size' : 35
       });
-      expect(element.scope().params.sortBy).toEqual(undefined);
-      expect(element.scope().params.sortOrder).toEqual('asc');
-      expect(element.scope().params.page).toEqual(1);
-      expect(element.scope().params.count).toEqual(undefined);
-      expect(element.scope().params.thead).toEqual(true);
-      expect(element.scope().theadDirective).toEqual(true);
-      expect(element.scope().paginationDirective).toEqual(false);   
+      expect(element.isolateScope().params.sortBy).toEqual(undefined);
+      expect(element.isolateScope().params.sortOrder).toEqual('asc');
+      expect(element.isolateScope().params.page).toEqual(1);
+      expect(element.isolateScope().params.count).toEqual(undefined);
+      expect(element.isolateScope().params.thead).toEqual(true);
+      expect(element.isolateScope().theadDirective).toEqual(true);
+      expect(element.isolateScope().paginationDirective).toEqual(false);   
     });
 
     it('should return the right url after called buildUrl', function () {
-      expect(element.scope().rows[0].name).toEqual('Andytown Coffee Roasters');
-      expect(element.scope().rows.length).toEqual(35);
+      expect(element.isolateScope().rows[0].name).toEqual('Andytown Coffee Roasters');
+      expect(element.isolateScope().rows.length).toEqual(35);
     });
 
     it('should have these isolateScope value as default', function () {
@@ -269,12 +269,12 @@ describe('Directive', function () {
       field = {'key': 'name', 'name': 'Name'};
       tastyThead.isolateScope().sortBy(field);
       tastyThead.isolateScope().setColumns();
-      expect(element.scope().params.sortBy).toEqual('name');
+      expect(element.isolateScope().params.sortBy).toEqual('name');
       expect(tastyThead.isolateScope().columns[0].active).toEqual(true);
       field =  {'key': 'star', 'name': 'Star'};
       tastyThead.isolateScope().sortBy(field);
       tastyThead.isolateScope().setColumns();
-      expect(element.scope().params.sortBy).toEqual('star');
+      expect(element.isolateScope().params.sortBy).toEqual('star');
       expect(tastyThead.isolateScope().columns[1].active).toEqual(true);
     });
 
@@ -284,12 +284,12 @@ describe('Directive', function () {
       $scope.$digest();
       $timeout.flush();
       expect(tastyThead.isolateScope().header.sortBy).toEqual('star');
-      expect(element.scope().rows[0].name).toEqual('Peet\'s');
+      expect(element.isolateScope().rows[0].name).toEqual('Peet\'s');
       tastyThead.isolateScope().sortBy(field);
       $scope.$digest();
       $timeout.flush();
       expect(tastyThead.isolateScope().header.sortBy).toEqual('-star');
-      expect(element.scope().rows[0].name).toEqual('Ritual Coffee Roasters');
+      expect(element.isolateScope().rows[0].name).toEqual('Ritual Coffee Roasters');
     });
 
     it('should sorting ascending and descending with a key contains a dash (-)', function () {
@@ -298,12 +298,12 @@ describe('Directive', function () {
       $scope.$digest();
       $timeout.flush();
       expect(tastyThead.isolateScope().header.sortBy).toEqual('sf-location');
-      expect(element.scope().rows[0].name).toEqual('CoffeeShop');
+      expect(element.isolateScope().rows[0].name).toEqual('CoffeeShop');
       tastyThead.isolateScope().sortBy(field);
       $scope.$digest();
       $timeout.flush();
       expect(tastyThead.isolateScope().header.sortBy).toEqual('-sf-location');
-      expect(element.scope().rows[0].name).toEqual('Flywheel Coffee Roasters');
+      expect(element.isolateScope().rows[0].name).toEqual('Flywheel Coffee Roasters');
     });
 
     it('should return true or false to indicate if a specific key is sorted up', function () {
@@ -372,28 +372,28 @@ describe('Directive', function () {
     }));
 
     it('should have these element.scope() value as default', function () {
-      expect(element.scope().query).toEqual({
+      expect(element.isolateScope().query).toEqual({
         'page': 'page',
         'count': 'count',
         'sortBy': 'sort-by',
         'sortOrder': 'sort-order',
       });
-      expect(element.scope().url).toEqual('sort-order=asc');
-      expect(element.scope().header.columns.length).toEqual(3);
-      expect(element.scope().rows.length).toEqual(35);
-      expect(element.scope().pagination).toEqual({ 
+      expect(element.isolateScope().url).toEqual('sort-order=asc');
+      expect(element.isolateScope().header.columns.length).toEqual(3);
+      expect(element.isolateScope().rows.length).toEqual(35);
+      expect(element.isolateScope().pagination).toEqual({ 
         'count' : null, 
         'page' : null, 
         'pages' : null, 
         'size' : 35
       });
-      expect(element.scope().params.sortBy).toEqual(undefined);
-      expect(element.scope().params.sortOrder).toEqual('asc');
-      expect(element.scope().params.page).toEqual(1);
-      expect(element.scope().params.count).toEqual(undefined);
-      expect(element.scope().params.thead).toEqual(true);
-      expect(element.scope().theadDirective).toEqual(true);
-      expect(element.scope().paginationDirective).toEqual(false);  
+      expect(element.isolateScope().params.sortBy).toEqual(undefined);
+      expect(element.isolateScope().params.sortOrder).toEqual('asc');
+      expect(element.isolateScope().params.page).toEqual(1);
+      expect(element.isolateScope().params.count).toEqual(undefined);
+      expect(element.isolateScope().params.thead).toEqual(true);
+      expect(element.isolateScope().theadDirective).toEqual(true);
+      expect(element.isolateScope().paginationDirective).toEqual(false);  
       expect($scope.paramsUrl).toEqual('sort-order=asc');
       expect($scope.paramsObj.sortBy).toEqual(undefined);
       expect($scope.paramsObj.sortOrder).toEqual('asc');
@@ -404,8 +404,8 @@ describe('Directive', function () {
     });
 
     it('should return the right url after called buildUrl', function () {
-      expect(element.scope().rows[0].name).toEqual('Ritual Coffee Roasters');
-      expect(element.scope().rows.length).toEqual(35);
+      expect(element.isolateScope().rows[0].name).toEqual('Ritual Coffee Roasters');
+      expect(element.isolateScope().rows.length).toEqual(35);
     });
 
     it('should have these isolateScope value as default', function () {
@@ -432,22 +432,22 @@ describe('Directive', function () {
       field = {'key': 'name', 'name': 'Name'};
       tastyThead.isolateScope().sortBy(field);
       tastyThead.isolateScope().setColumns();
-      expect(element.scope().params.sortBy).toEqual('name');
+      expect(element.isolateScope().params.sortBy).toEqual('name');
       expect(tastyThead.isolateScope().columns[0].active).toEqual(true);
       field = {'key': 'star', 'name': 'Star'};
       tastyThead.isolateScope().sortBy(field);
       tastyThead.isolateScope().setColumns();
-      expect(element.scope().params.sortBy).toEqual('star');
+      expect(element.isolateScope().params.sortBy).toEqual('star');
       expect(tastyThead.isolateScope().columns[1].active).toEqual(true);
     });
 
     it('should not set params.sortBy when scope.sortBy is one of the notSortBy keys', function () {
       field = {'key': 'star', 'name': 'Star'};
       tastyThead.isolateScope().sortBy(field);
-      expect(element.scope().params.sortBy).toEqual('star');
+      expect(element.isolateScope().params.sortBy).toEqual('star');
       field = {'key': 'sf-location', 'name': 'SF Location'};
       tastyThead.isolateScope().sortBy(field);
-      expect(element.scope().params.sortBy).toEqual('star');
+      expect(element.isolateScope().params.sortBy).toEqual('star');
     });
 
     it('should sorting ascending and descending scope.header.sortBy when scope.sortBy is clicked', function () {
@@ -546,31 +546,31 @@ describe('Directive', function () {
     }));
 
     it('should have these element.scope() value after 100ms', function () {
-      expect(element.scope().query).toEqual({
+      expect(element.isolateScope().query).toEqual({
         'page': 'page',
         'count': 'count',
         'sortBy': 'sort-by',
         'sortOrder': 'sort-order',
       });
-      expect(element.scope().url).toEqual('');
-      expect(element.scope().header.columns.length).toEqual(3);
-      expect(element.scope().rows.length).toEqual(1);
-      expect(element.scope().pagination.count).toEqual(5);
-      expect(element.scope().pagination.page).toEqual(1);
-      expect(element.scope().pagination.pages).toEqual(1);
-      expect(element.scope().pagination.size).toEqual(1);
-      expect(element.scope().params.sortBy).toEqual(undefined);
-      expect(element.scope().params.sortOrder).toEqual('asc');
-      expect(element.scope().params.page).toEqual(1);
-      expect(element.scope().params.count).toEqual(5);
-      expect(element.scope().params.pagination).toEqual(true);
-      expect(element.scope().theadDirective).toEqual(false);
-      expect(element.scope().paginationDirective).toEqual(true);
+      expect(element.isolateScope().url).toEqual('');
+      expect(element.isolateScope().header.columns.length).toEqual(3);
+      expect(element.isolateScope().rows.length).toEqual(1);
+      expect(element.isolateScope().pagination.count).toEqual(5);
+      expect(element.isolateScope().pagination.page).toEqual(1);
+      expect(element.isolateScope().pagination.pages).toEqual(1);
+      expect(element.isolateScope().pagination.size).toEqual(1);
+      expect(element.isolateScope().params.sortBy).toEqual(undefined);
+      expect(element.isolateScope().params.sortOrder).toEqual('asc');
+      expect(element.isolateScope().params.page).toEqual(1);
+      expect(element.isolateScope().params.count).toEqual(5);
+      expect(element.isolateScope().params.pagination).toEqual(true);
+      expect(element.isolateScope().theadDirective).toEqual(false);
+      expect(element.isolateScope().paginationDirective).toEqual(true);
     });
 
     it('should return the right url after called buildUrl', function () {
-      expect(element.scope().rows[0].name).toEqual('Ritual Coffee Roasters');
-      expect(element.scope().rows.length).toEqual(1);
+      expect(element.isolateScope().rows[0].name).toEqual('Ritual Coffee Roasters');
+      expect(element.isolateScope().rows.length).toEqual(1);
     });
 
     it('should have these isolateScope value as default', function () {
@@ -625,31 +625,31 @@ describe('Directive', function () {
     }));
 
     it('should have these element.scope() value after 100ms', function () {
-      expect(element.scope().query).toEqual({
+      expect(element.isolateScope().query).toEqual({
         'page': 'page',
         'count': 'count',
         'sortBy': 'sort-by',
         'sortOrder': 'sort-order',
       });
-      expect(element.scope().url).toEqual('');
-      expect(element.scope().header.columns.length).toEqual(3);
-      expect(element.scope().rows.length).toEqual(10);
-      expect(element.scope().pagination.count).toEqual(10);
-      expect(element.scope().pagination.page).toEqual(1);
-      expect(element.scope().pagination.pages).toEqual(4);
-      expect(element.scope().pagination.size).toEqual(35);
-      expect(element.scope().params.sortBy).toEqual(undefined);
-      expect(element.scope().params.sortOrder).toEqual('asc');
-      expect(element.scope().params.page).toEqual(1);
-      expect(element.scope().params.count).toEqual(10);
-      expect(element.scope().params.pagination).toEqual(true);
-      expect(element.scope().theadDirective).toEqual(false);
-      expect(element.scope().paginationDirective).toEqual(true);
+      expect(element.isolateScope().url).toEqual('');
+      expect(element.isolateScope().header.columns.length).toEqual(3);
+      expect(element.isolateScope().rows.length).toEqual(10);
+      expect(element.isolateScope().pagination.count).toEqual(10);
+      expect(element.isolateScope().pagination.page).toEqual(1);
+      expect(element.isolateScope().pagination.pages).toEqual(4);
+      expect(element.isolateScope().pagination.size).toEqual(35);
+      expect(element.isolateScope().params.sortBy).toEqual(undefined);
+      expect(element.isolateScope().params.sortOrder).toEqual('asc');
+      expect(element.isolateScope().params.page).toEqual(1);
+      expect(element.isolateScope().params.count).toEqual(10);
+      expect(element.isolateScope().params.pagination).toEqual(true);
+      expect(element.isolateScope().theadDirective).toEqual(false);
+      expect(element.isolateScope().paginationDirective).toEqual(true);
     });
 
     it('should return the right url after called buildUrl', function () {
-      expect(element.scope().rows[0].name).toEqual('Ritual Coffee Roasters');
-      expect(element.scope().rows.length).toEqual(10);
+      expect(element.isolateScope().rows[0].name).toEqual('Ritual Coffee Roasters');
+      expect(element.isolateScope().rows.length).toEqual(10);
     });
 
     it('should have these isolateScope value as default', function () {
@@ -688,13 +688,13 @@ describe('Directive', function () {
     
     it('should update params.page when page.get is clicked', function () {
       tastyPagination.isolateScope().page.get(1);
-      expect(element.scope().params.page).toEqual(1);
+      expect(element.isolateScope().params.page).toEqual(1);
     });
     
     it('should update params.count when page.setCount is clicked', function () {
       tastyPagination.isolateScope().page.setCount(25);
-      expect(element.scope().params.count).toEqual(25);
-      expect(element.scope().params.page).toEqual(1);
+      expect(element.isolateScope().params.count).toEqual(25);
+      expect(element.isolateScope().params.page).toEqual(1);
     });
 
     it('should update pagMinRange and pagMaxRange when page.previous and page.remaining are clicked', function () {
@@ -789,35 +789,35 @@ describe('Directive', function () {
     }));
 
     it('should have these element.scope() value after 100ms', function () {
-      expect(element.scope().query).toEqual({
+      expect(element.isolateScope().query).toEqual({
         'page': 'page',
         'count': 'count',
         'sortBy': 'sort-by',
         'sortOrder': 'sort-order',
       });
-      expect(element.scope().url).toEqual('page=1&count=5');
-      expect(element.scope().header.columns.length).toEqual(3);
-      expect(element.scope().rows.length).toEqual(5);
-      expect(element.scope().pagination).toEqual({ 
+      expect(element.isolateScope().url).toEqual('page=1&count=5');
+      expect(element.isolateScope().header.columns.length).toEqual(3);
+      expect(element.isolateScope().rows.length).toEqual(5);
+      expect(element.isolateScope().pagination).toEqual({ 
         'count' : 5, 
         'page' : 1,
         'pages' : 7, 
         'size' : 35 
       });
-      expect(element.scope().params).toEqual({ 
+      expect(element.isolateScope().params).toEqual({ 
         sortBy : undefined, 
         sortOrder : 'asc', 
         page : 1, 
         count : 5, 
         pagination : true 
       });
-      expect(element.scope().theadDirective).toEqual(false);
-      expect(element.scope().paginationDirective).toEqual(true);
+      expect(element.isolateScope().theadDirective).toEqual(false);
+      expect(element.isolateScope().paginationDirective).toEqual(true);
     });
 
     it('should return the right url after called buildUrl', function () {
-      expect(element.scope().rows[0].name).toEqual('Ritual Coffee Roasters');
-      expect(element.scope().rows.length).toEqual(5);
+      expect(element.isolateScope().rows[0].name).toEqual('Ritual Coffee Roasters');
+      expect(element.isolateScope().rows.length).toEqual(5);
     });
 
     it('should have these isolateScope value as default', function () {
@@ -859,13 +859,13 @@ describe('Directive', function () {
     
     it('should update params.page when page.get is clicked', function () {
       tastyPagination.isolateScope().page.get(1);
-      expect(element.scope().params.page).toEqual(1);
+      expect(element.isolateScope().params.page).toEqual(1);
     });
     
     it('should update params.count when page.setCount is clicked', function () {
       tastyPagination.isolateScope().page.setCount(25);
-      expect(element.scope().params.count).toEqual(25);
-      expect(element.scope().params.page).toEqual(1);
+      expect(element.isolateScope().params.count).toEqual(25);
+      expect(element.isolateScope().params.page).toEqual(1);
     });
 
     it('should update pagMinRange and pagMaxRange when page.previous and page.remaining are clicked', function () {
@@ -955,27 +955,27 @@ describe('Directive', function () {
     }));
 
     it('should have these element.scope() value as default', function () {
-      expect(element.scope().query).toEqual({
+      expect(element.isolateScope().query).toEqual({
         'page': 'page',
         'count': 'count',
         'sortBy': 'sort-by',
         'sortOrder': 'sort-order',
       });
-      expect(element.scope().url).toEqual('');
-      expect(element.scope().header).toEqual({
+      expect(element.isolateScope().url).toEqual('');
+      expect(element.isolateScope().header).toEqual({
         'columns': []
       });
-      expect(element.scope().rows).toEqual([]);
-      expect(element.scope().pagination.count).toEqual(5);
-      expect(element.scope().pagination.page).toEqual(1);
-      expect(element.scope().pagination.pages).toEqual(1);
-      expect(element.scope().pagination.size).toEqual(0);
-      expect(element.scope().params.sortBy).toEqual(undefined);
-      expect(element.scope().params.sortOrder).toEqual('asc');
-      expect(element.scope().params.page).toEqual(1);
-      expect(element.scope().params.count).toEqual(undefined);
-      expect(element.scope().theadDirective).toEqual(false);
-      expect(element.scope().paginationDirective).toEqual(false);
+      expect(element.isolateScope().rows).toEqual([]);
+      expect(element.isolateScope().pagination.count).toEqual(5);
+      expect(element.isolateScope().pagination.page).toEqual(1);
+      expect(element.isolateScope().pagination.pages).toEqual(1);
+      expect(element.isolateScope().pagination.size).toEqual(0);
+      expect(element.isolateScope().params.sortBy).toEqual(undefined);
+      expect(element.isolateScope().params.sortOrder).toEqual('asc');
+      expect(element.isolateScope().params.page).toEqual(1);
+      expect(element.isolateScope().params.count).toEqual(undefined);
+      expect(element.isolateScope().theadDirective).toEqual(false);
+      expect(element.isolateScope().paginationDirective).toEqual(false);
     });
 
     it('should return the right url after called buildUrl', function () {
@@ -984,8 +984,8 @@ describe('Directive', function () {
       $timeout.flush();
       $httpBackend.flush();
       $scope.$digest();
-      expect(element.scope().rows[0].name).toEqual('Ritual Coffee Roasters');
-      expect(element.scope().rows.length).toEqual(35);
+      expect(element.isolateScope().rows[0].name).toEqual('Ritual Coffee Roasters');
+      expect(element.isolateScope().rows.length).toEqual(35);
     });
   });
 });

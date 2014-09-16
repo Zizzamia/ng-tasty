@@ -1,8 +1,8 @@
 <tr>
-  <th ng-repeat="column in columns track by $index" 
+  <th ng-repeat="column in ::columns track by $index" 
   ng-class="classToShow(column)"
   ng-style="column.width" ng-click="sortBy(column)">
-    <span ng-bind="column.name"></span>
+    <span ng-bind="::column.name"></span>
     <span ng-if="column.isSortUp" class="fa fa-sort-up"></span>
     <span ng-if="column.isSortDown" class="fa fa-sort-down"></span>
   </th> 

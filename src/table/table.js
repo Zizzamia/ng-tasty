@@ -20,18 +20,17 @@ angular.module('ngTasty.table', [
     'sortBy': 'sort-by',
     'sortOrder': 'sort-order',
   },
-  resource: undefined,
   resourceCallback: undefined,
   listItemsPerPage: [5, 25, 50, 100],
-  itemsPerPage: 5
+  itemsPerPage: 5,
+  bindOnce: true
 })
 .controller('TableController', function($scope, $attrs, $timeout, $filter, tableConfig, tastyUtil) {
   'use strict';
   this.$scope = $scope;
 
   // Default configs
-  $scope.query = tableConfig.query;
-  $scope.resource = tableConfig.resource;
+  $scope.query = $scope.query || tableConfig.query;
   $scope.resourceCallback = tableConfig.resourceCallback;
 
   // Defualt variables
@@ -55,14 +54,10 @@ angular.module('ngTasty.table', [
    * In the future you will have a way to change
    * these values by an isolate optional scope variable,
    * more info here https://github.com/angular/angular.js/issues/6404 */
-  if (angular.isDefined($attrs.query)) {
-    $scope.query = $scope.$parent[$attrs.query];
-  }
   if (!angular.isDefined($attrs.resource) && !angular.isDefined($attrs.resourceCallback)) {
     throw 'AngularJS tastyTable directive: need the resource or resource-callback attribute';
   }
   if (angular.isDefined($attrs.resource)) {
-    $scope.resource = $scope.$parent[$attrs.resource];
     if (!angular.isObject($scope.resource)) {
       throw 'AngularJS tastyTable directive: the resource ('+
         $attrs.resource + ') it\'s not an object';
@@ -90,6 +85,8 @@ angular.module('ngTasty.table', [
   this.setParams = function(key, value) {
     $scope.params[key] = value;
   };
+
+  this.bindOnce = tableConfig.bindOnce;
 
   $scope.setDirectivesValues = function (resource) {
     var sortBy;
@@ -204,9 +201,8 @@ angular.module('ngTasty.table', [
     }
   });
   if ($scope.resource) {
-    $scope.$parent.$watch($attrs.resource, function (newValue, oldValue){
+    $scope.$watch('resource', function (newValue, oldValue){
       if (newValue !== oldValue) {
-        $scope.resource = newValue;
         $scope.updateClientSideResource();
       }
     }, true);
@@ -218,7 +214,10 @@ angular.module('ngTasty.table', [
 .directive('tastyTable', function(){
   return {
     restrict: 'A',
-    scope: true,
+    scope: {
+      'query': '=?',
+      'resource': '=?'
+    },
     controller: 'TableController'
   };
 })
@@ -246,6 +245,7 @@ angular.module('ngTasty.table', [
       'use strict';
       // Thead it's called
       tastyTable.activate('thead');
+      scope.bindOnce = tastyTable.bindOnce;
 
       scope.columns = [];
 
