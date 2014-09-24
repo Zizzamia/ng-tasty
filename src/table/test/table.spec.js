@@ -213,7 +213,7 @@ describe('Directive', function () {
       '    <tr ng-repeat="row in rows">'+
       '      <td>{{ row.name }}</td>'+
       '      <td>{{ row.star }}</td>'+
-      '      <td>{{ row[\'sf-location\'] }}</td>'+
+      '      <td>{{ row[\'sf-Location\'] }}</td>'+
       '    </tr>'+
       '  </tbody>'+
       '</table>');
@@ -293,16 +293,16 @@ describe('Directive', function () {
     });
 
     it('should sorting ascending and descending with a key contains a dash (-)', function () {
-      field =  { 'key': 'sf-location', 'name': 'SF Location'};
+      field =  { 'key': 'sf-Location', 'name': 'SF Location'};
       tastyThead.isolateScope().sortBy(field);
       $scope.$digest();
       $timeout.flush();
-      expect(tastyThead.isolateScope().header.sortBy).toEqual('sf-location');
+      expect(tastyThead.isolateScope().header.sortBy).toEqual('sf-Location');
       expect(element.scope().rows[0].name).toEqual('CoffeeShop');
       tastyThead.isolateScope().sortBy(field);
       $scope.$digest();
       $timeout.flush();
-      expect(tastyThead.isolateScope().header.sortBy).toEqual('-sf-location');
+      expect(tastyThead.isolateScope().header.sortBy).toEqual('-sf-Location');
       expect(element.scope().rows[0].name).toEqual('Flywheel Coffee Roasters');
     });
 
@@ -350,7 +350,7 @@ describe('Directive', function () {
           };
         });
       };
-      $scope.notSortBy = ['sf-location'];
+      $scope.notSortBy = ['sf-Location'];
       element = angular.element(''+
       '<table tasty-table resource-callback="getResource">'+
       '  <thead tasty-thead not-sort-by="notSortBy"></thead>'+
@@ -358,7 +358,7 @@ describe('Directive', function () {
       '    <tr ng-repeat="row in rows">'+
       '      <td>{{ row.name }}</td>'+
       '      <td>{{ row.star }}</td>'+
-      '      <td>{{ row[\'sf-location\'] }}</td>'+
+      '      <td>{{ row[\'sf-Location\'] }}</td>'+
       '    </tr>'+
       '  </tbody>'+
       '</table>');
@@ -419,7 +419,7 @@ describe('Directive', function () {
       expect(tastyThead.isolateScope().columns[1].width).toEqual({ 'width' : '33.33%' });
       expect(tastyThead.isolateScope().columns[1].isSortUp).toEqual(false);
       expect(tastyThead.isolateScope().columns[1].isSortDown).toEqual(false);
-      expect(tastyThead.isolateScope().columns[2].key).toEqual('sf-location');
+      expect(tastyThead.isolateScope().columns[2].key).toEqual('sf-Location');
       expect(tastyThead.isolateScope().columns[2].name).toEqual('SF Location');
       expect(tastyThead.isolateScope().columns[2].active).toEqual(false);
       expect(tastyThead.isolateScope().columns[2].sortable).toEqual(false);
@@ -445,7 +445,7 @@ describe('Directive', function () {
       field = {'key': 'star', 'name': 'Star'};
       tastyThead.isolateScope().sortBy(field);
       expect(element.scope().params.sortBy).toEqual('star');
-      field = {'key': 'sf-location', 'name': 'SF Location'};
+      field = {'key': 'sf-Location', 'name': 'SF Location'};
       tastyThead.isolateScope().sortBy(field);
       expect(element.scope().params.sortBy).toEqual('star');
     });

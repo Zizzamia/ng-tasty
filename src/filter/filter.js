@@ -23,7 +23,7 @@ angular.module('ngTasty.filter', [
 angular.module('ngTasty.filter.cleanFieldName', [])
 .filter('cleanFieldName', function() {
   return function (input) {
-    return input.replace(/[^a-zA-Z0-9-]+/g, '-').toLowerCase();
+    return input.replace(/[^a-zA-Z0-9-]+/g, '-');
   };
 });
 

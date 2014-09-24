@@ -17,7 +17,7 @@ describe('Filter', function () {
     });
 
     it('should return ...', function () {
-      expect(cleanFieldName('SF Location')).toEqual('sf-location');
+      expect(cleanFieldName('SF Location')).toEqual('SF-Location');
     });
   });
 
