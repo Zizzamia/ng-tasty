@@ -11,7 +11,7 @@ angular.module('mockedAPIResponse',[])
       'name': 'Star'
     },
     {
-      'key': 'sf-location',
+      'key': 'sf-Location',
       'name': 'SF Location'
     }
   ],

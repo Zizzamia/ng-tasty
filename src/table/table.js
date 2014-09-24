@@ -24,9 +24,41 @@ angular.module('ngTasty.table', [
   itemsPerPage: 5,
   bindOnce: true
 })
-.controller('TableController', function($scope, $attrs, $timeout, $filter, tableConfig, tastyUtil) {
+.controller('TableController', function($scope, $attrs, $timeout, $filter, $parse, tableConfig, tastyUtil) {
   'use strict';
+  var listScopeToWatch;
   this.$scope = $scope;
+
+  listScopeToWatch = ['filters', 'query', 'resource', 'resourceCallback'];
+  listScopeToWatch.forEach(function (scopeName) {
+    var lastValue, parentGet, compare, parentSet, parentValueWatch;
+    if (!$attrs[scopeName]) {
+      return;
+    }
+    parentGet = $parse($attrs[scopeName]);
+    if (parentGet.literal) {
+      compare = equals;
+    } else {
+      compare = function(a,b) { return a === b || (a !== a && b !== b); };
+    }
+    parentSet = parentGet.assign;
+    lastValue = $scope[scopeName] = parentGet($scope);
+    parentValueWatch = function parentValueWatch(parentValue) {
+      if (!compare(parentValue, $scope[scopeName])) {
+        // we are out of sync and need to copy
+        if (!compare(parentValue, lastValue)) {
+          // parent changed and it has precedence
+          $scope[scopeName] = parentValue;
+        } else {
+          // if the parent can be assigned then do so
+          parentSet($scope, parentValue = $scope[scopeName]);
+        }
+      }
+      return lastValue = parentValue;
+    };
+    parentValueWatch.$stateful = true;
+    $scope.$watch($parse($attrs[scopeName], parentValueWatch), null, parentGet.literal)
+  });
 
   // Default configs
   $scope.query = $scope.query || tableConfig.query;
@@ -211,12 +243,7 @@ angular.module('ngTasty.table', [
 .directive('tastyTable', function(){
   return {
     restrict: 'A',
-    scope: {
-      'filters': '=?',
-      'query': '=?',
-      'resource': '=?',
-      'resourceCallback': '=?'
-    },
+    scope: true,
     controller: 'TableController'
   };
 })
