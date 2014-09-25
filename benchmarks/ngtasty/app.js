@@ -26,21 +26,39 @@ app.controller('DataController', function($rootScope, $scope) {
   };
 
   benchmarkSteps.push({
-    name: '$apply',
+    name: 'destroy',
+    description: 'Set rows to empty array',
     fn: function() {
-      $rootScope.$apply(function() {
+      $scope.$apply(function() {
         $scope.resource.rows = [];
       });
-      if ($scope.resource.rows.length !== self.ngRepeatCount) {
-        $scope.resource.rows = [];
-        for (var i = 0; i < self.ngRepeatCount; i++) {
-          $scope.resource.rows.push({ 
-            "name": "Ritual Coffee Roasters " + i, 
-            "star": "★★★★★  " + i, 
-            "sf-location": "Hayes Valley " + i
-          });
-        }
+    }
+  });
+
+  benchmarkSteps.push({
+    name: 'setup',
+    description: 'Push new rows to be applied in next step',
+    fn: function() {
+      for (var i = 0; i < 1000; i++) {
+        $scope.resource.rows.push({ 
+          "name": "Ritual Coffee Roasters " + i, 
+          "star": "★★★★★  " + i, 
+          "sf-location": "Hayes Valley " + i,
+          "name2": "Ritual Coffee Roasters " + i, 
+          "star2": "★★★★★  " + i, 
+          "sf-location2": "Hayes Valley " + i,
+          "name3": "Ritual Coffee Roasters " + i, 
+          "star3": "★★★★★  " + i, 
+          "sf-location3": "Hayes Valley " + i,
+          "name4": "Ritual Coffee Roasters " + i 
+        });
       }
+    }
+  });
+
+  benchmarkSteps.push({
+    name: '$apply',
+    fn: function() {
       $rootScope.$apply();
     }
   });

@@ -19,6 +19,25 @@
         </div>
       </p>
 
+      Debug output:
+      <ng-switch on="benchmarkType">
+        <div ng-switch-when="directiveInterpolation">
+          <div tasty-table resource="resource">
+            <table class="table table-striped table-condensed">
+              <thead tasty-thead></thead>
+              <tbody>
+                <tr ng-repeat="row in rows">
+                  <td>{{ row.name }}</td>
+                  <td>{{ row.star }}</td>
+                  <td>{{ row['sf-location'] }}</td>
+                </tr>
+              </tbody>
+            </table>
+            <div tasty-pagination></div>
+          </div>
+        </div>
+      </ng-switch>
+
       <p>
         Results 0.2.5 of 8/24/2014 with Google Chrome Version 36.0.1985.125:
         <ul>
@@ -44,31 +63,12 @@
       </p>
 
       <p>
-        Results 0.3.0-rc.1 (Angular 1.3) of 9/13/2014 with Google Chrome Version 36.0.1985.125:
+        Results 0.3.0-rc.2 (Angular 1.3) of 9/25/2014 with Google Chrome Canary Version 39.0.2168.0:
         <ul>
           <li>directiveInterpolation 27.79ms witdh 4000 rows and 250 loops</li>
           <li>directiveInterpolation 96.28ms witdh 10000 rows and 100 loops</li>
         </ul>
       </p>
-
-      Debug output:
-      <ng-switch on="benchmarkType">
-        <div ng-switch-when="directiveInterpolation">
-          <div tasty-table resource="resource">
-            <table class="table table-striped table-condensed">
-              <thead tasty-thead></thead>
-              <tbody>
-                <tr ng-repeat="row in rows">
-                  <td>{{ row.name }}</td>
-                  <td>{{ row.star }}</td>
-                  <td>{{ row['sf-location'] }}</td>
-                </tr>
-              </tbody>
-            </table>
-            <div tasty-pagination></div>
-          </div>
-        </div>
-      </ng-switch>
     </div>
   </div>
 </div>
