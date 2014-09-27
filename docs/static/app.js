@@ -38,8 +38,8 @@ angular.module('myApp', [
 })
 
 angular.module('myApp.controllers', [])
-.controller('AppCtrl', function($scope) {
-  
+.controller('AppCtrl', function($scope, $window, $location) {
+  $window.ga('send', 'pageview', { page: $location.path() });
 })
 .controller('DownloadCtrl', function($rootScope, $scope, $modal, $timeout) {
   var modalInstance;
