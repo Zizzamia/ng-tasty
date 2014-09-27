@@ -1,11 +1,12 @@
+<base href="<%= base %>/" />
 <!doctype html>
 <html ng-app="myApp">
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
-  <title>#ngTasty</title>
-  <meta name="description" content="A lightweight, flexible, and tasty collection of reusable UI components for AngularJS.">
+  <title>{{ title }}</title>
+  <meta name="description" content="A lightweight, flexible, and tasty collection of reusable UI components for AngularJS. ( table directive, range filter )">
   
   <link rel="stylesheet" href="<%= base %>/components/bootstrap/dist/css/bootstrap.css">
   <link rel="stylesheet" href="<%= base %>/components/components-font-awesome/css/font-awesome.css">
@@ -20,12 +21,19 @@
     <p class="version">v0.2.7</p>
     <div class="head">
       <ul>
-        <li><a href="<%= base %>/#QuickStart">Quick Start</a></li>
+        <li>
+          <a href="<%= base %>/" ng-class="{active:page == 'home'}">Quick Start</a>
+        </li>
       </ul>
       <h4>Directive</h4>
       <ul>
-        <li><a href="<%= base %>/#Table">Table</a></li>
-        <li><a href="<%= base %>/#TableServerSide">Table server side</a></li>
+        <li>
+          <a href="<%= base %>/directive/table" ng-class="{active:page == 'table'}">Table</a>
+        </li>
+        <li>
+          <a href="<%= base %>/directive/table-server-side" 
+            ng-class="{active:page == 'table-server-side'}">Table server side</a>
+        </li>
       </ul>
       <!--
       <h4>Service</h4>
@@ -40,7 +48,9 @@
         <!--
         <li><a href="<%= base %>/#CleanFieldName">Clean Field Name</a></li>
         -->
-        <li><a href="<%= base %>/#Range">Range</a></li>
+        <li>
+          <a href="<%= base %>/filter/range" ng-class="{active:page == 'range'}">Range</a>
+        </li>
       </ul>
     </div>
     <div class="bottom">
@@ -55,9 +65,10 @@
     </div>
   </div>
   <div class="content">
-    <%= include home.html %>
+    <div ng-view></div>
   </div>
   <script src="<%= base %>/components/angular/angular.js"></script>
+  <script src="<%= base %>/components/angular-route/angular-route.js"></script>
   <script src="<%= base %>/components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
   <script src="<%= ngTasty %>"></script>
   <script src="<%= base %>/static/app.js"></script>

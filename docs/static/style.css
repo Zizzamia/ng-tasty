@@ -1,6 +1,6 @@
 .content {
   margin-left: 234px;
-  padding: 52px 38px;
+  padding: 10px 38px;
   max-width: 960px;
   min-width: 700px;
 }
@@ -14,7 +14,7 @@ iframe {
 }
 
 .ng-tasty-title {
-  margin: 0 0 80px 0;
+  margin: 42px 0 80px 0;
 }
 
 .ng-tasty-title p {
@@ -79,6 +79,7 @@ iframe {
   width: 90%;
 }
 
+.left-nav .head li a.active,
 .left-nav .head li a:hover, 
 .left-nav .head li a:focus {
   color: #8b3d13;

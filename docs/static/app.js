@@ -1,18 +1,47 @@
 angular.module('myApp', [
+  'ngRoute',
   'ngTasty',
   'ui.bootstrap',
   'myApp.controllers'
-]);
+])
+.config(function ($locationProvider, $routeProvider) {
+  $routeProvider
+  .when('/', {
+    controller: 'DownloadCtrl',
+    templateUrl: 'home.html'
+  })
+  .when('/directive/table', {
+    controller: 'TableCtrl',
+    templateUrl: 'table/index.html'
+  })
+  .when('/directive/table-server-side', {
+    controller: 'TableServerSideCtrl',
+    templateUrl: 'table-server-side/index.html'
+  })
+  .when('/filter/range', {
+    controller: 'FilterCtrl',
+    templateUrl: 'filter/range.html'
+  })
+  .otherwise({ redirectTo: '/' });
+
+  $locationProvider.html5Mode(true);
+})
+
 angular.module('myApp.controllers', [])
-.controller('AppCtrl', ['$scope', '$modal', function($scope, $modal) {
+.controller('AppCtrl', ['$scope', function($scope) {
+}])
+.controller('DownloadCtrl', function($rootScope, $scope, $modal, $timeout) {
+  var modalInstance;
+
+  $rootScope.title = '#ngTasty';
+  $rootScope.page = 'home';
+
   $scope.showDownloadModal = function() {
-    var modalInstance = $modal.open({
+    modalInstance = $modal.open({
       templateUrl: 'downloadModal.html',
       controller: 'DownloadCtrl'
     });
   };
-}])
-.controller('DownloadCtrl', ['$scope', '$modalInstance', function($scope, $modalInstance) {
   $scope.options = {
     version: '0.2.7',
     minified: true,
@@ -34,10 +63,18 @@ angular.module('myApp.controllers', [])
   };
 
   $scope.cancel = function () {
-    $modalInstance.dismiss();
+    modalInstance.dismiss();
   };
-}])
-.controller('TableCtrl', ['$scope', '$http', function($scope, $http) {
+
+  $timeout(function () {
+    Rainbow.color();
+  });
+})
+.controller('TableCtrl', function($rootScope, $scope, $http, $timeout) {
+
+  $rootScope.title = '#ngTasty - AngularJS table directive';
+  $rootScope.page = 'table';
+
   $scope.open = function(toOpen) {
     $scope.table = true;
     $scope.tableTwo = true;
@@ -105,10 +142,17 @@ angular.module('myApp.controllers', [])
   $scope.notSortBy = ['sf-Location'];
 
   $scope.itemsPerPage = 10;
-  $scope.listItemsPerPage = [10, 20, 40, 80];  
-}])
-.controller('TableServerSideCtrl', ['$scope', '$http', function($scope, $http) {
+  $scope.listItemsPerPage = [10, 20, 40, 80];
+
+  $timeout(function () {
+    Rainbow.color();
+  }); 
+})
+.controller('TableServerSideCtrl', function($rootScope, $scope, $http, $timeout) {
   
+  $rootScope.title = '#ngTasty - AngularJS server side table directive';
+  $rootScope.page = 'table-server-side';
+
   $scope.filterBy = {
     'time': 'now'
   };
@@ -190,11 +234,26 @@ angular.module('myApp.controllers', [])
       }
     });
   }
-}])
-.controller('ServiceCtrl', ['$scope', '$http', function($scope, $http) {
-}])
-.controller('FilterCtrl', ['$scope', '$http', function($scope, $http) {
+
+  $timeout(function () {
+    Rainbow.color();
+  });
+})
+.controller('ServiceCtrl', function($rootScope, $scope, $http, $timeout) {
+  $timeout(function () {
+    Rainbow.color();
+  });
+})
+.controller('FilterCtrl', function($rootScope, $scope, $http, $timeout) {
+
+  $rootScope.title = '#ngTasty - AngularJS range filter';
+  $rootScope.page = 'range';
+
   $scope.start = 1;
   $scope.stop = 10;
   $scope.step = 2;
-}]);
+
+  $timeout(function () {
+    Rainbow.color();
+  });
+});
