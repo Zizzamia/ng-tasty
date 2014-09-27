@@ -46,28 +46,32 @@ app.use(function(req, res, next) {
 });
 
 app.get('/', function(req, res){
-  res.render('template/index.html', { base: base, ngTasty: ngTasty });
+  title = '#ngTasty';
+  res.render('template/index.html', { base: base, ngTasty: ngTasty, title:title });
 });
 app.get('/home.html', function(req, res){
   res.render('template/home.html', { base: base, ngTasty: ngTasty });
 });
 
 app.get('/directive/table', function(req, res){
-  res.render('template/index.html', { base: base, ngTasty: ngTasty });
+  title = '#ngTasty - AngularJS table directive';
+  res.render('template/index.html', { base: base, ngTasty: ngTasty, title:title });
 });
 app.get('/table/index.html', function(req, res){
   res.render('template/table/index.html', { base: base, ngTasty: ngTasty });
 });
 
 app.get('/directive/table-server-side', function(req, res){
-  res.render('template/index.html', { base: base, ngTasty: ngTasty });
+  title = '#ngTasty - AngularJS server side table directive';
+  res.render('template/index.html', { base: base, ngTasty: ngTasty, title:title });
 });
 app.get('/table-server-side/index.html', function(req, res){
   res.render('template/table-server-side/index.html', { base: base, ngTasty: ngTasty });
 });
 
 app.get('/filter/range', function(req, res){
-  res.render('template/index.html', { base: base, ngTasty: ngTasty });
+  title = '#ngTasty - AngularJS range filter';
+  res.render('template/index.html', { base: base, ngTasty: ngTasty, title:title });
 });
 app.get('/filter/range.html', function(req, res){
   res.render('template/filter/range.html', { base: base, ngTasty: ngTasty });

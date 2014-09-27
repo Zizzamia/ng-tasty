@@ -8,32 +8,42 @@ angular.module('myApp', [
   $routeProvider
   .when('/', {
     controller: 'DownloadCtrl',
-    templateUrl: 'home.html'
+    templateUrl: 'home.html',
+    title: '#ngTasty'
   })
   .when('/directive/table', {
     controller: 'TableCtrl',
-    templateUrl: 'table/index.html'
+    templateUrl: 'table/index.html',
+    title: '#ngTasty - AngularJS table directive'
   })
   .when('/directive/table-server-side', {
     controller: 'TableServerSideCtrl',
-    templateUrl: 'table-server-side/index.html'
+    templateUrl: 'table-server-side/index.html',
+    title: '#ngTasty - AngularJS server side table directive'
   })
   .when('/filter/range', {
     controller: 'FilterCtrl',
-    templateUrl: 'filter/range.html'
+    templateUrl: 'filter/range.html',
+    title: '#ngTasty - AngularJS range filter'
   })
   .otherwise({ redirectTo: '/' });
 
   $locationProvider.html5Mode(true);
 })
+.run(function ($rootScope, $route) {
+  $rootScope.$on("$routeChangeSuccess", function(currentRoute, previousRoute){
+    //Change page title, based on Route information
+    $rootScope.title = $route.current.title;
+  });
+})
 
 angular.module('myApp.controllers', [])
-.controller('AppCtrl', ['$scope', function($scope) {
-}])
+.controller('AppCtrl', function($scope) {
+  
+})
 .controller('DownloadCtrl', function($rootScope, $scope, $modal, $timeout) {
   var modalInstance;
 
-  $rootScope.title = '#ngTasty';
   $rootScope.page = 'home';
 
   $scope.showDownloadModal = function() {
@@ -72,7 +82,6 @@ angular.module('myApp.controllers', [])
 })
 .controller('TableCtrl', function($rootScope, $scope, $http, $timeout) {
 
-  $rootScope.title = '#ngTasty - AngularJS table directive';
   $rootScope.page = 'table';
 
   $scope.open = function(toOpen) {
@@ -149,8 +158,7 @@ angular.module('myApp.controllers', [])
   }); 
 })
 .controller('TableServerSideCtrl', function($rootScope, $scope, $http, $timeout) {
-  
-  $rootScope.title = '#ngTasty - AngularJS server side table directive';
+
   $rootScope.page = 'table-server-side';
 
   $scope.filterBy = {
@@ -246,7 +254,6 @@ angular.module('myApp.controllers', [])
 })
 .controller('FilterCtrl', function($rootScope, $scope, $http, $timeout) {
 
-  $rootScope.title = '#ngTasty - AngularJS range filter';
   $rootScope.page = 'range';
 
   $scope.start = 1;
