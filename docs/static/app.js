@@ -39,7 +39,10 @@ angular.module('myApp', [
 
 angular.module('myApp.controllers', [])
 .controller('AppCtrl', function($scope, $window, $location) {
-  $window.ga('send', 'pageview', { page: $location.path() });
+  $scope.$on('$viewContentLoaded', function(event) {
+    console.log($location.path())
+    $window.ga('send', 'pageview', { page: $location.path() });
+  });
 })
 .controller('DownloadCtrl', function($rootScope, $scope, $modal, $timeout) {
   var modalInstance;
