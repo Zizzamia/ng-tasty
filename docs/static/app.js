@@ -40,8 +40,7 @@ angular.module('myApp', [
 angular.module('myApp.controllers', [])
 .controller('AppCtrl', function($scope, $window, $location) {
   $scope.$on('$viewContentLoaded', function(event) {
-    console.log($location.path())
-    $window.ga('send', 'pageview', { page: $location.path() });
+    $window.ga('send', 'pageview', { page: '/ng-tasty' + $location.path() });
   });
 })
 .controller('DownloadCtrl', function($rootScope, $scope, $modal, $timeout) {
