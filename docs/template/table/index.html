@@ -50,6 +50,10 @@
         <button type="button" class="btn btn-default" ng-class="{'btn-info':!tableThree}" 
         ng-click="open('pagination')">Pagination</button>
       </div>
+      <div class="btn-group"> 
+        <button type="button" class="btn btn-default" ng-class="{'btn-info':!tableFour}" 
+        ng-click="open('filtering')">Filtering</button>
+      </div>
     </div>
     <div collapse="table" class="example">
       <h4>Table with sorting and pagination</h4>
@@ -105,6 +109,28 @@
         list-items-per-page="listItemsPerPage"></div>
       </div>
     </div>
+    <div collapse="tableFour">
+      <h4>Table only with filters</h4>
+      <input type="text" ng-model="filters" value="" />
+      <div tasty-table resource="resource" filters="filters"> 
+        <table class="table table-striped table-condensed">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Star</th>
+              <th>SF Location</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="row in rows">
+              <td>{{ row.name }}</td>
+              <td>{{ row.star }}</td>
+              <td>{{ row['sf-Location'] }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
     <tabset class="code">
       <tab heading="Markup">
         <div ng-hide="table">
@@ -116,6 +142,9 @@
         <div ng-hide="tableThree">
           <%= include example-html-3.html %>
         </div>
+        <div ng-hide="tableFour">
+          <%= include example-html-4.html %>
+        </div>
       </tab>
       <tab heading="JavaScript">
         <div ng-hide="table">
@@ -126,6 +155,9 @@
         </div>
         <div ng-hide="tableThree">
           <%= include example-js-3.html %>
+        </div>
+        <div ng-hide="tableFour">
+          <%= include example-js-4.html %>
         </div>
       </tab>
     </tabset>

@@ -42,7 +42,7 @@ angular.module('ngTasty.table', [
       compare = function(a,b) { return a === b || (a !== a && b !== b); };
     }
     parentSet = parentGet.assign;
-    lastValue = $scope[scopeName] = parentGet($scope);
+    lastValue = $scope[scopeName] = parentGet($scope.$parent);
     parentValueWatch = function parentValueWatch(parentValue) {
       if (!compare(parentValue, $scope[scopeName])) {
         // we are out of sync and need to copy
@@ -51,13 +51,13 @@ angular.module('ngTasty.table', [
           $scope[scopeName] = parentValue;
         } else {
           // if the parent can be assigned then do so
-          parentSet($scope, parentValue = $scope[scopeName]);
+          parentSet($scope.$parent, parentValue = $scope[scopeName]);
         }
       }
       return lastValue = parentValue;
     };
     parentValueWatch.$stateful = true;
-    $scope.$watch($parse($attrs[scopeName], parentValueWatch), null, parentGet.literal)
+    $scope.$parent.$watch($parse($attrs[scopeName], parentValueWatch), null, parentGet.literal);
   });
 
   // Default configs
@@ -163,6 +163,9 @@ angular.module('ngTasty.table', [
         $scope.rows = rowToShow;
       }
     }
+    if ($attrs.filters) {
+      $scope.rows = $filter('filter')($scope.rows, $scope.filters);
+    }
   };
 
   $scope.buildUrl = function(params, filters) {
@@ -216,7 +219,11 @@ angular.module('ngTasty.table', [
   if ($attrs.filters) {
     $scope.$watch('filters', function (newValue, oldValue){
       if (newValue !== oldValue) {
-        $scope.updateServerSideResource();
+        if ($scope.clientSide) {
+          $scope.updateClientSideResource();
+        } else {
+          $scope.updateServerSideResource();
+        }
       }
     }, true);
   }

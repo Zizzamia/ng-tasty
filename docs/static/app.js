@@ -92,12 +92,15 @@ angular.module('myApp.controllers', [])
     $scope.table = true;
     $scope.tableTwo = true;
     $scope.tableThree = true;
+    $scope.tableFour = true;
     if (toOpen === 'complete') {
       $scope.table = false;
     } else if (toOpen === 'sorting') {
       $scope.tableTwo = false;
     } else if (toOpen === 'pagination') {
       $scope.tableThree = false;
+    } else if (toOpen === 'filtering') {
+      $scope.tableFour = false;
     }
   }
   $scope.open('complete');
@@ -153,6 +156,8 @@ angular.module('myApp.controllers', [])
     ]
   };
   $scope.notSortBy = ['sf-Location'];
+
+  $scope.filters = 'rit';
 
   $scope.itemsPerPage = 10;
   $scope.listItemsPerPage = [10, 20, 40, 80];
