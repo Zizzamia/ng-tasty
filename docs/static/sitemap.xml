@@ -5,6 +5,9 @@
       xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
             http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
 <url>
+  <loc>http://zizzamia.com</loc>
+</url>
+<url>
   <loc>http://zizzamia.com/ng-tasty/</loc>
 </url>
 <url>
