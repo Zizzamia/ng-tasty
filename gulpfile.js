@@ -16,6 +16,7 @@ var gutil = require('gulp-util');
 var zip = require('gulp-zip');
 var moment = require('moment');
 var runSequence = require('run-sequence');
+var sourcemaps = require('gulp-sourcemaps');
 var fs = require('fs');
 var pkg = require('./package.json');
 
@@ -220,6 +221,7 @@ gulp.task('build-dist', function() {
     .pipe(concat(filename + '.js'))
     .pipe(header(metaHeader, dict))
     .pipe(ngAnnotate())
+    .pipe(sourcemaps.write())
     .pipe(gulp.dest(dist))
     .pipe(uglify({mangle: false}))
     .pipe(header(banner, dict))
@@ -239,6 +241,9 @@ gulp.task('build-dist', function() {
     .pipe(header(banner, dict))
     .pipe(rename({extname: '.min.js'}))
     .pipe(gulp.dest(dist));
+
+  gulp.src('src/*/*.js')
+    .pipe(gulp.dest(dist + '/src'))
 
   gulp.src('dist/**/*')
     .pipe(zip(pkg.version + '.zip'))

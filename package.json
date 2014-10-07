@@ -1,6 +1,6 @@
 {
   "name": "ng-tasty",
-  "version": "0.3.0-rc.2",
+  "version": "0.3.0-rc.4",
   "description": "A lightweight, flexible, and tasty collection of reusable UI components for AngularJS.",
   "main": "index.js",
   "devDependencies": {
@@ -15,6 +15,7 @@
     "gulp-ng-annotate": "^0.3.0",
     "gulp-ng-html2js": "^0.1.7",
     "gulp-rename": "^1.2.0",
+    "gulp-sourcemaps": "^1.2.2",
     "gulp-tap": "^0.1.1",
     "gulp-uglify": "^0.3.1",
     "gulp-util": "^3.0.0",
