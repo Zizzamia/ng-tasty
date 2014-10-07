@@ -151,6 +151,9 @@ angular.module('ngTasty.table', [
       }
       $scope.rows = $filter('orderBy')($scope.rows, listSortBy, reverse);
     }
+    if ($attrs.filters) {
+      $scope.rows = $filter('filter')($scope.rows, $scope.filters);
+    }
     if ($scope.paginationDirective) {
       $scope.pagination.page = $scope.params.page;
       $scope.pagination.count = $scope.params.count;
@@ -162,9 +165,6 @@ angular.module('ngTasty.table', [
         rowToShow = $scope.rows.slice(fromRow, toRow);
         $scope.rows = rowToShow;
       }
-    }
-    if ($attrs.filters) {
-      $scope.rows = $filter('filter')($scope.rows, $scope.filters);
     }
   };
 

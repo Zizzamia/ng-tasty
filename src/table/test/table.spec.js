@@ -271,7 +271,7 @@ describe('Directive', function () {
       tastyThead.isolateScope().setColumns();
       expect(element.scope().params.sortBy).toEqual('name');
       expect(tastyThead.isolateScope().columns[0].active).toEqual(true);
-      field =  {'key': 'star', 'name': 'Star'};
+      field = {'key': 'star', 'name': 'Star'};
       tastyThead.isolateScope().sortBy(field);
       tastyThead.isolateScope().setColumns();
       expect(element.scope().params.sortBy).toEqual('star');
@@ -279,7 +279,7 @@ describe('Directive', function () {
     });
 
     it('should sorting ascending and descending scope.header.sortBy when scope.sortBy is clicked', function () {
-      field =  {'key': 'star', 'name': 'star'};
+      field = {'key': 'star', 'name': 'star'};
       tastyThead.isolateScope().sortBy(field);
       $scope.$digest();
       $timeout.flush();
@@ -293,7 +293,7 @@ describe('Directive', function () {
     });
 
     it('should sorting ascending and descending with a key contains a dash (-)', function () {
-      field =  { 'key': 'sf-Location', 'name': 'SF Location'};
+      field = { 'key': 'sf-Location', 'name': 'SF Location'};
       tastyThead.isolateScope().sortBy(field);
       $scope.$digest();
       $timeout.flush();
@@ -307,7 +307,7 @@ describe('Directive', function () {
     });
 
     it('should return true or false to indicate if a specific key is sorted up', function () {
-      field = field =  {'key': 'star', 'name': 'star'};
+      field = {'key': 'star', 'name': 'star'};
       tastyThead.isolateScope().sortBy(field);
       $scope.$digest();
       expect(tastyThead.isolateScope().columns[1].isSortUp).toEqual(false);
@@ -317,7 +317,7 @@ describe('Directive', function () {
     });
 
     it('should return true or false to indicate if a specific key is sorted down', function () {
-      field = field =  {'key': 'star', 'name': 'star'};
+      field = {'key': 'star', 'name': 'star'};
       tastyThead.isolateScope().sortBy(field);
       $scope.$digest();
       expect(tastyThead.isolateScope().columns[1].isSortDown).toEqual(true);
@@ -326,6 +326,82 @@ describe('Directive', function () {
       expect(tastyThead.isolateScope().columns[1].isSortDown).toEqual(false);
     });
   });
+
+
+
+
+  describe('ngTasty table withs filters', function () {
+    beforeEach(inject(function ($rootScope, $compile, _$timeout_, _sortingJSON_) {
+      $scope = $rootScope.$new();
+      $timeout = _$timeout_;
+      $scope.resource = _sortingJSON_;
+      $scope.filters = 'rit';
+      element = angular.element(''+
+      '<table tasty-table resource="resource" filters="filters">'+
+      '  <thead tasty-thead></thead>'+
+      '  <tbody>'+
+      '    <tr ng-repeat="row in rows">'+
+      '      <td>{{ row.name }}</td>'+
+      '      <td>{{ row.star }}</td>'+
+      '      <td>{{ row[\'sf-Location\'] }}</td>'+
+      '    </tr>'+
+      '  </tbody>'+
+      '</table>');
+      tastyTable = $compile(element)($scope);
+      tastyThead = tastyTable.find('[tasty-thead=""]');
+      $timeout.flush();
+      $scope.$digest();
+    }));
+
+    it('should have these element.scope() value as default', function () {
+      expect(element.scope().query).toEqual({
+        'page': 'page',
+        'count': 'count',
+        'sortBy': 'sort-by',
+        'sortOrder': 'sort-order',
+      });
+      expect(element.scope().url).toEqual('');
+      expect(element.scope().header.columns.length).toEqual(3);
+      expect(element.scope().rows.length).toEqual(1);
+      expect(element.scope().pagination).toEqual({ 
+        'count' : null, 
+        'page' : null, 
+        'pages' : null, 
+        'size' : 35
+      });
+      expect(element.scope().params.sortBy).toEqual(undefined);
+      expect(element.scope().params.sortOrder).toEqual('asc');
+      expect(element.scope().params.page).toEqual(1);
+      expect(element.scope().params.count).toEqual(undefined);
+      expect(element.scope().params.thead).toEqual(true);
+      expect(element.scope().theadDirective).toEqual(true);
+      expect(element.scope().paginationDirective).toEqual(false);   
+    });
+
+    it('should filter by string value', function () {
+      $scope.filters = '';
+      $scope.$digest();
+      $timeout.flush();
+      expect(element.scope().rows.length).toEqual(35);
+      $scope.filters = 'rit';
+      $scope.$digest();
+      $timeout.flush();
+      expect(element.scope().rows.length).toEqual(1);
+      $scope.filters = 'bl';
+      $scope.$digest();
+      $timeout.flush();
+      expect(element.scope().rows.length).toEqual(3);
+      $scope.filters = 'll';
+      $scope.$digest();
+      $timeout.flush();
+      expect(element.scope().rows.length).toEqual(11);
+      $scope.filters = '★★★★★';
+      $scope.$digest();
+      $timeout.flush();
+      expect(element.scope().rows.length).toEqual(6);
+    });
+  });
+
 
 
 

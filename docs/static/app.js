@@ -151,12 +151,13 @@ angular.module('myApp.controllers', [])
       { "name": "House of Snacks", "star": "★★★", "sf-Location": "The Presidio" },
       { "name": "The Brew", "star": "★★★", "sf-Location": "Russian Hill" },
       { "name": "Wicked Grounds", "star": "★★★", "sf-Location": "SOMA" },
+      { "name": "farm:table", "star": "★★★", "sf-Location": "Tenderloin" },
       { "name": "Starbucks", "star": "★", "sf-Location": "Union Square" },
       { "name": "Flywheel Coffee Roasters", "star": "★★★★★", "sf-Location": "Upper Haight" }
     ]
   };
   $scope.notSortBy = ['sf-Location'];
-
+  
   $scope.filters = 'rit';
 
   $scope.itemsPerPage = 10;
