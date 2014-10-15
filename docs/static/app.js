@@ -57,7 +57,7 @@ angular.module('myApp.controllers', [])
     });
   };
   $scope.options = {
-    version: '0.2.7',
+    version: '0.3.0',
     minified: true,
     tpls: true
   };
@@ -106,18 +106,9 @@ angular.module('myApp.controllers', [])
   $scope.open('complete');
   $scope.resource = {
     "header": [
-      {
-        "key": "name", 
-        "name": "Name"
-      },
-      {
-        "key": "star", 
-        "name": "Star"
-      },
-      {
-        "key": "sf-Location", 
-        "name": "SF Location"
-      }
+      { "name": "Name" },
+      { "star": "Star" },
+      { "sf-Location": "SF Location" }
     ],
     "rows": [
       { "name": "Ritual Coffee Roasters", "star": "★★★★★", "sf-Location": "Hayes Valley"},

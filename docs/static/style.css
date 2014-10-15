@@ -13,6 +13,12 @@ iframe {
   margin: 0 0 8px 0;
 }
 
+.spacer {
+  display: inline-block;
+  width: 3em;
+  height: 3em;
+}
+
 .ng-tasty-title {
   margin: 42px 0 80px 0;
 }
@@ -24,10 +30,16 @@ iframe {
   font-style: italic;
 }
 
-.spacer {
-  display: inline-block;
-  width: 3em;
-  height: 3em;
+.ng-tasty-title-inside {
+  margin: 22px 0  20px 0;
+}
+
+.ng-tasty-title-inside .spacer {
+  height: 2em;
+}
+
+.ng-tasty-title-inside iframe {
+  margin-top: 10px;
 }
 
 .left-nav {
