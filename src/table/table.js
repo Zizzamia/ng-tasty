@@ -126,6 +126,17 @@ angular.module('ngTasty.table', [
       throw 'AngularJS tastyTable directive: the resource '+
             'has the property header or rows undefined';
     }
+    // Assuming if one header uses just one key it's based on the new pattern.
+    // [feature request] simplified header for resources #37 by @WebReflection
+    if (Object.keys(resource.header[0]).length === 1) {
+      resource.header = resource.header.map(function (header) {
+        var key = Object.keys(header)[0];
+        return {
+          key: key,
+          name: header[key]
+        };
+      });
+    }
     sortBy = resource.sortBy || $scope.params.sortBy;
     sortBy = sortBy || resource.header[0].key;
     $scope.header = {

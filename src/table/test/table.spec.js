@@ -231,6 +231,9 @@ describe('Directive', function () {
         'sortOrder': 'sort-order',
       });
       expect(element.scope().url).toEqual('');
+      expect(element.scope().header.columns[0]).toEqual({ 'key' : 'name', 'name' : 'Name' });
+      expect(element.scope().header.columns[1]).toEqual({ 'key' : 'star', 'name' : 'Star' });
+      expect(element.scope().header.columns[2]).toEqual({ 'key' : 'sf-Location', 'name' : 'SF Location' });
       expect(element.scope().header.columns.length).toEqual(3);
       expect(element.scope().rows.length).toEqual(35);
       expect(element.scope().pagination).toEqual({ 
@@ -326,7 +329,64 @@ describe('Directive', function () {
       expect(tastyThead.isolateScope().columns[1].isSortDown).toEqual(false);
     });
   });
+  
 
+
+  describe('ngTasty table withs sorting, simplified header version', function () {
+    beforeEach(inject(function ($rootScope, $compile, _$timeout_, _sortingJSON_) {
+      $scope = $rootScope.$new();
+      $timeout = _$timeout_;
+      $scope.resource = _sortingJSON_;
+      $scope.resource.header = [
+        { 'name': 'Name' },
+        { 'star': 'Star' },
+        { 'sf-Location': 'SF Location' }
+      ];
+      element = angular.element(''+
+      '<table tasty-table resource="resource">'+
+      '  <thead tasty-thead></thead>'+
+      '  <tbody>'+
+      '    <tr ng-repeat="row in rows">'+
+      '      <td>{{ row.name }}</td>'+
+      '      <td>{{ row.star }}</td>'+
+      '      <td>{{ row[\'sf-Location\'] }}</td>'+
+      '    </tr>'+
+      '  </tbody>'+
+      '</table>');
+      tastyTable = $compile(element)($scope);
+      tastyThead = tastyTable.find('[tasty-thead=""]');
+      $timeout.flush();
+      $scope.$digest();
+    }));
+
+    it('should have these element.scope() value as default', function () {
+      expect(element.scope().query).toEqual({
+        'page': 'page',
+        'count': 'count',
+        'sortBy': 'sort-by',
+        'sortOrder': 'sort-order',
+      });
+      expect(element.scope().url).toEqual('');
+      expect(element.scope().header.columns[0]).toEqual({ 'key' : 'name', 'name' : 'Name' });
+      expect(element.scope().header.columns[1]).toEqual({ 'key' : 'star', 'name' : 'Star' });
+      expect(element.scope().header.columns[2]).toEqual({ 'key' : 'sf-Location', 'name' : 'SF Location' });
+      expect(element.scope().header.columns.length).toEqual(3);
+      expect(element.scope().rows.length).toEqual(35);
+      expect(element.scope().pagination).toEqual({ 
+        'count' : null, 
+        'page' : null, 
+        'pages' : null, 
+        'size' : 35
+      });
+      expect(element.scope().params.sortBy).toEqual(undefined);
+      expect(element.scope().params.sortOrder).toEqual('asc');
+      expect(element.scope().params.page).toEqual(1);
+      expect(element.scope().params.count).toEqual(undefined);
+      expect(element.scope().params.thead).toEqual(true);
+      expect(element.scope().theadDirective).toEqual(true);
+      expect(element.scope().paginationDirective).toEqual(false);   
+    });
+  });
 
 
 
