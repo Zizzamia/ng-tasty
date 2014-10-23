@@ -61,7 +61,7 @@ npm test
 
 ## Changelog
 
-[https://github.com/Zizzamia/ng-tasty/CHANGELOG.md](https://github.com/Zizzamia/ng-tasty/CHANGELOG.md)
+[https://github.com/Zizzamia/ng-tasty/CHANGELOG.md](https://github.com/Zizzamia/ng-tasty/blob/master/CHANGELOG.md)
 
 
 ## Creator
