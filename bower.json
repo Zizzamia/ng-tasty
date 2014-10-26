@@ -14,7 +14,7 @@
     "bootstrap": "3.2.0",
     "components-font-awesome": "4.1.0",
     "rainbow": "1.1.9",
-    "ng-tasty": "^0.2.6"
+    "ng-tasty": "^0.3.0"
   },
   "license": "MIT",
   "ignore": [

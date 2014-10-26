@@ -147,6 +147,16 @@ angular.module('myApp.controllers', [])
       { "name": "Flywheel Coffee Roasters", "star": "★★★★★", "sf-Location": "Upper Haight" }
     ]
   };
+  $scope.resourceTwo = {
+    "header": [
+      { "name": "Name" },
+      { "star": "Star" },
+      { "sf-Location": "SF Location" }
+    ],
+    "rows": $scope.resource.rows,
+    "sortBy": "star",
+    "sortOrder": "dsc"
+  };
   $scope.notSortBy = ['sf-Location'];
   
   $scope.filters = 'rit';
