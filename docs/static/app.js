@@ -26,6 +26,11 @@ angular.module('myApp', [
     templateUrl: 'filter/range.html',
     title: '#ngTasty - AngularJS range filter'
   })
+  .when('/service/websocket', {
+    controller: 'WebSocketCtrl',
+    templateUrl: 'service/websocket.html',
+    title: '#ngTasty - AngularJS websocket service'
+  })
   .otherwise({ redirectTo: '/' });
 
   $locationProvider.html5Mode(true);
@@ -275,4 +280,77 @@ angular.module('myApp.controllers', [])
   $timeout(function () {
     Rainbow.color();
   });
+
+})
+.directive('ngScroll', function($timeout) {
+  return function(scope, element, attrs) {
+    scope.$on(attrs.on, function() {
+      $timeout(function() {
+        element[0].scrollTop = element[0].scrollHeight;
+      }, 10);
+    });
+  };
+})
+.controller('WebSocketCtrl', function($scope, WebSocket) {
+  $scope.tag = 'angularjs';
+  $scope.counters = {};
+  $scope.tweets = [];
+  $scope.echoes = [];
+  $scope.showEcho = true;
+
+  var tweetWs = new WebSocket('ws://localhost:3000');
+  var echoWs = new  WebSocket('ws://echo.websocket.org');
+
+  tweetWs.on('tweet', function(data) {
+    var tweet = {
+      created_at: new Date(data.created_at),
+      username: data.user.name,
+      screen_name: data.user.screen_name,
+      picture: data.user.profile_image_url,
+      text: data.text
+    };
+
+    $scope.$apply(function() {
+      $scope.counters[$scope.currentTag] += 1;
+      $scope.tweets.unshift(tweet);
+      $scope.$emit('new_tweet');
+    });
+  });
+
+  tweetWs.on('error', function(error) {
+    $scope.$apply(function() {
+      $scope.error = error;
+    });
+  });
+
+  echoWs.on('all', function(msg) {
+    $scope.$apply(function() {
+      $scope.echoes.push(msg);
+    });
+  });
+
+  $scope.tagFilter = function() {
+    if (!$scope.tag) { 
+      return; 
+    }
+
+    tweetWs.send({tag: $scope.tag});
+    $scope.currentTag = angular.copy($scope.tag);
+    $scope.counters[$scope.currentTag] = $scope.counters[$scope.currentTag] || 0;
+  };
+
+  $scope.echo = function() {
+    echoWs.send($scope.echoText);
+  };
+
+  $scope.open = function(open) {
+    $scope.showEcho = false;
+    $scope.showTwitterStreams = false;
+
+    if (open === 'echo') {
+      $scope.showEcho = true;
+    } else if (open === 'twitter-streams') {
+      $scope.showTwitterStreams = true;
+    }
+  };
 });
