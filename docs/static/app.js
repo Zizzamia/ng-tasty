@@ -43,12 +43,14 @@ angular.module('myApp', [
 });
 
 angular.module('myApp.controllers', [])
-.controller('AppCtrl', function($scope, $window, $location) {
+.controller('AppCtrl', function($rootScope, $scope, $window, $location) {
   if (base == '/ng-tasty') {
     $scope.$on('$viewContentLoaded', function(event) {
       $window.ga('send', 'pageview', { page: '/ng-tasty' + $location.path() });
     });
   }
+
+  $rootScope.version = '0.3.1';
 })
 .controller('DownloadCtrl', function($rootScope, $scope, $modal, $timeout) {
   var modalInstance;
@@ -62,7 +64,7 @@ angular.module('myApp.controllers', [])
     });
   };
   $scope.options = {
-    version: '0.3.0',
+    version: $rootScope.version,
     minified: true,
     tpls: true
   };

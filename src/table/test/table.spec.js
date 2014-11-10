@@ -234,12 +234,10 @@ describe('Directive', function () {
       expect(element.scope().header.columns[2]).toEqual({ 'key' : 'sf-Location', 'name' : 'SF Location' });
       expect(element.scope().header.columns.length).toEqual(3);
       expect(element.scope().rows.length).toEqual(35);
-      expect(element.scope().pagination).toEqual({ 
-        'count' : null, 
-        'page' : null, 
-        'pages' : null, 
-        'size' : 35
-      });
+      expect(element.scope().pagination.count).toEqual(5);
+      expect(element.scope().pagination.page).toEqual(1);
+      expect(element.scope().pagination.pages).toEqual(1);
+      expect(element.scope().pagination.size).toEqual(0);
       expect(element.scope().params.sortBy).toEqual(undefined);
       expect(element.scope().params.sortOrder).toEqual(undefined);
       expect(element.scope().params.page).toEqual(1);
@@ -370,12 +368,10 @@ describe('Directive', function () {
       expect(element.scope().header.columns[2]).toEqual({ 'key' : 'sf-Location', 'name' : 'SF Location' });
       expect(element.scope().header.columns.length).toEqual(3);
       expect(element.scope().rows.length).toEqual(35);
-      expect(element.scope().pagination).toEqual({ 
-        'count' : null, 
-        'page' : null, 
-        'pages' : null, 
-        'size' : 35
-      });
+      expect(element.scope().pagination.count).toEqual(5);
+      expect(element.scope().pagination.page).toEqual(1);
+      expect(element.scope().pagination.pages).toEqual(1);
+      expect(element.scope().pagination.size).toEqual(0);
       expect(element.scope().params.sortBy).toEqual(undefined);
       expect(element.scope().params.sortOrder).toEqual(undefined);
       expect(element.scope().params.page).toEqual(1);
@@ -421,12 +417,10 @@ describe('Directive', function () {
       expect(element.scope().url).toEqual('');
       expect(element.scope().header.columns.length).toEqual(3);
       expect(element.scope().rows.length).toEqual(1);
-      expect(element.scope().pagination).toEqual({ 
-        'count' : null, 
-        'page' : null, 
-        'pages' : null, 
-        'size' : 35
-      });
+      expect(element.scope().pagination.count).toEqual(5);
+      expect(element.scope().pagination.page).toEqual(1);
+      expect(element.scope().pagination.pages).toEqual(1);
+      expect(element.scope().pagination.size).toEqual(0);
       expect(element.scope().params.sortBy).toEqual(undefined);
       expect(element.scope().params.sortOrder).toEqual(undefined);
       expect(element.scope().params.page).toEqual(1);
@@ -515,12 +509,10 @@ describe('Directive', function () {
       expect(element.scope().url).toEqual('');
       expect(element.scope().header.columns.length).toEqual(3);
       expect(element.scope().rows.length).toEqual(35);
-      expect(element.scope().pagination).toEqual({ 
-        'count' : null, 
-        'page' : null, 
-        'pages' : null, 
-        'size' : 35
-      });
+      expect(element.scope().pagination.count).toEqual(5);
+      expect(element.scope().pagination.page).toEqual(1);
+      expect(element.scope().pagination.pages).toEqual(1);
+      expect(element.scope().pagination.size).toEqual(0);
       expect(element.scope().params.sortBy).toEqual(undefined);
       expect(element.scope().params.sortOrder).toEqual(undefined);
       expect(element.scope().params.page).toEqual(1);

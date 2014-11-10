@@ -18,7 +18,7 @@
     <a href="<%= base %>/" class="head">
       <h1>#ngTasty</h1>
     </a>
-    <p class="version">v0.3.0</p>
+    <p class="version">v{{ version }}</p>
     <div class="head">
       <ul>
         <li>
@@ -35,11 +35,11 @@
             ng-class="{active:page == 'table-server-side'}">Table server side</a>
         </li>
       </ul>
+      <!--
       <h4>Service</h4>
       <ul>
         <li><a href="<%= base %>/service/websocket" 
             ng-class="{active:page == 'websocket'}">WebSocket</a></li>
-        <!--
         <li><a href="<%= base %>/#Debounce">Debounce</a></li>
         <li><a href="<%= base %>/#SetProperty">Set Property</a></li>
         <li><a href="<%= base %>/#JoinObjects">JoinObjects</a></li>
@@ -107,8 +107,8 @@
     </div>
     <div class="modal-footer">
       <a class="btn btn-default" ng-click="cancel()">Close</a>
-      <a class="btn btn-primary" ng-href="{{download()}}" download>
-      <i class="fa fa-download"></i> Download 0.3.0</a>
+      <a class="btn btn-primary" ng-href="{{ download() }}" download>
+      <i class="fa fa-download"></i> Download {{ version }}</a>
     </div>
   </script>
 
