@@ -294,20 +294,24 @@ angular.module('ngTasty.table', [
     templateUrl: 'template/table/head.html',
     link: function (scope, element, attrs, tastyTable) {
       'use strict';
+      var iconUp, iconDown;
       // Thead it's called
       tastyTable.activate('thead');
       scope.bindOnce = tastyTable.bindOnce;
-
       scope.columns = [];
 
+      iconUp = 'fa fa-sort-up';
+      iconDown = 'fa fa-sort-down';
+
       scope.setColumns = function () {
-        var lenHeader, width, i, active, sortable, sort;
+        var lenHeader, width, i, active, sortable, sort, isSorted;
         scope.columns = [];
         lenHeader = scope.header.columns.length;
         scope.header.columns.forEach(function (column, index) {
           width = parseFloat((100 / lenHeader).toFixed(2));
           sortable = true;
           active = false;
+          isSorted = '';
           if (scope.notSortBy) {
             sortable = scope.notSortBy.indexOf(column.key) < 0;
           }
@@ -316,14 +320,18 @@ angular.module('ngTasty.table', [
             active = true;
           }
           sort = $filter('cleanFieldName')(column.key);
+          if (scope.header.sortBy === '-' + sort) {
+            isSorted = iconDown;
+          } else if (scope.header.sortBy === sort) {
+            isSorted = iconUp;
+          }
           scope.columns.push({
             'key': column.key,
             'name': column.name,
             'active': active,
             'sortable': sortable,
             'width': { 'width': width + '%' },
-            'isSortUp': scope.header.sortBy === '-' + sort,
-            'isSortDown': scope.header.sortBy === sort
+            'isSorted': isSorted
           });
         });
         if (scope.header.sortOrder === 'dsc' && 

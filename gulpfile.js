@@ -143,6 +143,10 @@ gulp.task('watch', function() {
     gulp.run('html2js');
   });
 
+  gulp.watch('template/**/*.html.js', function (event) {
+    gulp.run('build');
+  });
+
   gulp.watch('src/**/*.js', function (event) {
     gulp.run('jshint');
     gulp.run('build');

@@ -3,7 +3,6 @@
   ng-class="classToShow(column)"
   ng-style="column.width" ng-click="sortBy(column)">
     <span ng-bind="::column.name"></span>
-    <span ng-if="column.isSortUp" class="fa fa-sort-up"></span>
-    <span ng-if="column.isSortDown" class="fa fa-sort-down"></span>
+    <span ng-class="column.isSorted"></span>
   </th> 
 </tr>
