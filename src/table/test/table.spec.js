@@ -702,14 +702,14 @@ describe('Directive', function () {
       expect(tastyPagination.isolateScope().pagination.page).toEqual(1);
       expect(tastyPagination.isolateScope().pagination.pages).toEqual(1);
       expect(tastyPagination.isolateScope().pagination.size).toEqual(1);
-      expect(tastyPagination.isolateScope().listItemsPerPageShow).toEqual([5, 25]);
+      expect(tastyPagination.isolateScope().listItemsPerPageShow).toEqual([]);
       expect(tastyPagination.isolateScope().pagMinRange).toEqual(1);
       expect(tastyPagination.isolateScope().pagMaxRange).toEqual(2);
     });
 
     it('should generate page count button using ng-repeat', function () {
       elementSelected = element.find('[ng-repeat="count in listItemsPerPageShow"]');
-      expect(elementSelected.length).toEqual(2);
+      expect(elementSelected.length).toEqual(0);
     });
   });
 

@@ -176,8 +176,8 @@ angular.module('myApp.controllers', [])
     'rows': $scope.resource.rows,
     'page': 2
   };
-  $scope.itemsPerPage = 20;
-  $scope.listItemsPerPage = [10, 20, 40, 80];
+  $scope.itemsPerPage = 10;
+  $scope.listItemsPerPage = [5, 10, 15, 20];
 
   $scope.resourceFour = {
     'header': [
