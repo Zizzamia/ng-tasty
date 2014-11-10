@@ -71,6 +71,8 @@ Designed and built by Leonardo Zizzamia, like grandma used to make.
 - <http://twitter.com/zizzamia>
 - <http://github.com/zizzamia>
 
+Tasty Contributors: [@proudlygeek](https://twitter.com/proudlygeek)
+
 [bower]: https://github.com/Zizzamia/bower-ng-tasty
 [bower-badge]: https://badge.fury.io/bo/ng-tasty.svg
 [npm-site]: https://www.npmjs.org/

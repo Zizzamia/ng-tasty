@@ -148,6 +148,12 @@ gulp.task('watch', function() {
     gulp.run('build');
   });
 
+  gulp.watch(['docs/server.js', 'docs/static/app.js'], function (event) {
+    gulp.src(['docs/server.js', 'docs/static/app.js'])
+    .pipe(jshint())
+    .pipe(jshint.reporter('default'));
+  });
+
   gulp.src(testFiles)
     .pipe(karma({
       configFile: 'karma.conf.js',

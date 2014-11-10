@@ -7,7 +7,8 @@ angular.module('ngTasty.service', [
   'ngTasty.service.tastyUtil',
   'ngTasty.service.debounce',
   'ngTasty.service.setProperty',
-  'ngTasty.service.joinObjects'
+  'ngTasty.service.joinObjects',
+  'ngTasty.service.webSocket'
 ]);
 
 /**

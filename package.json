@@ -29,7 +29,9 @@
     "protractor": "^0.20.1",
     "run-sequence": "^0.3.6",
     "streamqueue": "^0.1.1",
-    "underscore": "^1.6.0"
+    "twit": "^1.1.18",
+    "underscore": "^1.6.0",
+    "ws": "^0.4.32"
   },
   "scripts": {
     "start": "node docs/server.js port=3000",
@@ -41,7 +43,10 @@
     "type": "git",
     "url": "https://github.com/Zizzamia/ng-tasty.git"
   },
-  "author": "@zizzamia",
+  "author": [
+    "@zizzamia",
+    "@proudlygeek"
+  ],
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/Zizzamia/ng-tasty/issues"

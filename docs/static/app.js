@@ -26,16 +26,21 @@ angular.module('myApp', [
     templateUrl: 'filter/range.html',
     title: '#ngTasty - AngularJS range filter'
   })
+  .when('/service/websocket', {
+    controller: 'WebSocketCtrl',
+    templateUrl: 'service/websocket.html',
+    title: '#ngTasty - AngularJS websocket service'
+  })
   .otherwise({ redirectTo: '/' });
 
   $locationProvider.html5Mode(true);
 })
 .run(function ($rootScope, $route) {
-  $rootScope.$on("$routeChangeSuccess", function(currentRoute, previousRoute){
+  $rootScope.$on('$routeChangeSuccess', function(currentRoute, previousRoute){
     //Change page title, based on Route information
     $rootScope.title = $route.current.title;
   });
-})
+});
 
 angular.module('myApp.controllers', [])
 .controller('AppCtrl', function($scope, $window, $location) {
@@ -102,84 +107,85 @@ angular.module('myApp.controllers', [])
     } else if (toOpen === 'filtering') {
       $scope.tableFour = false;
     }
-  }
+  };
+  
   $scope.open('complete');
   $scope.resource = {
-    "header": [
-      { "name": "Name" },
-      { "star": "Star" },
-      { "sf-Location": "SF Location" }
+    'header': [
+      { 'name': 'Name' },
+      { 'star': 'Star' },
+      { 'sf-Location': 'SF Location' }
     ],
-    "rows": [
-      { "name": "Ritual Coffee Roasters", "star": "★★★★★", "sf-Location": "Hayes Valley"},
-      { "name": "Blue Bottle", "star": "★★★★★", "sf-Location": "Hayes Valley" },
-      { "name": "CoffeeShop", "star": "★★★", "sf-Location": "Bernal Heights" },
-      { "name": "Spike's Coffee & Teas", "star": "★★★", "sf-Location": "Castro" },
-      { "name": "La Boulange", "star": "★★", "sf-Location": "Cole Valley" },
-      { "name": "Dynamo Donut and Coffee", "star": "★★★★★", "sf-Location": "Cow Hollow" },
-      { "name": "The Mill", "star": "★★★★", "sf-Location": "Divisadero" },
-      { "name": "Piccino Coffee Bar", "star": "★★★", "sf-Location": "Dogpatch" },
-      { "name": "Philz", "star": "★★★", "sf-Location": "Downtown" },
-      { "name": "Duboce Park Cafe", "star": "★★", "sf-Location": "Duboce Triangle" },
-      { "name": "Blue Bottle", "star": "★★★★★", "sf-Location": "Embarcadero" },
-      { "name": "Four Barrel", "star": "★★★", "sf-Location": "Excelsior" },
-      { "name": "Coffee Bar", "star": "★★★★★", "sf-Location": "FiDi" },
-      { "name": "Biscoff Coffee Corner", "star": "★★★", "sf-Location": "Fisherman’s Wharf" },
-      { "name": "Fifty/Fifty Coffee and Tea", "star": "★★★", "sf-Location": "Inner Richmond" },
-      { "name": "Beanery", "star": "★★★", "sf-Location": "Inner Sunset" },
-      { "name": "Cafe du Soleil", "star": "★★", "sf-Location": "Lower Haight" },
-      { "name": "Peet's", "star": "★", "sf-Location": "The Marina" },
-      { "name": "Sightglass", "star": "★★★★", "sf-Location": "The Mission" },
-      { "name": "Contraband Coffee Bar", "star": "★★★★", "sf-Location": "Nob Hill" },
-      { "name": "Martha & Bros Coffee", "star": "★★★", "sf-Location": "Noe Valley" },
-      { "name": "Réveille", "star": "★★★", "sf-Location": "North Beach" },
-      { "name": "Cup Coffee Bar", "star": "★★★", "sf-Location": "Outer Mission" },
-      { "name": "Garden House Cafe", "star": "★★★", "sf-Location": "Outer Richmond" },
-      { "name": "Andytown Coffee Roasters", "star": "★★★", "sf-Location": "Outer Sunset" },
-      { "name": "Jane on Fillmore", "star": "★★", "sf-Location": "Pacific Heights" },
-      { "name": "Saint Frank Coffee", "star": "★★★", "sf-Location": "Polk" },
-      { "name": "Farley’s", "star": "★★★", "sf-Location": "Potrero Hill" },
-      { "name": "House of Snacks", "star": "★★★", "sf-Location": "The Presidio" },
-      { "name": "The Brew", "star": "★★★", "sf-Location": "Russian Hill" },
-      { "name": "Wicked Grounds", "star": "★★★", "sf-Location": "SOMA" },
-      { "name": "farm:table", "star": "★★★", "sf-Location": "Tenderloin" },
-      { "name": "Starbucks", "star": "★", "sf-Location": "Union Square" },
-      { "name": "Flywheel Coffee Roasters", "star": "★★★★★", "sf-Location": "Upper Haight" },
+    'rows': [
+      { 'name': 'Ritual Coffee Roasters', 'star': '★★★★★', 'sf-Location': 'Hayes Valley'},
+      { 'name': 'Blue Bottle', 'star': '★★★★★', 'sf-Location': 'Hayes Valley' },
+      { 'name': 'CoffeeShop', 'star': '★★★', 'sf-Location': 'Bernal Heights' },
+      { 'name': 'Spike\'s Coffee & Teas', 'star': '★★★', 'sf-Location': 'Castro' },
+      { 'name': 'La Boulange', 'star': '★★', 'sf-Location': 'Cole Valley' },
+      { 'name': 'Dynamo Donut and Coffee', 'star': '★★★★★', 'sf-Location': 'Cow Hollow' },
+      { 'name': 'The Mill', 'star': '★★★★', 'sf-Location': 'Divisadero' },
+      { 'name': 'Piccino Coffee Bar', 'star': '★★★', 'sf-Location': 'Dogpatch' },
+      { 'name': 'Philz', 'star': '★★★', 'sf-Location': 'Downtown' },
+      { 'name': 'Duboce Park Cafe', 'star': '★★', 'sf-Location': 'Duboce Triangle' },
+      { 'name': 'Blue Bottle', 'star': '★★★★★', 'sf-Location': 'Embarcadero' },
+      { 'name': 'Four Barrel', 'star': '★★★', 'sf-Location': 'Excelsior' },
+      { 'name': 'Coffee Bar', 'star': '★★★★★', 'sf-Location': 'FiDi' },
+      { 'name': 'Biscoff Coffee Corner', 'star': '★★★', 'sf-Location': 'Fisherman’s Wharf' },
+      { 'name': 'Fifty/Fifty Coffee and Tea', 'star': '★★★', 'sf-Location': 'Inner Richmond' },
+      { 'name': 'Beanery', 'star': '★★★', 'sf-Location': 'Inner Sunset' },
+      { 'name': 'Cafe du Soleil', 'star': '★★', 'sf-Location': 'Lower Haight' },
+      { 'name': 'Peet\'s', 'star': '★', 'sf-Location': 'The Marina' },
+      { 'name': 'Sightglass', 'star': '★★★★', 'sf-Location': 'The Mission' },
+      { 'name': 'Contraband Coffee Bar', 'star': '★★★★', 'sf-Location': 'Nob Hill' },
+      { 'name': 'Martha & Bros Coffee', 'star': '★★★', 'sf-Location': 'Noe Valley' },
+      { 'name': 'Réveille', 'star': '★★★', 'sf-Location': 'North Beach' },
+      { 'name': 'Cup Coffee Bar', 'star': '★★★', 'sf-Location': 'Outer Mission' },
+      { 'name': 'Garden House Cafe', 'star': '★★★', 'sf-Location': 'Outer Richmond' },
+      { 'name': 'Andytown Coffee Roasters', 'star': '★★★', 'sf-Location': 'Outer Sunset' },
+      { 'name': 'Jane on Fillmore', 'star': '★★', 'sf-Location': 'Pacific Heights' },
+      { 'name': 'Saint Frank Coffee', 'star': '★★★', 'sf-Location': 'Polk' },
+      { 'name': 'Farley’s', 'star': '★★★', 'sf-Location': 'Potrero Hill' },
+      { 'name': 'House of Snacks', 'star': '★★★', 'sf-Location': 'The Presidio' },
+      { 'name': 'The Brew', 'star': '★★★', 'sf-Location': 'Russian Hill' },
+      { 'name': 'Wicked Grounds', 'star': '★★★', 'sf-Location': 'SOMA' },
+      { 'name': 'farm:table', 'star': '★★★', 'sf-Location': 'Tenderloin' },
+      { 'name': 'Starbucks', 'star': '★', 'sf-Location': 'Union Square' },
+      { 'name': 'Flywheel Coffee Roasters', 'star': '★★★★★', 'sf-Location': 'Upper Haight' }
     ],
-    "sortBy": "name",
-    "sortOrder": "asc"
+    'sortBy': 'name',
+    'sortOrder': 'asc'
   };
   $scope.resourceTwo = {
-    "header": [
-      { "name": "Name" },
-      { "star": "Star" },
-      { "sf-Location": "SF Location" }
+    'header': [
+      { 'name': 'Name' },
+      { 'star': 'Star' },
+      { 'sf-Location': 'SF Location' }
     ],
-    "rows": $scope.resource.rows,
-    "sortBy": "star",
-    "sortOrder": "dsc"
+    'rows': $scope.resource.rows,
+    'sortBy': 'star',
+    'sortOrder': 'dsc'
   };
   $scope.notSortBy = ['sf-Location'];
-
+  
   $scope.resourceThree = {
-    "header": [
-      { "name": "Name" },
-      { "star": "Star" },
-      { "sf-Location": "SF Location" }
+    'header': [
+      { 'name': 'Name' },
+      { 'star': 'Star' },
+      { 'sf-Location': 'SF Location' }
     ],
-    "rows": $scope.resource.rows,
-    "page": 2
+    'rows': $scope.resource.rows,
+    'page': 2
   };
   $scope.itemsPerPage = 20;
   $scope.listItemsPerPage = [10, 20, 40, 80];
 
   $scope.resourceFour = {
-    "header": [
-      { "name": "Name" },
-      { "star": "Star" },
-      { "sf-Location": "SF Location" }
+    'header': [
+      { 'name': 'Name' },
+      { 'star': 'Star' },
+      { 'sf-Location': 'SF Location' }
     ],
-    "rows": $scope.resource.rows
+    'rows': $scope.resource.rows
   };
   $scope.filters = 'rit';
 
@@ -213,7 +219,7 @@ angular.module('myApp.controllers', [])
     } else if (toOpen === 'filtering') {
       $scope.tableFour = false;
     }
-  }
+  };
   $scope.open('complete');
 
   $scope.getResource = function (params) {
@@ -227,9 +233,9 @@ angular.module('myApp.controllers', [])
         'pagination': response.data.pagination,
         'sortBy': response.data['sort-by'],
         'sortOrder': response.data['sort-order']
-      }
+      };
     });
-  }
+  };
 
   $scope.notSortBy = ['sf-location'];
   $scope.getResourceOne = function (params) {
@@ -242,9 +248,9 @@ angular.module('myApp.controllers', [])
         'header': response.data.header,
         'sortBy': response.data['sort-by'],
         'sortOrder': response.data['sort-order']
-      }
+      };
     });
-  }
+  };
 
   $scope.getResourceTwo = function (params) {
     $scope.urlApiTwo = 'table.json?' + params;
@@ -257,9 +263,9 @@ angular.module('myApp.controllers', [])
         'pagination': response.data.pagination,
         'sortBy': response.data['sort-by'],
         'sortOrder': response.data['sort-order']
-      }
+      };
     });
-  }
+  };
 
   $scope.getResourceThree = function (params) {
     $scope.urlApiThree = 'table.json?' + params;
@@ -269,9 +275,9 @@ angular.module('myApp.controllers', [])
       return {
         'rows': response.data.rows,
         'header': response.data.header
-      }
+      };
     });
-  }
+  };
 
   $timeout(function () {
     Rainbow.color();
@@ -293,4 +299,77 @@ angular.module('myApp.controllers', [])
   $timeout(function () {
     Rainbow.color();
   });
+
+})
+.directive('ngScroll', function($timeout) {
+  return function(scope, element, attrs) {
+    scope.$on(attrs.on, function() {
+      $timeout(function() {
+        element[0].scrollTop = element[0].scrollHeight;
+      }, 10);
+    });
+  };
+})
+.controller('WebSocketCtrl', function($scope, WebSocket) {
+  $scope.tag = 'angularjs';
+  $scope.counters = {};
+  $scope.tweets = [];
+  $scope.echoes = [];
+  $scope.showEcho = true;
+
+  var tweetWs = new WebSocket('ws://localhost:3000');
+  var echoWs = new  WebSocket('ws://echo.websocket.org');
+
+  tweetWs.on('tweet', function(data) {
+    var tweet = {
+      created_at: new Date(data.created_at),
+      username: data.user.name,
+      screen_name: data.user.screen_name,
+      picture: data.user.profile_image_url,
+      text: data.text
+    };
+
+    $scope.$apply(function() {
+      $scope.counters[$scope.currentTag] += 1;
+      $scope.tweets.unshift(tweet);
+      $scope.$emit('new_tweet');
+    });
+  });
+
+  tweetWs.on('error', function(error) {
+    $scope.$apply(function() {
+      $scope.error = error;
+    });
+  });
+
+  echoWs.on('all', function(msg) {
+    $scope.$apply(function() {
+      $scope.echoes.push(msg);
+    });
+  });
+
+  $scope.tagFilter = function() {
+    if (!$scope.tag) { 
+      return; 
+    }
+
+    tweetWs.send({tag: $scope.tag});
+    $scope.currentTag = angular.copy($scope.tag);
+    $scope.counters[$scope.currentTag] = $scope.counters[$scope.currentTag] || 0;
+  };
+
+  $scope.echo = function() {
+    echoWs.send($scope.echoText);
+  };
+
+  $scope.open = function(open) {
+    $scope.showEcho = false;
+    $scope.showTwitterStreams = false;
+
+    if (open === 'echo') {
+      $scope.showEcho = true;
+    } else if (open === 'twitter-streams') {
+      $scope.showTwitterStreams = true;
+    }
+  };
 });

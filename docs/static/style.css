@@ -1,3 +1,44 @@
+@-webkit-keyframes bounceInDown {
+  0%, 60%, 75%, 90%, 100% {
+    -webkit-transition-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
+            transition-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
+  }
+
+  0% {
+    opacity: 0;
+    -webkit-transform: translate3d(0, -3000px, 0);
+            transform: translate3d(0, -3000px, 0);
+  }
+
+  60% {
+    opacity: 1;
+    -webkit-transform: translate3d(0, 25px, 0);
+            transform: translate3d(0, 25px, 0);
+  }
+
+  75% {
+    -webkit-transform: translate3d(0, -10px, 0);
+            transform: translate3d(0, -10px, 0);
+  }
+
+  90% {
+    -webkit-transform: translate3d(0, 5px, 0);
+            transform: translate3d(0, 5px, 0);
+  }
+
+  100% {
+    -webkit-transform: none;
+            transform: none;
+  }
+}
+
+.bounceInDown {
+  -webkit-animation-name: bounceInDown;
+          animation-name: bounceInDown;
+  -webkit-animation-duration: .75s;
+          animation-duration: .75s;
+}
+
 .content {
   margin-left: 234px;
   padding: 10px 38px;
@@ -162,4 +203,62 @@ iframe {
   background-color: #f8f8f8;
   border: 1px solid #ccc;
   border-bottom-color: transparent;
+}
+
+.tweets-container {
+  position: relative;
+  height: 400px;
+  margin-top: 0;
+  overflow: hidden;
+  overflow-y: scroll;
+}
+
+.tweets-box {
+  position: absolute;
+}
+
+.tweet {
+  display: block;
+  padding: 0px;
+  border-radius: 5px;
+  margin: 10px 0px;
+  border-color: rgb(238, 238, 238) rgb(221, 221, 221) rgb(187, 187, 187);
+  border-width: 1px;
+  border-style: solid;
+  box-shadow: rgba(0, 0, 0, 0.14902) 0px 1px 3px;
+}
+
+.tweet .root {
+  padding: 8px 8px 0 8px;
+}
+
+.root img {
+  display: inline-block;
+  vertical-align: middle;
+  border-radius: 4px;
+  width: 48px;
+  height: 48px;
+  background-color: #fff;
+  margin-right: 7px;
+}
+
+.root .username {
+  display: inline-block;
+  vertical-align: top;
+  font-size: 17px;
+}
+
+.root .nickname {
+  color: #c9c9c9;
+  font-size: 14px;
+}
+
+.root .user {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.root .date {
+  color: #c9c9c9;
+  font-size: 13px;
 }
