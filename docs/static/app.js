@@ -144,8 +144,10 @@ angular.module('myApp.controllers', [])
       { "name": "Wicked Grounds", "star": "★★★", "sf-Location": "SOMA" },
       { "name": "farm:table", "star": "★★★", "sf-Location": "Tenderloin" },
       { "name": "Starbucks", "star": "★", "sf-Location": "Union Square" },
-      { "name": "Flywheel Coffee Roasters", "star": "★★★★★", "sf-Location": "Upper Haight" }
-    ]
+      { "name": "Flywheel Coffee Roasters", "star": "★★★★★", "sf-Location": "Upper Haight" },
+    ],
+    "sortBy": "name",
+    "sortOrder": "asc"
   };
   $scope.resourceTwo = {
     "header": [
@@ -158,11 +160,28 @@ angular.module('myApp.controllers', [])
     "sortOrder": "dsc"
   };
   $scope.notSortBy = ['sf-Location'];
-  
-  $scope.filters = 'rit';
 
-  $scope.itemsPerPage = 10;
+  $scope.resourceThree = {
+    "header": [
+      { "name": "Name" },
+      { "star": "Star" },
+      { "sf-Location": "SF Location" }
+    ],
+    "rows": $scope.resource.rows,
+    "page": 2
+  };
+  $scope.itemsPerPage = 20;
   $scope.listItemsPerPage = [10, 20, 40, 80];
+
+  $scope.resourceFour = {
+    "header": [
+      { "name": "Name" },
+      { "star": "Star" },
+      { "sf-Location": "SF Location" }
+    ],
+    "rows": $scope.resource.rows
+  };
+  $scope.filters = 'rit';
 
   $timeout(function () {
     Rainbow.color();

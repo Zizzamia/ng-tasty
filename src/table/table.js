@@ -78,7 +78,7 @@ angular.module('ngTasty.table', [
     'size': 0
   };
   $scope.theadDirective = false;
-  $scope.paginationDirective = false;
+  $scope.paginationDirective = false; 
 
   /* Set custom configs
    * In the future you will have a way to change
@@ -102,7 +102,7 @@ angular.module('ngTasty.table', [
         $attrs.resourceCallback + ') it\'s not a function';
     }
     $scope.clientSide = false;
-  }    
+  }   
 
   // In TableController, by using `this` we build an API 
   // for other directives to talk to this one.
@@ -113,12 +113,14 @@ angular.module('ngTasty.table', [
 
   this.setParams = function(key, value) {
     $scope.params[key] = value;
+    if (['sortBy', 'sortOrder'].indexOf(key) >= 0) {
+      $scope.header[key] = value;
+    }
   };
 
   this.bindOnce = tableConfig.bindOnce;
 
   $scope.setDirectivesValues = function (resource) {
-    var sortBy;
     if (!angular.isObject(resource)) {
       throw 'AngularJS tastyTable directive: the resource '+
             'it\'s not an object';
@@ -137,12 +139,10 @@ angular.module('ngTasty.table', [
         };
       });
     }
-    sortBy = resource.sortBy || $scope.params.sortBy;
-    sortBy = sortBy || resource.header[0].key;
     $scope.header = {
       'columns': resource.header,
-      'sortBy': sortBy,
-      'sortOrder': resource.sortOrder || $scope.params.sortOrder
+      'sortBy': $scope.params.sortBy,
+      'sortOrder': $scope.params.sortOrder
     };
     $scope.rows = resource.rows;
     $scope.pagination = resource.pagination || $scope.pagination;
@@ -160,7 +160,9 @@ angular.module('ngTasty.table', [
           return item[$scope.header.columns[0].key];
         });
       }
-      $scope.rows = $filter('orderBy')($scope.rows, listSortBy, reverse);
+      if ($scope.header.sortBy) {
+        $scope.rows = $filter('orderBy')($scope.rows, listSortBy, reverse);
+      }
     }
     if ($attrs.filters) {
       $scope.rows = $filter('filter')($scope.rows, $scope.filters);
@@ -205,21 +207,24 @@ angular.module('ngTasty.table', [
   $scope.updateClientSideResource = tastyUtil.debounce(function() {
     $scope.setDirectivesValues($scope.resource);
     $scope.buildClientResource();
-  }, 100);
+  }, 60);
 
   $scope.updateServerSideResource = tastyUtil.debounce(function() {
     $scope.url = $scope.buildUrl($scope.params, $scope.filters);
     $scope.resourceCallback($scope.url, $scope.params).then(function (resource) {
       $scope.setDirectivesValues(resource);
     });
-  }, 100);
+  }, 60);
 
   $scope.initTable = function () {
     $scope.params['sortBy'] = undefined;
-    $scope.params['sortOrder'] = 'asc';
+    $scope.params['sortOrder'] = undefined;
     $scope.params['page'] = 1;
     $scope.params['count'] = undefined;
     if ($scope.clientSide) {
+      $scope.params['sortBy'] = $scope.resource.sortBy;
+      $scope.params['sortOrder'] = $scope.resource.sortOrder;
+      $scope.params['page'] = $scope.resource.page || $scope.params['page'];
       $scope.updateClientSideResource();
     } else {
       $scope.updateServerSideResource();
@@ -250,6 +255,8 @@ angular.module('ngTasty.table', [
   if ($scope.resource) {
     $scope.$watch('resource', function (newValue, oldValue){
       if (newValue !== oldValue) {
+        $scope.params.sortBy = newValue.sortBy;
+        $scope.params.sortOrder = newValue.sortOrder;
         $scope.updateClientSideResource();
       }
     }, true);
@@ -319,7 +326,8 @@ angular.module('ngTasty.table', [
             'isSortDown': scope.header.sortBy === sort
           });
         });
-        if (scope.header.sortOrder === 'dsc' &&
+        if (scope.header.sortOrder === 'dsc' && 
+            scope.header.sortBy &&
             scope.header.sortBy[0] !== '-') {
           scope.header.sortBy = '-' + scope.header.sortBy;
         }
@@ -329,16 +337,15 @@ angular.module('ngTasty.table', [
         if (scope.notSortBy && scope.notSortBy.indexOf(column.key) >= 0) {
           return false;
         }
-        var columnName;
+        var columnName, sortOrder;
         columnName = $filter('cleanFieldName')(column.key);
-        if (scope.header.sortBy == columnName) {
-          scope.header.sortBy = '-' + columnName;
-          tastyTable.setParams('sortOrder', 'dsc');
+        if (scope.header.sortBy === columnName) {
+          sortOrder = 'dsc';
         } else {
-          scope.header.sortBy = columnName;
-          tastyTable.setParams('sortOrder', 'asc');
+          sortOrder = 'asc';
         }
         tastyTable.setParams('sortBy', column.key);
+        tastyTable.setParams('sortOrder', sortOrder);
       };
 
       scope.classToShow = function (column) {
