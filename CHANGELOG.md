@@ -2,10 +2,12 @@
 
 ### v0.3.1 (master, released on November 10th 2014)
 #### Bug Fixes
+- Improved filter in server side table [#44](https://github.com/Zizzamia/ng-tasty/issues/44)
+- Pagination now is following the Bootstrap standard [#43](https://github.com/Zizzamia/ng-tasty/issues/43)
+- Fixed setPaginationRanges where the number of rows are bigger than the pagination range [#42](https://github.com/Zizzamia/ng-tasty/issues/42)
 
-
-#### Breaking Changes
-- Refactoring to be ready for Angular 1.3 [#34](https://github.com/Zizzamia/ng-tasty/issues/34)
+#### Features
+- Query config params and init params [#3](https://github.com/Zizzamia/ng-tasty/issues/3)
 
 ### v0.3.0 (released on October 22th 2014)
 #### Bug Fixes
