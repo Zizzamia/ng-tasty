@@ -1,6 +1,13 @@
 ## Changelog
 
-### v0.3.0 (master, released on October 22th 2014)
+### v0.3.1 (master, released on November 10th 2014)
+#### Bug Fixes
+
+
+#### Breaking Changes
+- Refactoring to be ready for Angular 1.3 [#34](https://github.com/Zizzamia/ng-tasty/issues/34)
+
+### v0.3.0 (released on October 22th 2014)
 #### Bug Fixes
 - Fixed possible issue when header key are not lowercase [#35](https://github.com/Zizzamia/ng-tasty/issues/35)
 

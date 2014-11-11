@@ -198,8 +198,9 @@ angular.module('ngTasty.table', [
   };
 
   $scope.buildUrl = function(params, filters) {
-    var urlQuery, value, url;
+    var urlQuery, value, url, listKeyNotJoin;
     urlQuery = {};
+    listKeyNotJoin = ['sortBy', 'sortOrder', 'page', 'count'];
     if ($scope.theadDirective) {
       urlQuery = tastyUtil.setProperty(urlQuery, params, 'sortBy');
       urlQuery = tastyUtil.setProperty(urlQuery, params, 'sortOrder');
@@ -209,7 +210,7 @@ angular.module('ngTasty.table', [
       urlQuery = tastyUtil.setProperty(urlQuery, params, 'count');
     }
     if ($attrs.filters) {
-      urlQuery = tastyUtil.joinObjects(urlQuery, filters);
+      urlQuery = tastyUtil.joinObjects(urlQuery, filters, listKeyNotJoin);
     }
     return Object.keys(urlQuery).map(function(key) {
       value = urlQuery[key];

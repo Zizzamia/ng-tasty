@@ -121,7 +121,10 @@ describe('Directive', function () {
         });
       };
       $scope.filters = {
-        'city': 'sf'
+        'city': 'sf',
+        'sortBy': 'star',
+        'sortOrder': 'dsc',
+        'page': 3
       };
       element = angular.element(''+
       '<div tasty-table resource-callback="getResource" filters="filters">'+
