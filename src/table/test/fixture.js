@@ -24,12 +24,12 @@ angular.module('mockedAPIResponse',[])
     {
       'name': 'coffee bar',
       'star': '★★★★',
-      'sf-location': 'financial distric'
+      'sf-location': 'Financial District'
     },
     {
       'name': 'blue bootle',
       'star': '★★★★★',
-      'sf-location': 'hayes valley'
+      'sf-location': 'Hayes Valley'
     },
     {
       'name': 'CoffeeShop',
@@ -75,12 +75,12 @@ angular.module('mockedAPIResponse',[])
     {
       'name': 'coffee bar',
       'star': '★★★★',
-      'sf-Location': 'financial distric'
+      'sf-Location': 'Financial District'
     },
     {
       'name': 'blue bootle',
       'star': '★★★★★',
-      'sf-Location': 'hayes valley'
+      'sf-Location': 'Hayes Valley'
     },
     {
       'name': 'CoffeeShop',
@@ -276,12 +276,12 @@ angular.module('mockedAPIResponse',[])
     {
       'name': 'coffee bar',
       'star': '★★★★',
-      'sf-location': 'financial distric'
+      'sf-location': 'Financial District'
     },
     {
       'name': 'blue bootle',
       'star': '★★★★★',
-      'sf-location': 'hayes valley'
+      'sf-location': 'Hayes Valley'
     },
     {
       'name': 'CoffeeShop',
@@ -326,12 +326,12 @@ angular.module('mockedAPIResponse',[])
     {
       'name': 'coffee bar',
       'star': '★★★★',
-      'sf-location': 'financial distric'
+      'sf-location': 'Financial District'
     },
     {
       'name': 'blue bootle',
       'star': '★★★★★',
-      'sf-location': 'hayes valley'
+      'sf-location': 'Hayes Valley'
     },
     {
       'name': 'CoffeeShop',
@@ -476,12 +476,12 @@ angular.module('mockedAPIResponse',[])
     {
       'name': 'coffee bar',
       'star': '★★★★',
-      'sf-location': 'financial distric'
+      'sf-location': 'Financial District'
     },
     {
       'name': 'blue bootle',
       'star': '★★★★★',
-      'sf-location': 'hayes valley'
+      'sf-location': 'Hayes Valley'
     },
     {
       'name': 'CoffeeShop',
