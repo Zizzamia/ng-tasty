@@ -49,8 +49,7 @@ angular.module('myApp.controllers', [])
       $window.ga('send', 'pageview', { page: '/ng-tasty' + $location.path() });
     });
   }
-
-  $rootScope.version = '0.3.1';
+  $rootScope.version = '0.3.2';
 })
 .controller('DownloadCtrl', function($rootScope, $scope, $modal, $timeout) {
   var modalInstance;

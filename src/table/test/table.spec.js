@@ -268,12 +268,12 @@ describe('Directive', function () {
     });
 
     it('should set params.sortBy when scope.sortBy is clicked', function () {
-      field = {'key': 'name', 'name': 'Name'};
+      field = {'key': 'name', 'name': 'Name', 'sortable': true};
       tastyThead.isolateScope().sortBy(field);
       tastyThead.isolateScope().setColumns();
       expect(element.scope().params.sortBy).toEqual('name');
       expect(tastyThead.isolateScope().columns[0].active).toEqual(true);
-      field = {'key': 'star', 'name': 'Star'};
+      field = {'key': 'star', 'name': 'Star', 'sortable': true};
       tastyThead.isolateScope().sortBy(field);
       tastyThead.isolateScope().setColumns();
       expect(element.scope().params.sortBy).toEqual('star');
@@ -281,7 +281,7 @@ describe('Directive', function () {
     });
 
     it('should sorting ascending and descending scope.header.sortBy when scope.sortBy is clicked', function () {
-      field = {'key': 'star', 'name': 'star'};
+      field = {'key': 'star', 'name': 'star', 'sortable': true};
       tastyThead.isolateScope().sortBy(field);
       $scope.$digest();
       $timeout.flush();
@@ -295,7 +295,7 @@ describe('Directive', function () {
     });
 
     it('should sorting ascending and descending with a key contains a dash (-)', function () {
-      field = { 'key': 'sf-Location', 'name': 'SF Location'};
+      field = { 'key': 'sf-Location', 'name': 'SF Location', 'sortable': true};
       tastyThead.isolateScope().sortBy(field);
       $scope.$digest();
       $timeout.flush();
@@ -309,7 +309,7 @@ describe('Directive', function () {
     });
 
     it('should return true or false to indicate if a specific key is sorted up', function () {
-      field = {'key': 'star', 'name': 'star'};
+      field = {'key': 'star', 'name': 'star', 'sortable': true};
       tastyThead.isolateScope().sortBy(field);
       $scope.$digest();
       expect(tastyThead.isolateScope().columns[1].isSorted).toEqual('fa fa-sort-up');
@@ -319,7 +319,7 @@ describe('Directive', function () {
     });
 
     it('should return true or false to indicate if a specific key is sorted down', function () {
-      field = {'key': 'star', 'name': 'star'};
+      field = {'key': 'star', 'name': 'star', 'sortable': true};
       tastyThead.isolateScope().sortBy(field);
       $scope.$digest();
       expect(tastyThead.isolateScope().columns[1].isSorted).toEqual('fa fa-sort-up');
@@ -556,12 +556,12 @@ describe('Directive', function () {
     });
 
     it('should set params.sortBy when scope.sortBy is clicked', function () {
-      field = {'key': 'name', 'name': 'Name'};
+      field = {'key': 'name', 'name': 'Name', 'sortable': true};
       tastyThead.isolateScope().sortBy(field);
       tastyThead.isolateScope().setColumns();
       expect(element.scope().params.sortBy).toEqual('name');
       expect(tastyThead.isolateScope().columns[0].active).toEqual(true);
-      field = {'key': 'star', 'name': 'Star'};
+      field = {'key': 'star', 'name': 'Star', 'sortable': true};
       tastyThead.isolateScope().sortBy(field);
       tastyThead.isolateScope().setColumns();
       expect(element.scope().params.sortBy).toEqual('star');
@@ -569,16 +569,16 @@ describe('Directive', function () {
     });
 
     it('should not set params.sortBy when scope.sortBy is one of the notSortBy keys', function () {
-      field = {'key': 'star', 'name': 'Star'};
+      field = {'key': 'star', 'name': 'Star', 'sortable': true};
       tastyThead.isolateScope().sortBy(field);
       expect(element.scope().params.sortBy).toEqual('star');
-      field = {'key': 'sf-Location', 'name': 'SF Location'};
+      field = {'key': 'sf-Location', 'name': 'SF Location', 'sortable': false};
       tastyThead.isolateScope().sortBy(field);
       expect(element.scope().params.sortBy).toEqual('star');
     });
 
     it('should sorting ascending and descending scope.header.sortBy when scope.sortBy is clicked', function () {
-      field = {'key': 'star', 'name': 'Star'};
+      field = {'key': 'star', 'name': 'Star', 'sortable': true};
       tastyThead.isolateScope().sortBy(field);
       $scope.$digest();
       expect(tastyThead.isolateScope().header.sortBy).toEqual('star');
@@ -588,7 +588,7 @@ describe('Directive', function () {
     });
 
     it('should return true or false to indicate if a specific key is sorted up', function () {
-      field = {'key': 'star', 'name': 'Star'};
+      field = {'key': 'star', 'name': 'Star', 'sortable': true};
       tastyThead.isolateScope().sortBy(field);
       $scope.$digest();
       expect(tastyThead.isolateScope().columns[1].isSorted).toEqual('fa fa-sort-up');
@@ -599,7 +599,7 @@ describe('Directive', function () {
 
     it('should set the last sortBy and sortOrder params when doesn\'t back from backend', function () {
       sortingJSON['sortOrder'] = undefined;
-      field = {'key': 'star', 'name': 'Star'};
+      field = {'key': 'star', 'name': 'Star', 'sortable': true};
       tastyThead.isolateScope().sortBy(field);
       $scope.$digest();
       urlToCall = 'api.json?sort-by=star&sort-order=asc';
@@ -608,7 +608,7 @@ describe('Directive', function () {
       $httpBackend.flush();
       expect(tastyThead.isolateScope().header.sortBy).toEqual('star');
       expect(tastyThead.isolateScope().header.sortOrder).toEqual('asc');
-      field = {'key': 'name', 'name': 'Name'};
+      field = {'key': 'name', 'name': 'Name', 'sortable': true};
       tastyThead.isolateScope().sortBy(field);
       $scope.$digest();
       urlToCall = 'api.json?sort-by=name&sort-order=asc';

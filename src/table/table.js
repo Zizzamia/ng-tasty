@@ -331,8 +331,14 @@ angular.module('ngTasty.table', [
           sortable = true;
           active = false;
           isSorted = '';
-          if (scope.notSortBy) {
-            sortable = scope.notSortBy.indexOf(column.key) < 0;
+          // Not sort column when the key is present in the `notSortBy` list,
+          // and Not sort column when `notSortBy` is an empty list
+          if (angular.isArray(scope.notSortBy)) {
+            if (scope.notSortBy.length) {
+              sortable = scope.notSortBy.indexOf(column.key) < 0;
+            } else {
+              sortable = false;
+            }
           }
           if (column.key === scope.header.sortBy ||
               '-' + column.key === scope.header.sortBy) {
@@ -361,7 +367,7 @@ angular.module('ngTasty.table', [
       };
 
       scope.sortBy = function (column) {
-        if (scope.notSortBy && scope.notSortBy.indexOf(column.key) >= 0) {
+        if (!column.sortable) {
           return false;
         }
         var columnName, sortOrder;
