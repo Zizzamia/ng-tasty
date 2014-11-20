@@ -38,6 +38,7 @@ bower install
 Run dev enviroment, it's a watch script with several task running
 like jshint, html2js, build and unit test on the js build files.
 ```
+gulp build
 npm run watch
 ```
 
@@ -47,6 +48,7 @@ We have preconfigured the demo with a simple development web server.
 The simplest way to start this server is:
 
 ```
+gulp build
 npm start
 // Running on http://localhost:3000/
 ```
