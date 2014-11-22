@@ -1,4 +1,10 @@
-<pre><code data-language="javascript">$scope.filterBy = {
+<pre><code data-language="javascript">$scope.init = {
+  'count': 5,
+  'page': 2,
+  'sortBy': 'name',
+  'sortOrder': 'dsc'
+};
+$scope.filterBy = {
   'time': 'now'
 };
 $scope.getResource = function (params) {

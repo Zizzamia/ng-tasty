@@ -176,6 +176,8 @@ describe('Directive', function () {
       $timeout.flush();
       $httpBackend.flush();
       $scope.$digest();
+      expect(element.scope().header.sortBy).toEqual('name');
+      expect(element.scope().header.sortOrder).toEqual('asc');
       expect(element.scope().rows[0].name).toEqual('Ritual Coffee Roasters');
       expect(element.scope().rows.length).toEqual(5);
       expect($scope.paramsUrl).toEqual('page=1&count=5&city=sf');

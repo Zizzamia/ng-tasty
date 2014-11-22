@@ -48,6 +48,7 @@ angular.module('mockedAPIResponse',[])
     'pages': 7,
     'size': 35
   },
+  'sort-by': 'name',
   'sort-order': 'asc'
 })
 // sort-order=asc

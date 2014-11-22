@@ -155,6 +155,10 @@ angular.module('ngTasty.table', [
       'sortBy': $scope.params.sortBy,
       'sortOrder': $scope.params.sortOrder
     };
+    if (!$scope.clientSide) {
+      $scope.header.sortBy = resource.sortBy || $scope.header.sortBy;
+      $scope.header.sortOrder = resource.sortOrder || $scope.header.sortBy;
+    }
     $scope.rows = resource.rows;
     if ($scope.paginationDirective && resource.pagination) {
       $scope.pagination.count = resource.pagination.count;

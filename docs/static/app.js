@@ -198,6 +198,13 @@ angular.module('myApp.controllers', [])
 
   $rootScope.page = 'table-server-side';
 
+  $scope.init = {
+    'count': 5,
+    'page': 2,
+    'sortBy': 'name',
+    'sortOrder': 'dsc'
+  };
+
   $scope.filterBy = {
     'time': 'now'
   };
