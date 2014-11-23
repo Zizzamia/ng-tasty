@@ -1,6 +1,14 @@
 ## Changelog
 
-### v0.3.1 (master, released on November 10th 2014)
+### v0.3.2 (master, released on November 22th 2014)
+#### Bug Fixes
+- Fixed server side default sortBy and sortOrder #51 [#51](https://github.com/Zizzamia/ng-tasty/issues/51)
+
+#### Features
+- Improvemed not-sort-by [#47](https://github.com/Zizzamia/ng-tasty/issues/47)
+- Implemented custom th width  [#19](https://github.com/Zizzamia/ng-tasty/issues/19)
+
+### v0.3.1 (released on November 10th 2014)
 #### Bug Fixes
 - Improved filter in server side table [#44](https://github.com/Zizzamia/ng-tasty/issues/44)
 - Pagination now is following the Bootstrap standard [#43](https://github.com/Zizzamia/ng-tasty/issues/43)
