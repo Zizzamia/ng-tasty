@@ -1,6 +1,6 @@
 {
   "name": "ng-tasty",
-  "version": "0.3.2-rc1",
+  "version": "0.3.2",
   "description": "A lightweight, flexible, and tasty collection of reusable UI components for AngularJS.",
   "main": "index.js",
   "devDependencies": {
@@ -50,5 +50,8 @@
   "bugs": {
     "url": "https://github.com/Zizzamia/ng-tasty/issues"
   },
-  "homepage": "https://github.com/Zizzamia/ng-tasty"
+  "homepage": "https://github.com/Zizzamia/ng-tasty",
+  "dependencies": {
+    "gulp-clean": "^0.3.1"
+  }
 }

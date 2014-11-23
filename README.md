@@ -39,7 +39,7 @@ Run dev enviroment, it's a watch script with several task running
 like jshint, html2js, build and unit test on the js build files.
 ```
 gulp build
-npm run watch
+gulp watch
 ```
 
 #### Run demo app
@@ -58,7 +58,7 @@ npm start
 The easiest way to run the unit tests is to use the supplied npm script:
 
 ```
-npm test
+gulp test
 ```
 
 ## Changelog
