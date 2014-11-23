@@ -1,7 +1,7 @@
 <tr>
   <th ng-repeat="column in columns track by $index" 
   ng-class="classToShow(column)"
-  ng-style="column.width" ng-click="sortBy(column)">
+  ng-style="::column.style" ng-click="sortBy(column)">
     <span ng-bind="::column.name"></span>
     <span ng-class="column.isSorted"></span>
   </th> 

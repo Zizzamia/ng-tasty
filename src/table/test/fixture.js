@@ -4,15 +4,18 @@ angular.module('mockedAPIResponse',[])
   'header': [
     {
       'key': 'name',
-      'name': 'Name'
+      'name': 'Name',
+      'style': { 'width' : '50%' }
     },
     {
       'key': 'star',
-      'name': 'Star'
+      'name': 'Star',
+      'style': { 'width' : '20%' }
     },
     {
       'key': 'sf-location',
-      'name': 'SF Location'
+      'name': 'SF Location',
+      'style': { 'width' : '30%' }
     }
   ],
   'rows': [
@@ -54,18 +57,9 @@ angular.module('mockedAPIResponse',[])
 // sort-order=asc
 .value('sortingJSON', {
   'header': [
-    {
-      'key': 'name',
-      'name': 'Name'
-    },
-    {
-      'key': 'star',
-      'name': 'Star'
-    },
-    {
-      'key': 'sf-Location',
-      'name': 'SF Location'
-    }
+    { 'name': 'Name' },
+    { 'star': 'Star' },
+    { 'sf-Location': 'SF Location' }
   ],
   'rows': [
     {

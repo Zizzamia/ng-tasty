@@ -120,6 +120,12 @@ describe('Directive', function () {
           };
         });
       };
+      $scope.init = {
+        'count': 5,
+        'page': 2,
+        'sortBy': 'name',
+        'sortOrder': 'dsc'
+      };
       $scope.filters = {
         'city': 'sf',
         'sortBy': 'star',
@@ -127,7 +133,7 @@ describe('Directive', function () {
         'page': 3
       };
       element = angular.element(''+
-      '<div tasty-table resource-callback="getResource" filters="filters">'+
+      '<div tasty-table resource-callback="getResource" init="init" filters="filters">'+
       '  <table>'+
       '    <thead tasty-thead></thead>'+
       '    <tbody>'+
@@ -157,12 +163,12 @@ describe('Directive', function () {
       });
       expect(element.scope().rows).toEqual([]);
       expect(element.scope().pagination.count).toEqual(5);
-      expect(element.scope().pagination.page).toEqual(1);
+      expect(element.scope().pagination.page).toEqual(2);
       expect(element.scope().pagination.pages).toEqual(1);
       expect(element.scope().pagination.size).toEqual(0);
-      expect(element.scope().params.sortBy).toEqual(undefined);
-      expect(element.scope().params.sortOrder).toEqual(undefined);
-      expect(element.scope().params.page).toEqual(1);
+      expect(element.scope().params.sortBy).toEqual('name');
+      expect(element.scope().params.sortOrder).toEqual('dsc');
+      expect(element.scope().params.page).toEqual(2);
       expect(element.scope().params.count).toEqual(5);
       expect(element.scope().params.thead).toEqual(true);
       expect(element.scope().params.pagination).toEqual(true);
@@ -171,19 +177,34 @@ describe('Directive', function () {
     });
 
     it('should return the right url after called buildUrl', function () {
-      urlToCall = 'api.json?page=1&count=5&city=sf';
+      urlToCall = 'api.json?sort-by=name&sort-order=dsc&page=2&count=5&city=sf';
       $httpBackend.whenGET(urlToCall).respond(completeJSON);
       $timeout.flush();
       $httpBackend.flush();
       $scope.$digest();
-      expect(element.scope().header.sortBy).toEqual('name');
-      expect(element.scope().header.sortOrder).toEqual('asc');
+      expect(element.scope().header.sortBy).toEqual('-name');
+      expect(element.scope().header.sortOrder).toEqual('dsc');
+      expect(element.scope().header.columns[0]).toEqual({ 
+        'key' : 'name', 
+        'name' : 'Name',
+        'style' : { 'width' : '50%' }
+      });
+      expect(element.scope().header.columns[1]).toEqual({ 
+        'key' : 'star', 
+        'name' : 'Star',
+        'style' : { 'width' : '20%' }
+      });
+      expect(element.scope().header.columns[2]).toEqual({ 
+        'key' : 'sf-location', 
+        'name' : 'SF Location',
+        'style' : { 'width' : '30%' }
+      });
       expect(element.scope().rows[0].name).toEqual('Ritual Coffee Roasters');
       expect(element.scope().rows.length).toEqual(5);
-      expect($scope.paramsUrl).toEqual('page=1&count=5&city=sf');
-      expect($scope.paramsObj.sortBy).toEqual(undefined);
-      expect($scope.paramsObj.sortOrder).toEqual(undefined);
-      expect($scope.paramsObj.page).toEqual(1);
+      expect($scope.paramsUrl).toEqual('sort-by=name&sort-order=dsc&page=2&count=5&city=sf');
+      expect($scope.paramsObj.sortBy).toEqual('name');
+      expect($scope.paramsObj.sortOrder).toEqual('dsc');
+      expect($scope.paramsObj.page).toEqual(2);
       expect($scope.paramsObj.count).toEqual(5);
       expect($scope.paramsObj.thead).toEqual(true);
       expect($scope.paramsObj.pagination).toEqual(true);
@@ -191,7 +212,7 @@ describe('Directive', function () {
 
     it('should return a throw message if the response has the property header or rows defined', function () {
       function errorFunctionWrapper() {
-        urlToCall = 'api.json?page=1&count=5&city=sf';
+        urlToCall = 'api.json?sort-by=name&sort-order=dsc&page=2&count=5&city=sf';
         $httpBackend.whenGET(urlToCall).respond({});
         $timeout.flush();
         $httpBackend.flush();
@@ -234,9 +255,21 @@ describe('Directive', function () {
         'sortOrder': 'sort-order',
       });
       expect(element.scope().url).toEqual('');
-      expect(element.scope().header.columns[0]).toEqual({ 'key' : 'name', 'name' : 'Name' });
-      expect(element.scope().header.columns[1]).toEqual({ 'key' : 'star', 'name' : 'Star' });
-      expect(element.scope().header.columns[2]).toEqual({ 'key' : 'sf-Location', 'name' : 'SF Location' });
+      expect(element.scope().header.columns[0]).toEqual({ 
+        'key' : 'name', 
+        'name' : 'Name',
+        'style' : { 'width' : '33.33%' }
+      });
+      expect(element.scope().header.columns[1]).toEqual({ 
+        'key' : 'star', 
+        'name' : 'Star',
+        'style' : { 'width' : '33.33%' }
+      });
+      expect(element.scope().header.columns[2]).toEqual({ 
+        'key' : 'sf-Location', 
+        'name' : 'SF Location',
+        'style' : { 'width' : '33.33%' }
+      });
       expect(element.scope().header.columns.length).toEqual(3);
       expect(element.scope().rows.length).toEqual(35);
       expect(element.scope().pagination.count).toEqual(5);
@@ -260,13 +293,13 @@ describe('Directive', function () {
     it('should have these isolateScope value as default', function () {
       expect(tastyThead.isolateScope().columns[0].active).toEqual(false);
       expect(tastyThead.isolateScope().columns[0].sortable).toEqual(true);
-      expect(tastyThead.isolateScope().columns[0].width).toEqual({ 'width' : '33.33%' });
+      expect(tastyThead.isolateScope().columns[0].style).toEqual({'width': '33.33%'});
       expect(tastyThead.isolateScope().columns[1].active).toEqual(false);
       expect(tastyThead.isolateScope().columns[1].sortable).toEqual(true);
-      expect(tastyThead.isolateScope().columns[1].width).toEqual({ 'width' : '33.33%' });
+      expect(tastyThead.isolateScope().columns[1].style).toEqual({'width': '33.33%'});
       expect(tastyThead.isolateScope().columns[2].active).toEqual(false);
       expect(tastyThead.isolateScope().columns[2].sortable).toEqual(true);
-      expect(tastyThead.isolateScope().columns[2].width).toEqual({ 'width' : '33.33%' });
+      expect(tastyThead.isolateScope().columns[2].style).toEqual({'width': '33.33%'});
     });
 
     it('should set params.sortBy when scope.sortBy is clicked', function () {
@@ -368,9 +401,21 @@ describe('Directive', function () {
         'sortOrder': 'sort-order',
       });
       expect(element.scope().url).toEqual('');
-      expect(element.scope().header.columns[0]).toEqual({ 'key' : 'name', 'name' : 'Name' });
-      expect(element.scope().header.columns[1]).toEqual({ 'key' : 'star', 'name' : 'Star' });
-      expect(element.scope().header.columns[2]).toEqual({ 'key' : 'sf-Location', 'name' : 'SF Location' });
+      expect(element.scope().header.columns[0]).toEqual({ 
+        'key' : 'name', 
+        'name' : 'Name',
+        'style' : { 'width' : '33.33%' }
+      });
+      expect(element.scope().header.columns[1]).toEqual({ 
+        'key' : 'star', 
+        'name' : 'Star',
+        'style' : { 'width' : '33.33%' }
+      });
+      expect(element.scope().header.columns[2]).toEqual({ 
+        'key' : 'sf-Location', 
+        'name' : 'SF Location',
+        'style' : { 'width' : '33.33%' }
+      });
       expect(element.scope().header.columns.length).toEqual(3);
       expect(element.scope().rows.length).toEqual(35);
       expect(element.scope().pagination.count).toEqual(5);
@@ -542,18 +587,18 @@ describe('Directive', function () {
     it('should have these isolateScope value as default', function () {
       expect(tastyThead.isolateScope().columns[0].active).toEqual(false);
       expect(tastyThead.isolateScope().columns[0].sortable).toEqual(true);
-      expect(tastyThead.isolateScope().columns[0].width).toEqual({ 'width' : '33.33%' });
+      expect(tastyThead.isolateScope().columns[0].style).toEqual({'width': '33.33%'});
       expect(tastyThead.isolateScope().columns[1].key).toEqual('star');
       expect(tastyThead.isolateScope().columns[1].name).toEqual('Star');
       expect(tastyThead.isolateScope().columns[1].active).toEqual(false);
       expect(tastyThead.isolateScope().columns[1].sortable).toEqual(true);
-      expect(tastyThead.isolateScope().columns[1].width).toEqual({ 'width' : '33.33%' });
+      expect(tastyThead.isolateScope().columns[1].style).toEqual({'width': '33.33%'});
       expect(tastyThead.isolateScope().columns[1].isSorted).toEqual('');
       expect(tastyThead.isolateScope().columns[2].key).toEqual('sf-Location');
       expect(tastyThead.isolateScope().columns[2].name).toEqual('SF Location');
       expect(tastyThead.isolateScope().columns[2].active).toEqual(false);
       expect(tastyThead.isolateScope().columns[2].sortable).toEqual(false);
-      expect(tastyThead.isolateScope().columns[2].width).toEqual({ 'width' : '33.33%' });
+      expect(tastyThead.isolateScope().columns[2].style).toEqual({'width': '33.33%'});
       expect(tastyThead.isolateScope().columns[2].isSorted).toEqual('');
     });
 

@@ -158,9 +158,9 @@ angular.module('myApp.controllers', [])
   };
   $scope.resourceTwo = {
     'header': [
-      { 'name': 'Name' },
-      { 'star': 'Star' },
-      { 'sf-Location': 'SF Location' }
+      { 'key': 'name', 'name': 'Name', 'style': {'width': '50%'} },
+      { 'key': 'star', 'name': 'Star', 'style': {'width': '15%'} },
+      { 'key': 'sf-location', 'name': 'SF Location', 'style': {'width': '35%'} }
     ],
     'rows': $scope.resource.rows,
     'sortBy': 'star',
@@ -175,7 +175,9 @@ angular.module('myApp.controllers', [])
       { 'sf-Location': 'SF Location' }
     ],
     'rows': $scope.resource.rows,
-    'page': 2
+    'pagination': {
+      'page': 2
+    }
   };
   $scope.itemsPerPage = 10;
   $scope.listItemsPerPage = [5, 10, 15, 20];

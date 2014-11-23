@@ -335,7 +335,10 @@ angular.module('ngTasty.table', [
         scope.columns = [];
         lenHeader = scope.header.columns.length;
         scope.header.columns.forEach(function (column, index) {
-          width = parseFloat((100 / lenHeader).toFixed(2));
+          column.style = column.style || {};
+          if (!column.style.width) {
+            column.style.width = parseFloat((100 / lenHeader).toFixed(2)) + '%';
+          }
           sortable = true;
           active = false;
           isSorted = '';
@@ -363,7 +366,7 @@ angular.module('ngTasty.table', [
             'name': column.name,
             'active': active,
             'sortable': sortable,
-            'width': { 'width': width + '%' },
+            'style': column.style,
             'isSorted': isSorted
           });
         });
