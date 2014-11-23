@@ -34,6 +34,8 @@ angular.module('ngTasty.table', [
   'use strict';
   var listScopeToWatch, initTable;
   this.$scope = $scope;
+  $scope.init = {};
+  $scope.query = {};
 
   listScopeToWatch = ['filters', 'init', 'query', 'resource', 'resourceCallback'];
   listScopeToWatch.forEach(function (scopeName) {
@@ -67,8 +69,10 @@ angular.module('ngTasty.table', [
   });
 
   // Default configs
-  $scope.query = $scope.query || tableConfig.query;
-  $scope.init = $scope.init || {};
+  $scope.query.page = $scope.query.page || tableConfig.query.page;
+  $scope.query.count = $scope.query.count || tableConfig.query.count;
+  $scope.query.sortBy = $scope.query.sortBy || tableConfig.query.sortBy;
+  $scope.query.sortOrder = $scope.query.sortOrder || tableConfig.query.sortOrder;
   $scope.init.count = $scope.init.count || tableConfig.init.count;
   $scope.init.page = $scope.init.page || tableConfig.init.page;
   $scope.init.sortBy = $scope.init.sortBy || tableConfig.init.sortBy;
@@ -156,8 +160,8 @@ angular.module('ngTasty.table', [
       'sortOrder': $scope.params.sortOrder
     };
     if (!$scope.clientSide) {
-      $scope.header.sortBy = resource.sortBy || $scope.header.sortBy;
-      $scope.header.sortOrder = resource.sortOrder || $scope.header.sortBy;
+      $scope.header.sortBy = $scope.header.sortBy || resource.sortBy;
+      $scope.header.sortOrder = $scope.header.sortOrder || resource.sortOrder;
     }
     $scope.rows = resource.rows;
     if ($scope.paginationDirective && resource.pagination) {
