@@ -1,6 +1,16 @@
 ## Changelog
 
-### v0.3.2 (master, released on November 22th 2014)
+### v0.3.3 (master, released on November 28th 2014)
+#### Bug Fixes
+- Fixed pagination links conflicts with routing [#50](https://github.com/Zizzamia/ng-tasty/issues/50)
+
+#### Features
+- Optional template for pagination [#57](https://github.com/Zizzamia/ng-tasty/issues/57)
+
+#### Breaking Changes
+- tasty-thead stop set width columns as default [#56](https://github.com/Zizzamia/ng-tasty/issues/56)
+
+### v0.3.2 (released on November 22th 2014)
 #### Bug Fixes
 - Fixed server side default sortBy and sortOrder #51 [#51](https://github.com/Zizzamia/ng-tasty/issues/51)
 
