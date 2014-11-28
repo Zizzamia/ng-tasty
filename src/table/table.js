@@ -24,7 +24,7 @@ angular.module('ngTasty.table', [
     'page': 'page',
     'count': 'count',
     'sortBy': 'sort-by',
-    'sortOrder': 'sort-order',
+    'sortOrder': 'sort-order'
   },
   listItemsPerPage: [5, 25, 50, 100],
   itemsPerPage: 5,
@@ -437,11 +437,13 @@ angular.module('ngTasty.table', [
   $scope.itemsPerPage = $scope.itemsPerPage || tableConfig.itemsPerPage;
   $scope.listItemsPerPage = $scope.listItemsPerPage || tableConfig.listItemsPerPage;
 })
-.directive('tastyPagination', function($filter) {
+.directive('tastyPagination', ["$filter", "$templateCache", "$http", "$compile", function($filter, $templateCache, $http, $compile) {
   return {
     restrict: 'AE',
     require: '^tastyTable',
-    scope: {},
+    scope: {
+        templateUrl: '='
+    },
     templateUrl: 'template/table/pagination.html',
     controller: 'TablePaginationController',
     link: function (scope, element, attrs, tastyTable) {
@@ -449,6 +451,16 @@ angular.module('ngTasty.table', [
       var getPage, setCount, setPaginationRange,
           setPreviousRange, setRemainingRange,
           setPaginationRanges;
+
+      // template by choice
+      if (scope.templateUrl !== undefined)
+      {
+          $http.get(scope.templateUrl, {cache: $templateCache}).success(function(html) {
+              element.html(
+                  $compile(html)(scope)
+              );
+          });
+      }
 
       // Pagination it's called
       tastyTable.activate('pagination');
@@ -560,4 +572,4 @@ angular.module('ngTasty.table', [
       scope.page.setCount(scope.itemsPerPage);
     }
   };
-});
+}]);
