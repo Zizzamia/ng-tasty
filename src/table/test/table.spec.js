@@ -258,17 +258,17 @@ describe('Directive', function () {
       expect(element.scope().header.columns[0]).toEqual({ 
         'key' : 'name', 
         'name' : 'Name',
-        'style' : { 'width' : '33.33%' }
+        'style' : {}
       });
       expect(element.scope().header.columns[1]).toEqual({ 
         'key' : 'star', 
         'name' : 'Star',
-        'style' : { 'width' : '33.33%' }
+        'style' : {}
       });
       expect(element.scope().header.columns[2]).toEqual({ 
         'key' : 'sf-Location', 
         'name' : 'SF Location',
-        'style' : { 'width' : '33.33%' }
+        'style' : {}
       });
       expect(element.scope().header.columns.length).toEqual(3);
       expect(element.scope().rows.length).toEqual(35);
@@ -293,13 +293,13 @@ describe('Directive', function () {
     it('should have these isolateScope value as default', function () {
       expect(tastyThead.isolateScope().columns[0].active).toEqual(false);
       expect(tastyThead.isolateScope().columns[0].sortable).toEqual(true);
-      expect(tastyThead.isolateScope().columns[0].style).toEqual({'width': '33.33%'});
+      expect(tastyThead.isolateScope().columns[0].style).toEqual({});
       expect(tastyThead.isolateScope().columns[1].active).toEqual(false);
       expect(tastyThead.isolateScope().columns[1].sortable).toEqual(true);
-      expect(tastyThead.isolateScope().columns[1].style).toEqual({'width': '33.33%'});
+      expect(tastyThead.isolateScope().columns[1].style).toEqual({});
       expect(tastyThead.isolateScope().columns[2].active).toEqual(false);
       expect(tastyThead.isolateScope().columns[2].sortable).toEqual(true);
-      expect(tastyThead.isolateScope().columns[2].style).toEqual({'width': '33.33%'});
+      expect(tastyThead.isolateScope().columns[2].style).toEqual({});
     });
 
     it('should set params.sortBy when scope.sortBy is clicked', function () {
@@ -404,17 +404,17 @@ describe('Directive', function () {
       expect(element.scope().header.columns[0]).toEqual({ 
         'key' : 'name', 
         'name' : 'Name',
-        'style' : { 'width' : '33.33%' }
+        'style' : {}
       });
       expect(element.scope().header.columns[1]).toEqual({ 
         'key' : 'star', 
         'name' : 'Star',
-        'style' : { 'width' : '33.33%' }
+        'style' : {}
       });
       expect(element.scope().header.columns[2]).toEqual({ 
         'key' : 'sf-Location', 
         'name' : 'SF Location',
-        'style' : { 'width' : '33.33%' }
+        'style' : {}
       });
       expect(element.scope().header.columns.length).toEqual(3);
       expect(element.scope().rows.length).toEqual(35);
@@ -587,18 +587,18 @@ describe('Directive', function () {
     it('should have these isolateScope value as default', function () {
       expect(tastyThead.isolateScope().columns[0].active).toEqual(false);
       expect(tastyThead.isolateScope().columns[0].sortable).toEqual(true);
-      expect(tastyThead.isolateScope().columns[0].style).toEqual({'width': '33.33%'});
+      expect(tastyThead.isolateScope().columns[0].style).toEqual({});
       expect(tastyThead.isolateScope().columns[1].key).toEqual('star');
       expect(tastyThead.isolateScope().columns[1].name).toEqual('Star');
       expect(tastyThead.isolateScope().columns[1].active).toEqual(false);
       expect(tastyThead.isolateScope().columns[1].sortable).toEqual(true);
-      expect(tastyThead.isolateScope().columns[1].style).toEqual({'width': '33.33%'});
+      expect(tastyThead.isolateScope().columns[1].style).toEqual({});
       expect(tastyThead.isolateScope().columns[1].isSorted).toEqual('');
       expect(tastyThead.isolateScope().columns[2].key).toEqual('sf-Location');
       expect(tastyThead.isolateScope().columns[2].name).toEqual('SF Location');
       expect(tastyThead.isolateScope().columns[2].active).toEqual(false);
       expect(tastyThead.isolateScope().columns[2].sortable).toEqual(false);
-      expect(tastyThead.isolateScope().columns[2].style).toEqual({'width': '33.33%'});
+      expect(tastyThead.isolateScope().columns[2].style).toEqual({});
       expect(tastyThead.isolateScope().columns[2].isSorted).toEqual('');
     });
 

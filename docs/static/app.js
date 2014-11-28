@@ -49,7 +49,7 @@ angular.module('myApp.controllers', [])
       $window.ga('send', 'pageview', { page: '/ng-tasty' + $location.path() });
     });
   }
-  $rootScope.version = '0.3.2';
+  $rootScope.version = '0.3.3';
 })
 .controller('DownloadCtrl', function($rootScope, $scope, $modal, $timeout) {
   var modalInstance;
@@ -160,7 +160,7 @@ angular.module('myApp.controllers', [])
     'header': [
       { 'key': 'name', 'name': 'Name', 'style': {'width': '50%'} },
       { 'key': 'star', 'name': 'Star', 'style': {'width': '15%'} },
-      { 'key': 'sf-location', 'name': 'SF Location', 'style': {'width': '35%'} }
+      { 'key': 'sf-Location', 'name': 'SF Location', 'style': {'width': '35%'} }
     ],
     'rows': $scope.resource.rows,
     'sortBy': 'star',
