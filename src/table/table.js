@@ -426,41 +426,55 @@ angular.module('ngTasty.table', [
   </div>
  *
  */
-.controller('TablePaginationController', function($scope, $attrs, tableConfig) {
-  if (angular.isDefined($attrs.itemsPerPage)) {
-    $scope.itemsPerPage = $scope.$parent[$attrs.itemsPerPage];
-  }
-  if (angular.isDefined($attrs.listItemsPerPage)) {
-    $scope.listItemsPerPage = $scope.$parent[$attrs.listItemsPerPage];
-  }
-  // Default configs
-  $scope.itemsPerPage = $scope.itemsPerPage || tableConfig.itemsPerPage;
-  $scope.listItemsPerPage = $scope.listItemsPerPage || tableConfig.listItemsPerPage;
-})
-.directive('tastyPagination', ["$filter", "$templateCache", "$http", "$compile", function($filter, $templateCache, $http, $compile) {
+.directive('tastyPagination', function($filter, $templateCache, $http, $compile, $parse, tableConfig) {
   return {
     restrict: 'AE',
     require: '^tastyTable',
-    scope: {
-        templateUrl: '='
+    scope: {},
+    templateUrl: function(tElement, tAttrs) {
+      return tAttrs.templateUrl || 'template/table/pagination.html';
     },
-    templateUrl: 'template/table/pagination.html',
-    controller: 'TablePaginationController',
     link: function (scope, element, attrs, tastyTable) {
       'use strict';
       var getPage, setCount, setPaginationRange,
           setPreviousRange, setRemainingRange,
-          setPaginationRanges;
+          setPaginationRanges, listScopeToWatch;
 
-      // template by choice
-      if (scope.templateUrl !== undefined)
-      {
-          $http.get(scope.templateUrl, {cache: $templateCache}).success(function(html) {
-              element.html(
-                  $compile(html)(scope)
-              );
-          });
-      }
+
+      listScopeToWatch = ['itemsPerPage', 'listItemsPerPage'];
+      listScopeToWatch.forEach(function (scopeName) {
+        var lastValue, parentGet, compare, parentSet, parentValueWatch;
+        if (!attrs[scopeName]) {
+          return;
+        }
+        parentGet = $parse(attrs[scopeName]);
+        if (parentGet.literal) {
+          compare = equals;
+        } else {
+          compare = function(a,b) { return a === b || (a !== a && b !== b); };
+        }
+        parentSet = parentGet.assign;
+        lastValue = scope[scopeName] = parentGet(scope.$parent);
+        parentValueWatch = function parentValueWatch(parentValue) {
+          if (!compare(parentValue, scope[scopeName])) {
+            // we are out of sync and need to copy
+            if (!compare(parentValue, lastValue)) {
+              // parent changed and it has precedence
+              $scope[scopeName] = parentValue;
+            } else {
+              // if the parent can be assigned then do so
+              parentSet(scope.$parent, parentValue = scope[scopeName]);
+            }
+          }
+          return lastValue = parentValue;
+        };
+        parentValueWatch.$stateful = true;
+        scope.$parent.$watch($parse(attrs[scopeName], parentValueWatch), null, parentGet.literal);
+      });
+
+      // Default configs
+      scope.itemsPerPage = scope.itemsPerPage || tableConfig.itemsPerPage;
+      scope.listItemsPerPage = scope.listItemsPerPage || tableConfig.listItemsPerPage;
 
       // Pagination it's called
       tastyTable.activate('pagination');
@@ -572,4 +586,4 @@ angular.module('ngTasty.table', [
       scope.page.setCount(scope.itemsPerPage);
     }
   };
-}]);
+});

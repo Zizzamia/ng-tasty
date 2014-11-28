@@ -120,6 +120,26 @@
         </table>
         <div tasty-pagination items-per-page="itemsPerPage" 
         list-items-per-page="listItemsPerPage"></div>
+        <script type="text/ng-template" id="localTemplatePagination.html">
+          <div class="row">
+            <div class="col-xs-6">
+              <ul class="pagination">
+                <li ng-class="classPageMinRange">
+                  <a href ng-click="page.previous()">&laquo;</a>
+                </li>
+                <li ng-repeat="numPage in rangePage" ng-class="classNumPage(numPage)">
+                  <a href ng-click="page.get(numPage)">
+                    <span ng-bind="numPage"></span>
+                    <span class="sr-only" ng-if="classNumPage(numPage)">(current)</span>
+                  </a>
+                </li>
+                <li ng-class="classPageMaxRange">
+                  <a href ng-click="page.remaining()">&raquo;</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </script>
       </div>
     </div>
     <div collapse="tableFour">
