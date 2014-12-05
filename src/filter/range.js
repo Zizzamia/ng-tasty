@@ -1,49 +1,4 @@
 /**
- * @ngdoc 
- * @name 
- *
- */
-angular.module('ngTasty.filter', [
-  'ngTasty.filter.cleanFieldName',
-  'ngTasty.filter.filterInt',
-  'ngTasty.filter.range'
-]);
-
-/**
- * @ngdoc filter
- * @name cleanFieldName
- *
- * @description
- * Calling toString will return the ...
- *
- * @example
-  ng-bind="key | cleanFieldName"
- *
- */
-angular.module('ngTasty.filter.cleanFieldName', [])
-.filter('cleanFieldName', function() {
-  return function (input) {
-    return input.replace(/[^a-zA-Z0-9-]+/g, '-');
-  };
-});
-
-/**
- * @ngdoc filter
- * @name filterInt
- * @kind function
- *
- */
-angular.module('ngTasty.filter.filterInt', [])
-.filter('filterInt', function() {
-  return function (input) {
-    if(/^(\-|\+)?([0-9]+|Infinity)$/.test(input)) {
-      return Number(input);
-    }
-    return NaN;
-  };
-});
-
-/**
  * @ngdoc filter
  * @name range
  * @kind function
@@ -56,7 +11,7 @@ angular.module('ngTasty.filter.filterInt', [])
  * @example
   ng-repeat="n in [] | range:1:30"
  */
-angular.module('ngTasty.filter.range', [])
+angular.module('ngTasty.filter.range', ['ngTasty.filter.filterInt'])
 .filter('range', function($filter) {
   return function(input, start, stop, step) {
     start = $filter('filterInt')(start);

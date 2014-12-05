@@ -9,6 +9,7 @@ var html2js = require('gulp-ng-html2js');
 var jshint = require('gulp-jshint');
 var karma = require('gulp-karma');
 var ngAnnotate = require('gulp-ng-annotate');
+var ngcompile = require('gulp-ngcompile');
 var rename = require('gulp-rename');
 var tap = require('gulp-tap');
 var uglify = require('gulp-uglify');
@@ -27,6 +28,13 @@ var testFiles = [
     'src/**/*.js',
     'template/table/*.html.js'
   ];
+
+gulp.task('build-angular-app', function () {
+  return gulp.src('src/**/*.js')
+    .pipe(ngcompile('ngTasty.filter.range')) // app is the module we wish to assemble.
+    .pipe(concat('ngTasty.filter.range.js'))
+    .pipe(gulp.dest('dist'));
+});
 
 gulp.task('clean', function () {  
   return gulp.src('dist', {read: false})
