@@ -1,19 +1,3 @@
-try {
-  var debounce = angular.module('ngTasty.service.debounce');
-} catch (e) {
-  var debounce = angular.module('ngTasty.service.debounce', []);
-}
-try {
-  var setProperty = angular.module('ngTasty.service.setProperty');
-} catch (e) {
-  var setProperty = angular.module('ngTasty.service.setProperty', []);
-}
-try {
-  var setProperty = angular.module('ngTasty.service.joinObjects');
-} catch (e) {
-  var joinObjects = angular.module('ngTasty.service.joinObjects', []);
-}
-
 /**
  * @ngdoc 
  * @name 

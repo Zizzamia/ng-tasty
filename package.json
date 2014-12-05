@@ -1,14 +1,17 @@
 {
   "name": "ng-tasty",
-  "version": "0.3.3",
+  "version": "0.4.0-rc1",
   "description": "A lightweight, flexible, and tasty collection of reusable UI components for AngularJS.",
   "main": "index.js",
   "devDependencies": {
+    "blueimp-md5": "^1.1.0",
     "ejs": "~1.0.0",
+    "exec": "^0.1.2",
     "express": "3.x",
     "gulp": "^3.8.7",
     "gulp-clean": "^0.3.1",
     "gulp-concat": "^2.3.4",
+    "gulp-file": "^0.2.0",
     "gulp-header": "^1.0.5",
     "gulp-jshint": "^1.8.4",
     "gulp-karma": "0.0.4",

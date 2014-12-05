@@ -9,10 +9,10 @@ describe('Directive', function () {
   beforeEach(module('ngTasty.filter.cleanFieldName'));
   beforeEach(module('ngTasty.filter.range'));
   beforeEach(module('ngTasty.service.tastyUtil'));
-  beforeEach(module('ngTasty.table'));
+  beforeEach(module('ngTasty.component.table'));
   beforeEach(module('mockedAPIResponse'));
-  beforeEach(module('template/table/head.html'));
-  beforeEach(module('template/table/pagination.html'));
+  beforeEach(module('ngTasty.tpls.TableHead'));
+  beforeEach(module('ngTasty.tpls.TablePagination'));
 
 
   describe('ngTasty table configs', function () {

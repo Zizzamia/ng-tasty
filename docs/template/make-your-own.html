@@ -1,0 +1,39 @@
+<%= include title-inside.html %>
+<div class="page-header">
+  <h2>Make your own tasty collection</h2>
+</div>
+<div class="row">
+  <div class="col-xs-6 col-sm-4">
+    <h3>Component</h3>
+    <div class="checkbox">
+      <label>
+        <input type="checkbox" ng-model="component.table">
+        Table
+      </label>
+    </div>
+  </div>
+  <div class="col-xs-6 col-sm-4">
+    <h3>Service</h3>
+    <div class="checkbox">
+      <label>
+        <input type="checkbox" ng-model="service.debounce">
+        Debounce
+      </label>
+    </div>
+  </div>
+  <div class="col-xs-6 col-sm-4">
+    <h3>Filter</h3>
+    <div class="checkbox">
+      <label>
+        <input type="checkbox" ng-model="filter.range">
+        Range
+      </label>
+    </div>
+  </div>
+  <div class="col-xs-12">
+    <br />
+    <br />
+    <button type="submit" class="btn btn-block btn-lg btn-outline"
+    ng-click="compile()">Compile and Download</button>
+  </div>
+</div>

@@ -11,6 +11,11 @@ angular.module('myApp', [
     templateUrl: 'home.html',
     title: '#ngTasty'
   })
+  .when('/make-your-own', {
+    controller: 'MakeYourOwnCtrl',
+    templateUrl: 'make-your-own.html',
+    title: '#ngTasty - Make your own tasty collection'
+  })
   .when('/directive/table', {
     controller: 'TableCtrl',
     templateUrl: 'table/index.html',
@@ -49,7 +54,7 @@ angular.module('myApp.controllers', [])
       $window.ga('send', 'pageview', { page: '/ng-tasty' + $location.path() });
     });
   }
-  $rootScope.version = '0.3.3';
+  $rootScope.version = '0.4.0';
 })
 .controller('DownloadCtrl', function($rootScope, $scope, $modal, $timeout) {
   var modalInstance;
@@ -89,6 +94,36 @@ angular.module('myApp.controllers', [])
   $timeout(function () {
     Rainbow.color();
   });
+})
+.controller('MakeYourOwnCtrl', function($rootScope, $scope, $http, $timeout) {
+  $rootScope.page = 'MakeYourOwn';
+  $scope.component = {
+    'table': true
+  };
+  $scope.service = {
+    'debounce': true
+  };
+  $scope.filter = {
+    'range': true
+  };
+
+  $scope.compile = function () {
+    var modules = [];
+    if ($scope.component.table) {
+      modules.push('ngTasty.component.table');
+    }
+    if ($scope.service.debounce) {
+      modules.push('ngTasty.service.debounce');
+    }
+    if ($scope.filter.range) {
+      modules.push('ngTasty.filter.range');
+    }
+    $http.post('compile.json', modules).then(function (response) {
+      if (response.data.success) {
+        window.location.href = 'dist/releases/ng-tasty.zip';
+      }
+    });
+  }
 })
 .controller('TableCtrl', function($rootScope, $scope, $http, $timeout) {
 

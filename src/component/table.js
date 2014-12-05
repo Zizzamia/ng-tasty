@@ -8,10 +8,12 @@
   </table>
  *
  */
-angular.module('ngTasty.table', [
+angular.module('ngTasty.component.table', [
   'ngTasty.filter.cleanFieldName',
   'ngTasty.filter.range',
-  'ngTasty.service.tastyUtil'
+  'ngTasty.service.tastyUtil',
+  'ngTasty.tpls.TableHead',
+  'ngTasty.tpls.TablePagination'
 ])
 .constant('tableConfig', {
   init: {

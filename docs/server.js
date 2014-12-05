@@ -25,6 +25,8 @@ var T = new Twit(config.twitter_auth);
 
 app.set('views', 'docs/');
 app.engine('html', require('ejs').renderFile);
+app.use(express.json());       // to support JSON-encoded bodies
+app.use(express.urlencoded()); // to support URL-encoded bodies
 app.use('/static',  express.static('docs/static'));
 app.use('/components',  express.static('components'));
 app.use('/dist',  express.static('dist'));
@@ -66,6 +68,14 @@ app.get('/', function(req, res){
 });
 app.get('/home.html', function(req, res){
   res.render('template/home.html', { base: base, ngTasty: ngTasty });
+});
+
+app.get('/make-your-own', function(req, res){
+  title = '#ngTasty - Make your own tasty collection';
+  res.render('template/index.html', { base: base, ngTasty: ngTasty, title:title });
+});
+app.get('/make-your-own.html', function(req, res){
+  res.render('template/make-your-own.html', { base: base, ngTasty: ngTasty });
 });
 
 app.get('/directive/table', function(req, res){
@@ -193,6 +203,14 @@ app.get('/table.json', function(req, res){
     'sort-order': req.query['sort-order'] || 'asc'
   };
   res.json(items);
+});
+
+var exec = require('exec');
+app.post('/compile.json', function(req, res){
+  var modules = req.body.join(':');
+  return exec('gulp build-module --env ' + modules, function (error, stdout, stderr) {
+    res.json({'success': true });
+  });
 });
 
 wss.on('connection', function(ws) {

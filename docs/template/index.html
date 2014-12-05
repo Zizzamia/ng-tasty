@@ -24,8 +24,12 @@
         <li>
           <a href="<%= base %>/" ng-class="{active:page == 'home'}">Quick Start</a>
         </li>
+        <li>
+          <a href="<%= base %>/make-your-own" 
+            ng-class="{active:page == 'MakeYourOwn'}">Make your own</a>
+        </li>
       </ul>
-      <h4>Directive</h4>
+      <h4>Component</h4>
       <ul>
         <li>
           <a href="<%= base %>/directive/table" ng-class="{active:page == 'table'}">Table</a>
@@ -35,16 +39,18 @@
             ng-class="{active:page == 'table-server-side'}">Table server side</a>
         </li>
       </ul>
-      <!--
       <h4>Service</h4>
       <ul>
+        <!--
         <li><a href="<%= base %>/service/websocket" 
             ng-class="{active:page == 'websocket'}">WebSocket</a></li>
+        -->
         <li><a href="<%= base %>/#Debounce">Debounce</a></li>
+        <!--
         <li><a href="<%= base %>/#SetProperty">Set Property</a></li>
         <li><a href="<%= base %>/#JoinObjects">JoinObjects</a></li>
+        -->
       </ul>
-      -->
       <h4>Filter</h4>
       <ul>
         <!--
