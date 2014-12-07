@@ -429,7 +429,7 @@ angular.module('ngTasty.component.table', [
       var getPage, setCount, setPaginationRange, setPreviousRange, 
           setRemainingRange, setPaginationRanges, listScopeToWatch, newScopeName;
 
-      listScopeToWatch = ['bindItemsPerPage', 'bindListItemsPerPage'];
+      listScopeToWatch = ['bindItemsPerPage', 'bindListItemsPerPage', 'bindTemplateUrl'];
       listScopeToWatch.forEach(function (scopeName) {
         newScopeName = scopeName.substring(4);
         newScopeName = newScopeName.charAt(0).toLowerCase() + newScopeName.slice(1);
@@ -443,6 +443,13 @@ angular.module('ngTasty.component.table', [
           }
         }
       });
+
+      if (scope.templateUrl) {
+        $http.get(scope.templateUrl, { cache: $templateCache })
+        .success(function(templateContent) {
+          element.replaceWith($compile(templateContent)(scope));                
+        });
+      }
 
       // Default configs
       scope.itemsPerPage = scope.itemsPerPage || tableConfig.itemsPerPage;

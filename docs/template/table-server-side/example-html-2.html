@@ -1,6 +1,6 @@
-<pre ng-non-bindable><code data-language="html">&lt;div tasty-table resource-callback=&quot;getResource&quot;&gt;
+<pre ng-non-bindable><code data-language="html">&lt;div tasty-table bind-resource-callback=&quot;getResource&quot;&gt;
   &lt;table class=&quot;table table-striped table-condensed&quot;&gt;
-    &lt;thead tasty-thead not-sort-by=&quot;notSortBy&quot;&gt;&lt;/thead&gt;
+    &lt;thead tasty-thead bind-not-sort-by=&quot;notSortBy&quot;&gt;&lt;/thead&gt;
     &lt;tbody&gt;
       &lt;tr ng-repeat=&quot;row in rows&quot;&gt;
         &lt;td&gt;&lbrace;&lbrace; row.name &rbrace;&rbrace;&lt;/td&gt;

@@ -234,21 +234,19 @@ angular.module('myApp.controllers', [])
 .controller('TableServerSideCtrl', function($rootScope, $scope, $http, $timeout) {
 
   $rootScope.page = 'table-server-side';
-
   $scope.init = {
     'count': 5,
     'page': 2,
     'sortBy': 'name',
     'sortOrder': 'dsc'
   };
-
   $scope.filterBy = {
     'time': 'now'
   };
-  
   $scope.filterByThree = {
     'time': 'now'
   };
+  $scope.templateUrl = 'template/table/pagination.html';
 
   $scope.open = function(toOpen) {
     $scope.table = true;
