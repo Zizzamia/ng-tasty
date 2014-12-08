@@ -31,6 +31,11 @@ angular.module('myApp', [
     templateUrl: 'filter/range.html',
     title: '#ngTasty - AngularJS range filter'
   })
+  .when('/service/debounce', {
+    controller: 'DebounceCtrl',
+    templateUrl: 'service/debounce.html',
+    title: '#ngTasty - AngularJS debounce service'
+  })
   .when('/service/websocket', {
     controller: 'WebSocketCtrl',
     templateUrl: 'service/websocket.html',
@@ -352,6 +357,8 @@ angular.module('myApp.controllers', [])
       }, 10);
     });
   };
+})
+.controller('DebounceCtrl', function($scope) {
 })
 .controller('WebSocketCtrl', function($scope, WebSocket) {
   $scope.tag = 'angularjs';

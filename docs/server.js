@@ -102,6 +102,15 @@ app.get('/filter/range.html', function(req, res){
   res.render('template/filter/range.html', { base: base, ngTasty: ngTasty });
 });
 
+app.get('/service/debounce', function(req, res) {
+  title = '#ngTasty - AngularJS debounce service';
+  res.render('template/index.html', { base: base, ngTasty: ngTasty, title: title });
+});
+app.get('/service/debounce.html', function(req, res) {
+  title = '#ngTasty - AngularJS debounce service';
+  res.render('template/service/debounce.html', { base: base, ngTasty: ngTasty, title: title });
+});
+
 app.get('/service/websocket', function(req, res) {
   title = '#ngTasty - AngularJS websocket service';
   res.render('template/index.html', { base: base, ngTasty: ngTasty, title: title });
