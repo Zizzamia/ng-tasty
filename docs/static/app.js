@@ -348,7 +348,6 @@ angular.module('myApp.controllers', [])
   $timeout(function () {
     Rainbow.color();
   });
-
 })
 .directive('ngScroll', function($timeout) {
   return function(scope, element, attrs) {
@@ -359,7 +358,15 @@ angular.module('myApp.controllers', [])
     });
   };
 })
-.controller('DebounceCtrl', function($scope) {
+.controller('DebounceCtrl', function($rootScope, $scope, $timeout, debounce) {
+  $rootScope.page = 'debounce';
+  $scope.number = 1;
+  $scope.plusOne = debounce(function () {
+    $scope.number += 1;
+  }, 1000);
+  $timeout(function () {
+    Rainbow.color();
+  });
 })
 .controller('WebSocketCtrl', function($scope, WebSocket) {
   $scope.tag = 'angularjs';

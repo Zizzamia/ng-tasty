@@ -1,4 +1,35 @@
+<%= include ../title-inside.html %>
 <div class="page-header">
   <h2>Debounce <small>(ngTasty.service.debounce)</small></h2>
   <p></p>
+</div>
+
+<div class="row">
+  <div class="col-md-12 docs-head">
+    <p>An Angular Service for limits the rate at which a function can fire</p>
+  </div>
+  <div class="col-xs-12">
+    <button class="btn btn-info btn-lg" ng-click="plusOne()">Plus One</button>
+    <h2 ng-bind="number"></h2>
+  </div>
+  <div class="col-xs-12">
+    <tabset class="code">
+      <tab heading="Markup">
+        <div>
+<pre ng-non-bindable><code data-language="html">&lt;button class="btn btn-info btn-lg" ng-click="plusOne()"&gt;Plus One&lt;/button&gt;
+&lt;h2 ng-bind="number"&gt;&lt;/h2&gt;</code></pre>
+        </div>
+      </tab>
+      <tab heading="JavaScript">
+        <div>
+<pre ng-non-bindable><code data-language="javascript">.controller('MyCtrl', function($scope, debounce) {
+  $scope.number = 1;
+  $scope.plusOne = debounce(function () {
+    $scope.number += 1;
+  }, 1000);
+})</code></pre>
+        </div>
+      </tab>
+    </tabset>
+  </div>
 </div>
