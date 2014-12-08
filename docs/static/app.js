@@ -7,7 +7,7 @@ angular.module('myApp', [
 .config(function ($locationProvider, $routeProvider) {
   $routeProvider
   .when('/', {
-    controller: 'DownloadCtrl',
+    controller: 'HomeCtrl',
     templateUrl: 'home.html',
     title: '#ngTasty'
   })
@@ -53,18 +53,15 @@ angular.module('myApp', [
 });
 
 angular.module('myApp.controllers', [])
-.controller('AppCtrl', function($rootScope, $scope, $window, $location) {
+.controller('AppCtrl', function($rootScope, $scope, $window, $location, $modal) {
+  var modalInstance;
+
   if (base == '/ng-tasty') {
     $scope.$on('$viewContentLoaded', function(event) {
       $window.ga('send', 'pageview', { page: '/ng-tasty' + $location.path() });
     });
   }
   $rootScope.version = '0.4.0';
-})
-.controller('DownloadCtrl', function($rootScope, $scope, $modal, $timeout) {
-  var modalInstance;
-
-  $rootScope.page = 'home';
 
   $scope.showDownloadModal = function() {
     modalInstance = $modal.open({
@@ -72,6 +69,14 @@ angular.module('myApp.controllers', [])
       controller: 'DownloadCtrl'
     });
   };
+})
+.controller('HomeCtrl', function($rootScope, $scope, $timeout) {
+  $rootScope.page = 'home';
+  $timeout(function () {
+    Rainbow.color();
+  });
+})
+.controller('DownloadCtrl', function($rootScope, $scope, $modalInstance) {
   $scope.options = {
     version: $rootScope.version,
     minified: true,
@@ -93,12 +98,8 @@ angular.module('myApp.controllers', [])
   };
 
   $scope.cancel = function () {
-    modalInstance.dismiss();
+    $modalInstance.dismiss('cancel');
   };
-
-  $timeout(function () {
-    Rainbow.color();
-  });
 })
 .controller('MakeYourOwnCtrl', function($rootScope, $scope, $http, $timeout) {
   $rootScope.page = 'MakeYourOwn';
@@ -128,7 +129,7 @@ angular.module('myApp.controllers', [])
         window.location.href = 'dist/releases/ng-tasty.zip';
       }
     });
-  }
+  };
 })
 .controller('TableCtrl', function($rootScope, $scope, $http, $timeout) {
 
