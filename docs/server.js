@@ -217,7 +217,7 @@ app.get('/table.json', function(req, res){
 var exec = require('exec');
 app.post('/compile.json', function(req, res){
   var modules = req.body.join(':');
-  return exec('gulp build-module --env ' + modules, function (error, stdout, stderr) {
+  return exec('node_modules/gulp/bin/gulp.js build-module --env ' + modules, function (error, stdout, stderr) {
     res.json({'success': true });
   });
 });
