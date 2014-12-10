@@ -11,8 +11,8 @@ describe('Directive', function () {
   beforeEach(module('ngTasty.service.tastyUtil'));
   beforeEach(module('ngTasty.component.table'));
   beforeEach(module('mockedAPIResponse'));
-  beforeEach(module('ngTasty.tpls.TableHead'));
-  beforeEach(module('ngTasty.tpls.TablePagination'));
+  beforeEach(module('ngTasty.tpls.table.head'));
+  beforeEach(module('ngTasty.tpls.table.pagination'));
 
 
   describe('ngTasty table configs', function () {

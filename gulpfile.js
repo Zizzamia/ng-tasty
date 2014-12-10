@@ -41,9 +41,24 @@ var banner = ['/*',
               ' * Version: ' + pkg.version + ' - ' + moment().format("YYYY-MM-DD"),
               ' * License: ' + pkg.license,
               ' */\n'].join('\n');
+var srcModules = [];
+var tplModules = [];
 
-var capitaliseFirstLetter = function(string) {
+var getExtension = function (filename) {
+  var i = filename.lastIndexOf('.');
+  return (i < 0) ? '' : filename.substr(i);
+}
+
+var capitaliseFirstLetter = function (string) {
   return string.charAt(0).toUpperCase() + string.slice(1);
+}
+var enquote = function (str) {
+  return '"' + str + '"';
+}
+var camelCase = function (input) { 
+  return input.toLowerCase().replace(/-(.)/g, function(match, group1) {
+    return group1.toUpperCase();
+  });
 }
 
 gulp.task('clean', function () {  
@@ -74,8 +89,8 @@ gulp.task('html2js', function() {
         var path = file.path.split('/'),
             folder = path[path.length - 2],
             fileName = path[path.length - 1].split('.')[0];
-        var name = 'ngTasty.tpls.' + capitaliseFirstLetter(folder);
-        return name + capitaliseFirstLetter(fileName);
+        var name = 'ngTasty.tpls.' + camelCase(folder);
+        return name + '.' + camelCase(fileName);
       },
       prefix: "template/"
     }))
@@ -111,7 +126,7 @@ gulp.task('full-test', function() {
     'components/angular-mocks/angular-mocks.js',
     'src/*/test/*.js',
     'dist/ng-tasty.js',
-    'template/table/*.html.js'
+    'template/**/*.html.js'
   ])
     .pipe(karma({
       configFile: 'karma.conf.js',
@@ -126,7 +141,7 @@ gulp.task('full-test', function() {
     'components/angular-mocks/angular-mocks.js',
     'src/*/test/*.js',
     'dist/ng-tasty.min.js',
-    'template/table/*.html.js'
+    'template/**/*.html.js'
   ])
     .pipe(karma({
       configFile: 'karma.conf.js',
@@ -141,7 +156,7 @@ gulp.task('full-test', function() {
     'components/angular-mocks/angular-mocks.js',
     'src/*/test/*.js',
     'dist/ng-tasty-tpls.js',
-    'template/table/*.html.js'
+    'template/**/*.html.js'
   ])
     .pipe(karma({
       configFile: 'karma.conf.js',
@@ -156,7 +171,7 @@ gulp.task('full-test', function() {
     'components/angular-mocks/angular-mocks.js',
     'src/*/test/*.js',
     'dist/ng-tasty-tpls.min.js',
-    'template/table/*.html.js'
+    'template/**/*.html.js'
   ])
     .pipe(karma({
       configFile: 'karma.conf.js',
@@ -195,40 +210,43 @@ gulp.task('watch', function() {
     }));
 });
 
-var srcModules = [];
-var tplModules = [];
-
-function getExtension(filename) {
-  var i = filename.lastIndexOf('.');
-  return (i < 0) ? '' : filename.substr(i);
-}
-
 gulp.task('get-modules-name', function() {
-  function enquote(str) {
-    return '"' + str + '"';
-  }
-
-  fs.readdir('src/component', function (err, components) {
-    components = components.filter(function(component) {
-      return component.split('.').pop() == 'js';
+  var setModules = function (folder, files) {
+    files = files.filter(function(file) {
+      return file.split('.').pop() == 'js';
     });
-    components.forEach(function (component) {
-      component = component.split('.')[0];
-      srcModules.push(enquote('ngTasty.component.' + component));
-      fs.readdir('template/' + component, function (err, files) {
-        if (!files) {
-          return;
-        }
-        files = files.filter(function(file) { 
-          return getExtension(file) === '.html';
-        });
-        files.forEach(function (file) {
-          var module = 'ngTasty.tpls.' + capitaliseFirstLetter(component);
-          module += capitaliseFirstLetter(file.split('.')[0]);
-          tplModules.push(enquote(module));
-        });
-      });
+    files.forEach(function (file) {
+      file = file.split('.')[0];
+      var module = 'ngTasty.'+ camelCase(folder) + '.' + camelCase(file);
+      srcModules.push(enquote(module));
+      if (folder === 'component') {
+        setTplsModules(file);
+      }
     })
+  };
+  var setTplsModules = function (component) {
+    fs.readdir('template/' + component, function (err, files) {
+      if (!files) {
+        return;
+      }
+      files = files.filter(function(file) { 
+        return getExtension(file) === '.html';
+      });
+      files.forEach(function (file) {
+        var module = 'ngTasty.tpls.' + camelCase(component);
+        module += '.' + camelCase(file.split('.')[0]);
+        tplModules.push(enquote(module));
+      });
+    });
+  };
+  fs.readdir('src/component', function (err, files) {
+    setModules('component', files)
+  });
+  fs.readdir('src/filter', function (err, files) {
+    setModules('filter', files)
+  });
+  fs.readdir('src/service', function (err, files) {
+    setModules('service', files)
   });
 });
 
