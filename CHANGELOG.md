@@ -1,6 +1,11 @@
 ## Changelog
 
-### v0.4.0 (master, released on December 8th 2014)
+### v0.4.1 (released on December 10th 2014)
+#### Bug Fixes
+- Fixed bad list module name in dist folder [#63](https://github.com/Zizzamia/ng-tasty/issues/63)
+
+
+### v0.4.0 (released on December 8th 2014)
 #### Features
 - Added support for templateUrl scope in pagination directive [#61](https://github.com/Zizzamia/ng-tasty/issues/61)
 
