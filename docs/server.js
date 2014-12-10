@@ -94,6 +94,14 @@ app.get('/table-server-side/index.html', function(req, res){
   res.render('template/table-server-side/index.html', { base: base, ngTasty: ngTasty });
 });
 
+app.get('/filter/filter-int', function(req, res){
+  title = '#ngTasty - AngularJS filter Integer';
+  res.render('template/index.html', { base: base, ngTasty: ngTasty, title:title });
+});
+app.get('/filter/filter-int.html', function(req, res){
+  res.render('template/filter/filter-int.html', { base: base, ngTasty: ngTasty });
+});
+
 app.get('/filter/range', function(req, res){
   title = '#ngTasty - AngularJS range filter';
   res.render('template/index.html', { base: base, ngTasty: ngTasty, title:title });

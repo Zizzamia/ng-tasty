@@ -26,6 +26,11 @@ angular.module('myApp', [
     templateUrl: 'table-server-side/index.html',
     title: '#ngTasty - AngularJS server side table directive'
   })
+  .when('/filter/filter-int', {
+    controller: 'FilterCtrl',
+    templateUrl: 'filter/filter-int.html',
+    title: '#ngTasty - AngularJS filter Integer'
+  })
   .when('/filter/range', {
     controller: 'FilterCtrl',
     templateUrl: 'filter/range.html',
@@ -340,6 +345,10 @@ angular.module('myApp.controllers', [])
 .controller('FilterCtrl', function($rootScope, $scope, $http, $timeout) {
 
   $rootScope.page = 'range';
+
+  $scope.age = 27;
+  $scope.text = 'Ciao';
+  $scope.ageBytext = '22';
 
   $scope.start = 1;
   $scope.stop = 10;

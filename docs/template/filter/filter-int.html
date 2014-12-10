@@ -1,0 +1,35 @@
+<%= include ../title-inside.html %>
+<div class="page-header">
+  <h2>Filter Int<small>
+  (<a target="_blank" 
+  href="https://github.com/Zizzamia/ng-tasty/blob/master/src/filter/filter-int.js#L42">ngTasty.filter.filterInt</a>)
+  </small></h2>
+</div>
+<div class="row">
+  <div class="col-xs-6">
+    <p><b ng-bind="age | filterInt"></b></p>
+    <p><b ng-bind="text | filterInt"></b></p>
+    <p><b ng-bind="ageBytext | filterInt"></b></p>
+  </div>
+  <div class="col-xs-6">
+    <p>An Integer filter.</p>
+  </div>
+  <div class="col-xs-12">
+    <tabset class="code">
+      <tab heading="Markup">
+        <div>
+<pre ng-non-bindable><code data-language="html"><p><b ng-bind="age | filterInt"></b></p>
+<p><b ng-bind="text | filterInt"></b></p>
+<p><b ng-bind="ageBytext | filterInt"></b></p></code></pre>
+        </div>
+      </tab>
+      <tab heading="Javascript">
+        <div>
+<pre ng-non-bindable><code data-language="javascript">$scope.age = 27;
+$scope.text = 'Ciao';
+$scope.ageBytext = '22';</code></pre>
+        </div>
+      </tab>
+    </tabset>
+  </div>
+</div>
