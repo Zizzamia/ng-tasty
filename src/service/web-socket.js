@@ -1,8 +1,6 @@
-angular.module('ngTasty.service.webSocket', [
-  'ngTasty.service'
-])
-.factory('WebSocket', function() {
-  
+angular.module('ngTasty.service.webSocket', [])
+
+.factory('webSocket', function() {
   return function(url) {
     var blobURL = URL.createObjectURL(new Blob(['(', function() {
       var WSWorker = (function() {
@@ -67,6 +65,5 @@ angular.module('ngTasty.service.webSocket', [
         _worker.postMessage({ cmd: 'ws_send', data: data });
       }
     };
-
   };
 });
