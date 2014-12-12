@@ -1,8 +1,6 @@
 var app = angular.module('eventDelegationBenchmark', ['ngTasty']);
 
 app.controller('DataController', function($rootScope, $scope) {
-  this.ngRepeatCount = 4000;
-  var self = this;
   $scope.resource = {
     "header": [
       {
@@ -18,12 +16,10 @@ app.controller('DataController', function($rootScope, $scope) {
         "name": "SF Location"
       }
     ],
-    "rows": [{ 
-     "name": "Ritual Coffee Roasters", 
-     "star": "★★★★★", 
-     "sf-location": "Hayes Valley"
-   }]
+    "rows": []
   };
+  $scope.itemsPerPage = 10;
+  $scope.listItemsPerPage = [10, 25, 50, 100]; 
 
   benchmarkSteps.push({
     name: 'destroy',
@@ -39,7 +35,7 @@ app.controller('DataController', function($rootScope, $scope) {
     name: 'setup',
     description: 'Push new rows to be applied in next step',
     fn: function() {
-      for (var i = 0; i < 1000; i++) {
+      for (var i = 0; i < 4000; i++) {
         $scope.resource.rows.push({ 
           "name": "Ritual Coffee Roasters " + i, 
           "star": "★★★★★  " + i, 

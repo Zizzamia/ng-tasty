@@ -15,7 +15,7 @@
       Debug output:
       <ng-switch on="benchmarkType">
         <div ng-switch-when="directiveInterpolation">
-          <div tasty-table bind-resource="resource">
+          <div tasty-table resource="resource">
             <table class="table table-striped table-condensed">
               <thead tasty-thead></thead>
               <tbody>
@@ -26,8 +26,8 @@
                 </tr>
               </tbody>
             </table>
-            <div tasty-pagination bind-items-per-page="itemsPerPage" 
-            bind-list-items-per-page="listItemsPerPage"></div>
+            <div tasty-pagination items-per-page="itemsPerPage" 
+            list-items-per-page="listItemsPerPage"></div>
           </div>
         </div>
       </ng-switch>

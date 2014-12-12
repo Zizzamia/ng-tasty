@@ -5,7 +5,7 @@ module.exports = function(config) {
       src: 'angular.min.js'
     },{
       id: 'ngTasty',
-      src: '../dist/ng-tasty-tpls.js'
+      src: 'ng-tasty-tpls.js'
     },{
       src: 'ngtasty-benchmark.js',
     }]

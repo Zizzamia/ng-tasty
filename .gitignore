@@ -21,7 +21,7 @@ template/**/*.js
 #benchpress
 benchpress-build
 benchmarks/*
-!benchmarks/ngtasty
+!benchmarks/ngtasty*
 
 # Server Config
 docs/config.json
