@@ -223,7 +223,8 @@ describe('Directive', function () {
       expect(errorFunctionWrapper).toThrow(expected);
     });
   });
-  
+ 
+
 
 
   describe('ngTasty table withs sorting', function () {
@@ -435,6 +436,7 @@ describe('Directive', function () {
 
 
 
+
   describe('ngTasty table withs filters', function () {
     beforeEach(inject(function ($rootScope, $compile, _$timeout_, _sortingJSON_) {
       $scope = $rootScope.$new();
@@ -507,6 +509,104 @@ describe('Directive', function () {
 
 
 
+
+  describe('ngTasty table withs filters and pagination', function () {
+    beforeEach(inject(function ($rootScope, $compile, _$timeout_, _sortingJSON_) {
+      $scope = $rootScope.$new();
+      $timeout = _$timeout_;
+      $scope.resource = _sortingJSON_;
+      $scope.filters = 'rit';
+      element = angular.element(''+
+      '<div tasty-table bind-resource="resource" bind-filters="filters">'+
+      '  <table>'+
+      '    <thead tasty-thead></thead>'+
+      '    <tbody>'+
+      '      <tr ng-repeat="row in rows">'+
+      '        <td>{{ row.name }}</td>'+
+      '        <td>{{ row.star }}</td>'+
+      '        <td>{{ row[\'sf-Location\'] }}</td>'+
+      '      </tr>'+
+      '    </tbody>'+
+      '  </table>'+
+      '  <tasty-pagination></tasty-pagination>'+
+      '</div>');
+      tastyTable = $compile(element)($scope);
+      tastyThead = tastyTable.find('[tasty-thead=""]');
+      tastyPagination = tastyTable.find('tasty-pagination');
+      $timeout.flush();
+      $scope.$digest();
+    }));
+
+    it('should have these element.scope() value as default', function () {
+      expect(element.scope().query).toEqual({
+        'page': 'page',
+        'count': 'count',
+        'sortBy': 'sort-by',
+        'sortOrder': 'sort-order',
+      });
+      expect(element.scope().url).toEqual('');
+      expect(element.scope().header.columns.length).toEqual(3);
+      expect(element.scope().rows.length).toEqual(1);
+      expect(element.scope().pagination.count).toEqual(5);
+      expect(element.scope().pagination.page).toEqual(1);
+      expect(element.scope().pagination.pages).toEqual(1);
+      expect(element.scope().pagination.size).toEqual(1);
+      expect(element.scope().params.sortBy).toEqual(undefined);
+      expect(element.scope().params.sortOrder).toEqual(undefined);
+      expect(element.scope().params.page).toEqual(1);
+      expect(element.scope().params.count).toEqual(5);
+      expect(element.scope().params.thead).toEqual(true);
+      expect(element.scope().theadDirective).toEqual(true);
+      expect(element.scope().paginationDirective).toEqual(true);   
+    });
+
+    it('should filter by string value', function () {
+      $scope.filters = '';
+      $scope.$digest();
+      $timeout.flush();
+      expect(element.scope().rows.length).toEqual(5);
+      $scope.filters = 'rit';
+      $scope.$digest();
+      $timeout.flush();
+      expect(element.scope().rows.length).toEqual(1);
+      $scope.filters = 'bl';
+      $scope.$digest();
+      $timeout.flush();
+      expect(element.scope().rows.length).toEqual(3);
+      $scope.filters = 'll';
+      $scope.$digest();
+      $timeout.flush();
+      expect(element.scope().rows.length).toEqual(5);
+      $scope.filters = '★★★★★';
+      $scope.$digest();
+      $timeout.flush();
+      expect(element.scope().rows.length).toEqual(5);
+    });
+
+    it('should filter after change page', function () {
+      tastyPagination.isolateScope().page.get(2);
+      $scope.filters = '';
+      $scope.$digest();
+      $timeout.flush();
+      expect(element.scope().rows.length).toEqual(5);
+      $scope.filters = 'rit';
+      $scope.$digest();
+      $timeout.flush();
+      expect(element.scope().rows.length).toEqual(1);
+      $scope.filters = 'bl';
+      $scope.$digest();
+      $timeout.flush();
+      expect(element.scope().rows.length).toEqual(3);
+      $scope.filters = 'll';
+      $scope.$digest();
+      $timeout.flush();
+      expect(element.scope().rows.length).toEqual(5);
+      $scope.filters = '★★★★★';
+      $scope.$digest();
+      $timeout.flush();
+      expect(element.scope().rows.length).toEqual(5);
+    });
+  });
 
 
   describe('ngTasty table withs sorting server side', function () {
@@ -757,6 +857,8 @@ describe('Directive', function () {
   });
 
 
+
+
   describe('ngTasty table with pagination', function () {
     beforeEach(inject(function ($rootScope, $compile, _$timeout_, _sortingJSON_) {
       $scope = $rootScope.$new();
@@ -901,6 +1003,7 @@ describe('Directive', function () {
       expect(angular.element(elm).hasClass('col-xs-3')).toBe(true);
     });
   });
+
 
 
 
