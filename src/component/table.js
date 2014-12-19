@@ -152,7 +152,7 @@ angular.module('ngTasty.component.table', [
     }
   };
 
-  $scope.buildClientResource = function() {
+  $scope.buildClientResource = function(updateFrom) {
     var fromRow, toRow, rowToShow, reverse, listSortBy;
     if ($scope.theadDirective) {
       reverse = $scope.header.sortOrder === 'asc' ? false : true;
@@ -172,7 +172,11 @@ angular.module('ngTasty.component.table', [
       $scope.rows = $filter('filter')($scope.rows, $scope.filters);
     }
     if ($scope.paginationDirective) {
-      $scope.pagination.page = $scope.params.page;
+      if (updateFrom === 'filters') {
+        $scope.pagination.page = 1;
+      } else {
+        $scope.pagination.page = $scope.params.page;
+      }
       $scope.pagination.count = $scope.params.count;
       $scope.pagination.size = $scope.rows.length;
       $scope.pagination.pages = Math.ceil($scope.rows.length / $scope.pagination.count);
@@ -209,9 +213,9 @@ angular.module('ngTasty.component.table', [
     }).join('&');
   };
 
-  $scope.updateClientSideResource = tastyUtil.debounce(function() {
+  $scope.updateClientSideResource = tastyUtil.debounce(function(updateFrom) {
     $scope.setDirectivesValues($scope.resource);
-    $scope.buildClientResource();
+    $scope.buildClientResource(updateFrom);
   }, 60);
 
   $scope.updateServerSideResource = tastyUtil.debounce(function() {
@@ -243,7 +247,7 @@ angular.module('ngTasty.component.table', [
     $scope.$watch('filters', function (newValue, oldValue){
       if (newValue !== oldValue) {
         if ($scope.clientSide) {
-          $scope.updateClientSideResource();
+          $scope.updateClientSideResource('filters');
         } else {
           $scope.updateServerSideResource();
         }
@@ -253,7 +257,7 @@ angular.module('ngTasty.component.table', [
   $scope.$watchCollection('params', function (newValue, oldValue){
     if (newValue !== oldValue) {
       if ($scope.clientSide) {
-        $scope.updateClientSideResource();
+        $scope.updateClientSideResource('params');
       } else {
         $scope.updateServerSideResource();
       }
@@ -264,7 +268,7 @@ angular.module('ngTasty.component.table', [
       if (newValue !== oldValue) {
         $scope.params.sortBy = newValue.sortBy;
         $scope.params.sortOrder = newValue.sortOrder;
-        $scope.updateClientSideResource();
+        $scope.updateClientSideResource('resource');
       }
     }, true);
   }
