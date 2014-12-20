@@ -1,35 +1,17 @@
-<!doctype html>
-<html ng-app="myApp">
-<head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-
-  <title>#ngTasty</title>
-  <meta name="description" content="A lightweight, flexible, and tasty collection of reusable UI components for AngularJS.">
-  
-  <link rel="stylesheet" href="<%= base %>/components/bootstrap/dist/css/bootstrap.css">
-  <link rel="stylesheet" href="<%= base %>/components/components-font-awesome/css/font-awesome.css">
-  <link rel="stylesheet" href="<%= base %>/static/style.css">
-</head>
-<body ng-controller="AppCtrl">
-	<div id="Table" ng-controller="TableCtrl">
-    <div tasty-table resource="resource"> 
+<div>
+  <div tasty-table bind-resource="resource">
       <table class="table table-striped table-condensed">
-        <thead tasty-thead not-sort-by="notSortBy"></thead>
+        <thead tasty-thead></thead>
         <tbody>
           <tr ng-repeat="row in rows">
-            <td>1</td>
-            <td>2</td>
-            <td>3</td>
+            <td>{{ row.name }}</td>
+            <td>{{ row.star }}</td>
+            <td>{{ row['sf-location'] }}</td>
           </tr>
         </tbody>
       </table>
-      <div tasty-pagination></div>
+      <div tasty-pagination bind-items-per-page="itemsPerPage" 
+      bind-list-items-per-page="listItemsPerPage"></div>
     </div>
   </div>
-  <script src="<%= base %>/components/angular/angular.js"></script>
-  <script src="<%= base %>/components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
-  <script src="<%= ngTasty %>"></script>
-  <script src="<%= base %>/static/app.js"></script>
-</body>
-</html>
+</div>

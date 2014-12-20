@@ -105,3 +105,30 @@ angular.module('myApp.pages.table', [])
     Rainbow.color();
   }); 
 })
+.controller('BenchmarksTableCtrl', function($rootScope, $scope, $http, $timeout) {
+  var rows = []
+  for (var i = 0; i < 4000; i++) {
+    rows.push({ 
+      "name": "Ritual Coffee Roasters " + i, 
+      "star": "★★★★★  " + i, 
+      "sf-location": "Hayes Valley " + i,
+      "name2": "Ritual Coffee Roasters " + i, 
+      "star2": "★★★★★  " + i, 
+      "sf-location2": "Hayes Valley " + i,
+      "name3": "Ritual Coffee Roasters " + i, 
+      "star3": "★★★★★  " + i, 
+      "sf-location3": "Hayes Valley " + i,
+      "name4": "Ritual Coffee Roasters " + i 
+    });
+  }
+  $scope.resource = {
+    'header': [
+      { 'name': 'Name' },
+      { 'star': 'Star' },
+      { 'sf-Location': 'SF Location' }
+    ],
+    'rows': rows,
+    'sortBy': 'name',
+    'sortOrder': 'asc'
+  };
+})

@@ -128,10 +128,14 @@ app.get('/service/websocket.html', function(req, res) {
   res.render('template/service/websocket.html', { base: base, ngTasty: ngTasty, title: title });
 });
 
-app.get('/table/benchmarks', function(req, res){
-  res.render('template/table/benchmarks.html', { base: base, ngTasty: ngTasty });
+app.get('/benchmarks/table', function(req, res) {
+  title = '#ngTasty - AngularJS websocket service';
+  res.render('template/index.html', { base: base, ngTasty: ngTasty, title: title });
 });
-
+app.get('/table/benchmarks.html', function(req, res) {
+  title = '#ngTasty - AngularJS benchmarks table';
+  res.render('template/table/benchmarks.html', { base: base, ngTasty: ngTasty, title: title });
+});
 
 app.get('/table.json', function(req, res){
   var items, pagination, rows, sortBy, fromRow, toRow;

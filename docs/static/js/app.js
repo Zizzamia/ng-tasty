@@ -53,6 +53,11 @@ angular.module('myApp', [
     templateUrl: 'service/websocket.html',
     title: '#ngTasty - AngularJS websocket service'
   })
+  .when('/benchmarks/table', {
+    controller: 'BenchmarksTableCtrl',
+    templateUrl: 'table/benchmarks.html',
+    title: '#ngTasty - AngularJS benchmarks table'
+  })
   .otherwise({ redirectTo: '/' });
 
   $locationProvider.html5Mode(true);
