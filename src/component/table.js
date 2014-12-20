@@ -144,11 +144,22 @@ angular.module('ngTasty.component.table', [
       $scope.header.sortOrder = $scope.header.sortOrder || resource.sortOrder;
     }
     $scope.rows = resource.rows;
-    if ($scope.paginationDirective && resource.pagination) {
-      $scope.pagination.count = resource.pagination.count;
-      $scope.pagination.page = resource.pagination.page;
-      $scope.pagination.pages = resource.pagination.pages;
-      $scope.pagination.size = resource.pagination.size;
+    if ($scope.paginationDirective) {
+      $scope.pagination.page = $scope.params.page;
+      $scope.pagination.count = $scope.params.count;
+      $scope.pagination.size = $scope.rows.length;
+      if (resource.pagination) {
+        if (resource.pagination.count) {
+          $scope.pagination.count = resource.pagination.count;
+        }
+        if (resource.pagination.page) {
+          $scope.pagination.page = resource.pagination.page;
+        }
+        if (resource.pagination.size) {
+          $scope.pagination.size = resource.pagination.size;
+        }
+      }
+      $scope.pagination.pages = Math.ceil($scope.pagination.size / $scope.pagination.count);
     }
   };
 

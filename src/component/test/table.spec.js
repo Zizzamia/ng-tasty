@@ -1334,7 +1334,10 @@ describe('Component ngTasty table', function () {
         return $http.get('api.json?'+params).then(function (response) {
           return {
             'rows': response.data.rows,
-            'header': response.data.header
+            'header': response.data.header,
+            'pagination': {
+              'size': response.data.pagination.size
+            }
           };
         });
       };
