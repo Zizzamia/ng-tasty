@@ -1,4 +1,4 @@
-describe('Directive', function () {
+describe('Component ngTasty table', function () {
   'use strict';
   var $rootScope, $scope, $timeout, $httpBackend, $compile;
   var element, params, urlToCall, filters, createDirective, field, elm,
@@ -15,7 +15,7 @@ describe('Directive', function () {
   beforeEach(module('ngTasty.tpls.table.pagination'));
 
 
-  describe('ngTasty table configs', function () {
+  describe('configs', function () {
     beforeEach(inject(function ($rootScope, _$compile_) {
       $scope = $rootScope.$new();
       $compile = _$compile_;
@@ -55,7 +55,7 @@ describe('Directive', function () {
 
 
   
-  describe('ngTasty table bad bind-resource-callback implementation', function () {
+  describe('bad bind-resource-callback implementation', function () {
     beforeEach(inject(function ($rootScope, $compile, $http, _$httpBackend_, _$timeout_) {
       $scope = $rootScope.$new();
       $timeout = _$timeout_;
@@ -102,7 +102,7 @@ describe('Directive', function () {
 
 
 
-  describe('ngTasty table complete server side', function () {
+  describe('complete server side', function () {
     beforeEach(inject(function ($rootScope, $compile, $http, _$httpBackend_, _$timeout_, _completeJSON_) {
       $scope = $rootScope.$new();
       $timeout = _$timeout_;
@@ -227,7 +227,7 @@ describe('Directive', function () {
 
 
 
-  describe('ngTasty table withs sorting', function () {
+  describe('withs sorting', function () {
     beforeEach(inject(function ($rootScope, $compile, _$timeout_, _sortingJSON_) {
       $scope = $rootScope.$new();
       $timeout = _$timeout_;
@@ -368,7 +368,7 @@ describe('Directive', function () {
   
 
 
-  describe('ngTasty table withs sorting, simplified header version', function () {
+  describe('withs sorting, simplified header version', function () {
     beforeEach(inject(function ($rootScope, $compile, _$timeout_, _sortingJSON_) {
       $scope = $rootScope.$new();
       $timeout = _$timeout_;
@@ -437,7 +437,7 @@ describe('Directive', function () {
 
 
 
-  describe('ngTasty table withs filters', function () {
+  describe('withs filters', function () {
     beforeEach(inject(function ($rootScope, $compile, _$timeout_, _sortingJSON_) {
       $scope = $rootScope.$new();
       $timeout = _$timeout_;
@@ -510,7 +510,7 @@ describe('Directive', function () {
 
 
 
-  describe('ngTasty table withs filters and pagination', function () {
+  describe('withs filters and pagination', function () {
     beforeEach(inject(function ($rootScope, $compile, _$timeout_, _sortingJSON_) {
       $scope = $rootScope.$new();
       $timeout = _$timeout_;
@@ -609,7 +609,7 @@ describe('Directive', function () {
   });
 
 
-  describe('ngTasty table withs sorting server side', function () {
+  describe('withs sorting server side', function () {
     beforeEach(inject(function (_$rootScope_, $compile, $http, _$httpBackend_, _$timeout_, _sortingJSON_) {
       $rootScope = _$rootScope_;
       $scope = $rootScope.$new();
@@ -771,7 +771,7 @@ describe('Directive', function () {
 
 
   
-  describe('ngTasty table with basic pagination', function () {
+  describe('with basic pagination', function () {
     beforeEach(inject(function ($rootScope, $compile, _$timeout_) {
       $scope = $rootScope.$new();
       $timeout = _$timeout_;
@@ -859,7 +859,7 @@ describe('Directive', function () {
 
 
 
-  describe('ngTasty table with pagination', function () {
+  describe('with pagination', function () {
     beforeEach(inject(function ($rootScope, $compile, _$timeout_, _sortingJSON_) {
       $scope = $rootScope.$new();
       $timeout = _$timeout_;
@@ -1007,7 +1007,7 @@ describe('Directive', function () {
 
 
 
-  describe('ngTasty table with pagination classic binding', function () {
+  describe('with pagination classic binding', function () {
     beforeEach(inject(function ($rootScope, $compile, _$timeout_, _sortingJSON_) {
       $scope = $rootScope.$new();
       $timeout = _$timeout_;
@@ -1153,7 +1153,7 @@ describe('Directive', function () {
   
 
 
-  describe('ngTasty table with pagination server side', function () {
+  describe('with pagination server side', function () {
     beforeEach(inject(function ($rootScope, $compile, $http, _$httpBackend_, 
       _$timeout_, _paginationJSON_, _paginationJSONCount25_) {
       $scope = $rootScope.$new();
@@ -1322,7 +1322,86 @@ describe('Directive', function () {
 
 
 
-  describe('ngTasty table with filters server side', function () {
+  describe('with pagination server side without pagination value', function () {
+    beforeEach(inject(function ($rootScope, $compile, $http, _$httpBackend_, 
+      _$timeout_, _paginationJSON_, _paginationJSONCount25_) {
+      $scope = $rootScope.$new();
+      $timeout = _$timeout_;
+      $httpBackend = _$httpBackend_;
+      paginationJSON = _paginationJSON_;
+      paginationJSONCount25 = _paginationJSONCount25_;
+      $scope.getResource = function (params) {
+        return $http.get('api.json?'+params).then(function (response) {
+          return {
+            'rows': response.data.rows,
+            'header': response.data.header
+          };
+        });
+      };
+      element = angular.element(''+
+      '<div tasty-table bind-resource-callback="getResource">'+
+      '  <table>'+
+      '    <thead>'+
+      '      <tr>'+
+      '        <th>Name</th>'+
+      '        <th>Star</th>'+
+      '        <th>SF Location</th>'+
+      '      </tr>'+
+      '    </thead>'+
+      '    <tbody>'+
+      '      <tr ng-repeat="row in rows">'+
+      '        <td>{{ row.name }}</td>'+
+      '        <td>{{ row.star }}</td>'+
+      '        <td>{{ row[\'sf-location\'] }}</td>'+
+      '      </tr>'+
+      '    </tbody>'+
+      '  </table>'+
+      '  <tasty-pagination></tasty-pagination>'+
+      '</div>');
+      tastyTable = $compile(element)($scope);
+      tastyPagination = tastyTable.find('tasty-pagination');
+      urlToCall = 'api.json?page=1&count=5';
+      $httpBackend.whenGET(urlToCall).respond(paginationJSON);
+      $timeout.flush();
+      $httpBackend.flush();
+      $scope.$digest();
+    }));
+
+    it('should have these element.scope() value after 100ms', function () {
+      expect(element.scope().query).toEqual({
+        'page': 'page',
+        'count': 'count',
+        'sortBy': 'sort-by',
+        'sortOrder': 'sort-order',
+      });
+      expect(element.scope().url).toEqual('page=1&count=5');
+      expect(element.scope().header.columns.length).toEqual(3);
+      expect(element.scope().rows.length).toEqual(5);
+      expect(element.scope().pagination).toEqual({ 
+        'count' : 5, 
+        'page' : 1,
+        'pages' : 7, 
+        'size' : 35 
+      });
+      expect(element.scope().params.sortBy).toEqual(undefined);
+      expect(element.scope().params.sortOrder).toEqual(undefined);
+      expect(element.scope().params.page).toEqual(1);
+      expect(element.scope().params.count).toEqual(5);
+      expect(element.scope().params.pagination).toEqual(true);
+      expect(element.scope().theadDirective).toEqual(false);
+      expect(element.scope().paginationDirective).toEqual(true);
+    });
+
+    it('should return the right url after called buildUrl', function () {
+      expect(element.scope().rows[0].name).toEqual('Ritual Coffee Roasters');
+      expect(element.scope().rows.length).toEqual(5);
+    });
+  });
+
+
+
+
+  describe('with filters server side', function () {
     beforeEach(inject(function ($rootScope, $compile, $http, _$httpBackend_, _$timeout_, _filtersJSON_) {
       $scope = $rootScope.$new();
       $timeout = _$timeout_;
