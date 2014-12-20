@@ -728,9 +728,15 @@ describe('Component ngTasty table', function () {
     it('should sorting ascending and descending scope.header.sortBy when scope.sortBy is clicked', function () {
       field = {'key': 'star', 'name': 'Star', 'sortable': true};
       tastyThead.isolateScope().sortBy(field);
+      urlToCall = 'api.json?sort-by=star&sort-order=asc';
+      $httpBackend.whenGET(urlToCall).respond(sortingJSON);
+      $httpBackend.flush();
       $scope.$digest();
       expect(tastyThead.isolateScope().header.sortBy).toEqual('star');
       tastyThead.isolateScope().sortBy(field);
+      urlToCall = 'api.json?sort-by=star&sort-order=dsc';
+      $httpBackend.whenGET(urlToCall).respond(sortingJSON);
+      $httpBackend.flush();
       $scope.$digest();
       expect(tastyThead.isolateScope().header.sortBy).toEqual('-star');
     });
@@ -738,9 +744,15 @@ describe('Component ngTasty table', function () {
     it('should return true or false to indicate if a specific key is sorted up', function () {
       field = {'key': 'star', 'name': 'Star', 'sortable': true};
       tastyThead.isolateScope().sortBy(field);
+      urlToCall = 'api.json?sort-by=star&sort-order=asc';
+      $httpBackend.whenGET(urlToCall).respond(sortingJSON);
+      $httpBackend.flush();
       $scope.$digest();
       expect(tastyThead.isolateScope().columns[1].isSorted).toEqual('fa fa-sort-up');
       tastyThead.isolateScope().sortBy(field);
+      urlToCall = 'api.json?sort-by=star&sort-order=dsc';
+      $httpBackend.whenGET(urlToCall).respond(sortingJSON);
+      $httpBackend.flush();
       $scope.$digest();
       expect(tastyThead.isolateScope().columns[1].isSorted).toEqual('fa fa-sort-down');
     });
@@ -749,20 +761,18 @@ describe('Component ngTasty table', function () {
       sortingJSON['sortOrder'] = undefined;
       field = {'key': 'star', 'name': 'Star', 'sortable': true};
       tastyThead.isolateScope().sortBy(field);
-      $scope.$digest();
       urlToCall = 'api.json?sort-by=star&sort-order=asc';
       $httpBackend.whenGET(urlToCall).respond(sortingJSON);
-      $timeout.flush();
       $httpBackend.flush();
+      $scope.$digest();
       expect(tastyThead.isolateScope().header.sortBy).toEqual('star');
       expect(tastyThead.isolateScope().header.sortOrder).toEqual('asc');
       field = {'key': 'name', 'name': 'Name', 'sortable': true};
       tastyThead.isolateScope().sortBy(field);
-      $scope.$digest();
       urlToCall = 'api.json?sort-by=name&sort-order=asc';
       $httpBackend.whenGET(urlToCall).respond(sortingJSON);
-      $timeout.flush();
       $httpBackend.flush();
+      $scope.$digest();
       expect(tastyThead.isolateScope().header.sortBy).toEqual('name');
       expect(tastyThead.isolateScope().header.sortOrder).toEqual('asc');
     });
@@ -1253,11 +1263,11 @@ describe('Component ngTasty table', function () {
       expect(elementSelected.eq(0)).toHaveClass('active');
       expect(elementSelected.eq(1)).not.toHaveClass('active');
       tastyPagination.isolateScope().page.setCount(25);
-      $scope.$digest();
       urlToCall = 'api.json?page=1&count=25';
       $httpBackend.whenGET(urlToCall).respond(paginationJSONCount25);
       $timeout.flush();
       $httpBackend.flush();
+      $scope.$digest();
       expect(tastyPagination.isolateScope().pagination).toEqual({ 
         'count' : 25, 
         'page' : 1,
@@ -1330,7 +1340,9 @@ describe('Component ngTasty table', function () {
       $httpBackend = _$httpBackend_;
       paginationJSON = _paginationJSON_;
       paginationJSONCount25 = _paginationJSONCount25_;
-      $scope.getResource = function (params) {
+      $scope.getResource = function (params, paramsObj) {
+        $scope.paramsUrl = params;
+        $scope.paramsObj = paramsObj;
         return $http.get('api.json?'+params).then(function (response) {
           return {
             'rows': response.data.rows,
@@ -1370,7 +1382,7 @@ describe('Component ngTasty table', function () {
       $scope.$digest();
     }));
 
-    it('should have these element.scope() value after 100ms', function () {
+    it('should have these element.scope() value after 60ms', function () {
       expect(element.scope().query).toEqual({
         'page': 'page',
         'count': 'count',
@@ -1393,6 +1405,18 @@ describe('Component ngTasty table', function () {
       expect(element.scope().params.pagination).toEqual(true);
       expect(element.scope().theadDirective).toEqual(false);
       expect(element.scope().paginationDirective).toEqual(true);
+      expect($scope.paramsUrl).toEqual('page=1&count=5');
+      expect($scope.paramsObj.sortBy).toEqual(undefined);
+      expect($scope.paramsObj.sortOrder).toEqual(undefined);
+      expect($scope.paramsObj.page).toEqual(1);
+      expect($scope.paramsObj.count).toEqual(5);
+      expect($scope.paramsObj.thead).toEqual(undefined);
+      expect($scope.paramsObj.pagination).toEqual(true);
+    });
+
+    it('should not call again updateServerSideResource when is changed manually paramsObj values', function () {
+      $scope.paramsObj.page = 2;
+      $scope.$digest();
     });
 
     it('should return the right url after called buildUrl', function () {
@@ -1410,7 +1434,9 @@ describe('Component ngTasty table', function () {
       $timeout = _$timeout_;
       $httpBackend = _$httpBackend_;
       filtersJSON = _filtersJSON_;
-      $scope.getResource = function (params) {
+      $scope.getResource = function (params, paramsObj) {
+        $scope.paramsUrl = params;
+        $scope.paramsObj = paramsObj;
         return $http.get('api.json?'+params).then(function (response) {
           return {
             'rows': response.data.rows,
@@ -1444,6 +1470,10 @@ describe('Component ngTasty table', function () {
       '  </table>'+
       '</div>');
       $compile(element)($scope);
+      urlToCall = 'api.json?city=sf';
+      $httpBackend.whenGET(urlToCall).respond(filtersJSON);
+      $timeout.flush();
+      $httpBackend.flush();
       $scope.$digest();
     }));
 
@@ -1454,11 +1484,10 @@ describe('Component ngTasty table', function () {
         'sortBy': 'sort-by',
         'sortOrder': 'sort-order',
       });
-      expect(element.scope().url).toEqual('');
-      expect(element.scope().header).toEqual({
-        'columns': []
-      });
-      expect(element.scope().rows).toEqual([]);
+      expect(element.scope().url).toEqual('city=sf');
+      expect(element.scope().header.columns.length).toEqual(3);
+      expect(element.scope().rows[0].name).toEqual('Ritual Coffee Roasters');
+      expect(element.scope().rows.length).toEqual(35);
       expect(element.scope().pagination.count).toEqual(5);
       expect(element.scope().pagination.page).toEqual(1);
       expect(element.scope().pagination.pages).toEqual(1);
@@ -1469,16 +1498,6 @@ describe('Component ngTasty table', function () {
       expect(element.scope().params.count).toEqual(undefined);
       expect(element.scope().theadDirective).toEqual(false);
       expect(element.scope().paginationDirective).toEqual(false);
-    });
-
-    it('should return the right url after called buildUrl', function () {
-      urlToCall = 'api.json?city=sf';
-      $httpBackend.whenGET(urlToCall).respond(filtersJSON);
-      $timeout.flush();
-      $httpBackend.flush();
-      $scope.$digest();
-      expect(element.scope().rows[0].name).toEqual('Ritual Coffee Roasters');
-      expect(element.scope().rows.length).toEqual(35);
     });
   });
 });
