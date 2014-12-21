@@ -36,7 +36,7 @@ angular.module('ngTasty.component.table', [
   'use strict';
   var listScopeToWatch, initTable, newScopeName, initStatus,
       updateClientSideResource, updateServerSideResource, setDirectivesValues,
-      buildClientResource;
+      buildClientResource, buildUrl;
   this.$scope = $scope;
   initStatus = {};
   $scope.init = {};
@@ -161,15 +161,12 @@ angular.module('ngTasty.component.table', [
       throw 'AngularJS tastyTable directive: the bind-resource '+
             'it\'s not an object';
     } else if (!resource.header && !resource.rows) {
-
-      console.log('leo')
-
       throw 'AngularJS tastyTable directive: the bind-resource '+
             'has the property header or rows undefined';
     }
     // Assuming if one header uses just one key it's based on the new pattern.
     // [feature request] simplified header for resources #37 by @WebReflection
-    if (Object.keys(resource.header[0]).length === 1) {
+    if (resource.header.length && Object.keys(resource.header[0]).length === 1) {
       resource.header = resource.header.map(function (header) {
         var key = Object.keys(header)[0];
         return {
@@ -209,7 +206,7 @@ angular.module('ngTasty.component.table', [
 
   buildClientResource = function(updateFrom) {
     var fromRow, toRow, rowToShow, reverse, listSortBy;
-    if ($scope.theadDirective) {
+    if ($scope.theadDirective && $scope.header.columns.length) {
       reverse = $scope.header.sortOrder === 'asc' ? false : true;
       listSortBy = [function(item) {
         return item[$scope.header.sortBy];
@@ -244,7 +241,7 @@ angular.module('ngTasty.component.table', [
     }
   };
 
-  $scope.buildUrl = function(params, filters) {
+  buildUrl = function(params, filters) {
     var urlQuery, value, url, listKeyNotJoin;
     urlQuery = {};
     listKeyNotJoin = ['sortBy', 'sortOrder', 'page', 'count'];
@@ -274,7 +271,7 @@ angular.module('ngTasty.component.table', [
   };
 
   updateServerSideResource = function () {
-    $scope.url = $scope.buildUrl($scope.params, $scope.filters);
+    $scope.url = buildUrl($scope.params, $scope.filters);
     $scope.resourceCallback($scope.url, angular.copy($scope.params)).then(function (resource) {
       setDirectivesValues(resource);
     });

@@ -126,10 +126,7 @@ describe('Component ngTasty table', function () {
       $compile(element)($scope);
     }));
 
-    it('should return a throw message if the response is not a object', function () {
-      urlToCall = 'api.json?page=1&count=5&city=sf';
-      $httpBackend.whenGET(urlToCall).respond({});
-      $httpBackend.flush();
+    it('should render the table without no errors', function () {
       $scope.$digest();
     });
   });
