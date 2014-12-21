@@ -99,6 +99,44 @@ describe('Component ngTasty table', function () {
 
 
 
+  describe('bad bind-resource implementation', function () {
+    beforeEach(inject(function ($rootScope, $compile, $http, _$httpBackend_) {
+      $scope = $rootScope.$new();
+      $httpBackend = _$httpBackend_;
+      $scope.resource = {
+        'header': [],
+        'rows': [],
+        'sortBy': 'name',
+        'sortOrder': 'asc'
+      };
+      element = angular.element(''+
+      '<div tasty-table bind-resource="resource" bind-filters="filters">'+
+      '  <table>'+
+      '    <thead tasty-thead></thead>'+
+      '    <tbody>'+
+      '      <tr ng-repeat="row in rows">'+
+      '        <td>{{ row.name }}</td>'+
+      '        <td>{{ row.star }}</td>'+
+      '        <td>{{ row[\'sf-location\'] }}</td>'+
+      '      </tr>'+
+      '    </tbody>'+
+      '  </table>'+
+      '  <div tasty-pagination></div>'+
+      '</div>');
+      $compile(element)($scope);
+    }));
+
+    it('should return a throw message if the response is not a object', function () {
+      urlToCall = 'api.json?page=1&count=5&city=sf';
+      $httpBackend.whenGET(urlToCall).respond({});
+      $httpBackend.flush();
+      $scope.$digest();
+    });
+  });
+
+
+
+
   describe('complete server side', function () {
     beforeEach(inject(function ($rootScope, $compile, $http, _$httpBackend_, _completeJSON_) {
       $scope = $rootScope.$new();
