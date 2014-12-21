@@ -1,6 +1,6 @@
 describe('Component ngTasty table', function () {
   'use strict';
-  var $rootScope, $scope, $timeout, $httpBackend, $compile;
+  var $rootScope, $scope, $httpBackend, $compile;
   var element, params, urlToCall, filters, createDirective, field, elm,
   elementSelected, expected, completeJSON, sortingJSON, paginationJSON,
   filtersJSON, tastyTable, tastyPagination, tastyThead, paginationJSONCount25;
@@ -56,9 +56,8 @@ describe('Component ngTasty table', function () {
 
   
   describe('bad bind-resource-callback implementation', function () {
-    beforeEach(inject(function ($rootScope, $compile, $http, _$httpBackend_, _$timeout_) {
+    beforeEach(inject(function ($rootScope, $compile, $http, _$httpBackend_) {
       $scope = $rootScope.$new();
-      $timeout = _$timeout_;
       $httpBackend = _$httpBackend_;
       $scope.getResource = function (paramsUrl, paramsObj) {
         return $http.get('api.json?' + paramsUrl).then(function (response) {
@@ -83,14 +82,12 @@ describe('Component ngTasty table', function () {
       '  <div tasty-pagination></div>'+
       '</div>');
       $compile(element)($scope);
-      $scope.$digest();
     }));
 
     it('should return a throw message if the response is not a object', function () {
       function errorFunctionWrapper() {
         urlToCall = 'api.json?page=1&count=5&city=sf';
         $httpBackend.whenGET(urlToCall).respond({});
-        $timeout.flush();
         $httpBackend.flush();
         $scope.$digest();
       }
@@ -103,9 +100,8 @@ describe('Component ngTasty table', function () {
 
 
   describe('complete server side', function () {
-    beforeEach(inject(function ($rootScope, $compile, $http, _$httpBackend_, _$timeout_, _completeJSON_) {
+    beforeEach(inject(function ($rootScope, $compile, $http, _$httpBackend_, _completeJSON_) {
       $scope = $rootScope.$new();
-      $timeout = _$timeout_;
       $httpBackend = _$httpBackend_;
       completeJSON = _completeJSON_;
       $scope.getResource = function (paramsUrl, paramsObj) {
@@ -148,25 +144,26 @@ describe('Component ngTasty table', function () {
       '  <div tasty-pagination></div>'+
       '</div>');
       $compile(element)($scope);
-      $scope.$digest();
     }));
 
     it('should have these element.scope() value as default', function () {
+      urlToCall = 'api.json?sort-by=name&sort-order=dsc&page=2&count=5&city=sf';
+      $httpBackend.whenGET(urlToCall).respond(completeJSON);
+      $httpBackend.flush();
+      $scope.$digest();
       expect(element.scope().query).toEqual({
         'page': 'page',
         'count': 'count',
         'sortBy': 'sort-by',
         'sortOrder': 'sort-order',
       });
-      expect(element.scope().url).toEqual('');
-      expect(element.scope().header).toEqual({
-        'columns': []
-      });
-      expect(element.scope().rows).toEqual([]);
+      expect(element.scope().url).toEqual('sort-by=name&sort-order=dsc&page=2&count=5&city=sf');
+      expect(element.scope().header.columns.length).toEqual(3);
+      expect(element.scope().rows.length).toEqual(5);
       expect(element.scope().pagination.count).toEqual(5);
-      expect(element.scope().pagination.page).toEqual(2);
-      expect(element.scope().pagination.pages).toEqual(1);
-      expect(element.scope().pagination.size).toEqual(0);
+      expect(element.scope().pagination.page).toEqual(1);
+      expect(element.scope().pagination.pages).toEqual(7);
+      expect(element.scope().pagination.size).toEqual(35);
       expect(element.scope().params.sortBy).toEqual('name');
       expect(element.scope().params.sortOrder).toEqual('dsc');
       expect(element.scope().params.page).toEqual(2);
@@ -180,7 +177,6 @@ describe('Component ngTasty table', function () {
     it('should return the right url after called buildUrl', function () {
       urlToCall = 'api.json?sort-by=name&sort-order=dsc&page=2&count=5&city=sf';
       $httpBackend.whenGET(urlToCall).respond(completeJSON);
-      $timeout.flush();
       $httpBackend.flush();
       $scope.$digest();
       expect(element.scope().header.sortBy).toEqual('-name');
@@ -215,7 +211,6 @@ describe('Component ngTasty table', function () {
       function errorFunctionWrapper() {
         urlToCall = 'api.json?sort-by=name&sort-order=dsc&page=2&count=5&city=sf';
         $httpBackend.whenGET(urlToCall).respond({});
-        $timeout.flush();
         $httpBackend.flush();
         $scope.$digest();
       }
@@ -228,9 +223,8 @@ describe('Component ngTasty table', function () {
 
 
   describe('withs sorting', function () {
-    beforeEach(inject(function ($rootScope, $compile, _$timeout_, _sortingJSON_) {
+    beforeEach(inject(function ($rootScope, $compile, _sortingJSON_) {
       $scope = $rootScope.$new();
-      $timeout = _$timeout_;
       $scope.resource = _sortingJSON_;
       element = angular.element(''+
       '<table tasty-table bind-resource="resource">'+
@@ -245,7 +239,6 @@ describe('Component ngTasty table', function () {
       '</table>');
       tastyTable = $compile(element)($scope);
       tastyThead = tastyTable.find('[tasty-thead=""]');
-      $timeout.flush();
       $scope.$digest();
     }));
 
@@ -321,12 +314,10 @@ describe('Component ngTasty table', function () {
       field = {'key': 'star', 'name': 'star', 'sortable': true};
       tastyThead.isolateScope().sortBy(field);
       $scope.$digest();
-      $timeout.flush();
       expect(tastyThead.isolateScope().header.sortBy).toEqual('star');
       expect(element.scope().rows[0].name).toEqual('Peet\'s');
       tastyThead.isolateScope().sortBy(field);
       $scope.$digest();
-      $timeout.flush();
       expect(tastyThead.isolateScope().header.sortBy).toEqual('-star');
       expect(element.scope().rows[0].name).toEqual('Ritual Coffee Roasters');
     });
@@ -335,12 +326,10 @@ describe('Component ngTasty table', function () {
       field = { 'key': 'sf-Location', 'name': 'SF Location', 'sortable': true};
       tastyThead.isolateScope().sortBy(field);
       $scope.$digest();
-      $timeout.flush();
       expect(tastyThead.isolateScope().header.sortBy).toEqual('sf-Location');
       expect(element.scope().rows[0].name).toEqual('CoffeeShop');
       tastyThead.isolateScope().sortBy(field);
       $scope.$digest();
-      $timeout.flush();
       expect(tastyThead.isolateScope().header.sortBy).toEqual('-sf-Location');
       expect(element.scope().rows[0].name).toEqual('Flywheel Coffee Roasters');
     });
@@ -369,9 +358,8 @@ describe('Component ngTasty table', function () {
 
 
   describe('withs sorting, simplified header version', function () {
-    beforeEach(inject(function ($rootScope, $compile, _$timeout_, _sortingJSON_) {
+    beforeEach(inject(function ($rootScope, $compile, _sortingJSON_) {
       $scope = $rootScope.$new();
-      $timeout = _$timeout_;
       $scope.resource = _sortingJSON_;
       $scope.resource.header = [
         { 'name': 'Name' },
@@ -391,7 +379,6 @@ describe('Component ngTasty table', function () {
       '</table>');
       tastyTable = $compile(element)($scope);
       tastyThead = tastyTable.find('[tasty-thead=""]');
-      $timeout.flush();
       $scope.$digest();
     }));
 
@@ -438,9 +425,8 @@ describe('Component ngTasty table', function () {
 
 
   describe('withs filters', function () {
-    beforeEach(inject(function ($rootScope, $compile, _$timeout_, _sortingJSON_) {
+    beforeEach(inject(function ($rootScope, $compile, _sortingJSON_) {
       $scope = $rootScope.$new();
-      $timeout = _$timeout_;
       $scope.resource = _sortingJSON_;
       $scope.filters = 'rit';
       element = angular.element(''+
@@ -456,7 +442,6 @@ describe('Component ngTasty table', function () {
       '</table>');
       tastyTable = $compile(element)($scope);
       tastyThead = tastyTable.find('[tasty-thead=""]');
-      $timeout.flush();
       $scope.$digest();
     }));
 
@@ -486,23 +471,18 @@ describe('Component ngTasty table', function () {
     it('should filter by string value', function () {
       $scope.filters = '';
       $scope.$digest();
-      $timeout.flush();
       expect(element.scope().rows.length).toEqual(35);
       $scope.filters = 'rit';
       $scope.$digest();
-      $timeout.flush();
       expect(element.scope().rows.length).toEqual(1);
       $scope.filters = 'bl';
       $scope.$digest();
-      $timeout.flush();
       expect(element.scope().rows.length).toEqual(3);
       $scope.filters = 'll';
       $scope.$digest();
-      $timeout.flush();
       expect(element.scope().rows.length).toEqual(11);
       $scope.filters = '★★★★★';
       $scope.$digest();
-      $timeout.flush();
       expect(element.scope().rows.length).toEqual(6);
     });
   });
@@ -511,9 +491,8 @@ describe('Component ngTasty table', function () {
 
 
   describe('withs filters and pagination', function () {
-    beforeEach(inject(function ($rootScope, $compile, _$timeout_, _sortingJSON_) {
+    beforeEach(inject(function ($rootScope, $compile, _sortingJSON_) {
       $scope = $rootScope.$new();
-      $timeout = _$timeout_;
       $scope.resource = _sortingJSON_;
       $scope.filters = 'rit';
       element = angular.element(''+
@@ -533,7 +512,6 @@ describe('Component ngTasty table', function () {
       tastyTable = $compile(element)($scope);
       tastyThead = tastyTable.find('[tasty-thead=""]');
       tastyPagination = tastyTable.find('tasty-pagination');
-      $timeout.flush();
       $scope.$digest();
     }));
 
@@ -563,23 +541,18 @@ describe('Component ngTasty table', function () {
     it('should filter by string value', function () {
       $scope.filters = '';
       $scope.$digest();
-      $timeout.flush();
       expect(element.scope().rows.length).toEqual(5);
       $scope.filters = 'rit';
       $scope.$digest();
-      $timeout.flush();
       expect(element.scope().rows.length).toEqual(1);
       $scope.filters = 'bl';
       $scope.$digest();
-      $timeout.flush();
       expect(element.scope().rows.length).toEqual(3);
       $scope.filters = 'll';
       $scope.$digest();
-      $timeout.flush();
       expect(element.scope().rows.length).toEqual(5);
       $scope.filters = '★★★★★';
       $scope.$digest();
-      $timeout.flush();
       expect(element.scope().rows.length).toEqual(5);
     });
 
@@ -587,33 +560,27 @@ describe('Component ngTasty table', function () {
       tastyPagination.isolateScope().page.get(2);
       $scope.filters = '';
       $scope.$digest();
-      $timeout.flush();
       expect(element.scope().rows.length).toEqual(5);
       $scope.filters = 'rit';
       $scope.$digest();
-      $timeout.flush();
       expect(element.scope().rows.length).toEqual(1);
       $scope.filters = 'bl';
       $scope.$digest();
-      $timeout.flush();
       expect(element.scope().rows.length).toEqual(3);
       $scope.filters = 'll';
       $scope.$digest();
-      $timeout.flush();
       expect(element.scope().rows.length).toEqual(5);
       $scope.filters = '★★★★★';
       $scope.$digest();
-      $timeout.flush();
       expect(element.scope().rows.length).toEqual(5);
     });
   });
 
 
   describe('withs sorting server side', function () {
-    beforeEach(inject(function (_$rootScope_, $compile, $http, _$httpBackend_, _$timeout_, _sortingJSON_) {
+    beforeEach(inject(function (_$rootScope_, $compile, $http, _$httpBackend_, _sortingJSON_) {
       $rootScope = _$rootScope_;
       $scope = $rootScope.$new();
-      $timeout = _$timeout_;
       $httpBackend = _$httpBackend_;
       sortingJSON = _sortingJSON_;
       $scope.getResource = function (paramsUrl, paramsObj) {
@@ -645,7 +612,6 @@ describe('Component ngTasty table', function () {
       tastyThead = tastyTable.find('[tasty-thead=""]');
       urlToCall = 'api.json?';
       $httpBackend.whenGET(urlToCall).respond(sortingJSON);
-      $timeout.flush();
       $httpBackend.flush();
       $scope.$digest();
     }));
@@ -782,9 +748,8 @@ describe('Component ngTasty table', function () {
 
   
   describe('with basic pagination', function () {
-    beforeEach(inject(function ($rootScope, $compile, _$timeout_) {
+    beforeEach(inject(function ($rootScope, $compile) {
       $scope = $rootScope.$new();
-      $timeout = _$timeout_;
       $scope.resource = {
         'header': [{ 'key': 'name', 'name': 'Name' },
           { 'key': 'star', 'name': 'Star' },
@@ -818,7 +783,6 @@ describe('Component ngTasty table', function () {
       '</div>');
       tastyTable = $compile(element)($scope);
       tastyPagination = tastyTable.find('tasty-pagination');
-      $timeout.flush();
       $scope.$digest();
     }));
 
@@ -870,9 +834,8 @@ describe('Component ngTasty table', function () {
 
 
   describe('with pagination', function () {
-    beforeEach(inject(function ($rootScope, $compile, _$timeout_, _sortingJSON_) {
+    beforeEach(inject(function ($rootScope, $compile, _sortingJSON_) {
       $scope = $rootScope.$new();
-      $timeout = _$timeout_;
       $scope.resource = _sortingJSON_;
       $scope.itemsPerPage = 10;
       $scope.listItemsPerPage = [5, 10, 20, 40, 80];
@@ -899,7 +862,6 @@ describe('Component ngTasty table', function () {
       '</div>');
       tastyTable = $compile(element)($scope);
       tastyPagination = tastyTable.find('tasty-pagination');
-      $timeout.flush();
       $scope.$digest();
     }));
 
@@ -953,7 +915,6 @@ describe('Component ngTasty table', function () {
       expect(elementSelected.eq(2)).not.toHaveClass('active');
       tastyPagination.isolateScope().page.setCount(20);
       $scope.$digest();
-      $timeout.flush();
       expect(tastyPagination.isolateScope().pagination.count).toEqual(20);
       expect(tastyPagination.isolateScope().pagination.page).toEqual(1);
       expect(tastyPagination.isolateScope().pagination.pages).toEqual(2);
@@ -1018,9 +979,8 @@ describe('Component ngTasty table', function () {
 
 
   describe('with pagination classic binding', function () {
-    beforeEach(inject(function ($rootScope, $compile, _$timeout_, _sortingJSON_) {
+    beforeEach(inject(function ($rootScope, $compile, _sortingJSON_) {
       $scope = $rootScope.$new();
-      $timeout = _$timeout_;
       $scope.resource = _sortingJSON_;
       element = angular.element(''+
       '<div tasty-table bind-resource="resource">'+
@@ -1045,7 +1005,6 @@ describe('Component ngTasty table', function () {
       '</div>');
       tastyTable = $compile(element)($scope);
       tastyPagination = tastyTable.find('tasty-pagination');
-      $timeout.flush();
       $scope.$digest();
     }));
 
@@ -1099,7 +1058,6 @@ describe('Component ngTasty table', function () {
       expect(elementSelected.eq(2)).not.toHaveClass('active');
       tastyPagination.isolateScope().page.setCount(20);
       $scope.$digest();
-      $timeout.flush();
       expect(tastyPagination.isolateScope().pagination.count).toEqual(20);
       expect(tastyPagination.isolateScope().pagination.page).toEqual(1);
       expect(tastyPagination.isolateScope().pagination.pages).toEqual(2);
@@ -1165,9 +1123,8 @@ describe('Component ngTasty table', function () {
 
   describe('with pagination server side', function () {
     beforeEach(inject(function ($rootScope, $compile, $http, _$httpBackend_, 
-      _$timeout_, _paginationJSON_, _paginationJSONCount25_) {
+      _paginationJSON_, _paginationJSONCount25_) {
       $scope = $rootScope.$new();
-      $timeout = _$timeout_;
       $httpBackend = _$httpBackend_;
       paginationJSON = _paginationJSON_;
       paginationJSONCount25 = _paginationJSONCount25_;
@@ -1206,7 +1163,6 @@ describe('Component ngTasty table', function () {
       tastyPagination = tastyTable.find('tasty-pagination');
       urlToCall = 'api.json?page=1&count=5';
       $httpBackend.whenGET(urlToCall).respond(paginationJSON);
-      $timeout.flush();
       $httpBackend.flush();
       $scope.$digest();
     }));
@@ -1265,7 +1221,6 @@ describe('Component ngTasty table', function () {
       tastyPagination.isolateScope().page.setCount(25);
       urlToCall = 'api.json?page=1&count=25';
       $httpBackend.whenGET(urlToCall).respond(paginationJSONCount25);
-      $timeout.flush();
       $httpBackend.flush();
       $scope.$digest();
       expect(tastyPagination.isolateScope().pagination).toEqual({ 
@@ -1334,9 +1289,8 @@ describe('Component ngTasty table', function () {
 
   describe('with pagination server side without pagination value', function () {
     beforeEach(inject(function ($rootScope, $compile, $http, _$httpBackend_, 
-      _$timeout_, _paginationJSON_, _paginationJSONCount25_) {
+      _paginationJSON_, _paginationJSONCount25_) {
       $scope = $rootScope.$new();
-      $timeout = _$timeout_;
       $httpBackend = _$httpBackend_;
       paginationJSON = _paginationJSON_;
       paginationJSONCount25 = _paginationJSONCount25_;
@@ -1377,7 +1331,6 @@ describe('Component ngTasty table', function () {
       tastyPagination = tastyTable.find('tasty-pagination');
       urlToCall = 'api.json?page=1&count=5';
       $httpBackend.whenGET(urlToCall).respond(paginationJSON);
-      $timeout.flush();
       $httpBackend.flush();
       $scope.$digest();
     }));
@@ -1429,9 +1382,8 @@ describe('Component ngTasty table', function () {
 
 
   describe('with filters server side', function () {
-    beforeEach(inject(function ($rootScope, $compile, $http, _$httpBackend_, _$timeout_, _filtersJSON_) {
+    beforeEach(inject(function ($rootScope, $compile, $http, _$httpBackend_, _filtersJSON_) {
       $scope = $rootScope.$new();
-      $timeout = _$timeout_;
       $httpBackend = _$httpBackend_;
       filtersJSON = _filtersJSON_;
       $scope.getResource = function (params, paramsObj) {
@@ -1472,7 +1424,6 @@ describe('Component ngTasty table', function () {
       $compile(element)($scope);
       urlToCall = 'api.json?city=sf';
       $httpBackend.whenGET(urlToCall).respond(filtersJSON);
-      $timeout.flush();
       $httpBackend.flush();
       $scope.$digest();
     }));

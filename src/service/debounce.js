@@ -5,12 +5,12 @@
  */
 angular.module('ngTasty.service.debounce', [])
 .factory('debounce', function($timeout) {
-  return function(func, wait, immediate) {
+  return function (func, wait, immediate) {
     var timeout;
-    return function() {
+    return function debounce () {
       var context = this, args = arguments;
       $timeout.cancel(timeout);
-      timeout = $timeout(function() {
+      timeout = $timeout(function debounceTimeout () {
         timeout = null;
         func.apply(context, args);
       }, wait);
