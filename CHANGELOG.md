@@ -1,5 +1,13 @@
 ## Changelog
 
+### v0.4.2 (master, released on December 22th 2014)
+#### Bug Fixes
+- Fixed pagination issue during filtering [#65](https://github.com/Zizzamia/ng-tasty/issues/65)
+- Fixed bug when header is an empty list [#66](https://github.com/Zizzamia/ng-tasty/issues/66)
+- Fixed bug when using the $scope.params outside the table [#67](https://github.com/Zizzamia/ng-tasty/issues/67)
+- Fixed pagination if resource.pagination is missing [#68](https://github.com/Zizzamia/ng-tasty/issues/68)
+
+
 ### v0.4.1 (released on December 10th 2014)
 #### Bug Fixes
 - Fixed bad list module name in dist folder [#63](https://github.com/Zizzamia/ng-tasty/issues/63)
