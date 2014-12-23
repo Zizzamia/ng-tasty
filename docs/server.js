@@ -239,21 +239,19 @@ wss.on('connection', function(ws) {
 
   if (config.twitter_auth.consumer_key === 'your-consumer-key') {
     ws.send(JSON.stringify({
-      type:  'error',
+      type: 'error',
       title: 'Config Error!',
-      msg:   'You should update your docs/config.json'
+      msg: 'You should update your docs/config.json'
     }));
   }
 
   var _stream = null;
-
+  
   var stream = function(tag) {
     if (_stream) {
       _stream.stop();
     }
-
     _stream = T.stream('statuses/filter', { track: tag });
-
     _stream.on('tweet', function(tweet) {
       tweet.type = 'tweet';
       ws.send(JSON.stringify(tweet));
@@ -262,23 +260,19 @@ wss.on('connection', function(ws) {
 
   ws.on('message', function(msg) {
     var data = JSON.parse(msg);
-
     if (!data.tag) {
       return;
     }
-
     console.log('Filter request: ' + data.tag);
     stream(data.tag);
   });
 
   ws.on('close', function() {
     console.log('client disconnect');
-    
     if(_stream) {
       _stream.stop();
     }
   });
-
 });
 
 server.listen(args.port);

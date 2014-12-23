@@ -39,7 +39,7 @@ angular.module('myApp', [
     title: '#ngTasty - AngularJS filter Integer'
   })
   .when('/filter/range', {
-    controller: 'FilterCtrl',
+    controller: 'RangeCtrl',
     templateUrl: 'filter/range.html',
     title: '#ngTasty - AngularJS range filter'
   })

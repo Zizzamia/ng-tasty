@@ -19,6 +19,12 @@ angular.module('myApp.pages.makeYourOwn', [])
     if ($scope.service.debounce) {
       modules.push('ngTasty.service.debounce');
     }
+    if ($scope.service.webSocket) {
+      modules.push('ngTasty.service.webSocket');
+    }
+    if ($scope.filter.filterInt) {
+      modules.push('ngTasty.filter.filterInt');
+    }
     if ($scope.filter.range) {
       modules.push('ngTasty.filter.range');
     }
