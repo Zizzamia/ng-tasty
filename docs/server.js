@@ -46,7 +46,7 @@ function dynamicSort(property) {
 }
 
 var prevSortBy, prevSortOrder, base;
-if (args.port == 25907) {
+if (args.port != 3000) {
   base = '/ng-tasty';
   ngTasty = '/ng-tasty/components/ng-tasty/ng-tasty-tpls.js';
 } else {
