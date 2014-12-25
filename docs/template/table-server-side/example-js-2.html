@@ -1,8 +1,8 @@
 <pre><code data-language="javascript">$scope.notSortBy = ['sf-location'];
 
-$scope.getResourceOne = function (params) {
-  $scope.urlApiOne = 'table.json?' + params;
-  return $http.get($scope.urlApiOne).then(function (response) {
+$scope.getResource = function (params, paramsObj) {
+  var urlApi = 'table.json?' + params;
+  return $http.get(urlApi).then(function (response) {
     return {
       'rows': response.data.rows,
       'header': response.data.header,

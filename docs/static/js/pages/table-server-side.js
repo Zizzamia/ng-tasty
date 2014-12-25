@@ -4,15 +4,17 @@ angular.module('myApp.pages.tableServerSide', [])
   $rootScope.page = 'table-server-side';
   $scope.init = {
     'count': 5,
-    'page': 2,
+    'page': 1,
     'sortBy': 'name',
     'sortOrder': 'dsc'
   };
   $scope.filterBy = {
-    'time': 'now'
+    'name': 'r',
+    'sf-location': ''
   };
   $scope.filterByThree = {
-    'time': 'now'
+    'name': 'ro',
+    'sf-location': 'ha'
   };
   $scope.templateUrl = 'template/table/pagination.html';
 
@@ -33,7 +35,9 @@ angular.module('myApp.pages.tableServerSide', [])
   };
   $scope.open('complete');
 
-  $scope.getResource = function (params) {
+  $scope.getResource = function (params, paramsObj) {
+    $scope.params = params;
+    $scope.paramsObj = paramsObj;
     $scope.urlApi = 'table.json?' + params;
     return $http.get($scope.urlApi).then(function (response) {
       $scope.response = JSON.stringify(response.data, undefined, 2);
@@ -49,7 +53,9 @@ angular.module('myApp.pages.tableServerSide', [])
   };
 
   $scope.notSortBy = ['sf-location'];
-  $scope.getResourceOne = function (params) {
+  $scope.getResourceOne = function (params, paramsObj) {
+    $scope.paramsOne = params;
+    $scope.paramsObjOne = paramsObj;
     $scope.urlApiOne = 'table.json?' + params;
     return $http.get($scope.urlApiOne).then(function (response) {
       $scope.responseTwo = JSON.stringify(response.data, undefined, 2);
@@ -63,7 +69,9 @@ angular.module('myApp.pages.tableServerSide', [])
     });
   };
 
-  $scope.getResourceTwo = function (params) {
+  $scope.getResourceTwo = function (params, paramsObj) {
+    $scope.paramsTwo = params;
+    $scope.paramsObjTwo = paramsObj;
     $scope.urlApiTwo = 'table.json?' + params;
     return $http.get($scope.urlApiTwo).then(function (response) {
       $scope.responseThree = JSON.stringify(response.data, undefined, 2);
@@ -78,7 +86,9 @@ angular.module('myApp.pages.tableServerSide', [])
     });
   };
 
-  $scope.getResourceThree = function (params) {
+  $scope.getResourceThree = function (params, paramsObj) {
+    $scope.paramsThree = params;
+    $scope.paramsObjThree = paramsObj;
     $scope.urlApiThree = 'table.json?' + params;
     return $http.get($scope.urlApiThree).then(function (response) {
       $scope.responseFour = JSON.stringify(response.data, undefined, 2);

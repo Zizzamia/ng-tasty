@@ -1,4 +1,14 @@
-<pre ng-non-bindable><code data-language="html">&lt;div tasty-table bind-resource-callback="getResource" bind-filters=&quot;filterByThree&quot;&gt;
+<pre ng-non-bindable><code data-language="html">&lt;div class="form-group"&gt;
+  &lt;div class="col-sm-3"&gt;
+    &lt;label class="control-label">Filters by name :&lt;/label&gt;
+    &lt;input type="text" class="form-control input-sm" ng-model="filterBy.name" /&gt;
+  &lt;/div&gt;
+  &lt;div class="col-sm-3"&gt;
+    &lt;label class="control-label">Filters by SF Location :&lt;/label&gt;
+    &lt;input type="text" class="form-control input-sm" ng-model="filterBy['sf-location']" /&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+&lt;div tasty-table bind-resource-callback="getResource" bind-filters=&quot;filterBy&quot;&gt;
   &lt;table class=&quot;table table-striped table-condensed&quot;&gt;
     &lt;thead&gt;
       &lt;tr&gt;

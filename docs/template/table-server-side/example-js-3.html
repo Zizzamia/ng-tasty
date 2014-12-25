@@ -1,6 +1,6 @@
-<pre><code data-language="javascript">$scope.getResourceTwo = function (params) {
-  $scope.urlApiTwo = 'table.json?' + params;
-  return $http.get($scope.urlApiTwo).then(function (response) {
+<pre><code data-language="javascript">$scope.getResource = function (params, paramsObj) {
+  var urlApi = 'table.json?' + params;
+  return $http.get(urlApi).then(function (response) {
     return {
       'rows': response.data.rows,
       'header': response.data.header,

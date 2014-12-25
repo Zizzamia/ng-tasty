@@ -176,6 +176,7 @@ app.get('/table.json', function(req, res){
   ];
   count = req.query.count;
   page = req.query.page;
+
   if (!req.query['sort-by']) {
     req.query['sort-by'] = 'name';
   }
@@ -186,22 +187,46 @@ app.get('/table.json', function(req, res){
     }
     rows.sort(dynamicSort(sortBy));
   }
-  pagination = {
-    'count': parseInt(count),
-    'page': parseInt(page),
-    'pages': Math.ceil(rows.length / count),
-    'size': rows.length
-  };
-  toRow = pagination.count * pagination.page;
-  fromRow = toRow - pagination.count;
+
+  toRow = parseInt(count) * parseInt(page);
+  fromRow = toRow - parseInt(count);
   prevSortBy = req.query['sort-by'];
   prevSortOrder = req.query['sort-order'];
+
+  rows = rows.filter(function (el) {
+    var name, location;
+    if (req.query.name && req.query.name.length &&
+        req.query['sf-location'] && req.query['sf-location'].length) {
+      name = req.query.name.toLowerCase();
+      location = req.query['sf-location'].toLowerCase();
+      return el.name.toLowerCase().indexOf(name) >= 0 && 
+             el['sf-location'].toLowerCase().indexOf(location) >= 0;
+
+    } else if (req.query.name && req.query.name.length) {
+      name = req.query.name.toLowerCase();
+      return el.name.toLowerCase().indexOf(name) >= 0;
+
+    } else if (req.query['sf-location'] && req.query['sf-location'].length) {
+      location = req.query['sf-location'].toLowerCase();
+      return el['sf-location'].toLowerCase().indexOf(location) >= 0;
+
+    } else {
+      return el;
+    }
+  });
 
   if (fromRow >= 0 && toRow >= 0) {
     rowToShow = rows.slice(fromRow, toRow);
   } else {
     rowToShow = rows;
   }
+
+  pagination = {
+    'count': parseInt(count),
+    'page': parseInt(page),
+    'pages': Math.ceil(rows.length / count),
+    'size': rows.length
+  };
   
   items = {
     'header': [

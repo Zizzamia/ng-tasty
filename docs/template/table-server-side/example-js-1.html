@@ -1,15 +1,16 @@
 <pre><code data-language="javascript">$scope.init = {
   'count': 5,
-  'page': 2,
+  'page': 1,
   'sortBy': 'name',
   'sortOrder': 'dsc'
 };
 $scope.filterBy = {
-  'time': 'now'
+  'name': 'r',
+  'sf-location': ''
 };
-$scope.getResource = function (params) {
-  $scope.urlApi = 'table.json?' + params;
-  return $http.get($scope.urlApi).then(function (response) {
+$scope.getResource = function (params, paramsObj) {
+  var urlApi = 'table.json?' + params;
+  return $http.get(urlApi).then(function (response) {
     return {
       'rows': response.data.rows,
       'header': response.data.header,
