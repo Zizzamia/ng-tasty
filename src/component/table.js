@@ -164,6 +164,11 @@ angular.module('ngTasty.component.table', [
       throw 'AngularJS tastyTable directive: the bind-resource '+
             'has the property header or rows undefined';
     }
+    Object.keys(resource).forEach(function(key) {
+      if (['rows','header','pagination', 'sortOrder', 'sortBy'].indexOf(key) < 0) {
+        $scope[key] = resource[key];
+      }
+    });
     // Assuming if one header uses just one key it's based on the new pattern.
     // [feature request] simplified header for resources #37 by @WebReflection
     if (resource.header.length && Object.keys(resource.header[0]).length === 1) {

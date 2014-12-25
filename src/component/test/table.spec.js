@@ -198,7 +198,7 @@ describe('Component ngTasty table', function () {
       expect(element.scope().pagination.count).toEqual(5);
       expect(element.scope().pagination.page).toEqual(1);
       expect(element.scope().pagination.pages).toEqual(7);
-      expect(element.scope().pagination.size).toEqual(35);
+      expect(element.scope().pagination.size).toEqual(34);
       expect(element.scope().params.sortBy).toEqual('name');
       expect(element.scope().params.sortOrder).toEqual('dsc');
       expect(element.scope().params.page).toEqual(2);
@@ -231,7 +231,7 @@ describe('Component ngTasty table', function () {
         'name' : 'SF Location',
         'style' : { 'width' : '30%' }
       });
-      expect(element.scope().rows[0].name).toEqual('Ritual Coffee Roasters');
+      expect(element.scope().rows[0].name).toEqual('Andytown Coffee Roasters');
       expect(element.scope().rows.length).toEqual(5);
       expect($scope.paramsUrl).toEqual('sort-by=name&sort-order=dsc&page=2&count=5&city=sf');
       expect($scope.paramsObj.sortBy).toEqual('name');
@@ -260,7 +260,10 @@ describe('Component ngTasty table', function () {
   describe('withs sorting', function () {
     beforeEach(inject(function ($rootScope, $compile, _sortingJSON_) {
       $scope = $rootScope.$new();
-      $scope.resource = _sortingJSON_;
+      $scope.resource = angular.copy(_sortingJSON_);
+      $scope.resource.something = [
+        { 'name': 'Ritual Coffee Roasters' }
+      ];
       element = angular.element(''+
       '<table tasty-table bind-resource="resource">'+
       '  <thead tasty-thead></thead>'+
@@ -301,13 +304,13 @@ describe('Component ngTasty table', function () {
         'style' : {}
       });
       expect(element.scope().header.columns.length).toEqual(3);
-      expect(element.scope().rows.length).toEqual(35);
+      expect(element.scope().rows.length).toEqual(34);
       expect(element.scope().pagination.count).toEqual(5);
       expect(element.scope().pagination.page).toEqual(1);
       expect(element.scope().pagination.pages).toEqual(1);
       expect(element.scope().pagination.size).toEqual(0);
-      expect(element.scope().params.sortBy).toEqual(undefined);
-      expect(element.scope().params.sortOrder).toEqual(undefined);
+      expect(element.scope().params.sortBy).toEqual('name');
+      expect(element.scope().params.sortOrder).toEqual('asc');
       expect(element.scope().params.page).toEqual(1);
       expect(element.scope().params.count).toEqual(undefined);
       expect(element.scope().params.thead).toEqual(true);
@@ -316,12 +319,12 @@ describe('Component ngTasty table', function () {
     });
 
     it('should return the right url after called buildUrl', function () {
-      expect(element.scope().rows[0].name).toEqual('Ritual Coffee Roasters');
-      expect(element.scope().rows.length).toEqual(35);
+      expect(element.scope().rows[0].name).toEqual('Andytown Coffee Roasters');
+      expect(element.scope().rows.length).toEqual(34);
     });
 
     it('should have these isolateScope value as default', function () {
-      expect(tastyThead.isolateScope().columns[0].active).toEqual(false);
+      expect(tastyThead.isolateScope().columns[0].active).toEqual(true);
       expect(tastyThead.isolateScope().columns[0].sortable).toEqual(true);
       expect(tastyThead.isolateScope().columns[0].style).toEqual({});
       expect(tastyThead.isolateScope().columns[1].active).toEqual(false);
@@ -335,12 +338,12 @@ describe('Component ngTasty table', function () {
     it('should set params.sortBy when scope.sortBy is clicked', function () {
       field = {'key': 'name', 'name': 'Name', 'sortable': true};
       tastyThead.isolateScope().sortBy(field);
-      tastyThead.isolateScope().setColumns();
+      $scope.$digest();
       expect(element.scope().params.sortBy).toEqual('name');
       expect(tastyThead.isolateScope().columns[0].active).toEqual(true);
       field = {'key': 'star', 'name': 'Star', 'sortable': true};
       tastyThead.isolateScope().sortBy(field);
-      tastyThead.isolateScope().setColumns();
+      $scope.$digest();
       expect(element.scope().params.sortBy).toEqual('star');
       expect(tastyThead.isolateScope().columns[1].active).toEqual(true);
     });
@@ -388,6 +391,11 @@ describe('Component ngTasty table', function () {
       $scope.$digest();
       expect(tastyThead.isolateScope().columns[1].isSorted).toEqual('fa fa-sort-down');
     });
+
+    it('should return every value in resource inside the table directive scope', function () {
+      $scope.$digest();
+      expect(element.scope().something[0].name).toEqual('Ritual Coffee Roasters');
+    });
   });
   
 
@@ -395,7 +403,7 @@ describe('Component ngTasty table', function () {
   describe('withs sorting, simplified header version', function () {
     beforeEach(inject(function ($rootScope, $compile, _sortingJSON_) {
       $scope = $rootScope.$new();
-      $scope.resource = _sortingJSON_;
+      $scope.resource = angular.copy(_sortingJSON_);
       $scope.resource.header = [
         { 'name': 'Name' },
         { 'star': 'Star' },
@@ -441,13 +449,13 @@ describe('Component ngTasty table', function () {
         'style' : {}
       });
       expect(element.scope().header.columns.length).toEqual(3);
-      expect(element.scope().rows.length).toEqual(35);
+      expect(element.scope().rows.length).toEqual(34);
       expect(element.scope().pagination.count).toEqual(5);
       expect(element.scope().pagination.page).toEqual(1);
       expect(element.scope().pagination.pages).toEqual(1);
       expect(element.scope().pagination.size).toEqual(0);
-      expect(element.scope().params.sortBy).toEqual(undefined);
-      expect(element.scope().params.sortOrder).toEqual(undefined);
+      expect(element.scope().params.sortBy).toEqual('name');
+      expect(element.scope().params.sortOrder).toEqual('asc');
       expect(element.scope().params.page).toEqual(1);
       expect(element.scope().params.count).toEqual(undefined);
       expect(element.scope().params.thead).toEqual(true);
@@ -462,7 +470,7 @@ describe('Component ngTasty table', function () {
   describe('withs filters', function () {
     beforeEach(inject(function ($rootScope, $compile, _sortingJSON_) {
       $scope = $rootScope.$new();
-      $scope.resource = _sortingJSON_;
+      $scope.resource = angular.copy(_sortingJSON_);
       $scope.filters = 'rit';
       element = angular.element(''+
       '<table tasty-table bind-resource="resource" bind-filters="filters">'+
@@ -494,8 +502,8 @@ describe('Component ngTasty table', function () {
       expect(element.scope().pagination.page).toEqual(1);
       expect(element.scope().pagination.pages).toEqual(1);
       expect(element.scope().pagination.size).toEqual(0);
-      expect(element.scope().params.sortBy).toEqual(undefined);
-      expect(element.scope().params.sortOrder).toEqual(undefined);
+      expect(element.scope().params.sortBy).toEqual('name');
+      expect(element.scope().params.sortOrder).toEqual('asc');
       expect(element.scope().params.page).toEqual(1);
       expect(element.scope().params.count).toEqual(undefined);
       expect(element.scope().params.thead).toEqual(true);
@@ -506,13 +514,13 @@ describe('Component ngTasty table', function () {
     it('should filter by string value', function () {
       $scope.filters = '';
       $scope.$digest();
-      expect(element.scope().rows.length).toEqual(35);
+      expect(element.scope().rows.length).toEqual(34);
       $scope.filters = 'rit';
       $scope.$digest();
       expect(element.scope().rows.length).toEqual(1);
       $scope.filters = 'bl';
       $scope.$digest();
-      expect(element.scope().rows.length).toEqual(3);
+      expect(element.scope().rows.length).toEqual(2);
       $scope.filters = 'll';
       $scope.$digest();
       expect(element.scope().rows.length).toEqual(11);
@@ -528,7 +536,7 @@ describe('Component ngTasty table', function () {
   describe('withs filters and pagination', function () {
     beforeEach(inject(function ($rootScope, $compile, _sortingJSON_) {
       $scope = $rootScope.$new();
-      $scope.resource = _sortingJSON_;
+      $scope.resource = angular.copy(_sortingJSON_);
       $scope.filters = 'rit';
       element = angular.element(''+
       '<div tasty-table bind-resource="resource" bind-filters="filters">'+
@@ -564,8 +572,8 @@ describe('Component ngTasty table', function () {
       expect(element.scope().pagination.page).toEqual(1);
       expect(element.scope().pagination.pages).toEqual(1);
       expect(element.scope().pagination.size).toEqual(1);
-      expect(element.scope().params.sortBy).toEqual(undefined);
-      expect(element.scope().params.sortOrder).toEqual(undefined);
+      expect(element.scope().params.sortBy).toEqual('name');
+      expect(element.scope().params.sortOrder).toEqual('asc');
       expect(element.scope().params.page).toEqual(1);
       expect(element.scope().params.count).toEqual(5);
       expect(element.scope().params.thead).toEqual(true);
@@ -582,7 +590,7 @@ describe('Component ngTasty table', function () {
       expect(element.scope().rows.length).toEqual(1);
       $scope.filters = 'bl';
       $scope.$digest();
-      expect(element.scope().rows.length).toEqual(3);
+      expect(element.scope().rows.length).toEqual(2);
       $scope.filters = 'll';
       $scope.$digest();
       expect(element.scope().rows.length).toEqual(5);
@@ -601,7 +609,7 @@ describe('Component ngTasty table', function () {
       expect(element.scope().rows.length).toEqual(1);
       $scope.filters = 'bl';
       $scope.$digest();
-      expect(element.scope().rows.length).toEqual(3);
+      expect(element.scope().rows.length).toEqual(2);
       $scope.filters = 'll';
       $scope.$digest();
       expect(element.scope().rows.length).toEqual(5);
@@ -617,7 +625,7 @@ describe('Component ngTasty table', function () {
       $rootScope = _$rootScope_;
       $scope = $rootScope.$new();
       $httpBackend = _$httpBackend_;
-      sortingJSON = _sortingJSON_;
+      sortingJSON = angular.copy(_sortingJSON_);
       $scope.getResource = function (paramsUrl, paramsObj) {
         return $http.get('api.json?' + paramsUrl).then(function (response) {
           $scope.paramsUrl = paramsUrl;
@@ -660,7 +668,7 @@ describe('Component ngTasty table', function () {
       });
       expect(element.scope().url).toEqual('');
       expect(element.scope().header.columns.length).toEqual(3);
-      expect(element.scope().rows.length).toEqual(35);
+      expect(element.scope().rows.length).toEqual(34);
       expect(element.scope().pagination.count).toEqual(5);
       expect(element.scope().pagination.page).toEqual(1);
       expect(element.scope().pagination.pages).toEqual(1);
@@ -682,8 +690,8 @@ describe('Component ngTasty table', function () {
     });
 
     it('should return the right url after called buildUrl', function () {
-      expect(element.scope().rows[0].name).toEqual('Ritual Coffee Roasters');
-      expect(element.scope().rows.length).toEqual(35);
+      expect(element.scope().rows[0].name).toEqual('Andytown Coffee Roasters');
+      expect(element.scope().rows.length).toEqual(34);
     });
 
     it('should have these isolateScope value as default', function () {
@@ -786,7 +794,8 @@ describe('Component ngTasty table', function () {
     beforeEach(inject(function ($rootScope, $compile) {
       $scope = $rootScope.$new();
       $scope.resource = {
-        'header': [{ 'key': 'name', 'name': 'Name' },
+        'header': [
+          { 'key': 'name', 'name': 'Name' },
           { 'key': 'star', 'name': 'Star' },
           { 'key': 'sf-location', 'name': 'SF Location'}
         ],
@@ -871,7 +880,7 @@ describe('Component ngTasty table', function () {
   describe('with pagination', function () {
     beforeEach(inject(function ($rootScope, $compile, _sortingJSON_) {
       $scope = $rootScope.$new();
-      $scope.resource = _sortingJSON_;
+      $scope.resource = angular.copy(_sortingJSON_);
       $scope.itemsPerPage = 10;
       $scope.listItemsPerPage = [5, 10, 20, 40, 80];
       element = angular.element(''+
@@ -913,9 +922,9 @@ describe('Component ngTasty table', function () {
       expect(element.scope().pagination.count).toEqual(10);
       expect(element.scope().pagination.page).toEqual(1);
       expect(element.scope().pagination.pages).toEqual(4);
-      expect(element.scope().pagination.size).toEqual(35);
-      expect(element.scope().params.sortBy).toEqual(undefined);
-      expect(element.scope().params.sortOrder).toEqual(undefined);
+      expect(element.scope().pagination.size).toEqual(34);
+      expect(element.scope().params.sortBy).toEqual('name');
+      expect(element.scope().params.sortOrder).toEqual('asc');
       expect(element.scope().params.page).toEqual(1);
       expect(element.scope().params.count).toEqual(10);
       expect(element.scope().params.pagination).toEqual(true);
@@ -924,7 +933,7 @@ describe('Component ngTasty table', function () {
     });
 
     it('should return the right url after called buildUrl', function () {
-      expect(element.scope().rows[0].name).toEqual('Ritual Coffee Roasters');
+      expect(element.scope().rows[0].name).toEqual('Andytown Coffee Roasters');
       expect(element.scope().rows.length).toEqual(10);
     });
 
@@ -932,7 +941,7 @@ describe('Component ngTasty table', function () {
       expect(tastyPagination.isolateScope().pagination.count).toEqual(10);
       expect(tastyPagination.isolateScope().pagination.page).toEqual(1);
       expect(tastyPagination.isolateScope().pagination.pages).toEqual(4);
-      expect(tastyPagination.isolateScope().pagination.size).toEqual(35);
+      expect(tastyPagination.isolateScope().pagination.size).toEqual(34);
       expect(tastyPagination.isolateScope().listItemsPerPageShow).toEqual([5, 10, 20]);
       expect(tastyPagination.isolateScope().pagMinRange).toEqual(1);
       expect(tastyPagination.isolateScope().pagMaxRange).toEqual(5);
@@ -953,7 +962,7 @@ describe('Component ngTasty table', function () {
       expect(tastyPagination.isolateScope().pagination.count).toEqual(20);
       expect(tastyPagination.isolateScope().pagination.page).toEqual(1);
       expect(tastyPagination.isolateScope().pagination.pages).toEqual(2);
-      expect(tastyPagination.isolateScope().pagination.size).toEqual(35);
+      expect(tastyPagination.isolateScope().pagination.size).toEqual(34);
       expect(elementSelected.eq(0)).not.toHaveClass('active');
       expect(elementSelected.eq(1)).not.toHaveClass('active');
       expect(elementSelected.eq(2)).toHaveClass('active');
@@ -1016,7 +1025,7 @@ describe('Component ngTasty table', function () {
   describe('with pagination classic binding', function () {
     beforeEach(inject(function ($rootScope, $compile, _sortingJSON_) {
       $scope = $rootScope.$new();
-      $scope.resource = _sortingJSON_;
+      $scope.resource = angular.copy(_sortingJSON_);
       element = angular.element(''+
       '<div tasty-table bind-resource="resource">'+
       '  <table>'+
@@ -1056,9 +1065,9 @@ describe('Component ngTasty table', function () {
       expect(element.scope().pagination.count).toEqual(10);
       expect(element.scope().pagination.page).toEqual(1);
       expect(element.scope().pagination.pages).toEqual(4);
-      expect(element.scope().pagination.size).toEqual(35);
-      expect(element.scope().params.sortBy).toEqual(undefined);
-      expect(element.scope().params.sortOrder).toEqual(undefined);
+      expect(element.scope().pagination.size).toEqual(34);
+      expect(element.scope().params.sortBy).toEqual('name');
+      expect(element.scope().params.sortOrder).toEqual('asc');
       expect(element.scope().params.page).toEqual(1);
       expect(element.scope().params.count).toEqual(10);
       expect(element.scope().params.pagination).toEqual(true);
@@ -1067,7 +1076,7 @@ describe('Component ngTasty table', function () {
     });
 
     it('should return the right url after called buildUrl', function () {
-      expect(element.scope().rows[0].name).toEqual('Ritual Coffee Roasters');
+      expect(element.scope().rows[0].name).toEqual('Andytown Coffee Roasters');
       expect(element.scope().rows.length).toEqual(10);
     });
 
@@ -1075,7 +1084,7 @@ describe('Component ngTasty table', function () {
       expect(tastyPagination.isolateScope().pagination.count).toEqual(10);
       expect(tastyPagination.isolateScope().pagination.page).toEqual(1);
       expect(tastyPagination.isolateScope().pagination.pages).toEqual(4);
-      expect(tastyPagination.isolateScope().pagination.size).toEqual(35);
+      expect(tastyPagination.isolateScope().pagination.size).toEqual(34);
       expect(tastyPagination.isolateScope().listItemsPerPageShow).toEqual([5, 10, 20]);
       expect(tastyPagination.isolateScope().pagMinRange).toEqual(1);
       expect(tastyPagination.isolateScope().pagMaxRange).toEqual(5);
@@ -1096,7 +1105,7 @@ describe('Component ngTasty table', function () {
       expect(tastyPagination.isolateScope().pagination.count).toEqual(20);
       expect(tastyPagination.isolateScope().pagination.page).toEqual(1);
       expect(tastyPagination.isolateScope().pagination.pages).toEqual(2);
-      expect(tastyPagination.isolateScope().pagination.size).toEqual(35);
+      expect(tastyPagination.isolateScope().pagination.size).toEqual(34);
       expect(elementSelected.eq(0)).not.toHaveClass('active');
       expect(elementSelected.eq(1)).not.toHaveClass('active');
       expect(elementSelected.eq(2)).toHaveClass('active');
@@ -1216,7 +1225,7 @@ describe('Component ngTasty table', function () {
         'count' : 5, 
         'page' : 1,
         'pages' : 7, 
-        'size' : 35 
+        'size' : 34 
       });
       expect(element.scope().params.sortBy).toEqual(undefined);
       expect(element.scope().params.sortOrder).toEqual(undefined);
@@ -1237,7 +1246,7 @@ describe('Component ngTasty table', function () {
         'count' : 5, 
         'page' : 1,
         'pages' : 7, 
-        'size' : 35 
+        'size' : 34 
       });
       expect(tastyPagination.isolateScope().listItemsPerPageShow).toEqual([5, 25]);
       expect(tastyPagination.isolateScope().pagMinRange).toEqual(1);
@@ -1262,7 +1271,7 @@ describe('Component ngTasty table', function () {
         'count' : 25, 
         'page' : 1,
         'pages' : 2, 
-        'size' : 35 
+        'size' : 34 
       });
       expect(elementSelected.eq(0)).not.toHaveClass('active');
       expect(elementSelected.eq(1)).toHaveClass('active');
@@ -1384,7 +1393,7 @@ describe('Component ngTasty table', function () {
         'count' : 5, 
         'page' : 1,
         'pages' : 7, 
-        'size' : 35 
+        'size' : 34 
       });
       expect(element.scope().params.sortBy).toEqual(undefined);
       expect(element.scope().params.sortOrder).toEqual(undefined);
@@ -1435,7 +1444,8 @@ describe('Component ngTasty table', function () {
         });
       };
       $scope.filters = {
-        'city': 'sf'
+        'name': 'ro',
+        'sf-location': 'ha'
       };
       element = angular.element(''+
       '<div tasty-table bind-resource-callback="getResource" bind-filters="filters">'+
@@ -1457,7 +1467,7 @@ describe('Component ngTasty table', function () {
       '  </table>'+
       '</div>');
       $compile(element)($scope);
-      urlToCall = 'api.json?city=sf';
+      urlToCall = 'api.json?name=ro&sf-location=ha';
       $httpBackend.whenGET(urlToCall).respond(filtersJSON);
       $httpBackend.flush();
       $scope.$digest();
@@ -1470,10 +1480,10 @@ describe('Component ngTasty table', function () {
         'sortBy': 'sort-by',
         'sortOrder': 'sort-order',
       });
-      expect(element.scope().url).toEqual('city=sf');
+      expect(element.scope().url).toEqual('name=ro&sf-location=ha');
       expect(element.scope().header.columns.length).toEqual(3);
-      expect(element.scope().rows[0].name).toEqual('Ritual Coffee Roasters');
-      expect(element.scope().rows.length).toEqual(35);
+      expect(element.scope().rows[0].name).toEqual('Flywheel Coffee Roasters');
+      expect(element.scope().rows.length).toEqual(2);
       expect(element.scope().pagination.count).toEqual(5);
       expect(element.scope().pagination.page).toEqual(1);
       expect(element.scope().pagination.pages).toEqual(1);

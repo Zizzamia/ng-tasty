@@ -1,5 +1,5 @@
 angular.module('mockedAPIResponse',[])
-// 'sort-order=asc&page=1&count=5&city=sf'
+// 'sort-by=name&sort-order=asc&page=1&count=5'
 .value('completeJSON', {
   'header': [
     {
@@ -20,41 +20,41 @@ angular.module('mockedAPIResponse',[])
   ],
   'rows': [
     {
-      'name': 'Ritual Coffee Roasters',
+      'name': 'Andytown Coffee Roasters',
+      'star': '★★★',
+      'sf-location': 'Outer Sunset'
+    },
+    {
+      'name': 'Beanery',
+      'star': '★★★',
+      'sf-location': 'Inner Sunset'
+    },
+    {
+      'name': 'Biscoff Coffee Corner',
+      'star': '★★★',
+      'sf-location': 'Fisherman’s Wharf'
+    },
+    {
+      'name': 'Blue Bottle',
       'star': '★★★★★',
       'sf-location': 'Hayes Valley'
     },
     {
-      'name': 'coffee bar',
-      'star': '★★★★',
-      'sf-location': 'Financial District'
-    },
-    {
-      'name': 'blue bootle',
+      'name': 'Blue Bottle',
       'star': '★★★★★',
-      'sf-location': 'Hayes Valley'
-    },
-    {
-      'name': 'CoffeeShop',
-      'star': '★★★',
-      'sf-location': 'Bernal Heights'
-    },
-    {
-      'name': 'Spike\'s Coffee & Teas',
-      'star': '★★★',
-      'sf-location': 'Castro'
+      'sf-location': 'Embarcadero'
     }
   ],
   'pagination': {
     'count': 5,
     'page': 1,
     'pages': 7,
-    'size': 35
+    'size': 34
   },
-  'sort-by': 'name',
-  'sort-order': 'asc'
+  'sortBy': 'name',
+  'sortOrder': 'asc'
 })
-// sort-order=asc
+// sort-by=name&sort-order=asc
 .value('sortingJSON', {
   'header': [
     { 'name': 'Name' },
@@ -63,84 +63,9 @@ angular.module('mockedAPIResponse',[])
   ],
   'rows': [
     {
-      'name': 'Ritual Coffee Roasters',
-      'star': '★★★★★',
-      'sf-Location': 'Hayes Valley'
-    },
-    {
-      'name': 'coffee bar',
-      'star': '★★★★',
-      'sf-Location': 'Financial District'
-    },
-    {
-      'name': 'blue bootle',
-      'star': '★★★★★',
-      'sf-Location': 'Hayes Valley'
-    },
-    {
-      'name': 'CoffeeShop',
+      'name': 'Andytown Coffee Roasters',
       'star': '★★★',
-      'sf-Location': 'Bernal Heights'
-    },
-    {
-      'name': 'Spike\'s Coffee & Teas',
-      'star': '★★★',
-      'sf-Location': 'Castro'
-    },
-    {
-      'name': 'La Boulange',
-      'star': '★★',
-      'sf-Location': 'Cole Valley'
-    },
-    {
-      'name': 'Dynamo Donut and Coffee',
-      'star': '★★★★★',
-      'sf-Location': 'Cow Hollow'
-    },
-    {
-      'name': 'The Mill',
-      'star': '★★★★',
-      'sf-Location': 'Divisadero'
-    },
-    {
-      'name': 'Piccino Coffee Bar',
-      'star': '★★★',
-      'sf-Location': 'Dogpatch'
-    },
-    {
-      'name': 'Philz',
-      'star': '★★★',
-      'sf-Location': 'Downtown'
-    },
-    {
-      'name': 'Duboce Park Cafe',
-      'star': '★★',
-      'sf-Location': 'Duboce Triangle'
-    },
-    {
-      'name': 'Blue Bottle',
-      'star': '★★★★★',
-      'sf-Location': 'Embarcadero'
-    },
-    {
-      'name': 'Four Barrel',
-      'star': '★★★',
-      'sf-Location': 'Excelsior'
-    },
-    {
-      'name': 'Coffee Bar',
-      'star': '★★★★★',
-      'sf-Location': 'FiDi'
-    },
-    {
-      'name': 'Biscoff Coffee Corner',
-      'star': '★★★',
-      'sf-Location': 'Fisherman’s Wharf'
-    },
-    {
-      'name': 'Fifty/Fifty Coffee and Tea',
-      'star': '★★★',
-      'sf-Location': 'Inner Richmond'
+      'sf-Location': 'Outer Sunset'
     },
     {
       'name': 'Beanery',
@@ -148,19 +73,39 @@ angular.module('mockedAPIResponse',[])
       'sf-Location': 'Inner Sunset'
     },
     {
+      'name': 'Biscoff Coffee Corner',
+      'star': '★★★',
+      'sf-Location': 'Fisherman’s Wharf'
+    },
+    {
+      'name': 'Blue Bottle',
+      'star': '★★★★★',
+      'sf-Location': 'Hayes Valley'
+    },
+    {
+      'name': 'Blue Bottle',
+      'star': '★★★★★',
+      'sf-Location': 'Embarcadero'
+    },
+    {
       'name': 'Cafe du Soleil',
       'star': '★★',
       'sf-Location': 'Lower Haight'
     },
-    {
-      'name': 'Peet\'s',
-      'star': '★',
-      'sf-Location': 'The Marina'
+    { 
+      'name': 'Dimmi Tutto Cafe', 
+      'star': '★★★', 
+      'sf-Location': 'North Beach' 
     },
     {
-      'name': 'Sightglass',
-      'star': '★★★★',
-      'sf-Location': 'The Mission'
+      'name': 'Coffee Bar',
+      'star': '★★★★★',
+      'sf-Location': 'FiDi'
+    },
+    {
+      'name': 'CoffeeShop',
+      'star': '★★★',
+      'sf-Location': 'Bernal Heights'
     },
     {
       'name': 'Contraband Coffee Bar',
@@ -168,39 +113,19 @@ angular.module('mockedAPIResponse',[])
       'sf-Location': 'Nob Hill'
     },
     {
-      'name': 'Martha & Bros Coffee',
-      'star': '★★★',
-      'sf-Location': 'Noe Valley'
-    },
-    {
-      'name': 'Réveille',
-      'star': '★★★',
-      'sf-Location': 'North Beach'
-    },
-    {
       'name': 'Cup Coffee Bar',
       'star': '★★★',
       'sf-Location': 'Outer Mission'
     },
     {
-      'name': 'Garden House Cafe',
-      'star': '★★★',
-      'sf-Location': 'Outer Richmond'
-    },
-    {
-      'name': 'Andytown Coffee Roasters',
-      'star': '★★★',
-      'sf-Location': 'Outer Sunset'
-    },
-    {
-      'name': 'Jane on Fillmore',
+      'name': 'Duboce Park Cafe',
       'star': '★★',
-      'sf-Location': 'Pacific Heights'
+      'sf-Location': 'Duboce Triangle'
     },
     {
-      'name': 'Saint Frank Coffee',
-      'star': '★★★',
-      'sf-Location': 'Polk'
+      'name': 'Dynamo Donut and Coffee',
+      'star': '★★★★★',
+      'sf-Location': 'Cow Hollow'
     },
     {
       'name': 'Farley’s',
@@ -208,24 +133,84 @@ angular.module('mockedAPIResponse',[])
       'sf-Location': 'Potrero Hill'
     },
     {
+      'name': 'Fifty/Fifty Coffee and Tea',
+      'star': '★★★',
+      'sf-Location': 'Inner Richmond'
+    },
+    {
+      'name': 'Flywheel Coffee Roasters',
+      'star': '★★★★★',
+      'sf-Location': 'Upper Haight'
+    },
+    {
+      'name': 'Four Barrel',
+      'star': '★★★',
+      'sf-Location': 'Excelsior'
+    },
+    {
+      'name': 'Garden House Cafe',
+      'star': '★★★',
+      'sf-Location': 'Outer Richmond'
+    },
+    {
       'name': 'House of Snacks',
       'star': '★★★',
       'sf-Location': 'The Presidio'
     },
     {
-      'name': 'The Brew',
-      'star': '★★★',
-      'sf-Location': 'Russian Hill'
+      'name': 'Jane on Fillmore',
+      'star': '★★',
+      'sf-Location': 'Pacific Heights'
     },
     {
-      'name': 'Wicked Grounds',
-      'star': '★★★',
-      'sf-Location': 'SOMA'
+      'name': 'La Boulange',
+      'star': '★★',
+      'sf-Location': 'Cole Valley'
     },
     {
-      'name': 'farm:table',
+      'name': 'Martha & Bros Coffee',
       'star': '★★★',
-      'sf-Location': 'Tenderloin'
+      'sf-Location': 'Noe Valley'
+    },
+    {
+      'name': 'Peet\'s',
+      'star': '★',
+      'sf-Location': 'The Marina'
+    },
+    {
+      'name': 'Philz',
+      'star': '★★★',
+      'sf-Location': 'Downtown'
+    },
+    {
+      'name': 'Piccino Coffee Bar',
+      'star': '★★★',
+      'sf-Location': 'Dogpatch'
+    },
+    {
+      'name': 'Ritual Coffee Roasters',
+      'star': '★★★★★',
+      'sf-Location': 'Hayes Valley'
+    },
+    {
+      'name': 'Réveille',
+      'star': '★★★',
+      'sf-Location': 'North Beach'
+    },
+    {
+      'name': 'Saint Frank Coffee',
+      'star': '★★★',
+      'sf-Location': 'Polk'
+    },
+    {
+      'name': 'Sightglass',
+      'star': '★★★★',
+      'sf-Location': 'The Mission'
+    },
+    {
+      'name': 'Spike\'s Coffee & Teas',
+      'star': '★★★',
+      'sf-Location': 'Castro'
     },
     {
       'name': 'Starbucks',
@@ -233,18 +218,29 @@ angular.module('mockedAPIResponse',[])
       'sf-Location': 'Union Square'
     },
     {
-      'name': 'Flywheel Coffee Roasters',
-      'star': '★★★★★',
-      'sf-Location': 'Upper Haight'
+      'name': 'The Brew',
+      'star': '★★★',
+      'sf-Location': 'Russian Hill'
+    },
+    {
+      'name': 'The Mill',
+      'star': '★★★★',
+      'sf-Location': 'Divisadero'
+    },
+    {
+      'name': 'Wicked Grounds',
+      'star': '★★★',
+      'sf-Location': 'SOMA'
     }
   ],
   'pagination': {
     'count': null,
     'page': null,
     'pages': null,
-    'size': 35
+    'size': 34
   },
-  'sort-order': 'asc'
+  'sortBy': 'name',
+  'sortOrder': 'asc'
 })
 // page=1&count=5
 .value('paginationJSON', {
@@ -293,7 +289,7 @@ angular.module('mockedAPIResponse',[])
     'count': 5,
     'page': 1,
     'pages': 7,
-    'size': 35
+    'size': 34
   }
 })
 // page=1&count=25
@@ -403,6 +399,11 @@ angular.module('mockedAPIResponse',[])
       'star': '★★',
       'sf-location': 'Lower Haight'
     },
+    { 
+      'name': 'Dimmi Tutto Cafe', 
+      'star': '★★★', 
+      'sf-location': 'North Beach' 
+    },
     {
       'name': 'Peet\'s',
       'star': '★',
@@ -443,10 +444,10 @@ angular.module('mockedAPIResponse',[])
     'count': 25,
     'page': 1,
     'pages': 2,
-    'size': 35
+    'size': 34
   }
 })
-// city=sf
+// name=ro&sf-location=ha
 .value('filtersJSON', {
   'header': [
     {
@@ -464,185 +465,22 @@ angular.module('mockedAPIResponse',[])
   ],
   'rows': [
     {
-      'name': 'Ritual Coffee Roasters',
-      'star': '★★★★★',
-      'sf-location': 'Hayes Valley'
-    },
-    {
-      'name': 'coffee bar',
-      'star': '★★★★',
-      'sf-location': 'Financial District'
-    },
-    {
-      'name': 'blue bootle',
-      'star': '★★★★★',
-      'sf-location': 'Hayes Valley'
-    },
-    {
-      'name': 'CoffeeShop',
-      'star': '★★★',
-      'sf-location': 'Bernal Heights'
-    },
-    {
-      'name': 'Spike\'s Coffee & Teas',
-      'star': '★★★',
-      'sf-location': 'Castro'
-    },
-    {
-      'name': 'La Boulange',
-      'star': '★★',
-      'sf-location': 'Cole Valley'
-    },
-    {
-      'name': 'Dynamo Donut and Coffee',
-      'star': '★★★★★',
-      'sf-location': 'Cow Hollow'
-    },
-    {
-      'name': 'The Mill',
-      'star': '★★★★',
-      'sf-location': 'Divisadero'
-    },
-    {
-      'name': 'Piccino Coffee Bar',
-      'star': '★★★',
-      'sf-location': 'Dogpatch'
-    },
-    {
-      'name': 'Philz',
-      'star': '★★★',
-      'sf-location': 'Downtown'
-    },
-    {
-      'name': 'Duboce Park Cafe',
-      'star': '★★',
-      'sf-location': 'Duboce Triangle'
-    },
-    {
-      'name': 'Blue Bottle',
-      'star': '★★★★★',
-      'sf-location': 'Embarcadero'
-    },
-    {
-      'name': 'Four Barrel',
-      'star': '★★★',
-      'sf-location': 'Excelsior'
-    },
-    {
-      'name': 'Coffee Bar',
-      'star': '★★★★★',
-      'sf-location': 'FiDi'
-    },
-    {
-      'name': 'Biscoff Coffee Corner',
-      'star': '★★★',
-      'sf-location': 'Fisherman’s Wharf'
-    },
-    {
-      'name': 'Fifty/Fifty Coffee and Tea',
-      'star': '★★★',
-      'sf-location': 'Inner Richmond'
-    },
-    {
-      'name': 'Beanery',
-      'star': '★★★',
-      'sf-location': 'Inner Sunset'
-    },
-    {
-      'name': 'Cafe du Soleil',
-      'star': '★★',
-      'sf-location': 'Lower Haight'
-    },
-    {
-      'name': 'Peet\'s',
-      'star': '★',
-      'sf-location': 'The Marina'
-    },
-    {
-      'name': 'Sightglass',
-      'star': '★★★★',
-      'sf-location': 'The Mission'
-    },
-    {
-      'name': 'Contraband Coffee Bar',
-      'star': '★★★★',
-      'sf-location': 'Nob Hill'
-    },
-    {
-      'name': 'Martha & Bros Coffee',
-      'star': '★★★',
-      'sf-location': 'Noe Valley'
-    },
-    {
-      'name': 'Réveille',
-      'star': '★★★',
-      'sf-location': 'North Beach'
-    },
-    {
-      'name': 'Cup Coffee Bar',
-      'star': '★★★',
-      'sf-location': 'Outer Mission'
-    },
-    {
-      'name': 'Garden House Cafe',
-      'star': '★★★',
-      'sf-location': 'Outer Richmond'
-    },
-    {
-      'name': 'Andytown Coffee Roasters',
-      'star': '★★★',
-      'sf-location': 'Outer Sunset'
-    },
-    {
-      'name': 'Jane on Fillmore',
-      'star': '★★',
-      'sf-location': 'Pacific Heights'
-    },
-    {
-      'name': 'Saint Frank Coffee',
-      'star': '★★★',
-      'sf-location': 'Polk'
-    },
-    {
-      'name': 'Farley’s',
-      'star': '★★★',
-      'sf-location': 'Potrero Hill'
-    },
-    {
-      'name': 'House of Snacks',
-      'star': '★★★',
-      'sf-location': 'The Presidio'
-    },
-    {
-      'name': 'The Brew',
-      'star': '★★★',
-      'sf-location': 'Russian Hill'
-    },
-    {
-      'name': 'Wicked Grounds',
-      'star': '★★★',
-      'sf-location': 'SOMA'
-    },
-    {
-      'name': 'farm:table',
-      'star': '★★★',
-      'sf-location': 'Tenderloin'
-    },
-    {
-      'name': 'Starbucks',
-      'star': '★',
-      'sf-location': 'Union Square'
-    },
-    {
       'name': 'Flywheel Coffee Roasters',
       'star': '★★★★★',
       'sf-location': 'Upper Haight'
+    },
+    {
+      'name': 'Ritual Coffee Roasters',
+      'star': '★★★★★',
+      'sf-location': 'Hayes Valley'
     }
   ],
   'pagination': {
     'count': null,
     'page': null,
     'pages': null,
-    'size': 35
-  }
+    'size': 2
+  },
+  'sortBy': 'name',
+  'sortOrder': 'asc'
 });

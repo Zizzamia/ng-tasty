@@ -157,6 +157,7 @@ app.get('/table.json', function(req, res){
     { 'name': 'Fifty/Fifty Coffee and Tea', 'star': '★★★', 'sf-location': 'Inner Richmond' },
     { 'name': 'Beanery', 'star': '★★★', 'sf-location': 'Inner Sunset' },
     { 'name': 'Cafe du Soleil', 'star': '★★', 'sf-location': 'Lower Haight' },
+    { 'name': 'Dimmi Tutto Cafe', 'star': '★★★', 'sf-location': 'North Beach' },
     { 'name': 'Peet\'s', 'star': '★', 'sf-location': 'The Marina' },
     { 'name': 'Sightglass', 'star': '★★★★', 'sf-location': 'The Mission' },
     { 'name': 'Contraband Coffee Bar', 'star': '★★★★', 'sf-location': 'Nob Hill' },
