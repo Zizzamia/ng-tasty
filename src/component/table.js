@@ -62,6 +62,18 @@ angular.module('ngTasty.component.table', [
   $scope.init.sortOrder = $scope.init.sortOrder || tableConfig.init.sortOrder;
 
   // Defualt variables
+  var listImmutableKey =[
+    'filters',
+    'init',
+    'query',
+    'rows',
+    'header',
+    'pagination',
+    'params',
+    'sortOrder',
+    'sortBy',
+    'url'
+  ];
   $scope.clientSide = true;
   $scope.url = '';
   $scope.header = {
@@ -165,7 +177,7 @@ angular.module('ngTasty.component.table', [
             'has the property header or rows undefined';
     }
     Object.keys(resource).forEach(function(key) {
-      if (['rows','header','pagination', 'sortOrder', 'sortBy'].indexOf(key) < 0) {
+      if (listImmutableKey.indexOf(key) < 0) {
         $scope[key] = resource[key];
       }
     });
