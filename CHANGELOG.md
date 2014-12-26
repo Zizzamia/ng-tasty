@@ -1,6 +1,11 @@
 ## Changelog
 
-### v0.4.2 (master, released on December 22th 2014)
+### v0.4.3 (master, released on December 25th 2014)
+#### Features
+- Now by adding a value in resource you can also use it in the table scope [#69](https://github.com/Zizzamia/ng-tasty/issues/69)
+
+
+### v0.4.2 (released on December 22th 2014)
 #### Bug Fixes
 - Fixed pagination issue during filtering [#65](https://github.com/Zizzamia/ng-tasty/issues/65)
 - Fixed bug when header is an empty list [#66](https://github.com/Zizzamia/ng-tasty/issues/66)

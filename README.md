@@ -61,6 +61,26 @@ The easiest way to run the unit tests is to use the supplied npm script:
 gulp test
 ```
 
+## Docs
+
+The main docs you will find at http://zizzamia.com/ng-tasty/ , here the list of all components, service,
+filters supported.
+
+#### Component
+
+- Table : http://zizzamia.com/ng-tasty/directive/table
+- Table server side : http://zizzamia.com/ng-tasty/directive/table-server-side
+
+#### Service
+
+- WebSocket : http://zizzamia.com/ng-tasty/service/websocket
+- Debounce : http://zizzamia.com/ng-tasty/service/debounce
+
+#### Filter
+
+- Filter Int : http://zizzamia.com/ng-tasty/filter/filter-int
+- Range : http://zizzamia.com/ng-tasty/filter/range
+
 ## Changelog
 
 [https://github.com/Zizzamia/ng-tasty/CHANGELOG.md](https://github.com/Zizzamia/ng-tasty/blob/master/CHANGELOG.md)
