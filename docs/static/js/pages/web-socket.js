@@ -21,7 +21,7 @@ angular.module('myApp.pages.webSocket', [])
     };
   }
 })
-.controller('WebSocketCtrl', function($rootScope, $scope, webSocket, throttle) {
+.controller('WebSocketCtrl', function($rootScope, $scope, $timeout, webSocket, throttle) {
   $rootScope.page = 'webSocket';
 
   $scope.tag = 'angularjs';
@@ -29,15 +29,15 @@ angular.module('myApp.pages.webSocket', [])
   $scope.tweets = [];
   $scope.echoes = [];
   $scope.showEcho = true;
-  $scope.stopFilter = false;
+  $scope.newTweet = true;
 
   var tweetWs = new webSocket('ws://localhost:3000');
   var echoWs = new webSocket('ws://echo.websocket.org');
 
   var addTweet = throttle(function (tweet) {
-    $scope.counters[$scope.currentTag] += 1;
-    $scope.tweets.unshift(tweet);
-    if (!$scope.stopFilter) {
+    if ($scope.newTweet) {
+      $scope.counters[$scope.currentTag] += 1;
+      $scope.tweets.unshift(tweet);
       $scope.$emit('new_tweet');
     }
   }, 2000);
@@ -48,23 +48,26 @@ angular.module('myApp.pages.webSocket', [])
       username: data.user.name,
       screen_name: data.user.screen_name,
       picture: data.user.profile_image_url,
+      extended_entities: data.extended_entities,
       text: data.text
     };
+    console.log(tweet)
 
-    $scope.$apply(function() {
+    $scope.$evalAsync(function() {
       addTweet(tweet);
     });
   });
 
   tweetWs.on('error', function(error) {
-    $scope.$apply(function() {
+    $scope.$evalAsync(function() {
       $scope.error = error;
     });
   });
 
   echoWs.on('all', function(msg) {
-    $scope.$apply(function() {
+    $scope.$evalAsync(function() {
       $scope.echoes.push(msg);
+      $scope.echoText = '';
     });
   });
 
@@ -72,11 +75,16 @@ angular.module('myApp.pages.webSocket', [])
     if (!$scope.tag) { 
       return; 
     }
-    $scope.stopFilter = false;
+    $scope.newTweet = true;
     tweetWs.send({tag: $scope.tag});
     $scope.currentTag = angular.copy($scope.tag);
     $scope.counters[$scope.currentTag] = $scope.counters[$scope.currentTag] || 0;
   };
+
+  $scope.stopFilter = function() {
+    $scope.newTweet = false;
+    tweetWs.send({close: true});
+  }
 
   $scope.echo = function() {
     echoWs.send($scope.echoText);
@@ -92,4 +100,8 @@ angular.module('myApp.pages.webSocket', [])
       $scope.showTwitterStreams = true;
     }
   };
+
+  $timeout(function () {
+    Rainbow.color();
+  }); 
 });

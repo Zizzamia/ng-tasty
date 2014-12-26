@@ -171,31 +171,29 @@ footer {
   border-bottom-color: transparent;
 }
 
-.tweets-container {
+.timeline {
   position: relative;
   margin-top: 0;
-}
-
-.tweets-box {
-  position: absolute;
 }
 
 .tweet {
   display: block;
   padding: 0px;
-  border-radius: 5px;
   margin: 10px 0px;
-  border-color: rgb(238, 238, 238) rgb(221, 221, 221) rgb(187, 187, 187);
-  border-width: 1px;
-  border-style: solid;
-  box-shadow: rgba(0, 0, 0, 0.14902) 0px 1px 3px;
+  border: 1px solid rgba(0,0,0,0.1);
+  border-radius: 6px;
+  width: 100%;
+  color: #292f33;
+  font-size: 14px;
+  line-height: 18px;
+  padding: 5px 10px;
 }
 
-.tweet .root {
+.tweet .tweet-container {
   padding: 8px 8px 0 8px;
 }
 
-.root img {
+.tweet-container img {
   display: inline-block;
   vertical-align: middle;
   border-radius: 4px;
@@ -205,25 +203,32 @@ footer {
   margin-right: 7px;
 }
 
-.root .username {
+.tweet-container .username {
   display: inline-block;
   vertical-align: top;
   font-size: 17px;
 }
 
-.root .nickname {
+.tweet-container .nickname {
   color: #c9c9c9;
   font-size: 14px;
 }
 
-.root .user {
+.tweet-container .user {
   display: inline-block;
   vertical-align: middle;
 }
 
-.root .date {
+.tweet-container .date {
   color: #c9c9c9;
   font-size: 13px;
+}
+
+.tweet-container img.media {
+  height: auto;
+  width: auto;
+  max-width: 100%;
+  max-height: 560px;
 }
 
 @-webkit-keyframes bounceInDown {

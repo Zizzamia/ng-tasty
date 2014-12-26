@@ -35,40 +35,85 @@
       </form>
     </div>
     <div class="col-md-6">
-      <h3 ng-show="echoes.length"> Server response: </h3>
+      <h3 ng-show="echoes.length">Server response: </h3>
       <ul class="list-group">
         <li class="list-group-item" 
         ng-repeat="message in echoes track by $index" ng-bind="message"></li>
       </ul>
     </div>
+    <div class="col-xs-12">
+      <tabset class="code">
+        <tab heading="Markup">
+          <div>
+<pre ng-non-bindable><code data-language="html">&lt;div class="col-md-6"&gt;
+  &lt;form ng-submit="echo()"&gt;
+    &lt;label&gt;WebSocket #1 (Echo Server): 
+      &lt;input type="text" ng-model="echoText" class="form-control input-sm"&gt;
+    &lt;/label&gt;
+    &lt;input placeholder="Type any message" type="submit" 
+    value="Echo" class="btn btn-primary btn-sm"&gt;
+  &lt;/form&gt;
+&lt;/div&gt;
+&lt;div class="col-md-6"&gt;
+  &lt;h3 ng-show="echoes.length"&gt;Server response: &lt;/h3&gt;
+  &lt;ul class="list-group"&gt;
+    &lt;li class="list-group-item" 
+    ng-repeat="message in echoes track by $index" ng-bind="message">/li&gt;
+  &lt;/ul&gt;
+&lt;/div&gt;</code></pre>
+          </div>
+        </tab>
+        <tab heading="JavaScript">
+          <div>
+  <pre ng-non-bindable><code data-language="javascript">.controller('WebSocketCtrl', function($scope, webSocket) {
+  var echoWs = new webSocket('ws://echo.websocket.org');
+
+  $scope.echoes = [];
+
+  echoWs.on('all', function(msg) {
+    $scope.$evalAsync(function() {
+      $scope.echoes.push(msg);
+      $scope.echoText = '';
+    });
+  });
+
+  $scope.echo = function() {
+    echoWs.send($scope.echoText);
+  };
+})</code></pre>
+          </div>
+        </tab>
+      </tabset>
+    </div>
   </div>
   
   <div class="docs-body row" ng-show="showTwitterStreams && !error">
-    <div class="col-sm-5">
-      <form ng-submit="tagFilter()">
-        <label>WebSocket #2 (Realtime Twitter Stream):
-          <input placeholder="Search any text" class="form-control input-sm" 
-          type="text" ng-model="tag">
-        </label>
-        <button class="btn btn-primary btn-sm">Filter</button>
-      </form>
+    <div class="col-sm-4">
+      <label>WebSocket #2 (Realtime Twitter Stream):
+        <input placeholder="Search any text" 
+        class="form-control input-sm" type="text" ng-model="tag">
+      </label>
+      <button class="btn btn-primary btn-sm"
+      ng-click="tagFilter()">Filter</button>
+      <button class="btn btn-primary btn-sm" 
+      ng-click="stopFilter()">Stop</button>
       <div ng-if="currentTag">
         <hr />
         <strong>Results: </strong>
         <ul class="list-group">
           <li class="list-group-item" 
           ng-repeat="(tag, counter) in counters | orderBy:counter">
+            <span ng-bind="tag"></span>
             <span class="badge" ng-bind="counter"></span>
-            {{tag}}
           </li>
         </ul>
       </div>
     </div>
-    <div class="col-sm-7">
-      <div class="tweets-container">
-        <ul class="tweets-box">
+    <div class="col-sm-8">
+      <div class="timeline">
+        <ul>
           <li class="tweet bounceInDown" ng-repeat="tweet in tweets">
-            <div class="root">
+            <div class="tweet-container">
               <p>
                 <img ng-src="{{tweet.picture}}" />
                 <span class="user">
@@ -79,6 +124,10 @@
               </p>
               <p class="text" ng-bind="tweet.text"></p>
               <p class="date" ng-bind="tweet.created_at | date: 'h:m a - d MMM yyyy'"></p>
+              <div ng-show="tweet.extended_entities.media.length">
+                <img class="media" ng-src="{{ tweet.extended_entities.media[0].media_url }}" 
+                ng-show="tweet.extended_entities.media[0].type == 'photo'" />
+              </div>
             </div>
           </li>
         </ul>

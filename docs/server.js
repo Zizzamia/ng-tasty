@@ -286,11 +286,13 @@ wss.on('connection', function(ws) {
 
   ws.on('message', function(msg) {
     var data = JSON.parse(msg);
-    if (!data.tag) {
-      return;
+    if (data.tag) {
+      stream(data.tag);
     }
-    console.log('Filter request: ' + data.tag);
-    stream(data.tag);
+    if (data.close) {
+      _stream.stop();
+    }
+    return;
   });
 
   ws.on('close', function() {
