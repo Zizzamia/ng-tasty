@@ -1,19 +1,16 @@
-describe('Service', function () {
+describe('Service debounce', function () {
   'use strict';
+  var debounce;
 
   beforeEach(module('ngTasty.service.debounce'));
 
-  describe('debounce', function() {
-    var debounce;
-
-    beforeEach(function () {
-      inject(function (_debounce_) {
-        debounce = _debounce_;
-      });
+  beforeEach(function () {
+    inject(function (_debounce_) {
+      debounce = _debounce_;
     });
+  });
 
-    it('should be service"', function () {
-      expect(debounce).not.toBeNull();
-    });
+  it('should be service"', function () {
+    expect(debounce).not.toBeNull();
   });
 });
