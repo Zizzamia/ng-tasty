@@ -1,6 +1,6 @@
 ## Changelog
 
-### v0.4.4 (master, released on December 26th 2014)
+### v0.4.4 (master, released on December 27th 2014)
 #### Features
 - Implement Throttle service [#74](https://github.com/Zizzamia/ng-tasty/issues/74)
 - Now it's possible select bootstrap icon by the tableConfig [#73](https://github.com/Zizzamia/ng-tasty/issues/73)

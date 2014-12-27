@@ -75,6 +75,7 @@ filters supported.
 
 - WebSocket : http://zizzamia.com/ng-tasty/service/websocket
 - Debounce : http://zizzamia.com/ng-tasty/service/debounce
+- Throttle : http://zizzamia.com/ng-tasty/service/throttle
 
 #### Filter
 
