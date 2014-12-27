@@ -5,9 +5,12 @@ angular.module('myApp.pages.makeYourOwn', [])
     'table': true
   };
   $scope.service = {
-    'debounce': true
+    'debounce': true,
+    'throttle': true,
+    'webSocket': false
   };
   $scope.filter = {
+    'filterInt': false,
     'range': true
   };
 
@@ -18,6 +21,9 @@ angular.module('myApp.pages.makeYourOwn', [])
     }
     if ($scope.service.debounce) {
       modules.push('ngTasty.service.debounce');
+    }
+    if ($scope.service.throttle) {
+      modules.push('ngTasty.service.throttle');
     }
     if ($scope.service.webSocket) {
       modules.push('ngTasty.service.webSocket');

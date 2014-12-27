@@ -30,7 +30,10 @@ angular.module('ngTasty.component.table', [
   },
   listItemsPerPage: [5, 25, 50, 100],
   itemsPerPage: 5,
-  bindOnce: true
+  bindOnce: true,
+  iconUp: 'fa fa-sort-up',
+  iconDown: 'fa fa-sort-down',
+  bootstrapIcon: false
 })
 .controller('TableController', function($scope, $attrs, $filter, tableConfig, tastyUtil) {
   'use strict';
@@ -330,7 +333,7 @@ angular.module('ngTasty.component.table', [
     restrict: 'A',
     scope: true,
     controller: 'TableController',
-    link: function (scope, element, attrs, tastyTable) {
+    link: function postLink(scope, element, attrs, tastyTable) {
       if (element.find('tasty-thead').length ||
           element[0].querySelector('[tasty-thead]')) {
         tastyTable.activate('thead');
@@ -355,17 +358,18 @@ angular.module('ngTasty.component.table', [
   </table>
  *
  */
-.directive('tastyThead', function($filter, tastyUtil) {
+.directive('tastyThead', function($filter, tableConfig, tastyUtil) {
   return {
     restrict: 'AE',
     require: '^tastyTable',
     scope: {},
     templateUrl: 'template/table/head.html',
-    link: function (scope, element, attrs, tastyTable) {
+    link: function postLink(scope, element, attrs, tastyTable) {
       'use strict';
-      var iconUp, iconDown, newScopeName, listScopeToWatch;
+      var newScopeName, listScopeToWatch;
       scope.bindOnce = tastyTable.bindOnce;
       scope.columns = [];
+      scope.bootstrapIcon = tableConfig.bootstrapIcon;
 
       listScopeToWatch = ['bindNotSortBy'];
       listScopeToWatch.forEach(function (scopeName) {
@@ -382,11 +386,9 @@ angular.module('ngTasty.component.table', [
         }
       });
 
-      iconUp = 'fa fa-sort-up';
-      iconDown = 'fa fa-sort-down';
-
       scope.setColumns = function () {
-        var lenHeader, width, i, active, sortable, sort, isSorted;
+        var lenHeader, width, i, active, sortable, sort, 
+        isSorted, isSortedCaret;
         scope.columns = [];
         lenHeader = scope.header.columns.length;
         scope.header.columns.forEach(function (column, index) {
@@ -394,6 +396,7 @@ angular.module('ngTasty.component.table', [
           sortable = true;
           active = false;
           isSorted = '';
+          isSortedCaret = '';
           // Not sort column when the key is present in the `notSortBy` list,
           // and Not sort column when `notSortBy` is an empty list
           if (angular.isArray(scope.notSortBy)) {
@@ -409,9 +412,19 @@ angular.module('ngTasty.component.table', [
           }
           sort = $filter('cleanFieldName')(column.key);
           if (scope.header.sortBy === '-' + sort) {
-            isSorted = iconDown;
+            if (tableConfig.bootstrapIcon) {
+              isSorted = '';
+              isSortedCaret = 'caret';
+            } else {
+              isSorted = tableConfig.iconDown;
+            }
           } else if (scope.header.sortBy === sort) {
-            isSorted = iconUp;
+            if (tableConfig.bootstrapIcon) {
+              isSorted = 'dropup';
+              isSortedCaret = 'caret';
+            } else {
+              isSorted = tableConfig.iconUp;
+            }
           }
           scope.columns.push({
             'key': column.key,
@@ -419,7 +432,8 @@ angular.module('ngTasty.component.table', [
             'active': active,
             'sortable': sortable,
             'style': column.style,
-            'isSorted': isSorted
+            'isSorted': isSorted,
+            'isSortedCaret': isSortedCaret
           });
         });
         if (scope.header.sortOrder === 'dsc' && 
@@ -490,7 +504,7 @@ angular.module('ngTasty.component.table', [
     templateUrl: function(tElement, tAttrs) {
       return tAttrs.templateUrl || 'template/table/pagination.html';
     },
-    link: function (scope, element, attrs, tastyTable) {
+    link: function postLink(scope, element, attrs, tastyTable) {
       'use strict';
       var getPage, setCount, setPaginationRange, setPreviousRange, 
           setRemainingRange, setPaginationRanges, listScopeToWatch, newScopeName;
