@@ -1,6 +1,12 @@
 ## Changelog
 
-### v0.4.3 (master, released on December 25th 2014)
+### v0.4.4 (master, released on December 26th 2014)
+#### Features
+- Implement Throttle service [#74](https://github.com/Zizzamia/ng-tasty/issues/74)
+- Now it's possible select bootstrap icon by the tableConfig [#73](https://github.com/Zizzamia/ng-tasty/issues/73)
+
+
+### v0.4.3 (released on December 25th 2014)
 #### Features
 - Now by adding a value in resource you can also use it in the table scope [#69](https://github.com/Zizzamia/ng-tasty/issues/69)
 

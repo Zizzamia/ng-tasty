@@ -28,12 +28,13 @@ angular.module('ngTasty.component.table', [
     'sortBy': 'sort-by',
     'sortOrder': 'sort-order'
   },
-  listItemsPerPage: [5, 25, 50, 100],
-  itemsPerPage: 5,
   bindOnce: true,
   iconUp: 'fa fa-sort-up',
   iconDown: 'fa fa-sort-down',
-  bootstrapIcon: false
+  bootstrapIcon: false,
+  templateUrl: 'template/table/pagination.html',
+  listItemsPerPage: [5, 25, 50, 100],
+  itemsPerPage: 5
 })
 .controller('TableController', function($scope, $attrs, $filter, tableConfig, tastyUtil) {
   'use strict';
@@ -45,7 +46,8 @@ angular.module('ngTasty.component.table', [
   $scope.init = {};
   $scope.query = {};
 
-  listScopeToWatch = ['bindFilters', 'bindInit', 'bindQuery', 'bindResource', 'bindResourceCallback'];
+  listScopeToWatch = ['bindFilters', 'bindInit', 'bindQuery', 'bindResource', 
+  'bindResourceCallback'];
   listScopeToWatch.forEach(function (scopeName) {
     newScopeName = scopeName.substring(4);
     newScopeName = newScopeName.charAt(0).toLowerCase() + newScopeName.slice(1);
@@ -370,8 +372,10 @@ angular.module('ngTasty.component.table', [
       scope.bindOnce = tastyTable.bindOnce;
       scope.columns = [];
       scope.bootstrapIcon = tableConfig.bootstrapIcon;
+      scope.iconUp = tableConfig.iconUp;
+      scope.iconDown = tableConfig.iconDown;
 
-      listScopeToWatch = ['bindNotSortBy'];
+      listScopeToWatch = ['bindNotSortBy', 'bindBootstrapIcon', 'bindIconUp', 'bindIconDown'];
       listScopeToWatch.forEach(function (scopeName) {
         newScopeName = scopeName.substring(4);
         newScopeName = newScopeName.charAt(0).toLowerCase() + newScopeName.slice(1);
@@ -416,14 +420,14 @@ angular.module('ngTasty.component.table', [
               isSorted = '';
               isSortedCaret = 'caret';
             } else {
-              isSorted = tableConfig.iconDown;
+              isSorted = scope.iconDown;
             }
           } else if (scope.header.sortBy === sort) {
             if (tableConfig.bootstrapIcon) {
               isSorted = 'dropup';
               isSortedCaret = 'caret';
             } else {
-              isSorted = tableConfig.iconUp;
+              isSorted = scope.iconUp;
             }
           }
           scope.columns.push({
@@ -502,7 +506,7 @@ angular.module('ngTasty.component.table', [
     require: '^tastyTable',
     scope: {},
     templateUrl: function(tElement, tAttrs) {
-      return tAttrs.templateUrl || 'template/table/pagination.html';
+      return tAttrs.templateUrl || tableConfig.templateUrl;
     },
     link: function postLink(scope, element, attrs, tastyTable) {
       'use strict';
