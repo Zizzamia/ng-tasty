@@ -127,6 +127,15 @@ app.get('/service/debounce.html', function(req, res) {
   res.render('template/service/debounce.html', { base: base, ngTasty: ngTasty, title: title });
 });
 
+app.get('/service/throttle', function(req, res) {
+  title = '#ngTasty - AngularJS throttle service';
+  res.render('template/index.html', { base: base, ngTasty: ngTasty, title: title });
+});
+app.get('/service/throttle.html', function(req, res) {
+  title = '#ngTasty - AngularJS throttle service';
+  res.render('template/service/throttle.html', { base: base, ngTasty: ngTasty, title: title });
+});
+
 app.get('/service/websocket', function(req, res) {
   title = '#ngTasty - AngularJS websocket service';
   res.render('template/index.html', { base: base, ngTasty: ngTasty, title: title });

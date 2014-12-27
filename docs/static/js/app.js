@@ -10,6 +10,7 @@ angular.module('myApp', [
   'myApp.pages.tableServerSide',
   'myApp.pages.filter',
   'myApp.pages.debounce',
+  'myApp.pages.throttle',
   'myApp.pages.webSocket'
 ])
 .config(function ($locationProvider, $routeProvider) {
@@ -53,6 +54,11 @@ angular.module('myApp', [
     controller: 'DebounceCtrl',
     templateUrl: 'service/debounce.html',
     title: '#ngTasty - AngularJS debounce service'
+  })
+  .when('/service/throttle', {
+    controller: 'ThrottleCtrl',
+    templateUrl: 'service/throttle.html',
+    title: '#ngTasty - AngularJS throttle service'
   })
   .when('/service/websocket', {
     controller: 'WebSocketCtrl',
