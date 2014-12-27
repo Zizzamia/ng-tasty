@@ -259,6 +259,7 @@ describe('Component: table', function () {
 
 
   describe('withs sorting', function () {
+
     beforeEach(inject(function ($rootScope, $compile, _sortingJSON_) {
       $scope = $rootScope.$new();
       $scope.resource = angular.copy(_sortingJSON_);
@@ -1497,4 +1498,71 @@ describe('Component: table', function () {
       expect(element.scope().paginationDirective).toEqual(false);
     });
   });
+
+  describe('withs tableConfig changed', function () {
+    beforeEach(function () {
+      angular.mock.module('ngTasty.component.table', function ($provide) {
+        $provide.constant("tableConfig", {
+          init: {
+            'count': 5,
+            'page': 1,
+            'sortBy': undefined,
+            'sortOrder': undefined
+          },
+          query: {
+            'page': 'page',
+            'count': 'count',
+            'sortBy': 'sort-by',
+            'sortOrder': 'sort-order'
+          },
+          listItemsPerPage: [5, 25, 50, 100],
+          itemsPerPage: 5,
+          bindOnce: true,
+          iconUp: 'fa fa-sort-up',
+          iconDown: 'fa fa-sort-down',
+          bootstrapIcon: true
+        });
+      });
+    });
+
+    beforeEach(inject(function ($rootScope, $compile, _sortingJSON_) {
+      $scope = $rootScope.$new();
+      $scope.resource = angular.copy(_sortingJSON_);
+      element = angular.element(''+
+      '<table tasty-table bind-resource="resource">'+
+      '  <thead tasty-thead></thead>'+
+      '  <tbody>'+
+      '    <tr ng-repeat="row in rows">'+
+      '      <td>{{ row.name }}</td>'+
+      '      <td>{{ row.star }}</td>'+
+      '      <td>{{ row[\'sf-Location\'] }}</td>'+
+      '    </tr>'+
+      '  </tbody>'+
+      '</table>');
+      tastyTable = $compile(element)($scope);
+      tastyThead = tastyTable.find('[tasty-thead=""]');
+      $scope.$digest();
+    }));
+
+    it('should return true or false to indicate if a specific key is sorted up', function () {
+      field = {'key': 'star', 'name': 'star', 'sortable': true};
+      tastyThead.isolateScope().sortBy(field);
+      $scope.$digest();
+      expect(tastyThead.isolateScope().columns[1].isSorted).toEqual('dropup');
+      tastyThead.isolateScope().sortBy(field);
+      $scope.$digest();
+      expect(tastyThead.isolateScope().columns[1].isSorted).toEqual('');
+    });
+
+    it('should return true or false to indicate if a specific key is sorted down', function () {
+      field = {'key': 'star', 'name': 'star', 'sortable': true};
+      tastyThead.isolateScope().sortBy(field);
+      $scope.$digest();
+      expect(tastyThead.isolateScope().columns[1].isSorted).toEqual('dropup');
+      tastyThead.isolateScope().sortBy(field);
+      $scope.$digest();
+      expect(tastyThead.isolateScope().columns[1].isSorted).toEqual('');
+    });
+  });
+
 });
