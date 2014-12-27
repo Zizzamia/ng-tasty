@@ -1,5 +1,6 @@
-describe('Component ngTasty table', function () {
-  'use strict';
+'use strict';
+
+describe('Component: table', function () {
   var $rootScope, $scope, $httpBackend, $compile;
   var element, params, urlToCall, filters, createDirective, field, elm,
   elementSelected, expected, completeJSON, sortingJSON, paginationJSON,

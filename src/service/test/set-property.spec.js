@@ -1,17 +1,18 @@
-describe('Service setProperty', function () {
-  'use strict';
-  var setProperty, obj1, obj2, experctedObj;
+'use strict';
 
+describe('Service: setProperty', function () {
+
+  // load the service's module
   beforeEach(module('ngTasty.service.setProperty'));
 
-  beforeEach(function () {
-    inject(function (_setProperty_) {
-      setProperty = _setProperty_;
-    });
-  });
+  // instantiate service
+  var setProperty, obj1, obj2, experctedObj;
+  beforeEach(inject(function (_setProperty_) {
+    setProperty = _setProperty_;
+  }));
 
-  it('should be service', function () {
-    expect(setProperty).not.toBeNull();
+  it('should do something', function () {
+    expect(!!setProperty).toBe(true);
   });
 
   it('should return the origin object', function () {
@@ -61,4 +62,5 @@ describe('Service setProperty', function () {
       'is-in-new-york': false
     });
   });
+
 });

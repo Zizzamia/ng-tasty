@@ -1,17 +1,18 @@
-describe('Service tastyUtil', function () {
-  'use strict';
-  var tastyUtil;
+'use strict';
 
+describe('Service: tastyUtil', function () {
+
+  // load the service's module
   beforeEach(module('ngTasty.service.tastyUtil'));
   
-  beforeEach(function () {
-    inject(function (_tastyUtil_) {
-      tastyUtil = _tastyUtil_;
-    });
-  });
+  // instantiate service
+  var tastyUtil;
+  beforeEach(inject(function (_tastyUtil_) {
+    tastyUtil = _tastyUtil_;
+  }));
 
-  it('should be service"', function () {
-    expect(tastyUtil).not.toBeNull();
+  it('should do something"', function () {
+    expect(!!tastyUtil).toBe(true);
   });
 
   it('should be contain the debounce service"', function () {
@@ -25,4 +26,5 @@ describe('Service tastyUtil', function () {
   it('should be contain the joinObjects service"', function () {
     expect(tastyUtil.joinObjects).not.toBeNull();
   });
+
 });

@@ -1,6 +1,7 @@
 /**
- * @ngdoc 
- * @name 
+ * @ngdoc service
+ * @name ngTasty.service.bindTo
+ * @description
  *
  */
 angular.module('ngTasty.service.bindTo', [])

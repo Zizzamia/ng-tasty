@@ -1,6 +1,7 @@
 /**
- * @ngdoc 
- * @name 
+ * @ngdoc service
+ * @name ngTasty.service.joinObjects
+ * @description
  *
  */
 angular.module('ngTasty.service.joinObjects', ['ngTasty.service.setProperty'])

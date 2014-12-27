@@ -7,7 +7,7 @@
     "blueimp-md5": "^1.1.0",
     "chalk": "^0.5.1",
     "ejs": "~1.0.0",
-    "exec": "^0.1.2",
+    "exec": "0.1.2",
     "express": "3.x",
     "generator-ngtasty": "^0.1.0",
     "gulp": "^3.8.7",

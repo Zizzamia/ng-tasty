@@ -1,23 +1,20 @@
-describe('Filter', function () {
-  'use strict';
+'use strict';
+
+describe('Filter: cleanFieldName', function () {
 
   beforeEach(module('ngTasty.filter.cleanFieldName'));
 
-  describe('cleanFieldName', function() {
-    var cleanFieldName;
+  var cleanFieldName;
+  beforeEach(inject(function($filter) {
+    cleanFieldName = $filter('cleanFieldName');
+  }));
 
-    beforeEach(function () {
-      inject(function($filter) {
-        cleanFieldName = $filter('cleanFieldName');
-      });
-    });
-
-    it('has a cleanFieldName filter', function () {
-      expect(cleanFieldName).not.toBeNull();
-    });
-
-    it('should return ...', function () {
-      expect(cleanFieldName('SF Location')).toEqual('SF-Location');
-    });
+  it('has a cleanFieldName filter', function () {
+    expect(cleanFieldName).not.toBeNull();
   });
+
+  it('should return ...', function () {
+    expect(cleanFieldName('SF Location')).toEqual('SF-Location');
+  });
+
 });

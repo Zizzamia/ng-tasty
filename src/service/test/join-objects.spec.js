@@ -1,16 +1,18 @@
-describe('Service joinObjects', function () {
-  'use strict';
-  var joinObjects;
+'use strict';
 
+describe('Service: joinObjects', function () {
+  
+  // load the service's module
   beforeEach(module('ngTasty.service.joinObjects'));
 
-  beforeEach(function () {
-    inject(function (_joinObjects_) {
-      joinObjects = _joinObjects_;
-    });
+  // instantiate service
+  var joinObjects;
+  beforeEach(inject(function (_joinObjects_) {
+    joinObjects = _joinObjects_;
+  }));
+
+  it('should do something', function () {
+    expect(!!joinObjects).toBe(true);
   });
 
-  it('should be service', function () {
-    expect(joinObjects).not.toBeNull();
-  });
 });

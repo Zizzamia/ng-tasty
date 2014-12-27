@@ -1,5 +1,11 @@
+/**
+ * @ngdoc service
+ * @name ngTasty.service.webSocket
+ * @description
+ * # webSocket
+ * Factory in ngTasty.
+ */
 angular.module('ngTasty.service.webSocket', [])
-
 .factory('webSocket', function() {
   return function(url) {
     var blobURL = URL.createObjectURL(new Blob(['(', function() {

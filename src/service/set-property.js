@@ -1,6 +1,7 @@
 /**
- * @ngdoc 
- * @name 
+ * @ngdoc service
+ * @name ngTasty.service.setProperty
+ * @description
  *
  */
 angular.module('ngTasty.service.setProperty', [])

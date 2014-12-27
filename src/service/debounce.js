@@ -1,6 +1,7 @@
 /**
- * @ngdoc 
- * @name 
+ * @ngdoc service
+ * @name ngTasty.service.debounce
+ * @description
  *
  */
 angular.module('ngTasty.service.debounce', [])
