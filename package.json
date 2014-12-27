@@ -5,9 +5,11 @@
   "main": "index.js",
   "devDependencies": {
     "blueimp-md5": "^1.1.0",
+    "chalk": "^0.5.1",
     "ejs": "~1.0.0",
     "exec": "^0.1.2",
     "express": "3.x",
+    "generator-ngtasty": "^0.1.0",
     "gulp": "^3.8.7",
     "gulp-clean": "^0.3.1",
     "gulp-concat": "2.3.4",
@@ -35,7 +37,8 @@
     "streamqueue": "^0.1.1",
     "twit": "^1.1.18",
     "underscore": "1.6.0",
-    "ws": "^0.5.0"
+    "ws": "^0.5.0",
+    "yeoman-generator": "^0.18.5"
   },
   "scripts": {
     "start": "node docs/server.js port=3000",

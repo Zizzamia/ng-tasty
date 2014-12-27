@@ -25,6 +25,10 @@
           <a href="<%= base %>/" ng-class="{active:page == 'home'}">Quick Start</a>
         </li>
         <li>
+          <a href="<%= base %>/contribute" 
+            ng-class="{active:page == 'contribute'}">Contribute</a>
+        </li>
+        <li>
           <a href="<%= base %>/make-your-own" 
             ng-class="{active:page == 'MakeYourOwn'}">Make your own</a>
         </li>
@@ -86,6 +90,7 @@
   <script src="<%= base %>/static/js/app.js"></script>
   <script src="<%= base %>/static/js/pages/app.js"></script>
   <script src="<%= base %>/static/js/pages/home.js"></script>
+  <script src="<%= base %>/static/js/pages/contribute.js"></script>
   <script src="<%= base %>/static/js/pages/make-your-own.js"></script>
   <script src="<%= base %>/static/js/pages/table.js"></script>
   <script src="<%= base %>/static/js/pages/table-server-side.js"></script>

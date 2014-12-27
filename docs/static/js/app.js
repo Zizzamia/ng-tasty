@@ -4,6 +4,7 @@ angular.module('myApp', [
   'ui.bootstrap',
   'myApp.pages.app',
   'myApp.pages.home',
+  'myApp.pages.contribute',
   'myApp.pages.makeYourOwn',
   'myApp.pages.table',
   'myApp.pages.tableServerSide',
@@ -17,6 +18,11 @@ angular.module('myApp', [
     controller: 'HomeCtrl',
     templateUrl: 'home.html',
     title: '#ngTasty'
+  })
+  .when('/contribute', {
+    controller: 'ContributeCtrl',
+    templateUrl: 'contribute.html',
+    title: '#ngTasty - Contribute'
   })
   .when('/make-your-own', {
     controller: 'MakeYourOwnCtrl',

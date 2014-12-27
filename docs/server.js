@@ -70,6 +70,14 @@ app.get('/home.html', function(req, res){
   res.render('template/home.html', { base: base, ngTasty: ngTasty });
 });
 
+app.get('/contribute', function(req, res){
+  title = '#ngTasty - Contribute';
+  res.render('template/index.html', { base: base, ngTasty: ngTasty, title:title });
+});
+app.get('/contribute.html', function(req, res){
+  res.render('template/contribute.html', { base: base, ngTasty: ngTasty });
+});
+
 app.get('/make-your-own', function(req, res){
   title = '#ngTasty - Make your own tasty collection';
   res.render('template/index.html', { base: base, ngTasty: ngTasty, title:title });
