@@ -4,7 +4,7 @@
  * @kind function
  *
  */
-angular.module('ngTasty.filter.filterCamelize', [])
+angular.module('ngTasty.filter.camelize', [])
 .filter('camelize', function() {
   return function (input) {
 	  var isString = typeof input === 'string';
