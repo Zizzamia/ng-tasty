@@ -1,0 +1,35 @@
+<%= include ../title-inside.html %>
+<div class="page-header">
+  <h2>Camelize<small>
+  (<a target="_blank" 
+  href="https://github.com/Zizzamia/ng-tasty/blob/master/src/filter/camelize.js">ngTasty.filter.camelize</a>)
+  </small></h2>
+</div>
+<div class="row">
+  <div class="col-xs-6">
+    <p><b ng-bind="txt1 | camelize"></b></p>
+    <p><b ng-bind="txt2 | camelize"></b></p>
+    <p><b ng-bind="txt3 | camelize"></b></p>
+  </div>
+  <div class="col-xs-6">
+    <p>An Camelizing filter.</p>
+  </div>
+  <div class="col-xs-12">
+    <tabset class="code">
+      <tab heading="Markup">
+        <div>
+<pre ng-non-bindable><code data-language="html"><p><b ng-bind="txt1 | camelize"></b></p>
+<p><b ng-bind="txt2 | camelize"></b></p>
+<p><b ng-bind="txt3 | camelize"></b></p></code></pre>
+        </div>
+      </tab>
+      <tab heading="Javascript">
+        <div>
+<pre ng-non-bindable><code data-language="javascript">$scope.txt1 = 'hey_there';
+$scope.txt2 = 'look-at-this';
+$scope.txt3 = 'this_is_awesome';</code></pre>
+        </div>
+      </tab>
+    </tabset>
+  </div>
+</div>
