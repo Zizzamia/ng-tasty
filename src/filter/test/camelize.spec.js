@@ -2,7 +2,7 @@
 
 describe('Filter: filterCamelize', function () {
 
-  beforeEach(module('ngTasty.filter.filterCamelize'));
+  beforeEach(module('ngTasty.filter.camelize'));
 
   var camelize;
   beforeEach(inject(function($filter) {
