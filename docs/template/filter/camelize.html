@@ -9,7 +9,7 @@
   <div class="col-xs-6">
     <p><b ng-bind="txt1 | camelize"></b></p>
     <p><b ng-bind="txt2 | camelize"></b></p>
-    <p><b ng-bind="txt3 | camelize"></b></p>
+    <p><b ng-bind="txt3 | camelize:true"></b></p>
   </div>
   <div class="col-xs-6">
     <p>An Camelizing filter.</p>
@@ -20,7 +20,7 @@
         <div>
 <pre ng-non-bindable><code data-language="html"><p><b ng-bind="txt1 | camelize"></b></p>
 <p><b ng-bind="txt2 | camelize"></b></p>
-<p><b ng-bind="txt3 | camelize"></b></p></code></pre>
+<p><b ng-bind="txt3 | camelize:true"></b></p></code></pre>
         </div>
       </tab>
       <tab heading="Javascript">
