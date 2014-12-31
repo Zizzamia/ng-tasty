@@ -36,7 +36,12 @@ describe('Filter: camelize', function () {
 	  expect(camelize('test_long_string_')).toBe('testLongString_');
   });
   
-    
+  it('should deal with (multiple) spaces', function () {
+	  expect(camelize('the camelize string method')).toBe('theCamelizeStringMethod');
+	  expect(camelize(' the camelize  string method')).toBe('theCamelizeStringMethod');
+	  expect(camelize('the camelize   string method')).toBe('theCamelizeStringMethod');
+  });
+  
   it('should return empty strings for empty/weird inputs', function () {
 	expect(camelize('')).toBe('');
     expect(camelize(null)).toBe('');
