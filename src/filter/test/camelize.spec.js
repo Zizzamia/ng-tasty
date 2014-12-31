@@ -38,8 +38,8 @@ describe('Filter: camelize', function () {
   
   it('should deal with (multiple) spaces', function () {
 	  expect(camelize('the camelize string method')).toBe('theCamelizeStringMethod');
-	  expect(camelize(' the camelize  string method')).toBe('theCamelizeStringMethod');
-	  expect(camelize('the camelize   string method')).toBe('theCamelizeStringMethod');
+	  expect(camelize(' the-camelize  string method')).toBe('theCamelizeStringMethod');
+	  expect(camelize('the camelize   string_method')).toBe('theCamelizeStringMethod');
   });
   
   it('should return empty strings for empty/weird inputs', function () {
