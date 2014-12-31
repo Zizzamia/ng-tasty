@@ -14,18 +14,26 @@ describe('Filter: camelize', function () {
   });
 
   it('should return camelized strings', function () {
-	expect(camelize('test')).toBe('Test');
-    expect(camelize('test_string')).toBe('TestString');
-    expect(camelize('test-string')).toBe('TestString');  
-    expect(camelize('test_long_string')).toBe('TestLongString');  
-    expect(camelize('test-long-string')).toBe('TestLongString');      
+	expect(camelize('test')).toBe('test');
+    expect(camelize('test_string')).toBe('testString');
+    expect(camelize('test-string')).toBe('testString');  
+    expect(camelize('test_long_string')).toBe('testLongString');  
+    expect(camelize('test-long-string')).toBe('testLongString');      
+  });
+  
+  it('should return totally camelized strings with a first=true parameter', function () {
+	expect(camelize('test', true)).toBe('Test');
+    expect(camelize('test_string', true)).toBe('TestString');
+    expect(camelize('test-string', true)).toBe('TestString');  
+    expect(camelize('test_long_string', true)).toBe('TestLongString');  
+    expect(camelize('test-long-string', true)).toBe('TestLongString');      
   });
   
   it('should not camelize trailing underscores', function () {
 	  expect(camelize('_test_string')).toBe('_testString');
 	  expect(camelize('_test_long_string')).toBe('_testLongString');
-	  expect(camelize('test_string_')).toBe('TestString_');
-	  expect(camelize('test_long_string_')).toBe('TestLongString_');
+	  expect(camelize('test_string_')).toBe('testString_');
+	  expect(camelize('test_long_string_')).toBe('testLongString_');
   });
   
     

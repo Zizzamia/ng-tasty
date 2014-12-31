@@ -4,10 +4,12 @@
  * @kind function
  *
  */
+var CAMELIZE_REGEX = /(?:^|[-_])(\w)/g;
 angular.module('ngTasty.filter.camelize', [])
 .filter('camelize', function() {
-  return function (input) {
-	  var isString = typeof input === 'string';
+  return function (input, first) {
+	  var isString = typeof input === 'string',
+	  	  first = typeof first === 'undefined' ? false : !!first;
 	  
 	  if(typeof input === 'undefined' || input === null || (!isString && isNaN(input)) ) {
 		  return '';
@@ -17,8 +19,8 @@ angular.module('ngTasty.filter.camelize', [])
 		  return '' + input;
 	  }
 	  
-	  return input.replace(/(?:^|[-_])(\w)/g, function (_, c) {
-		return c ? c.toUpperCase () : '';
+	  return input.replace(CAMELIZE_REGEX, function (_, c, pos) {
+		return c && (first || pos > 0) ? c.toUpperCase () : c;
 	  });
   };
 });
