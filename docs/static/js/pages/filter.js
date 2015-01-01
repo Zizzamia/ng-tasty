@@ -23,3 +23,15 @@ angular.module('myApp.pages.filter', [])
     Rainbow.color();
   });
 })
+.controller('CamelizeCtrl', function($rootScope, $scope, $http, $timeout) {
+
+  $rootScope.page = 'camelize';
+
+  $scope.txt1 = 'hey_there';
+  $scope.txt2 = 'look-at-this';
+  $scope.txt3 = 'this_is_awesome';
+
+  $timeout(function () {
+    Rainbow.color();
+  });
+})

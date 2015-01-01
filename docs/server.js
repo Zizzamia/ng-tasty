@@ -118,6 +118,14 @@ app.get('/filter/range.html', function(req, res){
   res.render('template/filter/range.html', { base: base, ngTasty: ngTasty });
 });
 
+app.get('/filter/camelize', function(req, res){
+  title = '#ngTasty - AngularJS camelize filter';
+  res.render('template/index.html', { base: base, ngTasty: ngTasty, title:title });
+});
+app.get('/filter/camelize.html', function(req, res){
+  res.render('template/filter/camelize.html', { base: base, ngTasty: ngTasty });
+});
+
 app.get('/service/debounce', function(req, res) {
   title = '#ngTasty - AngularJS debounce service';
   res.render('template/index.html', { base: base, ngTasty: ngTasty, title: title });
