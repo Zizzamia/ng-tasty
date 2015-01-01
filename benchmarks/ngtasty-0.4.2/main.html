@@ -1,16 +1,13 @@
 <div class="container-fluid">
   <div class="row" ng-app="eventDelegationBenchmark">
     <div class="col-lg-12" ng-controller="DataController">
-      <p>Impact of event delegation.</p>
+      <p>Large table rendered with AngularJS</p>
 
-      <p>
-        <div class="radio">
-          <label>
-            <input type=radio ng-model="benchmarkType" 
-            value="directiveInterpolation">baseline: text interpolation
-          </label>
-        </div>
-      </p>
+      <div>none: <input type="radio" ng-model="benchmarkType" value="none"></div>
+      <div>
+        baseline: text interpolation 
+        <input type=radio ng-model="benchmarkType" value="directiveInterpolation">
+      </div>
 
       Debug output:
       <ng-switch on="benchmarkType">

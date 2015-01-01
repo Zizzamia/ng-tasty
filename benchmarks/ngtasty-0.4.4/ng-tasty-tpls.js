@@ -2,7 +2,7 @@
  * ng-tasty
  * https://github.com/Zizzamia/ng-tasty
 
- * Version: 0.4.4 - 2014-12-29
+ * Version: 0.4.4 - 2014-12-27
  * License: MIT
  */
 angular.module("ngTasty", ["ngTasty.tpls", "ngTasty.component.table","ngTasty.filter.cleanFieldName","ngTasty.filter.filterInt","ngTasty.filter.range","ngTasty.service.bindTo","ngTasty.service.debounce","ngTasty.service.joinObjects","ngTasty.service.setProperty","ngTasty.service.tastyUtil","ngTasty.service.throttle","ngTasty.service.webSocket"]);
@@ -330,13 +330,13 @@ angular.module('ngTasty.component.table', [
     }
   });
   if ($scope.resource) {
-    $scope.$watchCollection('resource', function watchResource (newValue, oldValue){
+    $scope.$watch('resource', function watchResource (newValue, oldValue){
       if (newValue !== oldValue) {
         $scope.params.sortBy = newValue.sortBy;
         $scope.params.sortOrder = newValue.sortOrder;
         $scope.$evalAsync(updateClientSideResource('resource'));
       }
-    });
+    }, true);
   }
 }])
 .directive('tastyTable', function(){

@@ -2,10 +2,10 @@
  * ng-tasty
  * https://github.com/Zizzamia/ng-tasty
 
- * Version: 0.4.4 - 2014-12-29
+ * Version: 0.4.3 - 2014-12-25
  * License: MIT
  */
-angular.module("ngTasty", ["ngTasty.tpls", "ngTasty.component.table","ngTasty.filter.cleanFieldName","ngTasty.filter.filterInt","ngTasty.filter.range","ngTasty.service.bindTo","ngTasty.service.debounce","ngTasty.service.joinObjects","ngTasty.service.setProperty","ngTasty.service.tastyUtil","ngTasty.service.throttle","ngTasty.service.webSocket"]);
+angular.module("ngTasty", ["ngTasty.tpls", "ngTasty.component.table","ngTasty.filter.cleanFieldName","ngTasty.filter.filterInt","ngTasty.filter.range","ngTasty.service.bindTo","ngTasty.service.debounce","ngTasty.service.joinObjects","ngTasty.service.setProperty","ngTasty.service.tastyUtil","ngTasty.service.webSocket"]);
 angular.module("ngTasty.tpls", ["ngTasty.tpls.table.head","ngTasty.tpls.table.pagination"]);
 /**
  * @ngdoc directive
@@ -37,13 +37,9 @@ angular.module('ngTasty.component.table', [
     'sortBy': 'sort-by',
     'sortOrder': 'sort-order'
   },
-  bindOnce: true,
-  iconUp: 'fa fa-sort-up',
-  iconDown: 'fa fa-sort-down',
-  bootstrapIcon: false,
-  templateUrl: 'template/table/pagination.html',
   listItemsPerPage: [5, 25, 50, 100],
-  itemsPerPage: 5
+  itemsPerPage: 5,
+  bindOnce: true
 })
 .controller('TableController', ["$scope", "$attrs", "$filter", "tableConfig", "tastyUtil", function($scope, $attrs, $filter, tableConfig, tastyUtil) {
   'use strict';
@@ -55,8 +51,7 @@ angular.module('ngTasty.component.table', [
   $scope.init = {};
   $scope.query = {};
 
-  listScopeToWatch = ['bindFilters', 'bindInit', 'bindQuery', 'bindResource', 
-  'bindResourceCallback'];
+  listScopeToWatch = ['bindFilters', 'bindInit', 'bindQuery', 'bindResource', 'bindResourceCallback'];
   listScopeToWatch.forEach(function (scopeName) {
     newScopeName = scopeName.substring(4);
     newScopeName = newScopeName.charAt(0).toLowerCase() + newScopeName.slice(1);
@@ -330,13 +325,13 @@ angular.module('ngTasty.component.table', [
     }
   });
   if ($scope.resource) {
-    $scope.$watchCollection('resource', function watchResource (newValue, oldValue){
+    $scope.$watch('resource', function watchResource (newValue, oldValue){
       if (newValue !== oldValue) {
         $scope.params.sortBy = newValue.sortBy;
         $scope.params.sortOrder = newValue.sortOrder;
         $scope.$evalAsync(updateClientSideResource('resource'));
       }
-    });
+    }, true);
   }
 }])
 .directive('tastyTable', function(){
@@ -344,7 +339,7 @@ angular.module('ngTasty.component.table', [
     restrict: 'A',
     scope: true,
     controller: 'TableController',
-    link: function postLink(scope, element, attrs, tastyTable) {
+    link: function (scope, element, attrs, tastyTable) {
       if (element.find('tasty-thead').length ||
           element[0].querySelector('[tasty-thead]')) {
         tastyTable.activate('thead');
@@ -369,22 +364,19 @@ angular.module('ngTasty.component.table', [
   </table>
  *
  */
-.directive('tastyThead', ["$filter", "tableConfig", "tastyUtil", function($filter, tableConfig, tastyUtil) {
+.directive('tastyThead', ["$filter", "tastyUtil", function($filter, tastyUtil) {
   return {
     restrict: 'AE',
     require: '^tastyTable',
     scope: {},
     templateUrl: 'template/table/head.html',
-    link: function postLink(scope, element, attrs, tastyTable) {
+    link: function (scope, element, attrs, tastyTable) {
       'use strict';
-      var newScopeName, listScopeToWatch;
+      var iconUp, iconDown, newScopeName, listScopeToWatch;
       scope.bindOnce = tastyTable.bindOnce;
       scope.columns = [];
-      scope.bootstrapIcon = tableConfig.bootstrapIcon;
-      scope.iconUp = tableConfig.iconUp;
-      scope.iconDown = tableConfig.iconDown;
 
-      listScopeToWatch = ['bindNotSortBy', 'bindBootstrapIcon', 'bindIconUp', 'bindIconDown'];
+      listScopeToWatch = ['bindNotSortBy'];
       listScopeToWatch.forEach(function (scopeName) {
         newScopeName = scopeName.substring(4);
         newScopeName = newScopeName.charAt(0).toLowerCase() + newScopeName.slice(1);
@@ -399,9 +391,11 @@ angular.module('ngTasty.component.table', [
         }
       });
 
+      iconUp = 'fa fa-sort-up';
+      iconDown = 'fa fa-sort-down';
+
       scope.setColumns = function () {
-        var lenHeader, width, i, active, sortable, sort, 
-        isSorted, isSortedCaret;
+        var lenHeader, width, i, active, sortable, sort, isSorted;
         scope.columns = [];
         lenHeader = scope.header.columns.length;
         scope.header.columns.forEach(function (column, index) {
@@ -409,7 +403,6 @@ angular.module('ngTasty.component.table', [
           sortable = true;
           active = false;
           isSorted = '';
-          isSortedCaret = '';
           // Not sort column when the key is present in the `notSortBy` list,
           // and Not sort column when `notSortBy` is an empty list
           if (angular.isArray(scope.notSortBy)) {
@@ -425,19 +418,9 @@ angular.module('ngTasty.component.table', [
           }
           sort = $filter('cleanFieldName')(column.key);
           if (scope.header.sortBy === '-' + sort) {
-            if (tableConfig.bootstrapIcon) {
-              isSorted = '';
-              isSortedCaret = 'caret';
-            } else {
-              isSorted = scope.iconDown;
-            }
+            isSorted = iconDown;
           } else if (scope.header.sortBy === sort) {
-            if (tableConfig.bootstrapIcon) {
-              isSorted = 'dropup';
-              isSortedCaret = 'caret';
-            } else {
-              isSorted = scope.iconUp;
-            }
+            isSorted = iconUp;
           }
           scope.columns.push({
             'key': column.key,
@@ -445,8 +428,7 @@ angular.module('ngTasty.component.table', [
             'active': active,
             'sortable': sortable,
             'style': column.style,
-            'isSorted': isSorted,
-            'isSortedCaret': isSortedCaret
+            'isSorted': isSorted
           });
         });
         if (scope.header.sortOrder === 'dsc' && 
@@ -515,9 +497,9 @@ angular.module('ngTasty.component.table', [
     require: '^tastyTable',
     scope: {},
     templateUrl: function(tElement, tAttrs) {
-      return tAttrs.templateUrl || tableConfig.templateUrl;
+      return tAttrs.templateUrl || 'template/table/pagination.html';
     },
-    link: function postLink(scope, element, attrs, tastyTable) {
+    link: function (scope, element, attrs, tastyTable) {
       'use strict';
       var getPage, setCount, setPaginationRange, setPreviousRange, 
           setRemainingRange, setPaginationRanges, listScopeToWatch, newScopeName;
@@ -736,9 +718,8 @@ angular.module('ngTasty.filter.range', ['ngTasty.filter.filterInt'])
 }]);
 
 /**
- * @ngdoc service
- * @name ngTasty.service.bindTo
- * @description
+ * @ngdoc 
+ * @name 
  *
  */
 angular.module('ngTasty.service.bindTo', [])
@@ -779,11 +760,9 @@ angular.module('ngTasty.service.bindTo', [])
     scope.$parent.$watch($parse(attrs[scopeName], parentValueWatch), null, parentGet.literal);
   };
 }]);
-
 /**
- * @ngdoc service
- * @name ngTasty.service.debounce
- * @description
+ * @ngdoc 
+ * @name 
  *
  */
 angular.module('ngTasty.service.debounce', [])
@@ -802,9 +781,8 @@ angular.module('ngTasty.service.debounce', [])
 }]);
 
 /**
- * @ngdoc service
- * @name ngTasty.service.joinObjects
- * @description
+ * @ngdoc 
+ * @name 
  *
  */
 angular.module('ngTasty.service.joinObjects', ['ngTasty.service.setProperty'])
@@ -821,9 +799,8 @@ angular.module('ngTasty.service.joinObjects', ['ngTasty.service.setProperty'])
 }]);
 
 /**
- * @ngdoc service
- * @name ngTasty.service.setProperty
- * @description
+ * @ngdoc 
+ * @name 
  *
  */
 angular.module('ngTasty.service.setProperty', [])
@@ -838,9 +815,8 @@ angular.module('ngTasty.service.setProperty', [])
 });
 
 /**
- * @ngdoc service
- * @name ngTasty.service.tastyUtil
- * @description
+ * @ngdoc 
+ * @name 
  *
  */
 angular.module('ngTasty.service.tastyUtil', [
@@ -848,60 +824,20 @@ angular.module('ngTasty.service.tastyUtil', [
   'ngTasty.service.debounce',
   'ngTasty.service.setProperty',
   'ngTasty.service.joinObjects',
-  'ngTasty.service.throttle',
   'ngTasty.service.webSocket'
 ])
-.factory('tastyUtil', ["debounce", "setProperty", "joinObjects", "bindTo", "webSocket", "throttle", function(debounce, setProperty, joinObjects, 
-  bindTo, webSocket, throttle) {
+.factory('tastyUtil', ["debounce", "setProperty", "joinObjects", "bindTo", "webSocket", function(debounce, setProperty, joinObjects, bindTo, webSocket) {
   return {
     'bindTo': bindTo,
     'debounce': debounce,
     'setProperty': setProperty,
     'joinObjects': joinObjects,
-    'throttle': throttle,
     'webSocket': webSocket
   };
 }]);
 
-/**
- * @ngdoc service
- * @name ngTasty.service.throttle
- * @description
- * # throttle
- * Factory in ngTasty.
- */
-angular.module('ngTasty.service.throttle', [])
-.factory('throttle', ["$timeout", function ($timeout) {
-  return function (fn, threshhold, scope) {
-    threshhold || (threshhold = 250);
-    var last, promise;
-    return function () {
-      var context = scope || this;
-      var now = +new Date,
-          args = arguments;
-      if (last && now < last + threshhold) {
-        // hold on to it
-        $timeout.cancel(promise);
-        promise = $timeout(function () {
-          last = now;
-          fn.apply(context, args);
-        }, threshhold);
-      } else {
-        last = now;
-        fn.apply(context, args);
-      }
-    };
-  };
-}]);
-
-/**
- * @ngdoc service
- * @name ngTasty.service.webSocket
- * @description
- * # webSocket
- * Factory in ngTasty.
- */
 angular.module('ngTasty.service.webSocket', [])
+
 .factory('webSocket', function() {
   return function(url) {
     var blobURL = URL.createObjectURL(new Blob(['(', function() {
@@ -983,9 +919,7 @@ module.run(['$templateCache', function($templateCache) {
     '  ng-class="classToShow(column)"\n' +
     '  ng-style="::column.style" ng-click="sortBy(column)">\n' +
     '    <span ng-bind="::column.name"></span>\n' +
-    '    <span ng-class="column.isSorted">\n' +
-    '      <span ng-class="column.isSortedCaret" ng-if="::bootstrapIcon"></span>\n' +
-    '    </span>\n' +
+    '    <span ng-class="column.isSorted"></span>\n' +
     '  </th> \n' +
     '</tr>');
 }]);

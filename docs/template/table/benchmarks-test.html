@@ -1,0 +1,17 @@
+<div>
+  <div tasty-table bind-resource="resource">
+      <table class="table table-striped table-condensed">
+        <thead tasty-thead></thead>
+        <tbody>
+          <tr ng-repeat="row in rows">
+            <td>{{ row.name }}</td>
+            <td>{{ row.star }}</td>
+            <td>{{ row['sf-location'] }}</td>
+          </tr>
+        </tbody>
+      </table>
+      <div tasty-pagination bind-items-per-page="itemsPerPage" 
+      bind-list-items-per-page="listItemsPerPage"></div>
+    </div>
+  </div>
+</div>
