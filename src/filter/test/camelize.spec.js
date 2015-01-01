@@ -6,7 +6,7 @@ describe('Filter: camelize', function () {
 
   var camelize;
   beforeEach(inject(function($filter) {
-	  camelize = $filter('camelize');
+    camelize = $filter('camelize');
   }));
 
   it('has a filterCamelize filter', function () {
@@ -14,7 +14,7 @@ describe('Filter: camelize', function () {
   });
 
   it('should return camelized strings', function () {
-	expect(camelize('test')).toBe('test');
+    expect(camelize('test')).toBe('test');
     expect(camelize('test_string')).toBe('testString');
     expect(camelize('test-string')).toBe('testString');  
     expect(camelize('test_long_string')).toBe('testLongString');  
@@ -22,7 +22,7 @@ describe('Filter: camelize', function () {
   });
   
   it('should return totally camelized strings with a first=true parameter', function () {
-	expect(camelize('test', true)).toBe('Test');
+    expect(camelize('test', true)).toBe('Test');
     expect(camelize('test_string', true)).toBe('TestString');
     expect(camelize('test-string', true)).toBe('TestString');  
     expect(camelize('test_long_string', true)).toBe('TestLongString');  
@@ -30,20 +30,20 @@ describe('Filter: camelize', function () {
   });
   
   it('should not camelize trailing underscores', function () {
-	  expect(camelize('_test_string')).toBe('_testString');
-	  expect(camelize('_test_long_string')).toBe('_testLongString');
-	  expect(camelize('test_string_')).toBe('testString_');
-	  expect(camelize('test_long_string_')).toBe('testLongString_');
+    expect(camelize('_test_string')).toBe('_testString');
+    expect(camelize('_test_long_string')).toBe('_testLongString');
+    expect(camelize('test_string_')).toBe('testString_');
+    expect(camelize('test_long_string_')).toBe('testLongString_');
   });
   
   it('should deal with (multiple) spaces', function () {
-	  expect(camelize('the camelize string method')).toBe('theCamelizeStringMethod');
-	  expect(camelize(' the-camelize  string method')).toBe('theCamelizeStringMethod');
-	  expect(camelize('the camelize   string_method')).toBe('theCamelizeStringMethod');
+    expect(camelize('the camelize string method')).toBe('theCamelizeStringMethod');
+    expect(camelize(' the-camelize  string method')).toBe('theCamelizeStringMethod');
+    expect(camelize('the camelize   string_method')).toBe('theCamelizeStringMethod');
   });
   
   it('should return empty strings for empty/weird inputs', function () {
-	expect(camelize('')).toBe('');
+    expect(camelize('')).toBe('');
     expect(camelize(null)).toBe('');
     expect(camelize(undefined)).toBe('');
     expect(camelize()).toBe('');
@@ -52,7 +52,7 @@ describe('Filter: camelize', function () {
   });
   
   it('should stringify non-string values', function () {
-	expect(camelize(0)).toBe('0');
+    expect(camelize(0)).toBe('0');
     expect(camelize(1)).toBe('1');
     expect(camelize(-1)).toBe('-1');
     expect(camelize(Infinity)).toBe('Infinity'); 
