@@ -32,23 +32,23 @@ describe('Component: table', function () {
       expect(errorFunctionWrapper).toThrow(expected);
     });
 
-    it('should return a throw message if the bind-resource set it\'s undefined', function () {
+    it('should return a throw message if the bind-resource set is undefined', function () {
       function errorFunctionWrapper() {
         element = angular.element('<div tasty-table bind-resource="getResource"></div>');
         $compile(element)($scope);
         $scope.$digest();
       }
-      expected = 'AngularJS tastyTable directive: the bind-resource (getResource) it\'s not an object';
+      expected = 'AngularJS tastyTable directive: the bind-resource (getResource) is not an object';
       expect(errorFunctionWrapper).toThrow(expected);
     });
 
-    it('should return a throw message if the bind-resource-callback set it\'s undefined', function () {
+    it('should return a throw message if the bind-resource-callback set is undefined', function () {
       function errorFunctionWrapper() {
         element = angular.element('<div tasty-table bind-resource-callback="getResource"></div>');
         $compile(element)($scope);
         $scope.$digest();
       }
-      expected = 'AngularJS tastyTable directive: the bind-resource-callback (getResource) it\'s not a function';
+      expected = 'AngularJS tastyTable directive: the bind-resource-callback (getResource) is not a function';
       expect(errorFunctionWrapper).toThrow(expected);
     });
   });
@@ -92,7 +92,7 @@ describe('Component: table', function () {
         $httpBackend.flush();
         $scope.$digest();
       }
-      expected = 'AngularJS tastyTable directive: the bind-resource it\'s not an object';
+      expected = 'AngularJS tastyTable directive: the bind-resource is not an object';
       expect(errorFunctionWrapper).toThrow(expected);
     });
   });

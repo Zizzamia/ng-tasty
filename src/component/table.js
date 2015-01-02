@@ -105,7 +105,7 @@ angular.module('ngTasty.component.table', [
   if (angular.isDefined($attrs.bindResource)) {
     if (!angular.isObject($scope.resource)) {
       throw 'AngularJS tastyTable directive: the bind-resource ('+
-        $attrs.bindResource + ') it\'s not an object';
+        $attrs.bindResource + ') is not an object';
     } else if (!$scope.resource.header && !$scope.resource.rows) {
       throw 'AngularJS tastyTable directive: the bind-resource ('+
         $attrs.bindResource + ') has the property header or rows undefined';
@@ -114,7 +114,7 @@ angular.module('ngTasty.component.table', [
   if (angular.isDefined($attrs.bindResourceCallback)) {
     if (!angular.isFunction($scope.resourceCallback)) {
       throw 'AngularJS tastyTable directive: the bind-resource-callback ('+
-        $attrs.bindResourceCallback + ') it\'s not a function';
+        $attrs.bindResourceCallback + ') is not a function';
     }
     $scope.clientSide = false;
   }   
@@ -137,17 +137,17 @@ angular.module('ngTasty.component.table', [
 
   this.initTable = function (keyDirective) {
     initStatus[keyDirective] = true;
-    if (!$scope.theadDirective && !$scope.paginationDirective) {
+    if (!$scope.theadDirective && !$scope.paginationDirective) { // None of them
       this.start = true;
-    } else if ($scope.theadDirective && $scope.paginationDirective) {
+    } else if ($scope.theadDirective && $scope.paginationDirective) { // Both directives
       if (initStatus.thead && initStatus.pagination){
         this.start = true;
       }
-    } else if ($scope.theadDirective && !$scope.paginationDirective) {
+    } else if ($scope.theadDirective && !$scope.paginationDirective) { // Only Thead directive
       if (initStatus.thead){
         this.start = true;
       }
-    } else if (!$scope.theadDirective && $scope.paginationDirective) {
+    } else if (!$scope.theadDirective && $scope.paginationDirective) { // Only Pagination directive
       if (initStatus.pagination){
         this.start = true;
       }
@@ -176,7 +176,7 @@ angular.module('ngTasty.component.table', [
   setDirectivesValues = function (resource) {
     if (!angular.isObject(resource)) {
       throw 'AngularJS tastyTable directive: the bind-resource '+
-            'it\'s not an object';
+            'is not an object';
     } else if (!resource.header && !resource.rows) {
       throw 'AngularJS tastyTable directive: the bind-resource '+
             'has the property header or rows undefined';
