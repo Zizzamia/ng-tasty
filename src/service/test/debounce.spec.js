@@ -22,7 +22,7 @@ describe('Service: debounce', function () {
       count += 1;
     }, 100);
     expect(count).toBe(0);
-    $timeout.flush(50);
+    plus();
     expect(count).toBe(0);
   });
 

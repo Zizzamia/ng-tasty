@@ -10,14 +10,14 @@ angular.module('ngTasty.service.throttle', [])
   return function (fn, threshhold, scope) {
     threshhold || (threshhold = 250);
     var last, promise;
-    return function () {
+    return function throttle () {
       var context = scope || this;
       var now = +new Date,
           args = arguments;
       if (last && now < last + threshhold) {
         // hold on to it
         $timeout.cancel(promise);
-        promise = $timeout(function () {
+        promise = $timeout(function throttleTimeout () {
           last = now;
           fn.apply(context, args);
         }, threshhold);
