@@ -1,7 +1,8 @@
 'use strict';
 
 var _ = require('underscore');
-var md5 = require("blueimp-md5").md5;
+var md5 = require('blueimp-md5').md5;
+var camelCase = require('camel-case');
 var gulp = require('gulp'); 
 var clean = require('gulp-clean');
 var concat = require("gulp-concat");
@@ -13,13 +14,14 @@ var karma = require('gulp-karma');
 var ngAnnotate = require('gulp-ng-annotate');
 var ngcompile = require('gulp-ngcompile');
 var rename = require('gulp-rename');
+var sourcemaps = require('gulp-sourcemaps');
 var tap = require('gulp-tap');
 var uglify = require('gulp-uglify');
 var gutil = require('gulp-util');
 var zip = require('gulp-zip');
 var moment = require('moment');
+var path = require('path');
 var runSequence = require('run-sequence');
-var sourcemaps = require('gulp-sourcemaps');
 var fs = require('fs');
 var pkg = require('./package.json');
 
@@ -44,10 +46,6 @@ var banner = ['/*',
 var srcModules = [];
 var tplModules = [];
 
-var getExtension = function (filename) {
-  var i = filename.lastIndexOf('.');
-  return (i < 0) ? '' : filename.substr(i);
-}
 
 var capitaliseFirstLetter = function (string) {
   return string.charAt(0).toUpperCase() + string.slice(1);
@@ -55,11 +53,7 @@ var capitaliseFirstLetter = function (string) {
 var enquote = function (str) {
   return '"' + str + '"';
 }
-var camelCase = function (input) { 
-  return input.toLowerCase().replace(/-(.)/g, function(match, group1) {
-    return group1.toUpperCase();
-  });
-}
+
 
 gulp.task('clean', function () {  
   return gulp.src('dist', {read: false})
@@ -76,13 +70,13 @@ gulp.task('move-template', function () {
     .pipe(gulp.dest('dist/template/'));
 });
 
-gulp.task('jshint', function() {
+gulp.task('jshint', function () {
   return gulp.src('src/**/*.js')
     .pipe(jshint())
     .pipe(jshint.reporter('default'));
 });
 
-gulp.task('html2js', function() {
+gulp.task('html2js', function () {
   gulp.src('template/**/*.html')
     .pipe(html2js({
       moduleName: function (file) {
@@ -100,7 +94,7 @@ gulp.task('html2js', function() {
     .pipe(gulp.dest('template'))
 });
 
-gulp.task('test', function() {
+gulp.task('test', function () {
   gulp.src(testFiles)
     .pipe(karma({
       configFile: 'karma.conf.js',
@@ -109,7 +103,7 @@ gulp.task('test', function() {
     }));
 });
 
-gulp.task('travis', function() {
+gulp.task('travis', function () {
   gulp.src(testFiles)
     .pipe(karma({
       configFile: 'karma.conf.js',
@@ -119,7 +113,7 @@ gulp.task('travis', function() {
     }));
 });
 
-gulp.task('full-test', function() {
+gulp.task('full-test', function () {
   gulp.src([
     'components/jquery/dist/jquery.min.js',
     'components/angular/angular.min.js',
@@ -181,7 +175,7 @@ gulp.task('full-test', function() {
     }));
 });
 
-gulp.task('watch', function() {
+gulp.task('watch', function () {
 
   gulp.watch('template/**/*.html', function (event) {
     gulp.run('html2js');
@@ -210,9 +204,9 @@ gulp.task('watch', function() {
     }));
 });
 
-gulp.task('get-modules-name', function() {
+gulp.task('get-modules-name', function () {
   var setModules = function (folder, files) {
-    files = files.filter(function(file) {
+    files = files.filter(function (file) {
       return file.split('.').pop() == 'js';
     });
     files.forEach(function (file) {
@@ -229,8 +223,8 @@ gulp.task('get-modules-name', function() {
       if (!files) {
         return;
       }
-      files = files.filter(function(file) { 
-        return getExtension(file) === '.html';
+      files = files.filter(function (file) { 
+        return path.extname(file) === '.html';
       });
       files.forEach(function (file) {
         var module = 'ngTasty.tpls.' + camelCase(component);
@@ -250,12 +244,12 @@ gulp.task('get-modules-name', function() {
   });
 });
 
-gulp.task('build-dist', function() {
+gulp.task('build-dist', function () {
   var filename = 'ng-tasty';
   var dist = 'dist';
   var modules = [];
 
-  tplModules = tplModules.filter(function(tpls) { 
+  tplModules = tplModules.filter(function (tpls) { 
     return tpls.length > 0;
   });
 
@@ -299,7 +293,7 @@ gulp.task('build-dist', function() {
     .pipe(gulp.dest('releases'));
 });
 
-gulp.task('build', function() {
+gulp.task('build', function () {
   runSequence('clean',
               'html2js',
               'move-template',

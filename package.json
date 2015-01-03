@@ -5,6 +5,7 @@
   "main": "index.js",
   "devDependencies": {
     "blueimp-md5": "^1.1.0",
+    "camel-case": "^1.0.2",
     "chalk": "^0.5.1",
     "ejs": "~1.0.0",
     "exec": "0.1.2",
