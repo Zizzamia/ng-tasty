@@ -20,8 +20,6 @@ template/**/*.js
 
 #benchpress
 benchpress-build
-benchmarks/*
-!benchmarks/ngtasty*
 
 # Server Config
 docs/config.json
