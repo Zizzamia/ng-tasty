@@ -1,26 +1,26 @@
 <%= include ../title-inside.html %>
 <div class="page-header">
-  <h2>Camelize<small>
+  <h2>Slugify<small>
   (<a target="_blank" 
-  href="https://github.com/Zizzamia/ng-tasty/blob/master/src/filter/camelize.js">ngTasty.filter.camelize</a>)
+  href="https://github.com/Zizzamia/ng-tasty/blob/master/src/filter/slugify.js">ngTasty.filter.slugify</a>)
   </small></h2>
 </div>
 <div class="row">
   <div class="col-xs-6">
-    <p><b ng-bind="txt1 | camelize"></b></p>
-    <p><b ng-bind="txt2 | camelize"></b></p>
-    <p><b ng-bind="txt3 | camelize:true"></b></p>
+    <p><b ng-bind="txt1 | slugify"></b></p>
+    <p><b ng-bind="txt2 | slugify"></b></p>
+    <p><b ng-bind="txt3 | slugify"></b></p>
   </div>
   <div class="col-xs-6">
-    <p>An Camelizing filter.</p>
+    <p>A slugify filter.</p>
   </div>
   <div class="col-xs-12">
     <tabset class="code">
       <tab heading="Markup">
         <div>
-<pre ng-non-bindable><code data-language="html"><p><b ng-bind="txt1 | camelize"></b></p>
-<p><b ng-bind="txt2 | camelize"></b></p>
-<p><b ng-bind="txt3 | camelize:true"></b></p></code></pre>
+<pre ng-non-bindable><code data-language="html"><p><b ng-bind="txt1 | slugify"></b></p>
+<p><b ng-bind="txt2 | slugify"></b></p>
+<p><b ng-bind="txt3 | slugify"></b></p></code></pre>
         </div>
       </tab>
       <tab heading="Javascript">
