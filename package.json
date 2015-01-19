@@ -53,7 +53,9 @@
   },
   "author": [
     "@zizzamia",
-    "@proudlygeek"
+    "@proudlygeek",
+    "@alexcasalboni",
+    "@bogdan-alexandrescu"
   ],
   "license": "MIT",
   "bugs": {

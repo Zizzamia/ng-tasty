@@ -4,7 +4,9 @@
   "homepage": "https://github.com/Zizzamia/ng-tasty",
   "authors": [
     "@zizzamia",
-    "@proudlygeek"
+    "@proudlygeek",
+    "@alexcasalboni",
+    "@bogdan-alexandrescu"
   ],
   "description": "A lightweight, flexible, and tasty collection of reusable UI components for AngularJS.",
   "dependencies": {
