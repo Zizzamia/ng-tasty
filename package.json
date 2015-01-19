@@ -51,11 +51,12 @@
     "type": "git",
     "url": "https://github.com/Zizzamia/ng-tasty.git"
   },
-  "author": [
-    "@zizzamia",
-    "@proudlygeek",
-    "@alexcasalboni",
-    "@bogdan-alexandrescu"
+  "author": { "name" : "Leonardo Zizzamia", "url" : "https://github.com/Zizzamia" },
+  "contributors": [
+    { "name" : "Alex Casalboni", "url" : "https://github.com/alexcasalboni" },
+    { "name" : "Wesley", "url" : "https://github.com/wesww" },
+    { "name" : "Gianluca Bargelli", "url" : "https://github.com/proudlygeek" },
+    { "name" : "Alejandro Garcia Angada", "url" : "https://github.com/aganglada" }
   ],
   "license": "MIT",
   "bugs": {
