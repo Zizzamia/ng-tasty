@@ -1,6 +1,7 @@
 /**
  * @ngdoc filter
  * @name cleanFieldName
+ * @function
  *
  * @description
  * Calling toString will return the ...

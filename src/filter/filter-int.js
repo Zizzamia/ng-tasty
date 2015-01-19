@@ -1,7 +1,7 @@
 /**
  * @ngdoc filter
  * @name filterInt
- * @kind function
+ * @function
  *
  */
 angular.module('ngTasty.filter.filterInt', [])

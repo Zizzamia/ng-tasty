@@ -126,6 +126,14 @@ app.get('/filter/camelize.html', function(req, res){
   res.render('template/filter/camelize.html', { base: base, ngTasty: ngTasty });
 });
 
+app.get('/filter/slugify', function(req, res){
+  title = '#ngTasty - AngularJS slugify filter';
+  res.render('template/index.html', { base: base, ngTasty: ngTasty, title:title });
+});
+app.get('/filter/slugify.html', function(req, res){
+  res.render('template/filter/slugify.html', { base: base, ngTasty: ngTasty });
+});
+
 app.get('/service/debounce', function(req, res) {
   title = '#ngTasty - AngularJS debounce service';
   res.render('template/index.html', { base: base, ngTasty: ngTasty, title: title });

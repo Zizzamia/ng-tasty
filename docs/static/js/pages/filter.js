@@ -1,5 +1,5 @@
 angular.module('myApp.pages.filter', [])
-.controller('RangeCtrl', function($rootScope, $scope, $http, $timeout) {
+.controller('RangeCtrl', function($rootScope, $scope, $timeout) {
 
   $rootScope.page = 'range';
 
@@ -11,7 +11,7 @@ angular.module('myApp.pages.filter', [])
     Rainbow.color();
   });
 })
-.controller('FilterCtrl', function($rootScope, $scope, $http, $timeout) {
+.controller('FilterCtrl', function($rootScope, $scope, $timeout) {
 
   $rootScope.page = 'filter-int';
 
@@ -23,7 +23,7 @@ angular.module('myApp.pages.filter', [])
     Rainbow.color();
   });
 })
-.controller('CamelizeCtrl', function($rootScope, $scope, $http, $timeout) {
+.controller('CamelizeCtrl', function($rootScope, $scope, $timeout) {
 
   $rootScope.page = 'camelize';
 
@@ -35,3 +35,11 @@ angular.module('myApp.pages.filter', [])
     Rainbow.color();
   });
 })
+.controller('SlugifyCtrl', function($rootScope, $scope, $timeout) {
+
+  $rootScope.page = 'slugify';
+
+  $timeout(function () {
+    Rainbow.color();
+  });
+});

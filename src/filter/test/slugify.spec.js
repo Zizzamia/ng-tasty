@@ -40,5 +40,4 @@ describe('Filter: slugify', function () {
     expect(slugify(text)).toBe('i-know-latin-characters-a-i-o-u-c-a-o-n-u-a-s-t');
   });
 
-
 });

@@ -1,7 +1,7 @@
 /**
  * @ngdoc filter
  * @name filterCamelize
- * @kind function
+ * @function
  *
  */
 angular.module('ngTasty.filter.camelize', [])

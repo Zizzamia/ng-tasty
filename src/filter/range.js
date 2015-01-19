@@ -1,7 +1,7 @@
 /**
  * @ngdoc filter
  * @name range
- * @kind function
+ * @function
  *
  * @description
  * Create a list containing arithmetic progressions. The arguments must 
