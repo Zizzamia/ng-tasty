@@ -46,6 +46,9 @@ angular.module('ngTasty.component.table', [
   initStatus = {};
   $scope.init = {};
   $scope.query = {};
+  $scope.logs = {
+    'buildClientResourceCount': 0
+  };
 
   listScopeToWatch = ['bindFilters', 'bindInit', 'bindQuery', 'bindResource', 
   'bindResourceCallback', 'bindWatchResource'];
@@ -229,6 +232,7 @@ angular.module('ngTasty.component.table', [
 
   buildClientResource = function(updateFrom) {
     var fromRow, toRow, rowToShow, reverse, listSortBy;
+    $scope.logs.buildClientResourceCount += 1;
     if ($scope.theadDirective && $scope.header.columns.length) {
       reverse = $scope.header.sortOrder === 'asc' ? false : true;
       listSortBy = [function(item) {
@@ -332,7 +336,14 @@ angular.module('ngTasty.component.table', [
     if ($scope.watchResource === 'reference') {
       $scope.$watch('resource', watchResource);
     } else if ($scope.watchResource === 'collection') {
-      $scope.$watchCollection('resource', watchResource);
+      $scope.$watchCollection('resource.header', watchResource);
+      $scope.$watchCollection('resource.rows', watchResource);
+      $scope.$watchGroup(['sortBy', 
+        'sortOrder', 
+        'pagination.count',
+        'pagination.page',
+        'pagination.pages',
+        'pagination.size'], watchResource);
     } else if ($scope.watchResource === 'equality') {
       $scope.$watch('resource', watchResource, true);
     }
@@ -399,10 +410,9 @@ angular.module('ngTasty.component.table', [
       });
 
       scope.setColumns = function () {
-        var lenHeader, width, i, active, sortable, sort, 
+        var width, i, active, sortable, sort, 
         isSorted, isSortedCaret;
         scope.columns = [];
-        lenHeader = scope.header.columns.length;
         scope.header.columns.forEach(function (column, index) {
           column.style = column.style || {};
           sortable = true;

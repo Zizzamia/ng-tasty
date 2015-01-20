@@ -870,4 +870,109 @@ describe('Component: table', function () {
       expect(tastyThead.isolateScope().columns[1].isSorted).toEqual('');
     });
   });
+
+  
+  describe('withs watchResource changed', function () {
+
+    beforeEach(inject(function ($rootScope, $compile, _sortingJSON_, _completeJSON_) {
+      $scope = $rootScope.$new();
+      $scope.resource = angular.copy(_sortingJSON_);
+      $scope.resourceTwo = angular.copy(_completeJSON_);
+    }));
+
+    it('should return watchResource undefined as default', function () {
+      element = angular.element('<table tasty-table bind-resource="resource" '+
+                                'bind-watch-resource="watchResource"></table>');
+      tastyTable = $compile(element)($scope);
+      $scope.$digest();
+
+      expect($scope.resource.rows.length).toEqual(element.scope().rows.length);
+      expect(element.scope().watchResource).toEqual(undefined);
+      expect(element.scope().logs.buildClientResourceCount).toEqual(1);
+      $scope.resource.rows.push({'name': 'Coffee', 'star': '★★★', 'sf-location': ''});
+      $scope.$digest();
+
+      expect(element.scope().logs.buildClientResourceCount).toEqual(1);
+      $scope.resource.rows[0].star = '★★★★★';
+      $scope.$digest();
+
+      expect(element.scope().logs.buildClientResourceCount).toEqual(1);
+      $scope.resource = $scope.resourceTwo;
+      $scope.$digest();
+
+      expect(element.scope().logs.buildClientResourceCount).toEqual(1);
+    });
+
+    it('should watch only the reference', function () {
+      $scope.watchResource = 'reference';
+      element = angular.element('<table tasty-table bind-resource="resource" '+
+                                'bind-watch-resource="watchResource"></table>');
+      tastyTable = $compile(element)($scope);
+      $scope.$digest();
+
+      expect($scope.resource.rows.length).toEqual(element.scope().rows.length);
+      expect(element.scope().watchResource).toEqual('reference');
+      expect(element.scope().logs.buildClientResourceCount).toEqual(1);
+      $scope.resource.rows.push({'name': 'Coffee', 'star': '★★★', 'sf-location': ''});
+      $scope.$digest();
+
+      expect(element.scope().logs.buildClientResourceCount).toEqual(1);
+      $scope.resource.rows[0].star = '★★★★★';
+      $scope.$digest();
+
+      expect(element.scope().logs.buildClientResourceCount).toEqual(1);
+      $scope.resource = $scope.resourceTwo;
+      $scope.$digest();
+
+      expect(element.scope().logs.buildClientResourceCount).toEqual(2);
+    });
+
+    it('should watch only the collection', function () {
+      $scope.watchResource = 'collection';
+      element = angular.element('<table tasty-table bind-resource="resource" '+
+                                'bind-watch-resource="watchResource"></table>');
+      tastyTable = $compile(element)($scope);
+      $scope.$digest();
+
+      expect($scope.resource.rows.length).toEqual(element.scope().rows.length);
+      expect(element.scope().watchResource).toEqual('collection');
+      expect(element.scope().logs.buildClientResourceCount).toEqual(1);
+      $scope.resource.rows.push({'name': 'Coffee', 'star': '★★★', 'sf-location': ''});
+      $scope.$digest();
+
+      expect(element.scope().logs.buildClientResourceCount).toEqual(3);
+      $scope.resource.rows[0].star = '★★★★★';
+      $scope.$digest();
+
+      expect(element.scope().logs.buildClientResourceCount).toEqual(3);
+      $scope.resource = $scope.resourceTwo;
+      $scope.$digest();
+
+      expect(element.scope().logs.buildClientResourceCount).toEqual(5);
+    });
+
+    it('should watch only the equality', function () {
+      $scope.watchResource = 'equality';
+      element = angular.element('<table tasty-table bind-resource="resource" '+
+                                'bind-watch-resource="watchResource"></table>');
+      tastyTable = $compile(element)($scope);
+      $scope.$digest();
+
+      expect($scope.resource.rows.length).toEqual(element.scope().rows.length);
+      expect(element.scope().watchResource).toEqual('equality');
+      expect(element.scope().logs.buildClientResourceCount).toEqual(1);
+      $scope.resource.rows.push({'name': 'Coffee', 'star': '★★★', 'sf-location': ''});
+      $scope.$digest();
+
+      expect(element.scope().logs.buildClientResourceCount).toEqual(2);
+      $scope.resource.rows[0].star = '★★★★★';
+      $scope.$digest();
+
+      expect(element.scope().logs.buildClientResourceCount).toEqual(3);
+      $scope.resource = $scope.resourceTwo;
+      $scope.$digest();
+
+      expect(element.scope().logs.buildClientResourceCount).toEqual(4);
+    });
+  });
 });
