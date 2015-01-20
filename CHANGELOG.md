@@ -1,6 +1,13 @@
 ## Changelog
 
-### v0.4.4 (master, released on December 27th 2014)
+### v0.4.5 (master, released on January 19th 2015)
+#### Features
+- Add option to have different $watch resource version [#80](https://github.com/Zizzamia/ng-tasty/issues/80)
+- Add slugify filter [#78](https://github.com/Zizzamia/ng-tasty/issues/78)
+- Add camelize filter [#77](https://github.com/Zizzamia/ng-tasty/issues/77)
+
+
+### v0.4.4 (released on December 27th 2014)
 #### Features
 - Implement Throttle service [#74](https://github.com/Zizzamia/ng-tasty/issues/74)
 - Now it's possible select bootstrap icon by the tableConfig [#73](https://github.com/Zizzamia/ng-tasty/issues/73)
