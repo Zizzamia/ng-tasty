@@ -2,7 +2,9 @@
   "name": "ng-tasty",
   "version": "0.4.5",
   "homepage": "https://github.com/Zizzamia/ng-tasty",
-  "authors": { "name" : "Leonardo Zizzamia", "homepage" : "https://twitter.com/Zizzamia" },
+  "authors": [
+    { "name" : "Leonardo Zizzamia", "homepage" : "https://twitter.com/Zizzamia" }
+  ],
   "description": "A lightweight, flexible, and tasty collection of reusable UI components for AngularJS.",
   "dependencies": {
     "angular": "^1.3.0",
