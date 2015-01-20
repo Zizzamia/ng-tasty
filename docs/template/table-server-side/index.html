@@ -69,27 +69,9 @@
     <p>If you add <code><span style="color:orange">bind-</span></code> before the attribute that means is a 
       variable inside your <code>$scope</code> otherwise you passing by plan value.</p>
   </div>
-	<div class="col-md-12 docs-body">
-    <div class="btn-group btn-group-justified">
-      <div class="btn-group">
-        <button type="button" class="btn btn-default" ng-class="{'btn-info':!table}" 
-        ng-click="open('complete')">Complete</button>
-      </div>
-      <div class="btn-group"> 
-        <button type="button" class="btn btn-default" ng-class="{'btn-info':!tableTwo}" 
-        ng-click="open('sorting')">Sorting</button>
-      </div>
-      <div class="btn-group"> 
-        <button type="button" class="btn btn-default" ng-class="{'btn-info':!tableThree}" 
-        ng-click="open('pagination')">Pagination</button>
-      </div>
-      <div class="btn-group"> 
-        <button type="button" class="btn btn-default" ng-class="{'btn-info':!tableFour}" 
-        ng-click="open('filtering')">Filtering</button>
-      </div>
-    </div>
-    <div collapse="table" class="example">
-      <h4>Table with sorting, pagination and filtering</h4>
+  <div class="col-md-12 docs-body">
+    <h4>Table with sorting, pagination and filtering</h4>
+    <div class="example">
       <div class="form-group">
         <div class="col-sm-3">
           <label class="control-label">Filters by name :</label>
@@ -119,8 +101,30 @@
       <pre>params : {{ params  }}</pre>
       <pre>paramsObj : {{ paramsObj  }}</pre>
     </div>
-    <div collapse="tableTwo">
-      <h4>Table only with sorting</h4>
+    <tabset class="code">
+      <div class="pull-right" ng-hide="table">
+        <a href="http://plnkr.co/edit/DNJVQXT7NnNk5k1flqQ2?p=preview" target="_blank">
+          <button class="btn btn-info">
+            <i class="glyphicon glyphicon-edit"></i>Edit in plunker
+          </button>
+        </a>
+      </div>
+      <tab heading="Markup">
+        <%= include example-html-1.html %>
+      </tab>
+      <tab heading="JavaScript">
+        <%= include example-js-1.html %>
+      </tab>
+      <tab heading="Response">
+        <pre><code data-language="javascript" ng-bind="response"></code></pre>
+      </tab>
+    </tabset>
+
+
+    <br />
+    <br />
+    <h4>Table only with sorting</h4>
+    <div class="example">
       <div tasty-table bind-resource-callback="getResourceOne"> 
         <table class="table table-striped table-condensed">
           <thead tasty-thead bind-not-sort-by="notSortBy"></thead>
@@ -137,8 +141,23 @@
       <pre>params : {{ paramsOne  }}</pre>
       <pre>paramsObj : {{ paramsObjOne  }}</pre>
     </div>
-    <div collapse="tableThree">
-      <h4>Table only with pagination</h4>
+    <tabset class="code">
+      <tab heading="Markup">
+        <%= include example-html-2.html %>
+      </tab>
+      <tab heading="JavaScript">
+        <%= include example-js-2.html %>
+      </tab>
+      <tab heading="Response">
+        <pre><code data-language="javascript" ng-bind="responseTwo"></code></pre>
+      </tab>
+    </tabset>
+
+
+    <br />
+    <br />
+    <h4>Table only with pagination</h4>
+    <div class="example">
       <div tasty-table bind-resource-callback="getResourceTwo"> 
         <table class="table table-striped table-condensed">
           <thead>
@@ -162,8 +181,23 @@
       <pre>params : {{ paramsTwo  }}</pre>
       <pre>paramsObj : {{ paramsObjTwo  }}</pre>
     </div>
-    <div collapse="tableFour">
-      <h4>Table only with filters</h4>
+    <tabset class="code">
+      <tab heading="Markup">
+        <%= include example-html-3.html %>
+      </tab>
+      <tab heading="JavaScript">
+        <%= include example-js-3.html %>
+      </tab>
+      <tab heading="Response">
+        <pre><code data-language="javascript" ng-bind="responseThree"></code></pre>
+      </tab>
+    </tabset>
+
+
+    <br />
+    <br />
+    <h4>Table only with filters</h4>
+    <div class="example">
       <div class="form-group">
         <div class="col-sm-3">
           <label class="control-label">Filters by name :</label>
@@ -201,47 +235,15 @@
     </div>
     <tabset class="code">
       <tab heading="Markup">
-        <div ng-hide="table">
-          <%= include example-html-1.html %>
-        </div>
-        <div ng-hide="tableTwo">
-          <%= include example-html-2.html %>
-        </div>
-        <div ng-hide="tableThree">
-          <%= include example-html-3.html %>
-        </div>
-        <div ng-hide="tableFour">
-          <%= include example-html-4.html %>
-        </div>
+        <%= include example-html-4.html %>
       </tab>
       <tab heading="JavaScript">
-        <div ng-hide="table">
-          <%= include example-js-1.html %>
-        </div>
-        <div ng-hide="tableTwo">
-          <%= include example-js-2.html %>
-        </div>
-        <div ng-hide="tableThree">
-          <%= include example-js-3.html %>
-        </div>
-        <div ng-hide="tableFour">
-          <%= include example-js-4.html %>
-        </div>
+        <%= include example-js-4.html %>
       </tab>
       <tab heading="Response">
-        <div ng-hide="table">
-          <pre><code data-language="javascript" ng-bind="response"></code></pre>
-        </div>
-        <div ng-hide="tableTwo">
-          <pre><code data-language="javascript" ng-bind="responseTwo"></code></pre>
-        </div>
-        <div ng-hide="tableThree">
-          <pre><code data-language="javascript" ng-bind="responseThree"></code></pre>
-        </div>
-        <div ng-hide="tableFour">
-          <pre><code data-language="javascript" ng-bind="responseFour"></code></pre>
-        </div>
+        <pre><code data-language="javascript" ng-bind="responseFour"></code></pre>
       </tab>
     </tabset>
+
   </div>
 </div>
