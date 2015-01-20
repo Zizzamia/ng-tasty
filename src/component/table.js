@@ -35,7 +35,7 @@ angular.module('ngTasty.component.table', [
   templateUrl: 'template/table/pagination.html',
   listItemsPerPage: [5, 25, 50, 100],
   itemsPerPage: 5,
-  watchResource: undefined
+  watchResource: 'reference'
 })
 .controller('TableController', function($scope, $attrs, $filter, tableConfig, tastyUtil) {
   'use strict';
@@ -331,8 +331,13 @@ angular.module('ngTasty.component.table', [
         $scope.params.sortBy = newValue.sortBy;
         $scope.params.sortOrder = newValue.sortOrder;
         $scope.$evalAsync(updateClientSideResource('resource'));
+        if (!$scope.resource.reload) {
+          $scope.resource.reload = function () {
+            $scope.$evalAsync(updateClientSideResource('resource'));
+          };
+        }
       }
-    }
+    };
     if ($scope.watchResource === 'reference') {
       $scope.$watch('resource', watchResource);
     } else if ($scope.watchResource === 'collection') {
@@ -345,7 +350,13 @@ angular.module('ngTasty.component.table', [
         'pagination.pages',
         'pagination.size'], watchResource);
     } else if ($scope.watchResource === 'equality') {
-      $scope.$watch('resource', watchResource, true);
+      $scope.$watch('resource', function (newValue, oldValue){
+        if (newValue !== oldValue) {
+          $scope.params.sortBy = newValue.sortBy;
+          $scope.params.sortOrder = newValue.sortOrder;
+          $scope.$evalAsync(updateClientSideResource('resource'));
+        }
+      }, true);
     }
   }
 })
