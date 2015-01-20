@@ -34,7 +34,8 @@ angular.module('ngTasty.component.table', [
   bootstrapIcon: false,
   templateUrl: 'template/table/pagination.html',
   listItemsPerPage: [5, 25, 50, 100],
-  itemsPerPage: 5
+  itemsPerPage: 5,
+  watchResource: undefined
 })
 .controller('TableController', function($scope, $attrs, $filter, tableConfig, tastyUtil) {
   'use strict';
@@ -47,7 +48,7 @@ angular.module('ngTasty.component.table', [
   $scope.query = {};
 
   listScopeToWatch = ['bindFilters', 'bindInit', 'bindQuery', 'bindResource', 
-  'bindResourceCallback'];
+  'bindResourceCallback', 'bindWatchResource'];
   listScopeToWatch.forEach(function (scopeName) {
     newScopeName = scopeName.substring(4);
     newScopeName = newScopeName.charAt(0).toLowerCase() + newScopeName.slice(1);
@@ -65,6 +66,7 @@ angular.module('ngTasty.component.table', [
   $scope.init.page = $scope.init.page || tableConfig.init.page;
   $scope.init.sortBy = $scope.init.sortBy || tableConfig.init.sortBy;
   $scope.init.sortOrder = $scope.init.sortOrder || tableConfig.init.sortOrder;
+  $scope.watchResource = $scope.watchResource || tableConfig.watchResource;
 
   // Defualt variables
   var listImmutableKey =[
@@ -174,11 +176,10 @@ angular.module('ngTasty.component.table', [
   this.bindOnce = tableConfig.bindOnce;
 
   setDirectivesValues = function (resource) {
-    if (!angular.isObject(resource)) {
-      throw 'AngularJS tastyTable directive: the bind-resource '+
-            'is not an object';
+    if (!$scope.resource && !angular.isObject(resource)) {
+      throw 'AngularJS tastyTable directive: the resource response is not an object';
     } else if (!resource.header && !resource.rows) {
-      throw 'AngularJS tastyTable directive: the bind-resource '+
+      throw 'AngularJS tastyTable directive: the resource response object '+
             'has the property header or rows undefined';
     }
     Object.keys(resource).forEach(function(key) {
@@ -321,13 +322,20 @@ angular.module('ngTasty.component.table', [
     }
   });
   if ($scope.resource) {
-    $scope.$watch('resource', function watchResource (newValue, oldValue){
+    var watchResource = function (newValue, oldValue){
       if (newValue !== oldValue) {
         $scope.params.sortBy = newValue.sortBy;
         $scope.params.sortOrder = newValue.sortOrder;
         $scope.$evalAsync(updateClientSideResource('resource'));
       }
-    }, true);
+    }
+    if ($scope.watchResource === 'reference') {
+      $scope.$watch('resource', watchResource);
+    } else if ($scope.watchResource === 'collection') {
+      $scope.$watchCollection('resource', watchResource);
+    } else if ($scope.watchResource === 'equality') {
+      $scope.$watch('resource', watchResource, true);
+    }
   }
 })
 .directive('tastyTable', function(){
