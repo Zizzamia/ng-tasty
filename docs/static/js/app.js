@@ -55,6 +55,11 @@ angular.module('myApp', [
     templateUrl: 'filter/camelize.html',
     title: '#ngTasty - AngularJS camelize filter'
   })
+  .when('/filter/slugify', {
+    controller: 'SlugifyCtrl',
+    templateUrl: 'filter/slugify.html',
+    title: '#ngTasty - AngularJS slugify filter'
+  })
   .when('/service/debounce', {
     controller: 'DebounceCtrl',
     templateUrl: 'service/debounce.html',

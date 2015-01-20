@@ -35,3 +35,17 @@ angular.module('myApp.pages.filter', [])
     Rainbow.color();
   });
 })
+.controller('SlugifyCtrl', function($rootScope, $scope, $http, $timeout) {
+
+  $rootScope.page = 'slugify';
+
+  $scope.txt1 = 'some text here';
+  $scope.txt2 = 'Some Text hERe';
+  $scope.txt3 = 'some #%% text ][] here )(*';
+  $scope.txt4 = 's#@ome[] [#te!xt %$h#ere';
+  $scope.txt5 = 'šõmé @##@țëxť -hêre';
+
+  $timeout(function () {
+    Rainbow.color();
+  });
+})
