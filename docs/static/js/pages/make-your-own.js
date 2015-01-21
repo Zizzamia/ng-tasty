@@ -1,6 +1,8 @@
 angular.module('myApp.pages.makeYourOwn', [])
 .controller('MakeYourOwnCtrl', function($rootScope, $scope, $http, $timeout) {
   $rootScope.page = 'MakeYourOwn';
+  $rootScope.fullContent = false;
+  
   $scope.component = {
     'table': true
   };

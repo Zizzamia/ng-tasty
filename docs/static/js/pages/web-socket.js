@@ -1,6 +1,7 @@
 angular.module('myApp.pages.webSocket', [])
 .controller('WebSocketCtrl', function($rootScope, $scope, $timeout, webSocket, throttle) {
   $rootScope.page = 'webSocket';
+  $rootScope.fullContent = false;
 
   $scope.tag = 'angularjs';
   $scope.counters = {};
@@ -9,7 +10,7 @@ angular.module('myApp.pages.webSocket', [])
   $scope.showEcho = true;
   $scope.newTweet = true;
 
-  var tweetWs = new webSocket('ws://localhost:3000');
+  var tweetWs = new webSocket('ws://0.0.0.0:3000');
   var echoWs = new webSocket('ws://echo.websocket.org');
 
   var addTweet = throttle(function (tweet) {

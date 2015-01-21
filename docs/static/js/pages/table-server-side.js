@@ -1,7 +1,8 @@
 angular.module('myApp.pages.tableServerSide', [])
 .controller('TableServerSideCtrl', function($rootScope, $scope, $http, $timeout) {
-
   $rootScope.page = 'table-server-side';
+  $rootScope.fullContent = true;
+  
   $scope.init = {
     'count': 5,
     'page': 1,

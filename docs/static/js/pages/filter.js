@@ -1,7 +1,7 @@
 angular.module('myApp.pages.filter', [])
 .controller('RangeCtrl', function($rootScope, $scope, $timeout) {
-
   $rootScope.page = 'range';
+  $rootScope.fullContent = false;
 
   $scope.start = 1;
   $scope.stop = 10;
@@ -12,8 +12,8 @@ angular.module('myApp.pages.filter', [])
   });
 })
 .controller('FilterCtrl', function($rootScope, $scope, $timeout) {
-
   $rootScope.page = 'filter-int';
+  $rootScope.fullContent = false;
 
   $scope.age = 27;
   $scope.text = 'Ciao';
@@ -24,8 +24,8 @@ angular.module('myApp.pages.filter', [])
   });
 })
 .controller('CamelizeCtrl', function($rootScope, $scope, $timeout) {
-
   $rootScope.page = 'camelize';
+  $rootScope.fullContent = false;
 
   $scope.txt1 = 'hey_there';
   $scope.txt2 = 'look-at-this';
@@ -36,8 +36,8 @@ angular.module('myApp.pages.filter', [])
   });
 })
 .controller('SlugifyCtrl', function($rootScope, $scope, $timeout) {
-
   $rootScope.page = 'slugify';
+  $rootScope.fullContent = false;
 
   $timeout(function () {
     Rainbow.color();

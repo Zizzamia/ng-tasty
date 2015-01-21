@@ -41,3 +41,16 @@ angular.module('myApp.pages.app', [])
     $modalInstance.dismiss('cancel');
   };
 })
+.directive("scroll", function ($window, $rootScope) {
+  return function(scope, element, attrs) {
+    angular.element($window).bind("scroll", function() {
+      scope.$evalAsync(function () {
+        if (pageYOffset > 200) {
+          $rootScope.pageYOffset = (pageYOffset - 180) + 'px';
+        } else {
+          $rootScope.pageYOffset = '0px';
+        }
+      });
+    });
+  };
+});

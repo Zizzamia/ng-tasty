@@ -5,6 +5,10 @@
   min-width: 700px;
 }
 
+.content.full-content {
+  max-width: 100%;
+}
+
 h1, h2 {
   margin-top: 0;
 }
@@ -148,6 +152,13 @@ footer {
 }
 .docs-body {
   margin: 10px 0;
+}
+.docs-body ul {
+  padding-left: 30px;
+}
+.docs-body p {
+  margin: 0 0 7px;
+  line-height: 19px;
 }
 
 .example {

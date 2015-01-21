@@ -2,6 +2,7 @@ angular.module('myApp.pages.table', [])
 .controller('TableCtrl', function($rootScope, $scope, $http, $timeout) {
 
   $rootScope.page = 'table';
+  $rootScope.fullContent = true;
 
   $scope.open = function(toOpen) {
     $scope.table = true;
@@ -88,8 +89,8 @@ angular.module('myApp.pages.table', [])
       'page': 2
     }
   };
-  $scope.itemsPerPage = 10;
-  $scope.listItemsPerPage = [5, 10, 15, 20];
+  $scope.itemsPerPage = 20;
+  $scope.listItemsPerPage = [10, 20, 40, 80];
 
   $scope.resourceFour = {
     'header': [
