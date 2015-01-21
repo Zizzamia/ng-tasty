@@ -552,11 +552,15 @@ angular.module('ngTasty.component.table', [
           if (newScopeName === 'itemsPerPage') {
             scope[newScopeName] = parseInt(attrs[newScopeName]);
           } else {
-            scope[newScopeName] = JSON.parse(attrs[newScopeName]);
+            try {
+              scope[newScopeName] = JSON.parse(attrs[newScopeName]);
+            } catch (err) {
+              scope[newScopeName] = attrs[newScopeName];
+            }
           }
         }
       });
-
+      
       if (scope.templateUrl) {
         $http.get(scope.templateUrl, { cache: $templateCache })
         .success(function(templateContent) {

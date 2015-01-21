@@ -803,6 +803,43 @@ describe('Component: table', function () {
       expect(angular.element(elm).hasClass('col-xs-3')).toBe(true);
     });
   });
+
+  
+  describe('with pagination template-url binding', function () {
+    beforeEach(inject(function ($rootScope, $compile, _$httpBackend_, _sortingJSON_) {
+      $scope = $rootScope.$new();
+      $scope.resource = angular.copy(_sortingJSON_);
+      $httpBackend = _$httpBackend_;
+      element = angular.element(''+
+      '<div tasty-table bind-resource="resource">'+
+      '  <table>'+
+      '    <thead>'+
+      '      <tr>'+
+      '        <th>Name</th>'+
+      '        <th>Star</th>'+
+      '        <th>SF Location</th>'+
+      '      </tr>'+
+      '    </thead>'+
+      '    <tbody>'+
+      '      <tr ng-repeat="row in rows">'+
+      '        <td>{{ row.name }}</td>'+
+      '        <td>{{ row.star }}</td>'+
+      '        <td>{{ row[\'sf-location\'] }}</td>'+
+      '      </tr>'+
+      '    </tbody>'+
+      '  </table>'+
+      '  <tasty-pagination template-url="my-template.html"></tasty-pagination>'+
+      '</div>');
+      tastyTable = $compile(element)($scope);
+      tastyPagination = tastyTable.find('tasty-pagination');
+    }));
+
+    it('should request the template', function () {
+      $httpBackend.whenGET('my-template.html').respond('<div class="row"></div>');
+      $httpBackend.flush();
+      $scope.$digest();
+    });
+  });
   
 
   describe('withs tableConfig changed', function () {
