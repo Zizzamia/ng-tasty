@@ -1,6 +1,11 @@
 ## Changelog
 
-### v0.4.5 (master, released on January 19th 2015)
+### v0.4.6 (master, released on January 22th 2015)
+#### Bug Fixes
+- Fixed bug passing plain text without bind [#87](https://github.com/Zizzamia/ng-tasty/issues/87)
+
+
+### v0.4.5 (released on January 19th 2015)
 #### Features
 - Add option to have different $watch resource version [#80](https://github.com/Zizzamia/ng-tasty/issues/80)
 - Add slugify filter [#78](https://github.com/Zizzamia/ng-tasty/issues/78)
