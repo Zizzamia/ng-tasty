@@ -1,5 +1,5 @@
 .content {
-  margin-left: 234px;
+  margin-left: 204px;
   padding: 10px 38px;
   max-width: 960px;
   min-width: 700px;
@@ -51,8 +51,8 @@ iframe {
   left: 0;
   top: 0;
   bottom: 0;
-  padding: 24px 0;
-  width: 234px;
+  padding: 14px 0;
+  width: 204px;
   overflow-y: auto;
   background-color: #f7f7f7;
   border-right: 1px solid #e7e7e7;
@@ -74,7 +74,7 @@ iframe {
 
 .left-nav .head h4 {
   margin-bottom: 0;
-  font-size: 15px;
+  font-size: 14px;
 }
 
 .left-nav .head ul {
@@ -89,7 +89,7 @@ iframe {
 .left-nav .head li a {
   display: block;
   padding: 4px 20px 4px 0;
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 500;
   color: #999;
   width: 90%;
@@ -102,6 +102,15 @@ iframe {
   text-decoration: none;
   background-color: transparent;
   border-right: 1px solid #8b3d13;
+}
+.left-nav .head li a.active {
+  border-right-width: 2px;
+}
+.left-nav .head ul.head-child-ul {
+  padding-left: 10px;
+}
+.left-nav .head ul.head-child-ul a {
+  font-size: 12px;
 }
 
 footer {

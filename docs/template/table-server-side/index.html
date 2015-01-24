@@ -20,7 +20,8 @@
           ng-model="filterBy['sf-location']" value="" />
         </div>
       </div>
-      <div tasty-table bind-resource-callback="getResource" bind-init="init" bind-filters="filterBy"> 
+      <div tasty-table bind-resource-callback="getResource" bind-init="init" 
+      bind-filters="filterBy"> 
         <table class="table table-striped table-condensed">
           <thead tasty-thead></thead>
           <tbody>
@@ -52,7 +53,7 @@
 
     <br />
     <br />
-    <h3>Table only with sorting</h3>
+    <h3>Table with sorting</h3>
     <div class="example">
       <div tasty-table bind-resource-callback="getResourceOne"> 
         <table class="table table-striped table-condensed">
@@ -85,9 +86,9 @@
 
     <br />
     <br />
-    <h3>Table only with pagination</h3>
+    <h3>Table with pagination</h3>
     <div class="example">
-      <div tasty-table bind-resource-callback="getResourceTwo"> 
+      <div tasty-table bind-resource-callback="getResourceTwo" bind-init="init"> 
         <table class="table table-striped table-condensed">
           <thead>
             <tr>
@@ -125,7 +126,7 @@
 
     <br />
     <br />
-    <h3>Table only with filters</h3>
+    <h3>Table with filters</h3>
     <div class="example">
       <div class="form-group">
         <div class="col-sm-3">
