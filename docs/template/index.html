@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
-  <title ng-bind="title"><%= title %></title>
+  <title ng-bind="title"></title>
   <meta name="description" content="A lightweight, flexible, and tasty collection of reusable UI components for AngularJS. ( table directive, range filter )">
   
   <link rel="stylesheet" href="<%= base %>/components/bootstrap/dist/css/bootstrap.css">
@@ -43,16 +43,20 @@
             ng-class="{active:page == 'table-server-side'}">Table server side</a>
           <ul class="head-child-ul">
             <li>
-              <a href="<%= base %>/directive/table-server-side#complete">Table Complete</a>
+              <a href="<%= base %>/directive/table-server-side/complete"
+              ng-class="{active:page == 'table-server-side'}">Table Complete</a>
             </li>
             <li>
-              <a href="<%= base %>/directive/table-server-side#sorting">Table with sorting</a>
+              <a href="<%= base %>/directive/table-server-side/sorting"
+              ng-class="{active:page == 'table-server-side/sorting'}">Table with sorting</a>
             </li>
             <li>
-              <a href="<%= base %>/directive/table-server-side#pagination">Table with pagination</a>
+              <a href="<%= base %>/directive/table-server-side/pagination"
+              ng-class="{active:page == 'table-server-side/pagination'}">Table with pagination</a>
             </li>
             <li>
-              <a href="<%= base %>/directive/table-server-side#filters">Table with filters</a>
+              <a href="<%= base %>/directive/table-server-side/filters"
+              ng-class="{active:page == 'table-server-side/filters'}">Table with filters</a>
             </li>
           </ul>
         </li>

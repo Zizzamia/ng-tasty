@@ -62,113 +62,41 @@ app.use(function(req, res, next) {
   }
 });
 
-app.get('/', function(req, res){
-  title = '#ngTasty';
-  res.render('template/index.html', { base: base, ngTasty: ngTasty, title:title });
+var responseObj = { base: base, ngTasty: ngTasty };
+
+app.get(['/', '/contribute', '/make-your-own'], function(req, res) {
+  res.render('template/index.html', responseObj);
 });
-app.get('/home.html', function(req, res){
-  res.render('template/home.html', { base: base, ngTasty: ngTasty });
+app.get('/*.html', function(req, res) {
+  var fileName = req.params[0];
+  res.render('template/'+ fileName + '.html', responseObj);
+});
+app.get('/:nameComponent/index.html', function(req, res) {
+  res.render('template/' + req.params.nameComponent + '/index.html', responseObj);
+});
+app.get('/:nameComponent/*.html', function(req, res){
+  var fileName = req.params[0];
+  var component = req.params.nameComponent;
+  res.render('template/' + component + '/' + fileName + '.html', responseObj);
+});
+app.get('/:nameComponent/:namePage', function(req, res) {
+  res.render('template/index.html', responseObj);
+});
+app.get('/:nameComponent/:namePage/*.html', function(req, res) {
+  var fileName = req.params[0];
+  var component = req.params.nameComponent;
+  var page = req.params.namePage;
+  res.render('template/' + component + '/' + page + '/' + fileName + '.html', responseObj);
 });
 
-app.get('/contribute', function(req, res){
-  title = '#ngTasty - Contribute';
-  res.render('template/index.html', { base: base, ngTasty: ngTasty, title:title });
-});
-app.get('/contribute.html', function(req, res){
-  res.render('template/contribute.html', { base: base, ngTasty: ngTasty });
-});
-
-app.get('/make-your-own', function(req, res){
-  title = '#ngTasty - Make your own tasty collection';
-  res.render('template/index.html', { base: base, ngTasty: ngTasty, title:title });
-});
-app.get('/make-your-own.html', function(req, res){
-  res.render('template/make-your-own.html', { base: base, ngTasty: ngTasty });
-});
-
-app.get('/directive/table', function(req, res){
-  title = '#ngTasty - AngularJS table directive';
-  res.render('template/index.html', { base: base, ngTasty: ngTasty, title:title });
-});
-app.get('/table/index.html', function(req, res){
-  res.render('template/table/index.html', { base: base, ngTasty: ngTasty });
-});
-
-app.get('/directive/table-server-side', function(req, res){
-  title = '#ngTasty - AngularJS server side table directive';
-  res.render('template/index.html', { base: base, ngTasty: ngTasty, title:title });
-});
-app.get('/table-server-side/index.html', function(req, res){
-  res.render('template/table-server-side/index.html', { base: base, ngTasty: ngTasty });
-});
-
-app.get('/filter/filter-int', function(req, res){
-  title = '#ngTasty - AngularJS filter Integer';
-  res.render('template/index.html', { base: base, ngTasty: ngTasty, title:title });
-});
-app.get('/filter/filter-int.html', function(req, res){
-  res.render('template/filter/filter-int.html', { base: base, ngTasty: ngTasty });
-});
-
-app.get('/filter/range', function(req, res){
-  title = '#ngTasty - AngularJS range filter';
-  res.render('template/index.html', { base: base, ngTasty: ngTasty, title:title });
-});
-app.get('/filter/range.html', function(req, res){
-  res.render('template/filter/range.html', { base: base, ngTasty: ngTasty });
-});
-
-app.get('/filter/camelize', function(req, res){
-  title = '#ngTasty - AngularJS camelize filter';
-  res.render('template/index.html', { base: base, ngTasty: ngTasty, title:title });
-});
-app.get('/filter/camelize.html', function(req, res){
-  res.render('template/filter/camelize.html', { base: base, ngTasty: ngTasty });
-});
-
-app.get('/filter/slugify', function(req, res){
-  title = '#ngTasty - AngularJS slugify filter';
-  res.render('template/index.html', { base: base, ngTasty: ngTasty, title:title });
-});
-app.get('/filter/slugify.html', function(req, res){
-  res.render('template/filter/slugify.html', { base: base, ngTasty: ngTasty });
-});
-
-app.get('/service/debounce', function(req, res) {
-  title = '#ngTasty - AngularJS debounce service';
-  res.render('template/index.html', { base: base, ngTasty: ngTasty, title: title });
-});
-app.get('/service/debounce.html', function(req, res) {
-  title = '#ngTasty - AngularJS debounce service';
-  res.render('template/service/debounce.html', { base: base, ngTasty: ngTasty, title: title });
-});
-
-app.get('/service/throttle', function(req, res) {
-  title = '#ngTasty - AngularJS throttle service';
-  res.render('template/index.html', { base: base, ngTasty: ngTasty, title: title });
-});
-app.get('/service/throttle.html', function(req, res) {
-  title = '#ngTasty - AngularJS throttle service';
-  res.render('template/service/throttle.html', { base: base, ngTasty: ngTasty, title: title });
-});
-
-app.get('/service/websocket', function(req, res) {
-  title = '#ngTasty - AngularJS websocket service';
-  res.render('template/index.html', { base: base, ngTasty: ngTasty, title: title });
-});
-app.get('/service/websocket.html', function(req, res) {
-  title = '#ngTasty - AngularJS websocket service';
-  res.render('template/service/websocket.html', { base: base, ngTasty: ngTasty, title: title });
-});
-
-app.get('/benchmarks/table', function(req, res) {
-  title = '#ngTasty - AngularJS websocket service';
-  res.render('template/index.html', { base: base, ngTasty: ngTasty, title: title });
-});
-app.get('/table/benchmarks.html', function(req, res) {
-  title = '#ngTasty - AngularJS benchmarks table';
-  res.render('template/table/benchmarks.html', { base: base, ngTasty: ngTasty, title: title });
-});
+//app.get('/benchmarks/table', function(req, res) {
+//  title = '#ngTasty - AngularJS websocket service';
+//  res.render('template/index.html', { base: base, ngTasty: ngTasty, title: title });
+//});
+//app.get('/table/benchmarks.html', function(req, res) {
+//  title = '#ngTasty - AngularJS benchmarks table';
+//  res.render('template/table/benchmarks.html', { base: base, ngTasty: ngTasty, title: title });
+//});
 
 app.get('/table.json', function(req, res){
   var items, pagination, rows, sortBy, fromRow, toRow;

@@ -15,6 +15,16 @@ angular.module('myApp.pages.app', [])
       controller: 'DownloadCtrl'
     });
   };
+
+  angular.element($window).bind("scroll", function() {
+    $scope.$evalAsync(function () {
+      if (pageYOffset > 200) {
+        $rootScope.pageYOffset = (pageYOffset - 180);
+      } else {
+        $rootScope.pageYOffset = '0';
+      }
+    });
+  });
 })
 .controller('DownloadCtrl', function($rootScope, $scope, $modalInstance) {
   $scope.options = {
@@ -39,18 +49,5 @@ angular.module('myApp.pages.app', [])
 
   $scope.cancel = function () {
     $modalInstance.dismiss('cancel');
-  };
-})
-.directive("scroll", function ($window, $rootScope) {
-  return function(scope, element, attrs) {
-    angular.element($window).bind("scroll", function() {
-      scope.$evalAsync(function () {
-        if (pageYOffset > 200) {
-          $rootScope.pageYOffset = (pageYOffset - 180) + 'px';
-        } else {
-          $rootScope.pageYOffset = '0px';
-        }
-      });
-    });
   };
 });

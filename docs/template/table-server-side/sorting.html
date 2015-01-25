@@ -1,0 +1,31 @@
+<br />
+<br />
+<h3 id="sorting">Table with sorting</h3>
+<div class="example">
+  <div tasty-table bind-resource-callback="getResourceOne"> 
+    <table class="table table-striped table-condensed">
+      <thead tasty-thead bind-not-sort-by="notSortBy"></thead>
+      <tbody>
+        <tr ng-repeat="row in rows">
+          <td>{{ row.name }}</td>
+          <td>{{ row.star }}</td>
+          <td>{{ row['sf-location'] }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <pre>Api url : {{ urlApiOne }}</pre>
+  <pre>params : {{ paramsOne  }}</pre>
+  <pre>paramsObj : {{ paramsObjOne  }}</pre>
+</div>
+<tabset class="code">
+  <tab heading="Markup">
+    <%= include example-html-2.html %>
+  </tab>
+  <tab heading="JavaScript">
+    <%= include example-js-2.html %>
+  </tab>
+  <tab heading="Response">
+    <pre><code data-language="javascript" ng-bind="responseTwo"></code></pre>
+  </tab>
+</tabset>
