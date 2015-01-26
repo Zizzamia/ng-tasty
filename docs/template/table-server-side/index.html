@@ -1,8 +1,14 @@
 <%= include ../title-inside.html %>
 <div class="page-header">
-  <h2>Table server side<small>
-  (<a target="_blank" href="https://github.com/Zizzamia/ng-tasty/blob/master/src/component/table.js">ngTasty.table</a>)
-  </small></h2>
+  <h2>Table 
+    <span ng-if="innerPage == 'complete'">complete</span>
+    <span ng-if="innerPage == 'sorting'">with sorting</span>
+    <span ng-if="innerPage == 'pagination'">with pagination</span>
+    <span ng-if="innerPage == 'filters'">with filters</span>
+    <small>
+    (<a target="_blank" href="https://github.com/Zizzamia/ng-tasty/blob/master/src/component/table.js">ngTasty.table</a>)
+    </small>
+  </h2>
 </div>
 <div class="row">
   <div class="col-md-12 docs-head">
@@ -19,55 +25,59 @@
         : The default initialization object.
         </p>
       </li>
-      <li>
+      <li ng-if="innerPage == 'complete' || innerPage == 'filters'">
         <p><code>bind-filters</code> (Defaults: {})
         : The filters object.
         </p>
       </li>
     </ul>
-    <p>Settings can be provided as attributes in the <code>&lt;tasty-thead&gt;</code>.</p>
-    <ul>
-      <li>
-        <p><code><span style="color:orange">bind-</span>not-sort-by</code> (Defaults: [ ])
-        : list key columns not want sort, if is empty will not sort any column.
-        </p>
-      </li>
-      <li>
-        <p><code><span style="color:orange">bind-</span>bootstrap-icon</code> (Defaults: false)
-        : Whether to display boostrap icon or not.
-        </p>
-      </li>
-      <li>
-        <p><code><span style="color:orange">bind-</span>icon-up</code> (Defaults: 'fa fa-sort-up')
-        : Class thead icon up
-        </p>
-      </li>
-      <li>
-        <p><code><span style="color:orange">bind-</span>icon-down</code> (Defaults: 'fa fa-sort-down')
-        : Class thead icon down
-        </p>
-      </li>
-    </ul>
-    <p>Settings can be provided as attributes in the <code>&lt;tasty-pagination&gt;</code>.</p>
-    <ul>
-      <li>
-        <p><code><span style="color:orange">bind-</span>items-per-page</code> (Defaults: 5) 
-        : Maximum number of items per page.
-        </p>
-      </li>
-      <li>
-        <p><code><span style="color:orange">bind-</span>list-items-per-page</code> (Defaults: [5, 25, 50, 100])
-        : list possible choice for items per page.
-        </p>
-      </li>
-      <li>
-        <p><code><span style="color:orange">bind-</span>template-url</code> (Defaults: 'template/table/pagination.html')
-        : a path to a template representing pagination's content.
-        </p>
-      </li>
-    </ul>
-    <p>If you add <code><span style="color:orange">bind-</span></code> before the attribute that means is a 
-      variable inside your <code>$scope</code> otherwise you passing by plan value.</p>
+    <div ng-if="innerPage == 'complete' || innerPage == 'sorting'">
+      <p>Settings can be provided as attributes in the <code>&lt;tasty-thead&gt;</code>.</p>
+      <ul>
+        <li>
+          <p><code><span style="color:orange">bind-</span>not-sort-by</code> (Defaults: [ ])
+          : list key columns not want sort, if is empty will not sort any column.
+          </p>
+        </li>
+        <li>
+          <p><code><span style="color:orange">bind-</span>bootstrap-icon</code> (Defaults: false)
+          : Whether to display boostrap icon or not.
+          </p>
+        </li>
+        <li>
+          <p><code><span style="color:orange">bind-</span>icon-up</code> (Defaults: 'fa fa-sort-up')
+          : Class thead icon up
+          </p>
+        </li>
+        <li>
+          <p><code><span style="color:orange">bind-</span>icon-down</code> (Defaults: 'fa fa-sort-down')
+          : Class thead icon down
+          </p>
+        </li>
+      </ul>
+    </div>
+    <div ng-if="innerPage == 'complete' || innerPage == 'pagination'">
+      <p>Settings can be provided as attributes in the <code>&lt;tasty-pagination&gt;</code>.</p>
+      <ul>
+        <li>
+          <p><code><span style="color:orange">bind-</span>items-per-page</code> (Defaults: 5) 
+          : Maximum number of items per page.
+          </p>
+        </li>
+        <li>
+          <p><code><span style="color:orange">bind-</span>list-items-per-page</code> (Defaults: [5, 25, 50, 100])
+          : list possible choice for items per page.
+          </p>
+        </li>
+        <li>
+          <p><code><span style="color:orange">bind-</span>template-url</code> (Defaults: 'template/table/pagination.html')
+          : a path to a template representing pagination's content.
+          </p>
+        </li>
+      </ul>
+      <p>If you add <code><span style="color:orange">bind-</span></code> before the attribute that means is a 
+        variable inside your <code>$scope</code> otherwise you passing by plan value.</p>
+    </div>
   </div>
 
   <div class="col-md-12 docs-body">

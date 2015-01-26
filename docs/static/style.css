@@ -107,6 +107,7 @@ iframe {
 }
 .left-nav .head ul.head-child-ul {
   padding-left: 10px;
+  margin: 0;
 }
 .left-nav .head ul.head-child-ul a {
   font-size: 12px;
