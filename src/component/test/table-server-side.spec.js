@@ -690,4 +690,74 @@ describe('Component: table server side', function () {
       expect(element.scope().paginationDirective).toEqual(false);
     });
   });
+
+
+  describe('complete with custom init', function () {
+    beforeEach(inject(function ($rootScope, $compile, $http, _$httpBackend_, _completeJSON_) {
+      $scope = $rootScope.$new();
+      $httpBackend = _$httpBackend_;
+      completeJSON = _completeJSON_;
+      $scope.getResource = function (paramsUrl, paramsObj) {
+        return $http.get('api.json?' + paramsUrl).then(function (response) {
+          $scope.paramsUrl = paramsUrl;
+          $scope.paramsObj = paramsObj;
+          return {
+            'rows': response.data.rows,
+            'header': response.data.header,
+            'pagination': response.data.pagination,
+            'sortBy': response.data['sort-by'],
+            'sortOrder': response.data['sort-order']
+          };
+        });
+      };
+      $scope.init = {
+        'count': 20,
+        'page': 4,
+        'sortBy': 'name',
+        'sortOrder': 'dsc'
+      };
+      element = angular.element(''+
+      '<div tasty-table bind-resource-callback="getResource" bind-init="init">'+
+      '  <table>'+
+      '    <thead tasty-thead></thead>'+
+      '    <tbody>'+
+      '      <tr ng-repeat="row in rows">'+
+      '        <td>{{ row.name }}</td>'+
+      '        <td>{{ row.star }}</td>'+
+      '        <td>{{ row[\'sf-location\'] }}</td>'+
+      '      </tr>'+
+      '    </tbody>'+
+      '  </table>'+
+      '  <div tasty-pagination></div>'+
+      '</div>');
+      $compile(element)($scope);
+    }));
+
+    it('should have these element.scope() value as default', function () {
+      urlToCall = 'api.json?sort-by=name&sort-order=dsc&page=4&count=20';
+      $httpBackend.whenGET(urlToCall).respond(completeJSON);
+      $httpBackend.flush();
+      $scope.$digest();
+      expect(element.scope().query).toEqual({
+        'page': 'page',
+        'count': 'count',
+        'sortBy': 'sort-by',
+        'sortOrder': 'sort-order',
+      });
+      expect(element.scope().url).toEqual('sort-by=name&sort-order=dsc&page=4&count=20&city=sf');
+      expect(element.scope().header.columns.length).toEqual(3);
+      expect(element.scope().pagination.count).toEqual(5);
+      expect(element.scope().pagination.page).toEqual(1);
+      expect(element.scope().pagination.pages).toEqual(7);
+      expect(element.scope().pagination.size).toEqual(34);
+      expect(element.scope().params.sortBy).toEqual('name');
+      expect(element.scope().params.sortOrder).toEqual('dsc');
+      expect(element.scope().params.page).toEqual(2);
+      expect(element.scope().params.count).toEqual(5);
+      expect(element.scope().params.thead).toEqual(true);
+      expect(element.scope().params.pagination).toEqual(true);
+      expect(element.scope().theadDirective).toEqual(true);
+      expect(element.scope().paginationDirective).toEqual(true);
+    });
+  });
 });
