@@ -957,19 +957,19 @@ describe('Component: table', function () {
       $scope.resource.rows.push({'name': 'Coffee', 'star': '★★★', 'sf-location': ''});
       $scope.$digest();
 
-      expect(element.scope().logs.buildClientResourceCount).toEqual(3);
+      expect(element.scope().logs.buildClientResourceCount).toEqual(2);
       $scope.resource.rows[0].star = '★★★★★';
       $scope.$digest();
 
-      expect(element.scope().logs.buildClientResourceCount).toEqual(3);
+      expect(element.scope().logs.buildClientResourceCount).toEqual(2);
       $scope.resource = $scope.resourceTwo;
       $scope.$digest();
 
-      expect(element.scope().logs.buildClientResourceCount).toEqual(5);
+      expect(element.scope().logs.buildClientResourceCount).toEqual(4);
       $scope.resource.reload();
       $scope.$digest();
 
-      expect(element.scope().logs.buildClientResourceCount).toEqual(6);
+      expect(element.scope().logs.buildClientResourceCount).toEqual(5);
     });
 
     it('should watch only the equality', function () {

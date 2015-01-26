@@ -175,30 +175,6 @@ gulp.task('full-test', function () {
     }));
 });
 
-gulp.task('watch', function () {
-
-  gulp.watch('template/**/*.html', ['html2js']);
-
-  gulp.watch('template/**/*.html.js', 'build');
-
-  gulp.watch('src/**/*.js', function (event) {
-    runSequence('jshint', 'build');
-  });
-
-  gulp.watch(['docs/server.js', 'docs/static/app.js'], function (event) {
-    gulp.src(['docs/server.js', 'docs/static/app.js'])
-    .pipe(jshint())
-    .pipe(jshint.reporter('default'));
-  });
-
-  gulp.src(testFiles)
-    .pipe(karma({
-      configFile: 'karma.conf.js',
-      action: 'watch',
-      browsers: ['Chrome']
-    }));
-});
-
 gulp.task('get-modules-name', function () {
   var setModules = function (folder, files) {
     files = files.filter(function (file) {
@@ -338,3 +314,28 @@ gulp.task('build-module', function () {
               'create-module',
               'create-module-release');
 });
+
+gulp.task('watch', function () {
+
+  gulp.watch('template/**/*.html', ['html2js']);
+
+  gulp.watch('template/**/*.html.js', ['build']);
+
+  gulp.watch('src/**/*.js', function (event) {
+    runSequence('jshint', 'build');
+  });
+
+  gulp.watch(['docs/server.js', 'docs/static/app.js'], function (event) {
+    gulp.src(['docs/server.js', 'docs/static/app.js'])
+    .pipe(jshint())
+    .pipe(jshint.reporter('default'));
+  });
+
+  gulp.src(testFiles)
+    .pipe(karma({
+      configFile: 'karma.conf.js',
+      action: 'watch',
+      browsers: ['Chrome']
+    }));
+});
+

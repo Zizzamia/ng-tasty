@@ -9,7 +9,13 @@ angular.module('ngTasty.service.setProperty', [])
   return function(objOne, objTwo, attrname) {
     if (typeof objTwo[attrname] !== 'undefined' && 
         objTwo[attrname] !== null) {
-      objOne[attrname] = objTwo[attrname];
+      if (angular.isString(objTwo[attrname])) {
+        if (objTwo[attrname].length) {
+          objOne[attrname] = objTwo[attrname];
+        }
+      } else {
+        objOne[attrname] = objTwo[attrname];
+      }
     }
     return objOne;
   };

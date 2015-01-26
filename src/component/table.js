@@ -41,9 +41,10 @@ angular.module('ngTasty.component.table', [
   'use strict';
   var listScopeToWatch, initTable, newScopeName, initStatus,
       updateClientSideResource, updateServerSideResource, setDirectivesValues,
-      buildClientResource, buildUrl;
+      buildClientResource, buildUrl, paramsInitialCycle;
   this.$scope = $scope;
   initStatus = {};
+  paramsInitialCycle = true;
   $scope.init = {};
   $scope.query = {};
   $scope.logs = {
@@ -171,6 +172,7 @@ angular.module('ngTasty.component.table', [
         $scope.params.sortBy = $scope.init.sortBy;
         $scope.params.sortOrder = $scope.init.sortOrder;
         $scope.params.page = $scope.init.page;
+        console.log('Start')
         $scope.$evalAsync(updateServerSideResource);
       }
     }
@@ -299,6 +301,7 @@ angular.module('ngTasty.component.table', [
 
   updateServerSideResource = function () {
     $scope.url = buildUrl($scope.params, $scope.filters);
+    console.log($scope.url)
     $scope.resourceCallback($scope.url, angular.copy($scope.params)).then(function (resource) {
       setDirectivesValues(resource);
     });
@@ -311,6 +314,7 @@ angular.module('ngTasty.component.table', [
         if ($scope.clientSide) {
           $scope.$evalAsync(updateClientSideResource('filters'));
         } else {
+          console.log('Filters')
           $scope.$evalAsync(updateServerSideResource);
         }
       }
@@ -318,10 +322,17 @@ angular.module('ngTasty.component.table', [
   }
   $scope.$watchCollection('params', function watchParams (newValue, oldValue){
     if (newValue !== oldValue) {
-      if ($scope.clientSide) {
-        $scope.$evalAsync(updateClientSideResource('params'));
+      // Run update resuorce only if we are on 
+      // the second cycle or more of `params`
+      if (paramsInitialCycle === false) {
+        if ($scope.clientSide) {
+          $scope.$evalAsync(updateClientSideResource('params'));
+        } else {
+          console.log('Params')
+          $scope.$evalAsync(updateServerSideResource);
+        }
       } else {
-        $scope.$evalAsync(updateServerSideResource);
+        paramsInitialCycle = false;
       }
     }
   });
