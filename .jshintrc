@@ -16,6 +16,7 @@
     "beforeEach" : false,
     "after" : false,
     "afterEach" : false,
-    "expect": false
+    "expect": false,
+    "module" : false
   }
 }

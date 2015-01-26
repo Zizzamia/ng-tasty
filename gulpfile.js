@@ -26,12 +26,12 @@ var fs = require('fs');
 var pkg = require('./package.json');
 
 var testFiles = [
-    'components/jquery/dist/jquery.min.js',
-    'components/angular/angular.min.js',
-    'components/angular-mocks/angular-mocks.js',
-    'src/**/*.js',
-    'template/table/*.html.js'
-  ];
+  'components/jquery/dist/jquery.min.js',
+  'components/angular/angular.min.js',
+  'components/angular-mocks/angular-mocks.js',
+  'src/**/*.js',
+  'template/table/*.html.js'
+];
 var meta = {
     modules: 'angular.module("ngTasty", [<%= srcModules %>]);',
     tplmodules: 'angular.module("ngTasty.tpls", [<%= tplModules %>]);',
@@ -77,7 +77,7 @@ gulp.task('jshint', function () {
 });
 
 gulp.task('html2js', function () {
-  gulp.src('template/**/*.html')
+  return gulp.src('template/**/*.html')
     .pipe(html2js({
       moduleName: function (file) {
         var path = file.path.split('/'),
@@ -95,7 +95,7 @@ gulp.task('html2js', function () {
 });
 
 gulp.task('test', function () {
-  gulp.src(testFiles)
+  return gulp.src(testFiles)
     .pipe(karma({
       configFile: 'karma.conf.js',
       action: 'run',
@@ -104,7 +104,7 @@ gulp.task('test', function () {
 });
 
 gulp.task('travis', function () {
-  gulp.src(testFiles)
+  return gulp.src(testFiles)
     .pipe(karma({
       configFile: 'karma.conf.js',
       action: 'run',
@@ -177,17 +177,12 @@ gulp.task('full-test', function () {
 
 gulp.task('watch', function () {
 
-  gulp.watch('template/**/*.html', function (event) {
-    gulp.run('html2js');
-  });
+  gulp.watch('template/**/*.html', ['html2js']);
 
-  gulp.watch('template/**/*.html.js', function (event) {
-    gulp.run('build');
-  });
+  gulp.watch('template/**/*.html.js', 'build');
 
   gulp.watch('src/**/*.js', function (event) {
-    gulp.run('jshint');
-    gulp.run('build');
+    runSequence('jshint', 'build');
   });
 
   gulp.watch(['docs/server.js', 'docs/static/app.js'], function (event) {

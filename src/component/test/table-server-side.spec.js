@@ -721,11 +721,6 @@ describe('Component: table server side', function () {
       '  <table>'+
       '    <thead tasty-thead></thead>'+
       '    <tbody>'+
-      '      <tr ng-repeat="row in rows">'+
-      '        <td>{{ row.name }}</td>'+
-      '        <td>{{ row.star }}</td>'+
-      '        <td>{{ row[\'sf-location\'] }}</td>'+
-      '      </tr>'+
       '    </tbody>'+
       '  </table>'+
       '  <div tasty-pagination></div>'+
@@ -744,7 +739,7 @@ describe('Component: table server side', function () {
         'sortBy': 'sort-by',
         'sortOrder': 'sort-order',
       });
-      expect(element.scope().url).toEqual('sort-by=name&sort-order=dsc&page=4&count=20&city=sf');
+      expect(element.scope().url).toEqual('sort-by=name&sort-order=dsc&page=4&count=20');
       expect(element.scope().header.columns.length).toEqual(3);
       expect(element.scope().pagination.count).toEqual(5);
       expect(element.scope().pagination.page).toEqual(1);
@@ -752,8 +747,8 @@ describe('Component: table server side', function () {
       expect(element.scope().pagination.size).toEqual(34);
       expect(element.scope().params.sortBy).toEqual('name');
       expect(element.scope().params.sortOrder).toEqual('dsc');
-      expect(element.scope().params.page).toEqual(2);
-      expect(element.scope().params.count).toEqual(5);
+      expect(element.scope().params.page).toEqual(4);
+      expect(element.scope().params.count).toEqual(20);
       expect(element.scope().params.thead).toEqual(true);
       expect(element.scope().params.pagination).toEqual(true);
       expect(element.scope().theadDirective).toEqual(true);

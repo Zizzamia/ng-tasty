@@ -572,6 +572,11 @@ angular.module('ngTasty.component.table', [
       scope.itemsPerPage = scope.itemsPerPage || tableConfig.itemsPerPage;
       scope.listItemsPerPage = scope.listItemsPerPage || tableConfig.listItemsPerPage;
 
+      // Serve side table case
+      if (!tastyTable.$scope.clientSide) {
+        scope.itemsPerPage = tastyTable.$scope.init.count || scope.itemsPerPage;
+      }
+
       // Internal variable
       scope.pagination = {};
       scope.pagMinRange = 1;

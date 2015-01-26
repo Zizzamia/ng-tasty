@@ -10,8 +10,6 @@ angular.module('myApp.pages.tableServerSide', [])
     'sortOrder': 'dsc'
   };
 
-  $scope.initTasty = { 'count': 20, 'page': 1 };
-  
   $scope.filterBy = {
     'name': 'r',
     'sf-location': ''
