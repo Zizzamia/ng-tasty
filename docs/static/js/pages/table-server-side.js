@@ -115,4 +115,34 @@ angular.module('myApp.pages.tableServerSide', [])
   $timeout(function () {
     Rainbow.color();
   });
+})
+.controller('TableServerSideInitCtrl', function($rootScope, $scope, $http, $timeout) {
+  $rootScope.page = 'table-server-side';
+  $rootScope.innerPage = 'init';
+  
+  $scope.init = false;
+
+  $scope.filterBy = {
+    'name': '',
+    'sf-location': ''
+  };
+
+  $scope.getResourceInit = function (params, paramsObj) {
+    $scope.params = params;
+    $scope.paramsObj = paramsObj;
+    $scope.urlApi = 'table.json?' + params;
+    return $http.get($scope.urlApi).then(function (response) {
+      $scope.response = JSON.stringify(response.data, undefined, 2);
+      return {
+        'rows': response.data.rows,
+        'header': response.data.header,
+        'pagination': response.data.pagination,
+        'sortBy': response.data['sort-by'],
+        'sortOrder': response.data['sort-order']
+      };
+    });
+  };
+  $timeout(function () {
+    Rainbow.color();
+  });
 });

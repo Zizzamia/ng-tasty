@@ -41,9 +41,10 @@ angular.module('ngTasty.component.table', [
   'use strict';
   var listScopeToWatch, initTable, newScopeName, initStatus,
       updateClientSideResource, updateServerSideResource, setDirectivesValues,
-      buildClientResource, buildUrl, paramsInitialCycle;
+      buildClientResource, buildUrl, paramsInitialCycle, initNow;
   this.$scope = $scope;
   initStatus = {};
+  initNow = true;
   paramsInitialCycle = true;
   $scope.init = {};
   $scope.query = {};
@@ -66,6 +67,12 @@ angular.module('ngTasty.component.table', [
   $scope.query.count = $scope.query.count || tableConfig.query.count;
   $scope.query.sortBy = $scope.query.sortBy || tableConfig.query.sortBy;
   $scope.query.sortOrder = $scope.query.sortOrder || tableConfig.query.sortOrder;
+
+  // Set init configs
+  if ($scope.init === false) {
+    initNow = false;
+    $scope.init = {};
+  }
   $scope.init.count = $scope.init.count || tableConfig.init.count;
   $scope.init.page = $scope.init.page || tableConfig.init.page;
   $scope.init.sortBy = $scope.init.sortBy || tableConfig.init.sortBy;
@@ -159,7 +166,7 @@ angular.module('ngTasty.component.table', [
       }
     }
 
-    if (this.start) {
+    if (this.start && initNow) {
       if ($scope.clientSide) {
         $scope.params.sortBy = $scope.resource.sortBy || $scope.init.sortBy;
         $scope.params.sortOrder = $scope.resource.sortOrder || $scope.init.sortOrder;

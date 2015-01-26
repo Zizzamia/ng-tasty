@@ -80,6 +80,11 @@ angular.module('myApp', [
     templateUrl: 'table-server-side/index.html',
     title: '#ngTasty - AngularJS server side table directive'
   })
+  .when('/directive/table-server-side/init', {
+    controller: 'TableServerSideInitCtrl',
+    templateUrl: 'table-server-side/index.html',
+    title: '#ngTasty - AngularJS server side table directive'
+  })
   .when('/filter/filter-int', {
     controller: 'FilterCtrl',
     templateUrl: 'filter/filter-int.html',
