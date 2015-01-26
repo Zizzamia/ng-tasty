@@ -5,10 +5,6 @@
   min-width: 700px;
 }
 
-.content.full-content {
-  max-width: 100%;
-}
-
 h1, h2 {
   margin-top: 0;
 }
@@ -114,6 +110,7 @@ iframe {
 }
 .left-nav .head ul.head-child-ul a {
   font-size: 12px;
+  width: 153px;
 }
 
 footer {

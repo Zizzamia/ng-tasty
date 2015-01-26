@@ -88,6 +88,9 @@ app.get('/:nameComponent/:namePage/*.html', function(req, res) {
   var page = req.params.namePage;
   res.render('template/' + component + '/' + page + '/' + fileName + '.html', responseObj);
 });
+app.get('/:nameComponent/:namePage/:typePage', function(req, res) {
+  res.render('template/index.html', responseObj);
+});
 
 //app.get('/benchmarks/table', function(req, res) {
 //  title = '#ngTasty - AngularJS websocket service';

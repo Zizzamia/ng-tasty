@@ -1,7 +1,7 @@
 angular.module('myApp.pages.tableServerSide', [])
-.controller('TableServerSideCtrl', function($rootScope, $scope, $http, $timeout) {
+.controller('TableServerSideCompleteCtrl', function($rootScope, $scope, $http, $timeout) {
   $rootScope.page = 'table-server-side';
-  $rootScope.fullContent = true;
+  $rootScope.innerPage = 'complete';
   
   $scope.init = {
     'count': 5,
@@ -13,29 +13,6 @@ angular.module('myApp.pages.tableServerSide', [])
     'name': 'r',
     'sf-location': ''
   };
-  $scope.filterByThree = {
-    'name': 'ro',
-    'sf-location': 'ha'
-  };
-  $scope.templateUrl = 'template/table/pagination.html';
-
-  $scope.open = function(toOpen) {
-    $scope.table = true;
-    $scope.tableTwo = true;
-    $scope.tableThree = true;
-    $scope.tableFour = true;
-    if (toOpen === 'complete') {
-      $scope.table = false;
-    } else if (toOpen === 'sorting') {
-      $scope.tableTwo = false;
-    } else if (toOpen === 'pagination') {
-      $scope.tableThree = false;
-    } else if (toOpen === 'filtering') {
-      $scope.tableFour = false;
-    }
-  };
-  $scope.open('complete');
-
   $scope.getResource = function (params, paramsObj) {
     $scope.params = params;
     $scope.paramsObj = paramsObj;
@@ -52,6 +29,13 @@ angular.module('myApp.pages.tableServerSide', [])
       };
     });
   };
+  $timeout(function () {
+    Rainbow.color();
+  });
+})
+.controller('TableServerSideSortingCtrl', function($rootScope, $scope, $http, $timeout) {
+  $rootScope.page = 'table-server-side';
+  $rootScope.innerPage = 'sorting';
 
   $scope.notSortBy = ['sf-location'];
   $scope.getResourceOne = function (params, paramsObj) {
@@ -69,7 +53,22 @@ angular.module('myApp.pages.tableServerSide', [])
       };
     });
   };
+  $timeout(function () {
+    Rainbow.color();
+  });
+})
+.controller('TableServerSidePaginationCtrl', function($rootScope, $scope, $http, $timeout) {
+  $rootScope.page = 'table-server-side';
+  $rootScope.innerPage = 'pagination';
 
+  $scope.init = {
+    'count': 5,
+    'page': 1,
+    'sortBy': 'name',
+    'sortOrder': 'dsc'
+  };
+
+  $scope.templateUrl = 'template/table/pagination.html';
   $scope.getResourceTwo = function (params, paramsObj) {
     $scope.paramsTwo = params;
     $scope.paramsObjTwo = paramsObj;
@@ -86,6 +85,18 @@ angular.module('myApp.pages.tableServerSide', [])
       };
     });
   };
+  $timeout(function () {
+    Rainbow.color();
+  });
+})
+.controller('TableServerSideFiltersCtrl', function($rootScope, $scope, $http, $timeout) {
+  $rootScope.page = 'table-server-side';
+  $rootScope.innerPage = 'filters';
+
+  $scope.filterByThree = {
+    'name': 'ro',
+    'sf-location': 'ha'
+  };
 
   $scope.getResourceThree = function (params, paramsObj) {
     $scope.paramsThree = params;
@@ -100,8 +111,7 @@ angular.module('myApp.pages.tableServerSide', [])
       };
     });
   };
-
   $timeout(function () {
     Rainbow.color();
   });
-})
+});

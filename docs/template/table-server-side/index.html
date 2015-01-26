@@ -5,23 +5,7 @@
   </small></h2>
 </div>
 <div class="row">
-
-  <div class="col-md-7 docs-body">
-    <div ng-show="page == 'table-server-side'">
-      <%= include complete.html %>
-    </div>
-    <div ng-show="page == 'table-server-side/'">
-      <%= include sorting.html %>
-    </div>
-    <div ng-show="page == 'table-server-side/'">
-      <%= include pagination.html %>
-    </div>
-    <div ng-show="page == 'table-server-side/'">
-      <%= include filters.html %>
-    </div>
-  </div>
-
-  <div class="col-md-5 docs-head" style="position:relative">
+  <div class="col-md-12 docs-head">
     <p>A lightweight table directive with sorting, pagination and filtering support.</p>
     <p>Settings can be provided as attributes in the <code>&lt;tasty-table&gt;</code>.</p>
     <ul>
@@ -84,5 +68,20 @@
     </ul>
     <p>If you add <code><span style="color:orange">bind-</span></code> before the attribute that means is a 
       variable inside your <code>$scope</code> otherwise you passing by plan value.</p>
+  </div>
+
+  <div class="col-md-12 docs-body">
+    <div ng-if="innerPage == 'complete'">
+      <%= include complete.html %>
+    </div>
+    <div ng-if="innerPage == 'sorting'">
+      <%= include sorting.html %>
+    </div>
+    <div ng-if="innerPage == 'pagination'">
+      <%= include pagination.html %>
+    </div>
+    <div ng-if="innerPage == 'filters'">
+      <%= include filters.html %>
+    </div>
   </div>
 </div>

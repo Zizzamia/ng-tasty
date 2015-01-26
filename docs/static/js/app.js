@@ -31,12 +31,52 @@ angular.module('myApp', [
     title: '#ngTasty - Make your own tasty collection'
   })
   .when('/directive/table', {
-    controller: 'TableCtrl',
+    controller: 'TableCompleteCtrl',
+    templateUrl: 'table/index.html',
+    title: '#ngTasty - AngularJS table directive'
+  })
+  .when('/directive/table/complete', {
+    controller: 'TableCompleteCtrl',
+    templateUrl: 'table/index.html',
+    title: '#ngTasty - AngularJS table directive'
+  })
+  .when('/directive/table/sorting', {
+    controller: 'TableSortingCtrl',
+    templateUrl: 'table/index.html',
+    title: '#ngTasty - AngularJS table directive'
+  })
+  .when('/directive/table/pagination', {
+    controller: 'TablePaginationCtrl',
+    templateUrl: 'table/index.html',
+    title: '#ngTasty - AngularJS table directive'
+  })
+  .when('/directive/table/filters', {
+    controller: 'TableFiltersCtrl',
     templateUrl: 'table/index.html',
     title: '#ngTasty - AngularJS table directive'
   })
   .when('/directive/table-server-side', {
-    controller: 'TableServerSideCtrl',
+    controller: 'TableServerSideCompleteCtrl',
+    templateUrl: 'table-server-side/index.html',
+    title: '#ngTasty - AngularJS server side table directive'
+  })
+  .when('/directive/table-server-side/complete', {
+    controller: 'TableServerSideCompleteCtrl',
+    templateUrl: 'table-server-side/index.html',
+    title: '#ngTasty - AngularJS server side table directive'
+  })
+  .when('/directive/table-server-side/sorting', {
+    controller: 'TableServerSideSortingCtrl',
+    templateUrl: 'table-server-side/index.html',
+    title: '#ngTasty - AngularJS server side table directive'
+  })
+  .when('/directive/table-server-side/pagination', {
+    controller: 'TableServerSidePaginationCtrl',
+    templateUrl: 'table-server-side/index.html',
+    title: '#ngTasty - AngularJS server side table directive'
+  })
+  .when('/directive/table-server-side/filters', {
+    controller: 'TableServerSideFiltersCtrl',
     templateUrl: 'table-server-side/index.html',
     title: '#ngTasty - AngularJS server side table directive'
   })

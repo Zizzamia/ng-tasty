@@ -1,19 +1,13 @@
 <h3>Table with filters</h3>
 <div class="example">
   <div class="form-group">
+    <label class="col-sm-3 control-label">Filters value :</label>
     <div class="col-sm-3">
-      <label class="control-label">Filters by name :</label>
       <input type="text" class="form-control input-sm" 
-      ng-model="filterByThree.name" value="" />
-    </div>
-    <div class="col-sm-3">
-      <label class="control-label">Filters by SF Location :</label>
-      <input type="text" class="form-control input-sm" 
-      ng-model="filterByThree['sf-location']" value="" />
+      placeholder="Filter result" ng-model="filters" value="" />
     </div>
   </div>
-  <div tasty-table bind-resource-callback="getResourceThree" 
-  bind-filters="filterByThree"> 
+  <div tasty-table bind-resource="resourceFour" bind-filters="filters"> 
     <table class="table table-striped table-condensed">
       <thead>
         <tr>
@@ -26,23 +20,25 @@
         <tr ng-repeat="row in rows">
           <td>{{ row.name }}</td>
           <td>{{ row.star }}</td>
-          <td>{{ row['sf-location'] }}</td>
+          <td>{{ row['sf-Location'] }}</td>
         </tr>
       </tbody>
     </table>
+    <tasty-pagination></tasty-pagination>
   </div>
-  <pre>Api url : {{ urlApiThree }}</pre>
-  <pre>params : {{ paramsThree }}</pre>
-  <pre>paramsObj : {{ paramsObjThree }}</pre>
 </div>
 <tabset class="code">
+  <div class="pull-right">
+    <a href="http://plnkr.co/edit/jnSXo3?p=preview" target="_blank">
+      <button class="btn btn-info">
+        <i class="glyphicon glyphicon-edit"></i>Edit in plunker
+      </button>
+    </a>
+  </div>
   <tab heading="Markup">
     <%= include example-html-4.html %>
   </tab>
   <tab heading="JavaScript">
     <%= include example-js-4.html %>
-  </tab>
-  <tab heading="Response">
-    <pre><code data-language="javascript" ng-bind="responseFour"></code></pre>
   </tab>
 </tabset>

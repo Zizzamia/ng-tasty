@@ -37,26 +37,44 @@
       <ul>
         <li>
           <a href="<%= base %>/directive/table" ng-class="{active:page == 'table'}">Table</a>
+          <ul class="head-child-ul" ng-show="page == 'table'">
+            <li>
+              <a href="<%= base %>/directive/table/complete"
+              ng-class="{active:innerPage == 'complete'}">Table Complete</a>
+            </li>
+            <li>
+              <a href="<%= base %>/directive/table/sorting"
+              ng-class="{active:innerPage == 'sorting'}">Table with sorting</a>
+            </li>
+            <li>
+              <a href="<%= base %>/directive/table/pagination"
+              ng-class="{active:innerPage == 'pagination'}">Table with pagination</a>
+            </li>
+            <li>
+              <a href="<%= base %>/directive/table/filters"
+              ng-class="{active:innerPage == 'filters'}">Table with filters</a>
+            </li>
+          </ul>
         </li>
         <li>
           <a href="<%= base %>/directive/table-server-side" 
             ng-class="{active:page == 'table-server-side'}">Table server side</a>
-          <ul class="head-child-ul">
+          <ul class="head-child-ul" ng-show="page == 'table-server-side'">
             <li>
               <a href="<%= base %>/directive/table-server-side/complete"
-              ng-class="{active:page == 'table-server-side'}">Table Complete</a>
+              ng-class="{active:innerPage == 'complete'}">Table Complete</a>
             </li>
             <li>
               <a href="<%= base %>/directive/table-server-side/sorting"
-              ng-class="{active:page == 'table-server-side/sorting'}">Table with sorting</a>
+              ng-class="{active:innerPage == 'sorting'}">Table with sorting</a>
             </li>
             <li>
               <a href="<%= base %>/directive/table-server-side/pagination"
-              ng-class="{active:page == 'table-server-side/pagination'}">Table with pagination</a>
+              ng-class="{active:innerPage == 'pagination'}">Table with pagination</a>
             </li>
             <li>
               <a href="<%= base %>/directive/table-server-side/filters"
-              ng-class="{active:page == 'table-server-side/filters'}">Table with filters</a>
+              ng-class="{active:innerPage == 'filters'}">Table with filters</a>
             </li>
           </ul>
         </li>
@@ -110,7 +128,7 @@
       -->
     </div>
   </div>
-  <div class="content" ng-class="{'full-content':fullContent==true}">
+  <div class="content">
     <div ng-view></div>
   </div>
   <script src="<%= base %>/components/angular/angular.js"></script>

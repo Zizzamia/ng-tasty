@@ -5,253 +5,84 @@
   </small></h2>
 </div>
 <div class="row">
-	<div class="col-md-7 docs-body">
-    <h3>Table with sorting, pagination and filtering</h3>
-    <div class="example">
-      <div class="form-group">
-        <label class="col-sm-3 control-label">Filters value :</label>
-        <div class="col-sm-3">
-          <input type="text" class="form-control input-sm"
-          placeholder="Filter result" ng-model="filterOne" value="" />
-        </div>
-      </div>
-      <div tasty-table bind-resource="resource" bind-filters="filterOne"> 
-        <table class="table table-striped table-condensed">
-          <thead tasty-thead></thead>
-          <tbody>
-            <tr ng-repeat="row in rows">
-              <td>{{ row.name }}</td>
-              <td>{{ row.star }}</td>
-              <td>{{ row['sf-Location'] }}</td>
-            </tr>
-          </tbody>
-        </table>
-        <div tasty-pagination></div>
-      </div>
-    </div>
-    <tabset class="code">
-      <div class="pull-right" ng-hide="table">
-        <a href="http://plnkr.co/edit/DNJVQXT7NnNk5k1flqQ2?p=preview" target="_blank">
-          <button class="btn btn-info">
-            <i class="glyphicon glyphicon-edit"></i>Edit in plunker
-          </button>
-        </a>
-      </div>
-      <tab heading="Markup">
-        <%= include example-html-1.html %>
-      </tab>
-      <tab heading="JavaScript">
-        <%= include example-js-1.html %>
-      </tab>
-    </tabset>
-
-    <br />
-    <br />
-    <h3>Table only with sorting</h3>
-    <div class="example">
-      <div tasty-table bind-resource="resourceTwo"> 
-        <table class="table table-striped table-condensed">
-          <thead tasty-thead bind-not-sort-by="notSortBy"></thead>
-          <tbody>
-            <tr ng-repeat="row in rows">
-              <td>{{ row.name }}</td>
-              <td>{{ row.star }}</td>
-              <td>{{ row['sf-Location'] }}</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-    <tabset class="code">
-      <div class="pull-right" ng-hide="table">
-        <a href="http://plnkr.co/edit/JBwuPw?p=preview" target="_blank">
-          <button class="btn btn-info">
-            <i class="glyphicon glyphicon-edit"></i>Edit in plunker
-          </button>
-        </a>
-      </div>
-      <tab heading="Markup">
-        <%= include example-html-2.html %>
-      </tab>
-      <tab heading="JavaScript">
-        <%= include example-js-2.html %>
-      </tab>
-    </tabset>
-
-    <br />
-    <br />
-    <h3>Table only with pagination</h3>
-    <div class="example">
-      <div tasty-table bind-resource="resourceThree"> 
-        <table class="table table-striped table-condensed">
-          <thead>
-            <tr>
-              <th>Name</th>
-              <th>Star</th>
-              <th>SF Location</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr ng-repeat="row in rows">
-              <td>{{ row.name }}</td>
-              <td>{{ row.star }}</td>
-              <td>{{ row['sf-Location'] }}</td>
-            </tr>
-          </tbody>
-        </table>
-        <div tasty-pagination bind-items-per-page="itemsPerPage" 
-        bind-list-items-per-page="listItemsPerPage"></div>
-        <script type="text/ng-template" id="localTemplatePagination.html">
-          <div class="row">
-            <div class="col-xs-6">
-              <ul class="pagination">
-                <li ng-class="classPageMinRange">
-                  <a href ng-click="page.previous()">&laquo;</a>
-                </li>
-                <li ng-repeat="numPage in rangePage" ng-class="classNumPage(numPage)">
-                  <a href ng-click="page.get(numPage)">
-                    <span ng-bind="numPage"></span>
-                    <span class="sr-only" ng-if="classNumPage(numPage)">(current)</span>
-                  </a>
-                </li>
-                <li ng-class="classPageMaxRange">
-                  <a href ng-click="page.remaining()">&raquo;</a>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </script>
-      </div>
-    </div>
-    <tabset class="code">
-      <div class="pull-right" ng-hide="table">
-        <a href="http://plnkr.co/edit/AWA0HE?p=preview" target="_blank">
-          <button class="btn btn-info">
-            <i class="glyphicon glyphicon-edit"></i>Edit in plunker
-          </button>
-        </a>
-      </div>
-      <tab heading="Markup">
-        <%= include example-html-3.html %>
-      </tab>
-      <tab heading="JavaScript">
-        <%= include example-js-3.html %>
-      </tab>
-    </tabset>
-
-    <br />
-    <br />
-    <h3>Table only with filters</h3>
-    <div class="example">
-      <div class="form-group">
-        <label class="col-sm-3 control-label">Filters value :</label>
-        <div class="col-sm-3">
-          <input type="text" class="form-control input-sm" 
-          placeholder="Filter result" ng-model="filters" value="" />
-        </div>
-      </div>
-      <div tasty-table bind-resource="resourceFour" bind-filters="filters"> 
-        <table class="table table-striped table-condensed">
-          <thead>
-            <tr>
-              <th>Name</th>
-              <th>Star</th>
-              <th>SF Location</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr ng-repeat="row in rows">
-              <td>{{ row.name }}</td>
-              <td>{{ row.star }}</td>
-              <td>{{ row['sf-Location'] }}</td>
-            </tr>
-          </tbody>
-        </table>
-        <tasty-pagination></tasty-pagination>
-      </div>
-    </div>
-    <tabset class="code">
-      <div class="pull-right" ng-hide="table">
-        <a href="http://plnkr.co/edit/jnSXo3?p=preview" target="_blank">
-          <button class="btn btn-info">
-            <i class="glyphicon glyphicon-edit"></i>Edit in plunker
-          </button>
-        </a>
-      </div>
-      <tab heading="Markup">
-        <%= include example-html-4.html %>
-      </tab>
-      <tab heading="JavaScript">
-        <%= include example-js-4.html %>
-      </tab>
-    </tabset>
+  <div class="col-md-12 docs-head">
+    <p>A lightweight table directive with sorting, pagination and filtering support.</p>
+    <p>Settings can be provided as attributes in the <code>&lt;tasty-table&gt;</code> or globally 
+      configured through the <code>tableConfig</code></p>
+    <ul>
+      <li>
+        <p><code>bind-resource</code><i class="glyphicon glyphicon-eye-open"></i>
+        : The date object.
+        </p>
+      </li>
+      <li>
+        <p><code>bind-filters</code> (Defaults: {})
+        : The filters object.
+        </p>
+      </li>
+      <li>
+        <p><code><span style="color:orange">bind-</span>watch-resource</code> (Defaults: 'reference')
+        : 
+        </p>
+      </li>
+    </ul>
+    <p>Settings can be provided as attributes in the <code>&lt;tasty-thead&gt;</code>.</p>
+    <ul>
+      <li>
+        <p><code><span style="color:orange">bind-</span>not-sort-by</code> (Defaults: [ ])
+        : list key columns not want sort, if is empty will not sort any column.
+        </p>
+      </li>
+      <li>
+        <p><code><span style="color:orange">bind-</span>bootstrap-icon</code> (Defaults: false)
+        : Whether to display boostrap icon or not.
+        </p>
+      </li>
+      <li>
+        <p><code><span style="color:orange">bind-</span>icon-up</code> (Defaults: 'fa fa-sort-up')
+        : Class thead icon up
+        </p>
+      </li>
+      <li>
+        <p><code><span style="color:orange">bind-</span>icon-down</code> (Defaults: 'fa fa-sort-down')
+        : Class thead icon down
+        </p>
+      </li>
+    </ul>
+    <p>Settings can be provided as attributes in the <code>&lt;tasty-pagination&gt;</code>.</p>
+    <ul>
+      <li>
+        <p><code><span style="color:orange">bind-</span>items-per-page</code> (Defaults: 5) 
+        : Maximum number of items per page.
+        </p>
+      </li>
+      <li>
+        <p><code><span style="color:orange">bind-</span>list-items-per-page</code> (Defaults: [5, 25, 50, 100])
+        : list possible choice for items per page.
+        </p>
+      </li>
+      <li>
+        <p><code><span style="color:orange">bind-</span>template-url</code> (Defaults: 'template/table/pagination.html')
+        : a path to a template representing pagination's content.
+        </p>
+      </li>
+    </ul>
+    <p>If you add <code><span style="color:orange">bind-</span></code> before the attribute that means is a 
+      variable inside your <code>$scope</code> otherwise you passing by plan value.</p>
   </div>
 
-  <div class="col-md-5 docs-head" style="position:relative" scroll>
-    <div style="position:absolute;top:{{ pageYOffset }};transition: all 0.8s linear;">
-      <p>A lightweight table directive with sorting, pagination and filtering support.</p>
-      <p>Settings can be provided as attributes in the <code>&lt;tasty-table&gt;</code> or globally 
-        configured through the <code>tableConfig</code></p>
-      <ul>
-        <li>
-          <p><code>bind-resource</code><i class="glyphicon glyphicon-eye-open"></i>
-          : The date object.
-          </p>
-        </li>
-        <li>
-          <p><code>bind-filters</code> (Defaults: {})
-          : The filters object.
-          </p>
-        </li>
-        <li>
-          <p><code><span style="color:orange">bind-</span>watch-resource</code> (Defaults: 'reference')
-          : 
-          </p>
-        </li>
-      </ul>
-      <p>Settings can be provided as attributes in the <code>&lt;tasty-thead&gt;</code>.</p>
-      <ul>
-        <li>
-          <p><code><span style="color:orange">bind-</span>not-sort-by</code> (Defaults: [ ])
-          : list key columns not want sort, if is empty will not sort any column.
-          </p>
-        </li>
-        <li>
-          <p><code><span style="color:orange">bind-</span>bootstrap-icon</code> (Defaults: false)
-          : Whether to display boostrap icon or not.
-          </p>
-        </li>
-        <li>
-          <p><code><span style="color:orange">bind-</span>icon-up</code> (Defaults: 'fa fa-sort-up')
-          : Class thead icon up
-          </p>
-        </li>
-        <li>
-          <p><code><span style="color:orange">bind-</span>icon-down</code> (Defaults: 'fa fa-sort-down')
-          : Class thead icon down
-          </p>
-        </li>
-      </ul>
-      <p>Settings can be provided as attributes in the <code>&lt;tasty-pagination&gt;</code>.</p>
-      <ul>
-        <li>
-          <p><code><span style="color:orange">bind-</span>items-per-page</code> (Defaults: 5) 
-          : Maximum number of items per page.
-          </p>
-        </li>
-        <li>
-          <p><code><span style="color:orange">bind-</span>list-items-per-page</code> (Defaults: [5, 25, 50, 100])
-          : list possible choice for items per page.
-          </p>
-        </li>
-        <li>
-          <p><code><span style="color:orange">bind-</span>template-url</code> (Defaults: 'template/table/pagination.html')
-          : a path to a template representing pagination's content.
-          </p>
-        </li>
-      </ul>
-      <p>If you add <code><span style="color:orange">bind-</span></code> before the attribute that means is a 
-        variable inside your <code>$scope</code> otherwise you passing by plan value.</p>
+  <div class="col-md-12 docs-body">
+    <div ng-if="innerPage == 'complete'">
+      <%= include complete.html %>
+    </div>
+    <div ng-if="innerPage == 'sorting'">
+      <%= include sorting.html %>
+    </div>
+    <div ng-if="innerPage == 'pagination'">
+      <%= include pagination.html %>
+    </div>
+    <div ng-if="innerPage == 'filters'">
+      <%= include filters.html %>
     </div>
   </div>
 </div>

@@ -1,32 +1,6 @@
 angular.module('myApp.pages.table', [])
-.controller('TableCtrl', function($rootScope, $scope, $http, $timeout) {
-
-  $rootScope.page = 'table';
-  $rootScope.fullContent = true;
-
-  $scope.open = function(toOpen) {
-    $scope.table = true;
-    $scope.tableTwo = true;
-    $scope.tableThree = true;
-    $scope.tableFour = true;
-    if (toOpen === 'complete') {
-      $scope.table = false;
-    } else if (toOpen === 'sorting') {
-      $scope.tableTwo = false;
-    } else if (toOpen === 'pagination') {
-      $scope.tableThree = false;
-    } else if (toOpen === 'filtering') {
-      $scope.tableFour = false;
-    }
-  };
-  
-  $scope.open('complete');
-  $scope.resource = {
-    'header': [
-      { 'name': 'Name' },
-      { 'star': 'Star' },
-      { 'sf-Location': 'SF Location' }
-    ],
+.factory('tableResource', function () {
+  return {
     'rows': [
       { 'name': 'Ritual Coffee Roasters', 'star': '★★★★★', 'sf-Location': 'Hayes Valley'},
       { 'name': 'Blue Bottle', 'star': '★★★★★', 'sf-Location': 'Hayes Valley' },
@@ -62,43 +36,74 @@ angular.module('myApp.pages.table', [])
       { 'name': 'farm:table', 'star': '★★★', 'sf-Location': 'Tenderloin' },
       { 'name': 'Starbucks', 'star': '★', 'sf-Location': 'Union Square' },
       { 'name': 'Flywheel Coffee Roasters', 'star': '★★★★★', 'sf-Location': 'Upper Haight' }
+    ]
+  }
+})
+.controller('TableCompleteCtrl', function($rootScope, $scope, $timeout, tableResource) {
+  $rootScope.page = 'table';
+  $rootScope.innerPage = 'complete';
+  $scope.resource = {
+    'header': [
+      { 'name': 'Name' },
+      { 'star': 'Star' },
+      { 'sf-Location': 'SF Location' }
     ],
+    'rows': tableResource.rows,
     'sortBy': 'name',
     'sortOrder': 'asc'
   };
+  $timeout(function () {
+    Rainbow.color();
+  });
+})
+.controller('TableSortingCtrl', function($rootScope, $scope, $timeout, tableResource) {
+  $rootScope.page = 'table';
+  $rootScope.innerPage = 'sorting';
   $scope.resourceTwo = {
     'header': [
       { 'key': 'name', 'name': 'Name', 'style': {'width': '50%'} },
       { 'key': 'star', 'name': 'Star', 'style': {'width': '15%'} },
       { 'key': 'sf-Location', 'name': 'SF Location', 'style': {'width': '35%'} }
     ],
-    'rows': $scope.resource.rows,
+    'rows': tableResource.rows,
     'sortBy': 'star',
     'sortOrder': 'dsc'
   };
   $scope.notSortBy = ['sf-Location'];
-  
+  $timeout(function () {
+    Rainbow.color();
+  });
+})
+.controller('TablePaginationCtrl', function($rootScope, $scope, $timeout, tableResource) {
+  $rootScope.page = 'table';
+  $rootScope.innerPage = 'pagination';
   $scope.resourceThree = {
     'header': [
       { 'name': 'Name' },
       { 'star': 'Star' },
       { 'sf-Location': 'SF Location' }
     ],
-    'rows': $scope.resource.rows,
+    'rows': tableResource.rows,
     'pagination': {
       'page': 2
     }
   };
   $scope.itemsPerPage = 20;
   $scope.listItemsPerPage = [10, 20, 40, 80];
-
+  $timeout(function () {
+    Rainbow.color();
+  });
+})
+.controller('TableFiltersCtrl', function($rootScope, $scope, $timeout, tableResource) {
+  $rootScope.page = 'table';
+  $rootScope.innerPage = 'filters';
   $scope.resourceFour = {
     'header': [
       { 'name': 'Name' },
       { 'star': 'Star' },
       { 'sf-Location': 'SF Location' }
     ],
-    'rows': $scope.resource.rows
+    'rows': tableResource.rows,
   };
   $scope.filters = 'rit';
 
