@@ -1,6 +1,15 @@
 ## Changelog
 
-### v0.4.6 (master, released on January 22th 2015)
+### v0.4.7 (master, released on January 27th 2015)
+#### Features
+- Add custom template header [#90](https://github.com/Zizzamia/ng-tasty/issues/90)
+- Add bind-reload on server side table [#90](https://github.com/Zizzamia/ng-tasty/issues/89)
+
+#### Bug Fixes
+- Fixed bug with bind-init [#91](https://github.com/Zizzamia/ng-tasty/issues/91)
+
+
+### v0.4.6 (released on January 22th 2015)
 #### Bug Fixes
 - Fixed bug passing plain text without bind [#87](https://github.com/Zizzamia/ng-tasty/issues/87)
 
