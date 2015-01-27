@@ -10,9 +10,12 @@
     <p><b ng-bind="txt1 | slugify"></b></p>
     <p><b ng-bind="txt2 | slugify"></b></p>
     <p><b ng-bind="txt3 | slugify"></b></p>
+    <p><b ng-bind="txt4 | slugify"></b></p>
+    <p><b ng-bind="txt5 | slugify"></b></p>
+
   </div>
   <div class="col-xs-6">
-    <p>A slugify filter.</p>
+    <p>Transform text into an ascii slug by replacing whitespaces, accentuated, and special characters with the coresponding latin character or completely removing them when no latin equivalent is found. This can be used safely to generate valid URLs.</p>
   </div>
   <div class="col-xs-12">
     <tabset class="code">
@@ -20,14 +23,19 @@
         <div>
 <pre ng-non-bindable><code data-language="html"><p><b ng-bind="txt1 | slugify"></b></p>
 <p><b ng-bind="txt2 | slugify"></b></p>
-<p><b ng-bind="txt3 | slugify"></b></p></code></pre>
+<p><b ng-bind="txt3 | slugify"></b></p>
+<p><b ng-bind="txt4 | slugify"></b></p>
+<p><b ng-bind="txt5 | slugify"></b></p></code></pre>
         </div>
       </tab>
       <tab heading="Javascript">
         <div>
-<pre ng-non-bindable><code data-language="javascript">$scope.txt1 = 'hey_there';
-$scope.txt2 = 'look-at-this';
-$scope.txt3 = 'this_is_awesome';</code></pre>
+<pre ng-non-bindable><code data-language="javascript">
+  $scope.txt1 = 'some text here';
+  $scope.txt2 = 'Some Text hERe';
+  $scope.txt3 = 'some #%% text ][] here )(*';
+  $scope.txt4 = 's#@ome[] [#te!xt %$h#ere';
+  $scope.txt5 = 'šõmé @##@țëxť -hêre';</code></pre>
         </div>
       </tab>
     </tabset>
