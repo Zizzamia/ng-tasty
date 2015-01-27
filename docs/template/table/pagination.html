@@ -1,5 +1,5 @@
 <div class="example">
-  <div tasty-table bind-resource="resourceThree"> 
+  <div tasty-table bind-resource="resource"> 
     <table class="table table-striped table-condensed">
       <thead>
         <tr>
@@ -18,26 +18,6 @@
     </table>
     <div tasty-pagination bind-items-per-page="itemsPerPage" 
     bind-list-items-per-page="listItemsPerPage"></div>
-    <script type="text/ng-template" id="localTemplatePagination.html">
-      <div class="row">
-        <div class="col-xs-6">
-          <ul class="pagination">
-            <li ng-class="classPageMinRange">
-              <a href ng-click="page.previous()">&laquo;</a>
-            </li>
-            <li ng-repeat="numPage in rangePage" ng-class="classNumPage(numPage)">
-              <a href ng-click="page.get(numPage)">
-                <span ng-bind="numPage"></span>
-                <span class="sr-only" ng-if="classNumPage(numPage)">(current)</span>
-              </a>
-            </li>
-            <li ng-class="classPageMaxRange">
-              <a href ng-click="page.remaining()">&raquo;</a>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </script>
   </div>
 </div>
 <tabset class="code">

@@ -59,7 +59,7 @@ angular.module('myApp.pages.table', [])
 .controller('TableSortingCtrl', function($rootScope, $scope, $timeout, tableResource) {
   $rootScope.page = 'table';
   $rootScope.innerPage = 'sorting';
-  $scope.resourceTwo = {
+  $scope.resource = {
     'header': [
       { 'key': 'name', 'name': 'Name', 'style': {'width': '50%'} },
       { 'key': 'star', 'name': 'Star', 'style': {'width': '15%'} },
@@ -77,7 +77,7 @@ angular.module('myApp.pages.table', [])
 .controller('TablePaginationCtrl', function($rootScope, $scope, $timeout, tableResource) {
   $rootScope.page = 'table';
   $rootScope.innerPage = 'pagination';
-  $scope.resourceThree = {
+  $scope.resource = {
     'header': [
       { 'name': 'Name' },
       { 'star': 'Star' },
@@ -97,7 +97,7 @@ angular.module('myApp.pages.table', [])
 .controller('TableFiltersCtrl', function($rootScope, $scope, $timeout, tableResource) {
   $rootScope.page = 'table';
   $rootScope.innerPage = 'filters';
-  $scope.resourceFour = {
+  $scope.resource = {
     'header': [
       { 'name': 'Name' },
       { 'star': 'Star' },
@@ -138,3 +138,22 @@ angular.module('myApp.pages.table', [])
     'sortOrder': 'asc'
   };
 })
+.controller('TableCustomPaginationCtrl', function($rootScope, $scope, $timeout, tableResource) {
+  $rootScope.page = 'table';
+  $rootScope.innerPage = 'custom-pagination';
+  $scope.resource = {
+    'header': [
+      { 'name': 'Name' },
+      { 'star': 'Star' },
+      { 'sf-Location': 'SF Location' }
+    ],
+    'rows': tableResource.rows,
+    'pagination': {
+      'page': 2
+    }
+  };
+  $timeout(function () {
+    Rainbow.color();
+  });
+});
+

@@ -14,7 +14,7 @@ angular.module('ngTasty.service.bindTo', [])
     }
     parentGet = $parse(attrs[scopeName]);
     if (parentGet.literal) {
-      compare = equals;
+      compare = angular.equals;
     } else {
       compare = function(a,b) { return a === b || (a !== a && b !== b); };
     }

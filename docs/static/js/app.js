@@ -50,6 +50,11 @@ angular.module('myApp', [
     templateUrl: 'table/index.html',
     title: '#ngTasty - AngularJS table directive'
   })
+  .when('/directive/table/custom-pagination', {
+    controller: 'TableCustomPaginationCtrl',
+    templateUrl: 'table/index.html',
+    title: '#ngTasty - AngularJS table directive'
+  })
   .when('/directive/table/filters', {
     controller: 'TableFiltersCtrl',
     templateUrl: 'table/index.html',

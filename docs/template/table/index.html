@@ -5,6 +5,7 @@
     <span ng-if="innerPage == 'sorting'">with sorting</span>
     <span ng-if="innerPage == 'pagination'">with pagination</span>
     <span ng-if="innerPage == 'filters'">with filters</span>
+    <span ng-if="innerPage == 'custom-pagination'">with custom pagination</span>
     <small>
     (<a target="_blank" href="https://github.com/Zizzamia/ng-tasty/blob/master/src/component/table.js">ngTasty.table</a>)
     </small>
@@ -57,7 +58,7 @@
         </li>
       </ul>
     </div>
-    <div ng-if="innerPage == 'complete' || innerPage == 'pagination'">
+    <div ng-if="innerPage == 'complete' || innerPage == 'pagination' || innerPage == 'custom-pagination'">
       <p>Settings can be provided as attributes in the <code>&lt;tasty-pagination&gt;</code>.</p>
       <ul>
         <li>
@@ -82,17 +83,20 @@
   </div>
 
   <div class="col-md-12 docs-body">
-    <div ng-if="innerPage == 'complete'">
-      <%= include complete.html %>
-    </div>
-    <div ng-if="innerPage == 'sorting'">
-      <%= include sorting.html %>
-    </div>
-    <div ng-if="innerPage == 'pagination'">
-      <%= include pagination.html %>
-    </div>
-    <div ng-if="innerPage == 'filters'">
-      <%= include filters.html %>
-    </div>
+    <% if (typePage == 'complete') { %>
+     <%= include complete.html %>
+    <% } %>
+    <% if (typePage == 'sorting') { %>
+     <%= include sorting.html %>
+    <% } %>
+    <% if (typePage == 'pagination') { %>
+     <%= include pagination.html %>
+    <% } %>
+    <% if (typePage == 'filters') { %>
+     <%= include filters.html %>
+    <% } %>
+    <% if (typePage == 'custom-pagination') { %>
+     <%= include custom-pagination.html %>
+    <% } %>
   </div>
 </div>
