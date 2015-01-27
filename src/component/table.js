@@ -53,7 +53,7 @@ angular.module('ngTasty.component.table', [
   };
 
   listScopeToWatch = ['bindFilters', 'bindInit', 'bindQuery', 'bindResource', 
-  'bindResourceCallback', 'bindWatchResource'];
+  'bindResourceCallback', 'bindWatchResource', 'bindReload'];
   listScopeToWatch.forEach(function (scopeName) {
     newScopeName = scopeName.substring(4);
     newScopeName = newScopeName.charAt(0).toLowerCase() + newScopeName.slice(1);
@@ -179,7 +179,6 @@ angular.module('ngTasty.component.table', [
         $scope.params.sortBy = $scope.init.sortBy;
         $scope.params.sortOrder = $scope.init.sortOrder;
         $scope.params.page = $scope.init.page;
-        console.log('Start')
         $scope.$evalAsync(updateServerSideResource);
       }
     }
@@ -308,10 +307,19 @@ angular.module('ngTasty.component.table', [
 
   updateServerSideResource = function () {
     $scope.url = buildUrl($scope.params, $scope.filters);
-    console.log($scope.url)
-    $scope.resourceCallback($scope.url, angular.copy($scope.params)).then(function (resource) {
-      setDirectivesValues(resource);
-    });
+    if ($scope.reload) {
+      $scope.reload = function () {
+        $scope.resourceCallback($scope.url, angular.copy($scope.params))
+        .then(function (resource) {
+          setDirectivesValues(resource);
+        });
+      };
+    } else {
+      $scope.resourceCallback($scope.url, angular.copy($scope.params))
+      .then(function (resource) {
+        setDirectivesValues(resource);
+      });
+    }
   };
   
   // AngularJs $watch callbacks
@@ -321,7 +329,6 @@ angular.module('ngTasty.component.table', [
         if ($scope.clientSide) {
           $scope.$evalAsync(updateClientSideResource('filters'));
         } else {
-          console.log('Filters')
           $scope.$evalAsync(updateServerSideResource);
         }
       }
@@ -335,7 +342,6 @@ angular.module('ngTasty.component.table', [
         if ($scope.clientSide) {
           $scope.$evalAsync(updateClientSideResource('params'));
         } else {
-          console.log('Params')
           $scope.$evalAsync(updateServerSideResource);
         }
       } else {

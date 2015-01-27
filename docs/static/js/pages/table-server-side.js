@@ -121,10 +121,15 @@ angular.module('myApp.pages.tableServerSide', [])
   $rootScope.innerPage = 'init';
   
   $scope.init = false;
+  $scope.reloadCallback = function () {};
 
   $scope.filterBy = {
     'name': '',
     'sf-location': ''
+  };
+
+  $scope.search = function () {
+    $scope.reloadCallback();
   };
 
   $scope.getResourceInit = function (params, paramsObj) {

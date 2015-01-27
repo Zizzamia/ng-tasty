@@ -10,8 +10,12 @@
       <input type="text" class="form-control input-sm" 
       ng-model="filterBy['sf-location']" value="" />
     </div>
+    <div class="col-sm-3">
+      <button ng-click="search()">Search</button>
+    </div>
   </div>
-  <div tasty-table bind-resource-callback="getResourceInit" bind-init="init"> 
+  <div tasty-table bind-resource-callback="getResourceInit" bind-init="init" 
+  bind-filters="filterBy" bind-reload="reloadCallback"> 
     <table class="table table-striped table-condensed">
       <thead tasty-thead></thead>
       <tbody>

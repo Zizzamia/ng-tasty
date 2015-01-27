@@ -89,6 +89,7 @@ app.get('/:nameComponent/:namePage/*.html', function(req, res) {
   res.render('template/' + component + '/' + page + '/' + fileName + '.html', responseObj);
 });
 app.get('/:nameComponent/:namePage/:typePage', function(req, res) {
+  responseObj['typePage'] = req.params.typePage;
   res.render('template/index.html', responseObj);
 });
 

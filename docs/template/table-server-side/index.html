@@ -18,7 +18,8 @@
     <ul>
       <li>
         <p><code>bind-resource-callback</code><i class="glyphicon glyphicon-eye-open"></i>
-        : The function callback.
+        : The function callback. Will be call automatically when the sorting, pagination or filters
+        are changing.
         </p>
       </li>
       <li>
@@ -26,9 +27,14 @@
         : The default initialization object.
         </p>
       </li>
-      <li ng-if="innerPage == 'complete' || innerPage == 'filters'">
+      <li ng-if="innerPage == 'complete' || innerPage == 'filters' || innerPage == 'init'">
         <p><code>bind-filters</code> (Defaults: {})
         : The filters object.
+        </p>
+      </li>
+      <li>
+        <p><code>bind-reload</code>
+        : The function callback to reload manually the table.
         </p>
       </li>
     </ul>
@@ -82,20 +88,20 @@
   </div>
 
   <div class="col-md-12 docs-body">
-    <div ng-if="innerPage == 'complete'">
-      <%= include complete.html %>
-    </div>
-    <div ng-if="innerPage == 'sorting'">
-      <%= include sorting.html %>
-    </div>
-    <div ng-if="innerPage == 'pagination'">
-      <%= include pagination.html %>
-    </div>
-    <div ng-if="innerPage == 'filters'">
-      <%= include filters.html %>
-    </div>
-    <div ng-if="innerPage == 'init'">
-      <%= include init.html %>
-    </div>
+    <% if (typePage == 'complete') { %>
+     <%= include complete.html %>
+    <% } %>
+    <% if (typePage == 'sorting') { %>
+     <%= include sorting.html %>
+    <% } %>
+    <% if (typePage == 'pagination') { %>
+     <%= include pagination.html %>
+    <% } %>
+    <% if (typePage == 'filters') { %>
+     <%= include filters.html %>
+    <% } %>
+    <% if (typePage == 'init') { %>
+     <%= include init.html %>
+    <% } %>
   </div>
 </div>
