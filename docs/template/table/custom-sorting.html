@@ -12,22 +12,22 @@
       </tbody>
     </table>
     <script type="text/ng-template" id="localTemplateThead.html">
-      
+      <tr>
+        <th ng-repeat="column in columns track by $index" 
+        ng-class="classToShow(column)"
+        ng-style="::column.style" ng-click="sortBy(column)">
+          Custom <span ng-bind="::column.name"></span>
+        </th> 
+      </tr>
     </script>
   </div>
 </div>
 <tabset class="code">
-  <div class="pull-right">
-    <a href="http://plnkr.co/edit/JBwuPw?p=preview" target="_blank">
-      <button class="btn btn-info">
-        <i class="glyphicon glyphicon-edit"></i>Edit in plunker
-      </button>
-    </a>
-  </div>
   <tab heading="Markup">
     <pre ng-non-bindable><code data-language="html">&lt;div tasty-table bind-resource=&quot;resource&quot;&gt;
   &lt;table class=&quot;table table-striped table-condensed&quot;&gt;
-    &lt;thead tasty-thead bind-not-sort-by=&quot;notSortBy&quot;&gt;&lt;/thead&gt;
+    &lt;thead tasty-thead not-sort-by=&quot;['sf-location']&quot;
+    template-url&quot;localTemplateThead.html&quot;&gt;&lt;/thead&gt;
     &lt;tbody&gt;
       &lt;tr ng-repeat=&quot;row in rows&quot;&gt;
         &lt;td&gt;&lbrace;&lbrace; row.name &rbrace;&rbrace;&lt;/td&gt;
@@ -36,14 +36,21 @@
       &lt;/tr&gt;
     &lt;/tbody&gt;
   &lt;/table&gt;
+  &lt;script type="text/ng-template" id=&quot;localTemplateThead.html&quot;>
+    &lt;tr&gt;
+      &lt;th ng-repeat=&quot;column in columns track by $index&quot;
+      ng-class=&quot;classToShow(column)&quot;
+      ng-style=&quot;::column.style&quot; ng-click=&quot;sortBy(column)&quot;&gt;
+        Custom &lt;span ng-bind=&quot;::column.name&quot;&gt;&lt;/span&gt;
+      v/th&gt;
+    &lt;/tr&gt;
+  &lt;/script&gt;
 &lt;/div&gt;
 </code>
 </pre>
   </tab>
   <tab heading="JavaScript">
-    <pre><code data-language="javascript">$scope.notSortBy = ['sf-location'];
-
-$scope.resource = {
+    <pre><code data-language="javascript">$scope.resource = {
   "header": [
     { "key": "name", "name": "Name", "style": {"width": "50%"} },
     { "key": "star", "name": "Star", "style": {"width": "15%"} },

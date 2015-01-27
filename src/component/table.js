@@ -32,6 +32,7 @@ angular.module('ngTasty.component.table', [
   iconUp: 'fa fa-sort-up',
   iconDown: 'fa fa-sort-down',
   bootstrapIcon: false,
+  templateHeadUrl: 'template/table/head.html',
   templateUrl: 'template/table/pagination.html',
   listItemsPerPage: [5, 25, 50, 100],
   itemsPerPage: 5,
@@ -417,12 +418,14 @@ angular.module('ngTasty.component.table', [
   </table>
  *
  */
-.directive('tastyThead', function($filter, tableConfig, tastyUtil) {
+.directive('tastyThead', function($filter, $templateCache, $http, $compile, tableConfig, tastyUtil) {
   return {
     restrict: 'AE',
     require: '^tastyTable',
     scope: {},
-    templateUrl: 'template/table/head.html',
+    templateUrl: function(tElement, tAttrs) {
+      return tAttrs.templateUrl || tableConfig.templateHeadUrl;
+    },
     link: function postLink(scope, element, attrs, tastyTable) {
       'use strict';
       var newScopeName, listScopeToWatch;
@@ -432,7 +435,8 @@ angular.module('ngTasty.component.table', [
       scope.iconUp = tableConfig.iconUp;
       scope.iconDown = tableConfig.iconDown;
 
-      listScopeToWatch = ['bindNotSortBy', 'bindBootstrapIcon', 'bindIconUp', 'bindIconDown'];
+      listScopeToWatch = ['bindNotSortBy', 'bindBootstrapIcon', 'bindIconUp', 
+      'bindIconDown', 'bindTemplateUrl'];
       listScopeToWatch.forEach(function (scopeName) {
         newScopeName = scopeName.substring(4);
         newScopeName = newScopeName.charAt(0).toLowerCase() + newScopeName.slice(1);
@@ -447,6 +451,13 @@ angular.module('ngTasty.component.table', [
           }
         }
       });
+
+      if (scope.templateUrl) {
+        $http.get(scope.templateUrl, { cache: $templateCache })
+        .success(function(templateContent) {
+          element.replaceWith($compile(templateContent)(scope));                
+        });
+      }
 
       scope.setColumns = function () {
         var width, i, active, sortable, sort, 

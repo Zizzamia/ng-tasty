@@ -858,12 +858,15 @@ describe('Component: table', function () {
             'sortBy': 'sort-by',
             'sortOrder': 'sort-order'
           },
-          listItemsPerPage: [5, 25, 50, 100],
-          itemsPerPage: 5,
           bindOnce: true,
           iconUp: 'fa fa-sort-up',
           iconDown: 'fa fa-sort-down',
-          bootstrapIcon: true
+          bootstrapIcon: true,
+          templateHeadUrl: 'template/table/head.html',
+          templateUrl: 'template/table/pagination.html',
+          listItemsPerPage: [5, 25, 50, 100],
+          itemsPerPage: 5,
+          watchResource: 'reference'
         });
       });
     });
