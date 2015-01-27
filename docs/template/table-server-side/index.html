@@ -5,7 +5,7 @@
     <span ng-if="innerPage == 'sorting'">with sorting</span>
     <span ng-if="innerPage == 'pagination'">with pagination</span>
     <span ng-if="innerPage == 'filters'">with filters</span>
-    <span ng-if="innerPage == 'init'">with empty initialization</span>
+    <span ng-if="innerPage == 'reload'">with reload callback</span>
     <small>
     (<a target="_blank" href="https://github.com/Zizzamia/ng-tasty/blob/master/src/component/table.js">ngTasty.table</a>)
     </small>
@@ -34,7 +34,7 @@
       </li>
       <li>
         <p><code>bind-reload</code>
-        : The function callback to reload manually the table.
+        : The function callback to reload manually the table when the filters are changed.
         </p>
       </li>
     </ul>
@@ -100,8 +100,8 @@
     <% if (typePage == 'filters') { %>
      <%= include filters.html %>
     <% } %>
-    <% if (typePage == 'init') { %>
-     <%= include init.html %>
+    <% if (typePage == 'reload') { %>
+     <%= include reload.html %>
     <% } %>
   </div>
 </div>

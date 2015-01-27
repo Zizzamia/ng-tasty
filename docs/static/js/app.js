@@ -80,8 +80,8 @@ angular.module('myApp', [
     templateUrl: 'table-server-side/index.html',
     title: '#ngTasty - AngularJS server side table directive'
   })
-  .when('/directive/table-server-side/init', {
-    controller: 'TableServerSideInitCtrl',
+  .when('/directive/table-server-side/reload', {
+    controller: 'TableServerSideReloadCtrl',
     templateUrl: 'table-server-side/index.html',
     title: '#ngTasty - AngularJS server side table directive'
   })

@@ -116,11 +116,17 @@ angular.module('myApp.pages.tableServerSide', [])
     Rainbow.color();
   });
 })
-.controller('TableServerSideInitCtrl', function($rootScope, $scope, $http, $timeout) {
+.controller('TableServerSideReloadCtrl', function($rootScope, $scope, $http, $timeout) {
   $rootScope.page = 'table-server-side';
-  $rootScope.innerPage = 'init';
+  $rootScope.innerPage = 'reload';
   
-  $scope.init = false;
+  $scope.init = {
+    'count': 5,
+    'page': 1,
+    'sortBy': 'name',
+    'sortOrder': 'dsc'
+  };
+
   $scope.reloadCallback = function () {};
 
   $scope.filterBy = {
@@ -132,7 +138,7 @@ angular.module('myApp.pages.tableServerSide', [])
     $scope.reloadCallback();
   };
 
-  $scope.getResourceInit = function (params, paramsObj) {
+  $scope.getResourceReload = function (params, paramsObj) {
     $scope.params = params;
     $scope.paramsObj = paramsObj;
     $scope.urlApi = 'table.json?' + params;

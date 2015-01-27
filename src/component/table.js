@@ -69,9 +69,8 @@ angular.module('ngTasty.component.table', [
   $scope.query.sortOrder = $scope.query.sortOrder || tableConfig.query.sortOrder;
 
   // Set init configs
-  if ($scope.init === false) {
+  if ($scope.reload) {
     initNow = false;
-    $scope.init = {};
   }
   $scope.init.count = $scope.init.count || tableConfig.init.count;
   $scope.init.page = $scope.init.page || tableConfig.init.page;
@@ -166,7 +165,7 @@ angular.module('ngTasty.component.table', [
       }
     }
 
-    if (this.start && initNow) {
+    if (this.start) {
       if ($scope.clientSide) {
         $scope.params.sortBy = $scope.resource.sortBy || $scope.init.sortBy;
         $scope.params.sortOrder = $scope.resource.sortOrder || $scope.init.sortOrder;
@@ -174,12 +173,16 @@ angular.module('ngTasty.component.table', [
         if ($scope.resource.pagination) {
           $scope.params.page = $scope.resource.pagination.page || $scope.init.page;
         }
-        $scope.$evalAsync(updateClientSideResource);
+        if (initNow) {
+          $scope.$evalAsync(updateClientSideResource);
+        }
       } else {
         $scope.params.sortBy = $scope.init.sortBy;
         $scope.params.sortOrder = $scope.init.sortOrder;
         $scope.params.page = $scope.init.page;
-        $scope.$evalAsync(updateServerSideResource);
+        if (initNow) {
+          $scope.$evalAsync(updateServerSideResource);
+        }
       }
     }
   };
@@ -305,9 +308,9 @@ angular.module('ngTasty.component.table', [
     buildClientResource(updateFrom);
   };
 
-  updateServerSideResource = function () {
+  updateServerSideResource = function (updateFrom) {
     $scope.url = buildUrl($scope.params, $scope.filters);
-    if ($scope.reload) {
+    if ($scope.reload && updateFrom === 'filters') {
       $scope.reload = function () {
         $scope.resourceCallback($scope.url, angular.copy($scope.params))
         .then(function (resource) {
@@ -329,7 +332,7 @@ angular.module('ngTasty.component.table', [
         if ($scope.clientSide) {
           $scope.$evalAsync(updateClientSideResource('filters'));
         } else {
-          $scope.$evalAsync(updateServerSideResource);
+          $scope.$evalAsync(updateServerSideResource('filters'));
         }
       }
     }, true);

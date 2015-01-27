@@ -11,10 +11,11 @@
       ng-model="filterBy['sf-location']" value="" />
     </div>
     <div class="col-sm-3">
-      <button ng-click="search()">Search</button>
+      <br />
+      <button class="btn btn-primary" ng-click="search()">Search</button>
     </div>
   </div>
-  <div tasty-table bind-resource-callback="getResourceInit" bind-init="init" 
+  <div tasty-table bind-resource-callback="getResourceReload" bind-init="init" 
   bind-filters="filterBy" bind-reload="reloadCallback"> 
     <table class="table table-striped table-condensed">
       <thead tasty-thead></thead>
@@ -26,7 +27,7 @@
         </tr>
       </tbody>
     </table>
-    <div tasty-pagination></div>
+    <div tasty-pagination ng-show="rows.length"></div>
   </div>
   <pre>Api url : {{ urlApi }}</pre>
   <pre>params : {{ params  }}</pre>
@@ -34,7 +35,21 @@
 </div>
 <tabset class="code">
   <tab heading="Markup">
-    <pre ng-non-bindable><code data-language="html">&lt;div tasty-table bind-resource-callback=&quot;getResource&quot; bind-init=&quot;init&quot; &gt;
+    <pre ng-non-bindable><code data-language="html">&lt;div class="form-group"&gt;
+  &lt;div class="col-sm-3"&gt;
+    &lt;label class="control-label">Filters by name :&lt;/label&gt;
+    &lt;input type="text" class="form-control input-sm" ng-model="filterBy.name" /&gt;
+  &lt;/div&gt;
+  &lt;div class="col-sm-3"&gt;
+    &lt;label class="control-label">Filters by SF Location :&lt;/label&gt;
+    &lt;input type="text" class="form-control input-sm" ng-model="filterBy['sf-location']" /&gt;
+  &lt;/div&gt;
+  &lt;div class="col-sm-3"&gt;
+    &lt;button class="btn btn-primary" ng-click="search()"&gt;Search&lt;/button&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+&lt;div tasty-table bind-resource-callback=&quot;getResource&quot; bind-init=&quot;init&quot; 
+bind-filters=&quot;filterBy&quot; bind-reload=&quot;reloadCallback&quot; &gt;
   &lt;table class=&quot;table table-striped table-condensed&quot;&gt;
     &lt;thead tasty-thead&gt;&lt;/thead&gt;
     &lt;tbody&gt;
@@ -49,7 +64,24 @@
 &lt;/div&gt;</code></pre>
   </tab>
   <tab heading="JavaScript">
-    <pre><code data-language="javascript">$scope.init = false;
+    <pre><code data-language="javascript">$scope.init = {
+  'count': 5,
+  'page': 1,
+  'sortBy': 'name',
+  'sortOrder': 'dsc'
+};
+
+$scope.reloadCallback = function () {};
+
+$scope.filterBy = {
+  'name': '',
+  'sf-location': ''
+};
+
+$scope.search = function () {
+  $scope.reloadCallback();
+};
+
 $scope.getResource = function (params, paramsObj) {
   var urlApi = 'table.json?' + params;
   return $http.get(urlApi).then(function (response) {
