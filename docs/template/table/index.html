@@ -6,6 +6,8 @@
     <span ng-if="innerPage == 'pagination'">with pagination</span>
     <span ng-if="innerPage == 'filters'">with filters</span>
     <span ng-if="innerPage == 'custom-pagination'">with custom pagination</span>
+    <span ng-if="innerPage == 'custom-sorting'">with custom sorting</span>
+
     <small>
     (<a target="_blank" href="https://github.com/Zizzamia/ng-tasty/blob/master/src/component/table.js">ngTasty.table</a>)
     </small>
@@ -33,7 +35,7 @@
         </p>
       </li>
     </ul>
-    <div ng-if="innerPage == 'complete' || innerPage == 'sorting'">
+    <div ng-if="innerPage == 'complete' || innerPage == 'sorting' || innerPage == 'custom-sorting'">
       <p>Settings can be provided as attributes in the <code>&lt;tasty-thead&gt;</code>.</p>
       <ul>
         <li>
@@ -54,6 +56,11 @@
         <li>
           <p><code><span style="color:orange">bind-</span>icon-down</code> (Defaults: 'fa fa-sort-down')
           : Class thead icon down
+          </p>
+        </li>
+        <li>
+          <p><code><span style="color:orange">bind-</span>template-url</code> (Defaults: 'template/table/sorting.html')
+          : a path to a template representing thead content.
           </p>
         </li>
       </ul>
@@ -97,6 +104,9 @@
     <% } %>
     <% if (typePage == 'custom-pagination') { %>
      <%= include custom-pagination.html %>
+    <% } %>
+    <% if (typePage == 'custom-sorting') { %>
+     <%= include custom-sorting.html %>
     <% } %>
   </div>
 </div>

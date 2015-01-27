@@ -440,6 +440,7 @@ angular.module('ngTasty.component.table', [
           tastyUtil.bindTo(scopeName, scope, attrs, newScopeName);
         } else if (attrs[newScopeName]) {
           if (attrs[newScopeName][0] === '[') {
+            attrs[newScopeName] = attrs[newScopeName].replace(/'/g, '"');
             scope[newScopeName] = JSON.parse(attrs[newScopeName]);
           } else {
             scope[newScopeName] = attrs[newScopeName];

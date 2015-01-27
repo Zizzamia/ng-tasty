@@ -155,5 +155,21 @@ angular.module('myApp.pages.table', [])
   $timeout(function () {
     Rainbow.color();
   });
+})
+.controller('TableCustomSortingCtrl', function($rootScope, $scope, $timeout, tableResource) {
+  $rootScope.page = 'table';
+  $rootScope.innerPage = 'custom-sorting';
+  $scope.resource = {
+    'header': [
+      { 'key': 'name', 'name': 'Name', 'style': {'width': '50%'} },
+      { 'key': 'star', 'name': 'Star', 'style': {'width': '15%'} },
+      { 'key': 'sf-Location', 'name': 'SF Location', 'style': {'width': '35%'} }
+    ],
+    'rows': tableResource.rows,
+    'sortBy': 'star',
+    'sortOrder': 'dsc'
+  };
+  $timeout(function () {
+    Rainbow.color();
+  });
 });
-
