@@ -4,7 +4,8 @@
  * @function
  *
  * @description
- * Calling toString will return the ...
+ * Calling cleanFieldName will replace all 
+ * empty space with with -
  *
  * @example
   ng-bind="key | cleanFieldName"
