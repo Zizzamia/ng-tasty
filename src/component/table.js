@@ -201,10 +201,10 @@ angular.module('ngTasty.component.table', [
 
   setDirectivesValues = function (resource) {
     if (!angular.isObject(resource)) {
-      throw new Error('AngularJS tastyTable directive: the bind-resource '+
+      throw new Error('AngularJS tastyTable directive: the resource response '+
                       'is not an object');
     } else if (!resource.header && !resource.rows) {
-      throw new Error('AngularJS tastyTable directive: the bind-resource '+
+      throw new Error('AngularJS tastyTable directive: the resource response object '+
                       'has the property header or rows undefined');
     }
     Object.keys(resource).forEach(function(key) {
