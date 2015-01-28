@@ -37,7 +37,7 @@
       <ul>
         <li>
           <a href="<%= base %>/directive/table" ng-class="{active:page == 'table'}">Table</a>
-          <ul class="head-child-ul" ng-show="page == 'table'">
+          <ul class="head-child-ul" ng-show="page == 'table'" ng-cloak>
             <li>
               <a href="<%= base %>/directive/table/complete"
               ng-class="{active:innerPage == 'complete'}">complete</a>
@@ -67,7 +67,7 @@
         <li>
           <a href="<%= base %>/directive/table-server-side" 
             ng-class="{active:page == 'table-server-side'}">Table server side</a>
-          <ul class="head-child-ul" ng-show="page == 'table-server-side'">
+          <ul class="head-child-ul" ng-show="page == 'table-server-side'" ng-cloak>
             <li>
               <a href="<%= base %>/directive/table-server-side/complete"
               ng-class="{active:innerPage == 'complete'}">complete</a>

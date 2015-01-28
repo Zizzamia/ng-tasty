@@ -13,7 +13,7 @@ angular.module('myApp', [
   'myApp.pages.throttle',
   'myApp.pages.webSocket'
 ])
-.config(function ($locationProvider, $routeProvider) {
+.config(function ($compileProvider, $locationProvider, $routeProvider) {
   $routeProvider
   .when('/', {
     controller: 'HomeCtrl',
@@ -138,6 +138,7 @@ angular.module('myApp', [
   .otherwise({ redirectTo: '/' });
 
   $locationProvider.html5Mode(true);
+  $compileProvider.debugInfoEnabled(false);
 })
 .run(function ($rootScope, $route) {
   $rootScope.$on('$routeChangeSuccess', function(currentRoute, previousRoute){
