@@ -9,7 +9,7 @@
     <a class="btn btn-lg btn-primary" href="" ng-click="showDownloadModal()">
       <i class="fa fa-download"></i> Download
       <span class="version">
-        (<span>{{ version }}</span>)
+        (<span ng-bind="version"></span>)
       </span>
     </a>
   </div>
@@ -27,8 +27,6 @@
   <h2>Quick start</h2>
   <p>Installing via <a href="http://bower.io/search/?q=ng-tasty" target="_blank">Bower</a></p>
   <pre><code data-language="shell">bower install ng-tasty</code></pre>
-  <p>or installing via <a href="https://www.npmjs.org/package/ng-tasty" target="_blank">NPM</a></p>
-  <pre><code data-language="shell">npm install ng-tasty</code></pre>
   <p>Include the required bower component:</p>
   <pre><code data-language="html">&lt;script src="bower_components/ng-tasty/ng-tasty-tpls.min.js"&gt;&lt;/script&gt;</code></pre>
   <p>Inject the ngTasty module into your app:</p>
