@@ -32,67 +32,67 @@ angular.module('myApp', [
   })
   .when('/directive/table', {
     controller: 'TableCompleteCtrl',
-    templateUrl: 'table/index.html',
+    templateUrl: 'table/complete.html',
     title: '#ngTasty - AngularJS table directive'
   })
   .when('/directive/table/complete', {
     controller: 'TableCompleteCtrl',
-    templateUrl: 'table/index.html',
+    templateUrl: 'table/complete.html',
     title: '#ngTasty - AngularJS table directive'
   })
   .when('/directive/table/sorting', {
     controller: 'TableSortingCtrl',
-    templateUrl: 'table/index.html',
+    templateUrl: 'table/sorting.html',
     title: '#ngTasty - AngularJS table directive'
   })
   .when('/directive/table/pagination', {
     controller: 'TablePaginationCtrl',
-    templateUrl: 'table/index.html',
+    templateUrl: 'table/pagination.html',
     title: '#ngTasty - AngularJS table directive'
   })
   .when('/directive/table/custom-pagination', {
     controller: 'TableCustomPaginationCtrl',
-    templateUrl: 'table/index.html',
+    templateUrl: 'table/custom-pagination.html',
     title: '#ngTasty - AngularJS table directive'
   })
   .when('/directive/table/custom-sorting', {
     controller: 'TableCustomSortingCtrl',
-    templateUrl: 'table/index.html',
+    templateUrl: 'table/custom-sorting.html',
     title: '#ngTasty - AngularJS table directive'
   })
   .when('/directive/table/filters', {
     controller: 'TableFiltersCtrl',
-    templateUrl: 'table/index.html',
+    templateUrl: 'table/filters.html',
     title: '#ngTasty - AngularJS table directive'
   })
   .when('/directive/table-server-side', {
     controller: 'TableServerSideCompleteCtrl',
-    templateUrl: 'table-server-side/index.html',
+    templateUrl: 'table-server-side/complete.html',
     title: '#ngTasty - AngularJS server side table directive'
   })
   .when('/directive/table-server-side/complete', {
     controller: 'TableServerSideCompleteCtrl',
-    templateUrl: 'table-server-side/index.html',
+    templateUrl: 'table-server-side/complete.html',
     title: '#ngTasty - AngularJS server side table directive'
   })
   .when('/directive/table-server-side/sorting', {
     controller: 'TableServerSideSortingCtrl',
-    templateUrl: 'table-server-side/index.html',
+    templateUrl: 'table-server-side/sorting.html',
     title: '#ngTasty - AngularJS server side table directive'
   })
   .when('/directive/table-server-side/pagination', {
     controller: 'TableServerSidePaginationCtrl',
-    templateUrl: 'table-server-side/index.html',
+    templateUrl: 'table-server-side/pagination.html',
     title: '#ngTasty - AngularJS server side table directive'
   })
   .when('/directive/table-server-side/filters', {
     controller: 'TableServerSideFiltersCtrl',
-    templateUrl: 'table-server-side/index.html',
+    templateUrl: 'table-server-side/filters.html',
     title: '#ngTasty - AngularJS server side table directive'
   })
   .when('/directive/table-server-side/reload', {
     controller: 'TableServerSideReloadCtrl',
-    templateUrl: 'table-server-side/index.html',
+    templateUrl: 'table-server-side/reload.html',
     title: '#ngTasty - AngularJS server side table directive'
   })
   .when('/filter/filter-int', {

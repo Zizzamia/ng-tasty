@@ -80,6 +80,7 @@ app.get('/:nameComponent/*.html', function(req, res){
   res.render('template/' + component + '/' + fileName + '.html', responseObj);
 });
 app.get('/:nameComponent/:namePage', function(req, res) {
+  responseObj['typePage'] = req.params.typePage;
   res.render('template/index.html', responseObj);
 });
 app.get('/:nameComponent/:namePage/*.html', function(req, res) {

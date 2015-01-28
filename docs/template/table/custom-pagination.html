@@ -1,48 +1,54 @@
-<div class="example">
-  <div tasty-table bind-resource="resource"> 
-    <table class="table table-striped table-condensed">
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Star</th>
-          <th>SF Location</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr ng-repeat="row in rows">
-          <td>{{ row.name }}</td>
-          <td>{{ row.star }}</td>
-          <td>{{ row['sf-Location'] }}</td>
-        </tr>
-      </tbody>
-    </table>
-    <div tasty-pagination bind-items-per-page="5" 
-    template-url="localTemplatePagination.html"></div>
-    <script type="text/ng-template" id="localTemplatePagination.html">
-      <div class="row">
-        <div class="col-xs-6">
-          <ul class="pagination">
-            <li ng-class="classPageMinRange">
-              <a href ng-click="page.previous()">&laquo;</a>
-            </li>
-            <li ng-repeat="numPage in rangePage" ng-class="classNumPage(numPage)">
-              <a href ng-click="page.get(numPage)">
-                <span ng-bind="numPage"></span>
-                <span class="sr-only" ng-if="classNumPage(numPage)">(current)</span>
-              </a>
-            </li>
-            <li ng-class="classPageMaxRange">
-              <a href ng-click="page.remaining()">&raquo;</a>
-            </li>
-          </ul>
-        </div>
+<%= include ../title-inside.html %>
+<%= include page-header.html %>
+<div class="row">
+  <%= include docs-header.html %>
+
+  <div class="col-md-12 docs-body">
+    <div class="example">
+      <div tasty-table bind-resource="resource"> 
+        <table class="table table-striped table-condensed">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Star</th>
+              <th>SF Location</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="row in rows">
+              <td>{{ row.name }}</td>
+              <td>{{ row.star }}</td>
+              <td>{{ row['sf-Location'] }}</td>
+            </tr>
+          </tbody>
+        </table>
+        <div tasty-pagination bind-items-per-page="5" 
+        template-url="localTemplatePagination.html"></div>
+        <script type="text/ng-template" id="localTemplatePagination.html">
+          <div class="row">
+            <div class="col-xs-6">
+              <ul class="pagination">
+                <li ng-class="classPageMinRange">
+                  <a href ng-click="page.previous()">&laquo;</a>
+                </li>
+                <li ng-repeat="numPage in rangePage" ng-class="classNumPage(numPage)">
+                  <a href ng-click="page.get(numPage)">
+                    <span ng-bind="numPage"></span>
+                    <span class="sr-only" ng-if="classNumPage(numPage)">(current)</span>
+                  </a>
+                </li>
+                <li ng-class="classPageMaxRange">
+                  <a href ng-click="page.remaining()">&raquo;</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </script>
       </div>
-    </script>
-  </div>
-</div>
-<tabset class="code">
-  <tab heading="Markup">
-    <pre ng-non-bindable><code data-language="html">&lt;div tasty-table bind-resource=&quot;resource&quot;&gt;
+    </div>
+    <tabset class="code">
+      <tab heading="Markup">
+        <pre ng-non-bindable><code data-language="html">&lt;div tasty-table bind-resource=&quot;resource&quot;&gt;
   &lt;table class=&quot;table table-striped table-condensed&quot;&gt;
     &lt;thead&gt;
       &lt;tr&gt;
@@ -61,12 +67,10 @@
   &lt;/table&gt;
   &lt;div tasty-pagination items-per-page=&quot;5&quot; 
   template-url=&quot;localTemplatePagination.html&quot;&gt;&lt;/div&gt;
-&lt;/div&gt;
-</code>
-</pre>
-  </tab>
-  <tab heading="JavaScript">
-    <pre><code data-language="javascript">$scope.resource = {
+&lt;/div&gt;</code></pre>
+      </tab>
+      <tab heading="JavaScript">
+        <pre><code data-language="javascript">$scope.resource = {
   "header": [
     { "name": "Name" },
     { "star": "Star" },
@@ -80,8 +84,8 @@
   "pagination": {
     "page": 2
   }
-};
-</code>
-</pre>
-  </tab>
-</tabset>
+};</code></pre>
+      </tab>
+    </tabset>
+  </div>
+</div>
