@@ -90,7 +90,7 @@ app.get('/:nameComponent/:namePage/*.html', function(req, res) {
   res.render('template/' + component + '/' + page + '/' + fileName + '.html', responseObj);
 });
 app.get('/dist/releases/ng-tasty.zip', function(req, res){
-  res.sendfile('dist/releases/ng-tasty.zip');
+  res.sendfile('dist/releases/ng-tasty.zip', { root: '.' });
 });
 app.get('/:nameComponent/:namePage/:typePage', function(req, res) {
   responseObj['typePage'] = req.params.typePage;
