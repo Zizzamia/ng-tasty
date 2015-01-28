@@ -12,7 +12,9 @@ angular.module('myApp.pages.makeYourOwn', [])
     'webSocket': false
   };
   $scope.filter = {
+    'camelize': false,
     'filterInt': false,
+    'slugify': false,
     'range': true
   };
 
@@ -30,8 +32,14 @@ angular.module('myApp.pages.makeYourOwn', [])
     if ($scope.service.webSocket) {
       modules.push('ngTasty.service.webSocket');
     }
+    if ($scope.filter.camelize) {
+      modules.push('ngTasty.filter.camelize');
+    }
     if ($scope.filter.filterInt) {
       modules.push('ngTasty.filter.filterInt');
+    }
+    if ($scope.filter.slugify) {
+      modules.push('ngTasty.filter.slugify');
     }
     if ($scope.filter.range) {
       modules.push('ngTasty.filter.range');
