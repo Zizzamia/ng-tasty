@@ -64,7 +64,7 @@ app.use(function(req, res, next) {
 
 var responseObj = { base: base, ngTasty: ngTasty };
 
-app.get(['/', '/contribute', '/make-your-own'], function(req, res) {
+app.get(['/', '/contribute'], function(req, res) {
   res.render('template/index.html', responseObj);
 });
 app.get('/*.html', function(req, res) {

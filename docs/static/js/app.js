@@ -25,11 +25,11 @@ angular.module('myApp', [
     templateUrl: 'contribute.html',
     title: '#ngTasty - Contribute'
   })
-  .when('/make-your-own', {
-    controller: 'MakeYourOwnCtrl',
-    templateUrl: 'make-your-own.html',
-    title: '#ngTasty - Make your own tasty collection'
-  })
+  //.when('/make-your-own', {
+  //  controller: 'MakeYourOwnCtrl',
+  //  templateUrl: 'make-your-own.html',
+  //  title: '#ngTasty - Make your own tasty collection'
+  //})
   .when('/directive/table', {
     controller: 'TableCompleteCtrl',
     templateUrl: 'table/complete.html',
