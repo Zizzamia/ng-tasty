@@ -1,6 +1,11 @@
 ## Changelog
 
-### v0.4.7 (master, released on January 27th 2015)
+### v0.4.8 (master, released on January 28th 2015)
+#### Bug Fixes
+- Fixed watch-resource issue 
+
+
+### v0.4.7 (released on January 27th 2015)
 #### Features
 - Add custom template header [#90](https://github.com/Zizzamia/ng-tasty/issues/90)
 - Add bind-reload on server side table [#90](https://github.com/Zizzamia/ng-tasty/issues/89)

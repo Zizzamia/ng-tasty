@@ -1,6 +1,6 @@
 {
   "name": "ng-tasty",
-  "version": "0.4.7",
+  "version": "0.4.8",
   "description": "A lightweight, flexible, and tasty collection of reusable UI components for AngularJS.",
   "main": "index.js",
   "devDependencies": {
@@ -56,7 +56,8 @@
     { "name" : "Alex Casalboni", "url" : "https://github.com/alexcasalboni" },
     { "name" : "Wesley", "url" : "https://github.com/wesww" },
     { "name" : "Gianluca Bargelli", "url" : "https://github.com/proudlygeek" },
-    { "name" : "Alejandro Garcia Angada", "url" : "https://github.com/aganglada" }
+    { "name" : "Alejandro Garcia Angada", "url" : "https://github.com/aganglada" },
+    { "name" : "Bogdan Alexandrescu", "url" : "https://github.com/bogdan-alexandrescu" }
   ],
   "license": "MIT",
   "bugs": {
