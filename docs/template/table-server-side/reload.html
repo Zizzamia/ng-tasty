@@ -1,41 +1,47 @@
-<div class="example">
-  <div class="form-group">
-    <div class="col-sm-3">
-      <label class="control-label">Filters by name :</label>
-      <input type="text" class="form-control input-sm" 
-      ng-model="filterBy.name" value="" />
+<%= include ../title-inside.html %>
+<%= include page-header.html %>
+<div class="row">
+  <%= include docs-head.html %>
+
+  <div class="col-md-12 docs-body">
+    <div class="example">
+      <div class="form-group">
+        <div class="col-sm-3">
+          <label class="control-label">Filters by name :</label>
+          <input type="text" class="form-control input-sm" 
+          ng-model="filterBy.name" value="" />
+        </div>
+        <div class="col-sm-3">
+          <label class="control-label">Filters by SF Location :</label>
+          <input type="text" class="form-control input-sm" 
+          ng-model="filterBy['sf-location']" value="" />
+        </div>
+        <div class="col-sm-3">
+          <br />
+          <button class="btn btn-primary" ng-click="search()">Search</button>
+        </div>
+      </div>
+      <div tasty-table bind-resource-callback="getResourceReload" bind-init="init" 
+      bind-filters="filterBy" bind-reload="reloadCallback"> 
+        <table class="table table-striped table-condensed">
+          <thead tasty-thead></thead>
+          <tbody>
+            <tr ng-repeat="row in rows">
+              <td>{{ row.name }}</td>
+              <td>{{ row.star }}</td>
+              <td>{{ row['sf-location'] }}</td>
+            </tr>
+          </tbody>
+        </table>
+        <div tasty-pagination ng-show="rows.length"></div>
+      </div>
+      <pre>Api url : {{ urlApi }}</pre>
+      <pre>params : {{ params  }}</pre>
+      <pre>paramsObj : {{ paramsObj  }}</pre>
     </div>
-    <div class="col-sm-3">
-      <label class="control-label">Filters by SF Location :</label>
-      <input type="text" class="form-control input-sm" 
-      ng-model="filterBy['sf-location']" value="" />
-    </div>
-    <div class="col-sm-3">
-      <br />
-      <button class="btn btn-primary" ng-click="search()">Search</button>
-    </div>
-  </div>
-  <div tasty-table bind-resource-callback="getResourceReload" bind-init="init" 
-  bind-filters="filterBy" bind-reload="reloadCallback"> 
-    <table class="table table-striped table-condensed">
-      <thead tasty-thead></thead>
-      <tbody>
-        <tr ng-repeat="row in rows">
-          <td>{{ row.name }}</td>
-          <td>{{ row.star }}</td>
-          <td>{{ row['sf-location'] }}</td>
-        </tr>
-      </tbody>
-    </table>
-    <div tasty-pagination ng-show="rows.length"></div>
-  </div>
-  <pre>Api url : {{ urlApi }}</pre>
-  <pre>params : {{ params  }}</pre>
-  <pre>paramsObj : {{ paramsObj  }}</pre>
-</div>
-<tabset class="code">
-  <tab heading="Markup">
-    <pre ng-non-bindable><code data-language="html">&lt;div class="form-group"&gt;
+    <tabset class="code">
+      <tab heading="Markup">
+        <pre ng-non-bindable><code data-language="html">&lt;div class="form-group"&gt;
   &lt;div class="col-sm-3"&gt;
     &lt;label class="control-label">Filters by name :&lt;/label&gt;
     &lt;input type="text" class="form-control input-sm" ng-model="filterBy.name" /&gt;
@@ -62,9 +68,9 @@ bind-filters=&quot;filterBy&quot; bind-reload=&quot;reloadCallback&quot; &gt;
   &lt;/table&gt;
   &lt;div tasty-pagination>&lt;/div&gt;
 &lt;/div&gt;</code></pre>
-  </tab>
-  <tab heading="JavaScript">
-    <pre><code data-language="javascript">$scope.init = {
+      </tab>
+      <tab heading="JavaScript">
+        <pre><code data-language="javascript">$scope.init = {
   'count': 5,
   'page': 1,
   'sortBy': 'name',
@@ -94,8 +100,10 @@ $scope.getResource = function (params, paramsObj) {
     }
   });
 }</code></pre>
-  </tab>
-  <tab heading="Response">
-    <pre><code data-language="javascript" ng-bind="response"></code></pre>
-  </tab>
-</tabset>
+      </tab>
+      <tab heading="Response">
+        <pre><code data-language="javascript" ng-bind="response"></code></pre>
+      </tab>
+    </tabset>
+  </div>
+</div>

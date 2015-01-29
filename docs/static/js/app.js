@@ -31,7 +31,7 @@ angular.module('myApp', [
   //  title: '#ngTasty - Make your own tasty collection'
   //})
   .when('/directive/table', {
-    controller: 'TableCompleteCtrl',
+    controller: 'TableSimpleCtrl',
     templateUrl: 'table/simple.html',
     title: '#ngTasty - AngularJS table directive'
   })
@@ -46,7 +46,7 @@ angular.module('myApp', [
     title: '#ngTasty - AngularJS table directive'
   })
   .when('/directive/table/complete', {
-    controller: 'TableSimpleCtrl',
+    controller: 'TableCompleteCtrl',
     templateUrl: 'table/complete.html',
     title: '#ngTasty - AngularJS table directive'
   })
