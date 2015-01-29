@@ -1,5 +1,7 @@
 <div class="page-header">
   <h2>Table
+    <span ng-if="innerPage == 'simple'">with simple sorting and pagination</span>
+    <span ng-if="innerPage == 'simple-http'">with simple $http load resource</span>
     <span ng-if="innerPage == 'complete'">complete</span>
     <span ng-if="innerPage == 'sorting'">with sorting</span>
     <span ng-if="innerPage == 'pagination'">with pagination</span>

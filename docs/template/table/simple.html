@@ -1,0 +1,53 @@
+<%= include ../title-inside.html %>
+<%= include page-header.html %>
+<div class="row">
+  <%= include docs-header.html %>
+
+  <div class="col-md-12 docs-body">
+    <div class="example">
+      <div tasty-table bind-resource="resourceSimple"> 
+        <table class="table table-striped table-condensed">
+          <thead tasty-thead></thead>
+          <tbody>
+            <tr ng-repeat="row in rows">
+              <td>{{ row.name }}</td>
+              <td>{{ row.star }}</td>
+              <td>{{ row['sf-Location'] }}</td>
+            </tr>
+          </tbody>
+        </table>
+        <div tasty-pagination></div>
+      </div>
+    </div>
+    <tabset class="code">
+      <tab heading="Markup">
+				<pre ng-non-bindable><code data-language="html">&lt;div tasty-table bind-resource=&quot;resource&quot;&gt;
+  &lt;table class=&quot;table table-striped table-condensed&quot;&gt;
+    &lt;thead tasty-thead&gt;&lt;/thead&gt;
+    &lt;tbody&gt;
+      &lt;tr ng-repeat=&quot;row in rows&quot;&gt;
+        &lt;td&gt;&lbrace;&lbrace; row.name &rbrace;&rbrace;&lt;/td&gt;
+        &lt;td&gt;&lbrace;&lbrace; row.star &rbrace;&rbrace;&lt;/td&gt;
+        &lt;td&gt;&lbrace;&lbrace; row['sf-Location'] &rbrace;&rbrace;&lt;/td&gt;
+      &lt;/tr&gt;
+    &lt;/tbody&gt;
+  &lt;/table&gt;
+  &lt;div tasty-pagination>&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+      </tab>
+      <tab heading="JavaScript"><pre><code data-language="javascript">$scope.resource = {
+  "header": [
+    { "name": "Name" },
+    { "star": "Star" },
+    { "sf-Location": "SF Location" }
+  ],
+  "rows": [
+    { "name": "Ritual Coffee Roasters", "star": "★★★★★", "sf-location": "Hayes Valley"},
+    ...
+    { "name": "Flywheel Coffee Roasters", "star": "★★★★★", "sf-location": "Upper Haight" }
+  ]
+};</code></pre>
+      </tab>
+    </tabset>
+  </div>
+</div>

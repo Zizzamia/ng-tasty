@@ -39,6 +39,39 @@ angular.module('myApp.pages.table', [])
     ]
   }
 })
+.controller('TableSimpleCtrl', function($rootScope, $scope, $http, $timeout, tableResource) {
+  $rootScope.page = 'table';
+  $rootScope.innerPage = 'simple';
+  $scope.resourceSimple = {
+    'header': [
+      { 'name': 'Name' },
+      { 'star': 'Star' },
+      { 'sf-Location': 'SF Location' }
+    ],
+    'rows': tableResource.rows
+  };
+  $timeout(function () {
+    Rainbow.color();
+  });
+})
+.controller('TableSimpleHttpCtrl', function($rootScope, $scope, $http, $timeout, tableResource) {
+  $rootScope.page = 'table';
+  $rootScope.innerPage = 'simple-http';
+  $scope.resourceSimple = {
+    'header': [
+      { 'name': 'Name' },
+      { 'star': 'Star' },
+      { 'sf-Location': 'SF Location' }
+    ],
+    'rows': []
+  };
+  $http.get('table.json').then(function (response) {
+    $scope.resourceSimple.rows = response.data.rows;
+  });
+  $timeout(function () {
+    Rainbow.color();
+  });
+})
 .controller('TableCompleteCtrl', function($rootScope, $scope, $timeout, tableResource) {
   $rootScope.page = 'table';
   $rootScope.innerPage = 'complete';

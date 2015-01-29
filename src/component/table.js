@@ -68,6 +68,8 @@ angular.module('ngTasty.component.table', [
     newScopeName = newScopeName.charAt(0).toLowerCase() + newScopeName.slice(1);
     if ($attrs[scopeName]) {
       tastyUtil.bindTo(scopeName, $scope, $attrs, newScopeName);
+    } else if (newScopeName === 'watchResource') {
+      $scope[newScopeName] = $attrs[newScopeName];
     }
   });
 

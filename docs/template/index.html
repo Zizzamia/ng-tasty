@@ -41,6 +41,14 @@
           <a href="<%= base %>/directive/table" ng-class="{active:page == 'table'}">Table</a>
           <ul class="head-child-ul" ng-show="page == 'table'" ng-cloak>
             <li>
+              <a href="<%= base %>/directive/table/simple"
+              ng-class="{active:innerPage == 'simple'}">simple</a>
+            </li>
+            <li>
+              <a href="<%= base %>/directive/table/simple-http"
+              ng-class="{active:innerPage == 'simple-http'}">simple $http</a>
+            </li>
+            <li>
               <a href="<%= base %>/directive/table/complete"
               ng-class="{active:innerPage == 'complete'}">complete</a>
             </li>

@@ -32,11 +32,21 @@ angular.module('myApp', [
   //})
   .when('/directive/table', {
     controller: 'TableCompleteCtrl',
-    templateUrl: 'table/complete.html',
+    templateUrl: 'table/simple.html',
+    title: '#ngTasty - AngularJS table directive'
+  })
+  .when('/directive/table/simple', {
+    controller: 'TableSimpleCtrl',
+    templateUrl: 'table/simple.html',
+    title: '#ngTasty - AngularJS table directive'
+  })
+  .when('/directive/table/simple-http', {
+    controller: 'TableSimpleHttpCtrl',
+    templateUrl: 'table/simple-http.html',
     title: '#ngTasty - AngularJS table directive'
   })
   .when('/directive/table/complete', {
-    controller: 'TableCompleteCtrl',
+    controller: 'TableSimpleCtrl',
     templateUrl: 'table/complete.html',
     title: '#ngTasty - AngularJS table directive'
   })
