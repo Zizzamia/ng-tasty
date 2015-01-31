@@ -975,10 +975,61 @@ describe('Component: table', function () {
       expect(element.scope().logs.buildClientResourceCount).toEqual(5);
     });
 
+    it('should watch only the collection by passing by plain text', function () {
+      element = angular.element('<table tasty-table bind-resource="resource" '+
+                                'watch-resource="collection"></table>');
+      tastyTable = $compile(element)($scope);
+      $scope.$digest();
+
+      expect($scope.resource.rows.length).toEqual(element.scope().rows.length);
+      expect(element.scope().watchResource).toEqual('collection');
+      expect(element.scope().logs.buildClientResourceCount).toEqual(1);
+      $scope.resource.rows.push({'name': 'Coffee', 'star': '★★★', 'sf-location': ''});
+      $scope.$digest();
+
+      expect(element.scope().logs.buildClientResourceCount).toEqual(2);
+      $scope.resource.rows[0].star = '★★★★★';
+      $scope.$digest();
+
+      expect(element.scope().logs.buildClientResourceCount).toEqual(2);
+      $scope.resource = $scope.resourceTwo;
+      $scope.$digest();
+
+      expect(element.scope().logs.buildClientResourceCount).toEqual(4);
+      $scope.resource.reload();
+      $scope.$digest();
+
+      expect(element.scope().logs.buildClientResourceCount).toEqual(5);
+    });
+
     it('should watch only the equality', function () {
       $scope.watchResource = 'equality';
       element = angular.element('<table tasty-table bind-resource="resource" '+
                                 'bind-watch-resource="watchResource"></table>');
+      tastyTable = $compile(element)($scope);
+      $scope.$digest();
+
+      expect($scope.resource.rows.length).toEqual(element.scope().rows.length);
+      expect(element.scope().watchResource).toEqual('equality');
+      expect(element.scope().logs.buildClientResourceCount).toEqual(1);
+      $scope.resource.rows.push({'name': 'Coffee', 'star': '★★★', 'sf-location': ''});
+      $scope.$digest();
+
+      expect(element.scope().logs.buildClientResourceCount).toEqual(2);
+      $scope.resource.rows[0].star = '★★★★★';
+      $scope.$digest();
+
+      expect(element.scope().logs.buildClientResourceCount).toEqual(3);
+      $scope.resource = $scope.resourceTwo;
+      $scope.$digest();
+
+      expect(element.scope().logs.buildClientResourceCount).toEqual(4);
+      expect(element.scope().resource.reload).toEqual(undefined);
+    });
+
+    it('should watch only the equality by plain text', function () {
+      element = angular.element('<table tasty-table bind-resource="resource" '+
+                                'watch-resource="equality"></table>');
       tastyTable = $compile(element)($scope);
       $scope.$digest();
 
