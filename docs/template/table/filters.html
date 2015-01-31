@@ -41,10 +41,40 @@
         </a>
       </div>
       <tab heading="Markup">
-        <%= include example-html-4.html %>
+        <pre ng-non-bindable><code data-language="html">&lt;div tasty-table bind-resource=&quot;resource&quot; bind-filters=&quot;filters&quot;&gt;
+  &lt;table class=&quot;table table-striped table-condensed&quot;&gt;
+    &lt;thead&gt;
+      &lt;tr&gt;
+        &lt;th&gt;Name&lt;/th&gt;
+        &lt;th&gt;Star&lt;/th&gt;
+        &lt;th&gt;SF Location&lt;/th&gt;
+      &lt;/tr&gt;
+    &lt;thead&gt;
+    &lt;tbody&gt;
+      &lt;tr ng-repeat=&quot;row in rows&quot;&gt;
+        &lt;td&gt;&lbrace;&lbrace; row.name &rbrace;&rbrace;&lt;/td&gt;
+        &lt;td&gt;&lbrace;&lbrace; row.star &rbrace;&rbrace;&lt;/td&gt;
+        &lt;td&gt;&lbrace;&lbrace; row['sf-location'] &rbrace;&rbrace;&lt;/td&gt;
+      &lt;/tr&gt;
+    &lt;/tbody&gt;
+  &lt;/table&gt;
+&lt;/div&gt;</code></pre>
       </tab>
       <tab heading="JavaScript">
-        <%= include example-js-4.html %>
+        <pre><code data-language="javascript">$scope.filters = 'rit';
+  
+$scope.resource = {
+  "header": [
+    { "key": "name", "name": "Name" },
+    { "key": "star", "name": "star" },
+    { "key": "sf-location",  "name": "SF Location" }
+  ],
+  "rows": [
+    { "name": "Ritual Coffee Roasters", "star": "★★★★★", "sf-location": "Hayes Valley"},
+    ...
+    { "name": "Flywheel Coffee Roasters", "star": "★★★★★", "sf-location": "Upper Haight" }
+  ]
+};</code></pre>
       </tab>
     </tabset>
   </div>
