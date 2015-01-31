@@ -13,6 +13,11 @@
       : The filters object.
       </p>
     </li>
+    <li ng-if="innerPage == 'complete' || innerPage == 'filters'">
+      <p><code>bind-filters-comparator</code> (Defaults: undefined)
+      : The filter comparator could be true or false.
+      </p>
+    </li>
     <li>
       <p><code><span style="color:orange">bind-</span>watch-resource</code> (Defaults: 'reference')
       : Give the option to update the table by changing the setting 
