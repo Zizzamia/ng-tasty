@@ -35,10 +35,45 @@
         </a>
       </div>
       <tab heading="Markup">
-        <%= include example-html-3.html %>
+        <pre ng-non-bindable><code data-language="html">&lt;div tasty-table bind-resource=&quot;resource&quot;&gt;
+  &lt;table class=&quot;table table-striped table-condensed&quot;&gt;
+    &lt;thead&gt;
+      &lt;tr&gt;
+        &lt;th&gt;Name&lt;/th&gt;
+        &lt;th&gt;Star&lt;/th&gt;
+        &lt;th&gt;SF Location&lt;/th&gt;
+      &lt;/tr&gt;
+    &lt;thead&gt;
+    &lt;tbody&gt;
+      &lt;tr ng-repeat=&quot;row in rows&quot;&gt;
+        &lt;td&gt;&lbrace;&lbrace; row.name &rbrace;&rbrace;&lt;/td&gt;
+        &lt;td&gt;&lbrace;&lbrace; row.star &rbrace;&rbrace;&lt;/td&gt;
+        &lt;td&gt;&lbrace;&lbrace; row['sf-location'] &rbrace;&rbrace;&lt;/td&gt;
+      &lt;/tr&gt;
+    &lt;/tbody&gt;
+  &lt;/table&gt;
+  &lt;div tasty-pagination bind-items-per-page=&quot;itemsPerPage&quot; bind-list-items-per-page=&quot;listItemsPerPage&quot;>&lt;/div&gt;
+&lt;/div&gt;</code></pre>
       </tab>
       <tab heading="JavaScript">
-        <%= include example-js-3.html %>
+        <pre><code data-language="javascript">$scope.itemsPerPage = 20;
+$scope.listItemsPerPage = [10, 20, 40, 80];  
+
+$scope.resource = {
+  "header": [
+    { "name": "Name" },
+    { "star": "Star" },
+    { "sf-Location": "SF Location" }
+  ],
+  "rows": [
+    { "name": "Ritual Coffee Roasters", "star": "★★★★★", "sf-location": "Hayes Valley" },
+    ...
+    { "name": "Flywheel Coffee Roasters", "star": "★★★★★", "sf-location": "Upper Haight" }
+  ],
+  "pagination": {
+    "page": 2
+  }
+};</code></pre>
       </tab>
     </tabset>
   </div>
