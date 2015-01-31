@@ -2,7 +2,7 @@
 
 ### v0.5.0 (master, released on January 31th 2015)
 #### Features
-- FAdd filtersComparator attribute to tasty table [#94](https://github.com/Zizzamia/ng-tasty/issues/94)
+- Add filtersComparator attribute to tasty table [#94](https://github.com/Zizzamia/ng-tasty/issues/94)
 
 
 ### v0.4.8 (released on January 28th 2015)
