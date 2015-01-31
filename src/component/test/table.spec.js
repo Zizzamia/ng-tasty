@@ -45,9 +45,8 @@ describe('Component: table', function () {
 
   
   describe('bad bind-resource implementation', function () {
-    beforeEach(inject(function ($rootScope, $compile, $http, _$httpBackend_) {
+    beforeEach(inject(function ($rootScope, $compile) {
       $scope = $rootScope.$new();
-      $httpBackend = _$httpBackend_;
       $scope.resource = {
         'header': [],
         'rows': [],
@@ -59,11 +58,6 @@ describe('Component: table', function () {
       '  <table>'+
       '    <thead tasty-thead></thead>'+
       '    <tbody>'+
-      '      <tr ng-repeat="row in rows">'+
-      '        <td>{{ row.name }}</td>'+
-      '        <td>{{ row.star }}</td>'+
-      '        <td>{{ row[\'sf-location\'] }}</td>'+
-      '      </tr>'+
       '    </tbody>'+
       '  </table>'+
       '  <div tasty-pagination></div>'+
@@ -73,6 +67,33 @@ describe('Component: table', function () {
 
     it('should render the table without no errors', function () {
       $scope.$digest();
+    });
+  });
+
+
+  describe('bad bind-filters-comparator implementation', function () {
+    beforeEach(inject(function ($rootScope, $compile) {
+      $scope = $rootScope.$new();
+      $scope.resource = {'header': [], 'rows': []};
+      element = angular.element(''+
+      '<div tasty-table bind-resource="resource" bind-filters="filters" filters-comparator="true">'+
+      '  <table>'+
+      '    <thead tasty-thead></thead>'+
+      '    <tbody>'+
+      '    </tbody>'+
+      '  </table>'+
+      '  <div tasty-pagination></div>'+
+      '</div>');
+      $compile(element)($scope);
+    }));
+
+    it('should render the table without no errors', function () {
+      $scope.$digest();
+    });
+
+    it('should be true tha value of filtersComparator', function () {
+      $scope.$digest();
+      expect(element.scope().filtersComparator).toEqual(true);
     });
   });
 
