@@ -80,7 +80,9 @@ filters supported.
 #### Filter
 
 - Filter Int : http://zizzamia.com/ng-tasty/filter/filter-int
-- Range : http://zizzamia.com/ng-tasty/filter/range
+- Range : http://zizzamia.com/ng-tasty/filter/
+- Camelize : http://zizzamia.com/ng-tasty/filter/camelize
+- Slugify : http://zizzamia.com/ng-tasty/filter/slugify
 
 ## Changelog
 
@@ -94,7 +96,7 @@ Designed and built by Leonardo Zizzamia, like grandma used to make.
 - <http://twitter.com/zizzamia>
 - <http://github.com/zizzamia>
 
-Tasty Contributors: [@proudlygeek](https://twitter.com/proudlygeek), [@wesww](https://twitter.com/w3sw), [@aganglada](https://twitter.com/aganglada), [@alexcasalboni](https://twitter.com/alex_casalboni)
+Tasty Contributors: [@proudlygeek](https://twitter.com/proudlygeek), [@wesww](https://twitter.com/w3sw), [@aganglada](https://twitter.com/aganglada), [@alexcasalboni](https://twitter.com/alex_casalboni), [@bogdan-alexandrescu](https://twitter.com/balx)
 
 [bower]: https://github.com/Zizzamia/bower-ng-tasty
 [bower-badge]: https://badge.fury.io/bo/ng-tasty.svg
