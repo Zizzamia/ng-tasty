@@ -13,6 +13,7 @@ var jshint = require('gulp-jshint');
 var karma = require('gulp-karma');
 var ngAnnotate = require('gulp-ng-annotate');
 var ngcompile = require('gulp-ngcompile');
+var gulpDocs = require('gulp-ngdocs');
 var rename = require('gulp-rename');
 var sourcemaps = require('gulp-sourcemaps');
 var tap = require('gulp-tap');
@@ -92,6 +93,12 @@ gulp.task('html2js', function () {
       extname: ".html.js"
     }))
     .pipe(gulp.dest('template'))
+});
+
+gulp.task('ngdocs', [], function () {
+  return gulp.src('./src/**/*.js')
+    .pipe(gulpDocs.process({}))
+    .pipe(gulp.dest('./docs2'));
 });
 
 gulp.task('test', function () {
