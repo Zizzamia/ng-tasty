@@ -12,7 +12,7 @@
             <tr ng-repeat="row in rows">
               <td>{{ row.name }}</td>
               <td>{{ row['sf-Location'] }}</td>
-              <td>{{ row.star }}</td>
+              <td class="text-right">{{ row.star }}</td>
             </tr>
           </tbody>
         </table>
@@ -33,8 +33,8 @@
     &lt;tbody&gt;
       &lt;tr ng-repeat=&quot;row in rows&quot;&gt;
         &lt;td&gt;&lbrace;&lbrace; row.name &rbrace;&rbrace;&lt;/td&gt;
-        &lt;td&gt;&lbrace;&lbrace; row.star &rbrace;&rbrace;&lt;/td&gt;
         &lt;td&gt;&lbrace;&lbrace; row['sf-location'] &rbrace;&rbrace;&lt;/td&gt;
+        &lt;td class="text-right"&gt;&lbrace;&lbrace; row.star &rbrace;&rbrace;&lt;/td&gt;
       &lt;/tr&gt;
     &lt;/tbody&gt;
   &lt;/table&gt;

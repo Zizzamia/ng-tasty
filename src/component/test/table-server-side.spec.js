@@ -159,17 +159,20 @@ describe('Component: table server side', function () {
       expect(element.scope().header.columns[0]).toEqual({ 
         'key' : 'name', 
         'name' : 'Name',
-        'style' : { 'width' : '50%' }
+        'style' : { 'width' : '50%' },
+        'class': []
       });
       expect(element.scope().header.columns[1]).toEqual({ 
         'key' : 'star', 
         'name' : 'Star',
-        'style' : { 'width' : '20%' }
+        'style' : { 'width' : '20%' },
+        'class' : ['text-right']
       });
       expect(element.scope().header.columns[2]).toEqual({ 
         'key' : 'sf-location', 
         'name' : 'SF Location',
-        'style' : { 'width' : '30%' }
+        'style' : { 'width' : '30%' },
+        'class': []
       });
       expect(element.scope().rows[0].name).toEqual('Andytown Coffee Roasters');
       expect(element.scope().rows.length).toEqual(5);
@@ -273,18 +276,21 @@ describe('Component: table server side', function () {
     it('should have these isolateScope value as default', function () {
       expect(tastyThead.isolateScope().columns[0].active).toEqual(false);
       expect(tastyThead.isolateScope().columns[0].sortable).toEqual(true);
-      expect(tastyThead.isolateScope().columns[0].style).toEqual({});
+      expect(tastyThead.isolateScope().columns[0].style).toEqual({ 'width' : '50%' });
+      expect(tastyThead.isolateScope().columns[0].class).toEqual([]);
       expect(tastyThead.isolateScope().columns[1].key).toEqual('star');
       expect(tastyThead.isolateScope().columns[1].name).toEqual('Star');
       expect(tastyThead.isolateScope().columns[1].active).toEqual(false);
       expect(tastyThead.isolateScope().columns[1].sortable).toEqual(true);
-      expect(tastyThead.isolateScope().columns[1].style).toEqual({});
+      expect(tastyThead.isolateScope().columns[1].style).toEqual({ 'width' : '20%' });
+      expect(tastyThead.isolateScope().columns[1].class).toEqual(['text-right']);
       expect(tastyThead.isolateScope().columns[1].isSorted).toEqual('');
       expect(tastyThead.isolateScope().columns[2].key).toEqual('sf-Location');
       expect(tastyThead.isolateScope().columns[2].name).toEqual('SF Location');
       expect(tastyThead.isolateScope().columns[2].active).toEqual(false);
       expect(tastyThead.isolateScope().columns[2].sortable).toEqual(false);
-      expect(tastyThead.isolateScope().columns[2].style).toEqual({});
+      expect(tastyThead.isolateScope().columns[2].style).toEqual({ 'width' : '30%' });
+      expect(tastyThead.isolateScope().columns[2].class).toEqual([]);
       expect(tastyThead.isolateScope().columns[2].isSorted).toEqual('');
     });
 

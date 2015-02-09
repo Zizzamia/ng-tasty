@@ -133,18 +133,19 @@ describe('Component: table', function () {
       expect(element.scope().header.columns[0]).toEqual({ 
         'key' : 'name', 
         'name' : 'Name',
-        'style' : {}
+        'style' : { 'width' : '50%' },
+        'class': []
       });
       expect(element.scope().header.columns[1]).toEqual({ 
         'key' : 'star', 
         'name' : 'Star',
-        'style' : {}
+        'style' : { 'width' : '20%' },
+        'class': [ 'text-right' ]
       });
-      expect(element.scope().header.columns[2]).toEqual({ 
-        'key' : 'sf-Location', 
-        'name' : 'SF Location',
-        'style' : {}
-      });
+      expect(element.scope().header.columns[2].key).toEqual('sf-Location');
+      expect(element.scope().header.columns[2].name).toEqual('SF Location');
+      expect(element.scope().header.columns[2].style).toEqual({ 'width' : '30%' });
+      expect(element.scope().header.columns[2].class).toEqual([]);
       expect(element.scope().header.columns.length).toEqual(3);
       expect(element.scope().rows.length).toEqual(34);
       expect(element.scope().pagination.count).toEqual(5);
@@ -168,13 +169,13 @@ describe('Component: table', function () {
     it('should have these isolateScope value as default', function () {
       expect(tastyThead.isolateScope().columns[0].active).toEqual(true);
       expect(tastyThead.isolateScope().columns[0].sortable).toEqual(true);
-      expect(tastyThead.isolateScope().columns[0].style).toEqual({});
+      expect(tastyThead.isolateScope().columns[0].style).toEqual({ width : '50%' });
       expect(tastyThead.isolateScope().columns[1].active).toEqual(false);
       expect(tastyThead.isolateScope().columns[1].sortable).toEqual(true);
-      expect(tastyThead.isolateScope().columns[1].style).toEqual({});
+      expect(tastyThead.isolateScope().columns[1].style).toEqual({ width : '20%' });
       expect(tastyThead.isolateScope().columns[2].active).toEqual(false);
       expect(tastyThead.isolateScope().columns[2].sortable).toEqual(true);
-      expect(tastyThead.isolateScope().columns[2].style).toEqual({});
+      expect(tastyThead.isolateScope().columns[2].style).toEqual( { width : '30%' });
     });
 
     it('should set params.sortBy when scope.sortBy is clicked', function () {
@@ -277,17 +278,20 @@ describe('Component: table', function () {
       expect(element.scope().header.columns[0]).toEqual({ 
         'key' : 'name', 
         'name' : 'Name',
-        'style' : {}
+        'style' : {},
+        'class': []
       });
       expect(element.scope().header.columns[1]).toEqual({ 
         'key' : 'star', 
         'name' : 'Star',
-        'style' : {}
+        'style' : {},
+        'class': []
       });
       expect(element.scope().header.columns[2]).toEqual({ 
         'key' : 'sf-Location', 
         'name' : 'SF Location',
-        'style' : {}
+        'style' : {},
+        'class': []
       });
       expect(element.scope().header.columns.length).toEqual(3);
       expect(element.scope().rows.length).toEqual(34);

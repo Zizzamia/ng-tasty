@@ -1,6 +1,5 @@
-'use strict';
-
 describe('Filter: range', function () {
+  'use strict';
 
   beforeEach(module('ngTasty.filter.range'));
 

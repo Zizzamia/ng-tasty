@@ -10,7 +10,8 @@ angular.module('mockedAPIResponse',[])
     {
       'key': 'star',
       'name': 'Star',
-      'style': { 'width' : '20%' }
+      'style': { 'width' : '20%' },
+      'class': ['text-right']
     },
     {
       'key': 'sf-location',
@@ -57,9 +58,22 @@ angular.module('mockedAPIResponse',[])
 // sort-by=name&sort-order=asc
 .value('sortingJSON', {
   'header': [
-    { 'name': 'Name' },
-    { 'star': 'Star' },
-    { 'sf-Location': 'SF Location' }
+    {
+      'key': 'name',
+      'name': 'Name',
+      'style': { 'width' : '50%' }
+    },
+    {
+      'key': 'star',
+      'name': 'Star',
+      'style': { 'width' : '20%' },
+      'class': ['text-right']
+    },
+    {
+      'key': 'sf-Location',
+      'name': 'SF Location',
+      'style': { 'width' : '30%' }
+    }
   ],
   'rows': [
     {

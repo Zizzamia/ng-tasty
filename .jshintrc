@@ -12,6 +12,7 @@
     "angular": true,
     "describe" : false,
     "it" : false,
+    "inject": false,
     "before" : false,
     "beforeEach" : false,
     "after" : false,

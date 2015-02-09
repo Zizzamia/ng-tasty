@@ -1,6 +1,5 @@
-'use strict';
-
 describe('Filter: slugify', function () {
+  'use strict';
 
   // load the filter's module
   beforeEach(module('ngTasty.filter.slugify'));
@@ -16,7 +15,7 @@ describe('Filter: slugify', function () {
   });
 
   it('should return an empty string if given null object', function () {
-    var object = null
+    var object = null;
     expect(slugify(object)).toBe('');
   });
 
