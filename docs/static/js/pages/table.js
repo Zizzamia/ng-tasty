@@ -95,8 +95,8 @@ angular.module('myApp.pages.table', [])
   $scope.resource = {
     'header': [
       { 'key': 'name', 'name': 'Name', 'style': {'width': '50%'} },
-      { 'key': 'star', 'name': 'Star', 'style': {'width': '15%'} },
-      { 'key': 'sf-Location', 'name': 'SF Location', 'style': {'width': '35%'} }
+      { 'key': 'sf-Location', 'name': 'SF Location', 'style': {'width': '35%'} },
+      { 'key': 'star', 'name': 'Star', 'style': {'width': '15%'}, 'class': ['text-right'] }
     ],
     'rows': tableResource.rows,
     'sortBy': 'star',

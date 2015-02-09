@@ -342,7 +342,8 @@ gulp.task('watch', function () {
     .pipe(karma({
       configFile: 'karma.conf.js',
       action: 'watch',
-      browsers: ['Chrome']
+      browsers: ['Chrome'],
+      reporters: ['dots']
     }));
 });
 
