@@ -84,6 +84,27 @@ filters supported.
 - Camelize : http://zizzamia.com/ng-tasty/filter/camelize
 - Slugify : http://zizzamia.com/ng-tasty/filter/slugify
 
+## Benchpress
+Benchpress allows creation and sampling of macro benchmarks to compare performance of real world web applications.
+```
+npm install -g angular-benchpress
+```
+
+Run ngTasty benchmark
+
+```
+benchpress build
+benchpress run
+```
+
+Open benchmark with Chrome
+```
+benchpress launch_chrome
+http://localhost:3339/benchpress-build/
+```
+
+
+
 ## Changelog
 
 [https://github.com/Zizzamia/ng-tasty/CHANGELOG.md](https://github.com/Zizzamia/ng-tasty/blob/master/CHANGELOG.md)

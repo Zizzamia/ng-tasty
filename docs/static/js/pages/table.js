@@ -102,7 +102,7 @@ angular.module('myApp.pages.table', [])
     'sortBy': 'star',
     'sortOrder': 'dsc'
   };
-  $scope.notSortBy = ['sf-Location'];
+  $scope.notSortBy = ['name','star', 'sf-Location'];
   $timeout(function () {
     Rainbow.color();
   });
