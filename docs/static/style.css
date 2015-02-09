@@ -158,10 +158,10 @@ footer {
 }
 
 .docs-head {
-  margin: 0 0 20px;
+  margin: 0;
 }
 .docs-body {
-  margin: 10px 0;
+  margin: 0;
 }
 .docs-body ul {
   padding-left: 30px;

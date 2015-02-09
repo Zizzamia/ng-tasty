@@ -35,10 +35,44 @@
         </a>
       </div>
       <tab heading="Markup">
-        <%= include example-html-1.html %>
+        <pre ng-non-bindable><code data-language="html">&lt;div class=&quot;form-group&quot;&gt;
+  &lt;label class=&quot;col-sm-3 control-label&quot;&gt;Filters value :&lt;/label&gt;
+  &lt;div class=&quot;col-sm-3&quot;&gt;
+    &lt;input type=&quot;text&quot; class=&quot;form-control input-sm&quot;
+    placeholder=&quot;Filter result&quot; ng-model="filters&quot; value=&quot;&quot; /&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+&lt;div tasty-table bind-resource=&quot;resource&quot; bind-filters=&quot;filters&quot;&gt;
+  &lt;table class=&quot;table table-striped table-condensed&quot;&gt;
+    &lt;thead tasty-thead&gt;&lt;/thead&gt;
+    &lt;tbody&gt;
+      &lt;tr ng-repeat=&quot;row in rows&quot;&gt;
+        &lt;td&gt;&lbrace;&lbrace; row.name &rbrace;&rbrace;&lt;/td&gt;
+        &lt;td&gt;&lbrace;&lbrace; row.star &rbrace;&rbrace;&lt;/td&gt;
+        &lt;td&gt;&lbrace;&lbrace; row['sf-Location'] &rbrace;&rbrace;&lt;/td&gt;
+      &lt;/tr&gt;
+    &lt;/tbody&gt;
+  &lt;/table&gt;
+  &lt;div tasty-pagination>&lt;/div&gt;
+&lt;/div&gt;</code></pre>
       </tab>
       <tab heading="JavaScript">
-        <%= include example-js-1.html %>
+        <pre><code data-language="javascript">$scope.filters = '';
+
+$scope.resource = {
+  "header": [
+    { "name": "Name" },
+    { "star": "Star" },
+    { "sf-Location": "SF Location" }
+  ],
+  "rows": [
+    { "name": "Ritual Coffee Roasters", "star": "★★★★★", "sf-location": "Hayes Valley"},
+    ...
+    { "name": "Flywheel Coffee Roasters", "star": "★★★★★", "sf-location": "Upper Haight" }
+  ],
+  "sortBy": "name",
+  "sortOrder": "asc"
+};</code></pre>
       </tab>
     </tabset>
   </div>

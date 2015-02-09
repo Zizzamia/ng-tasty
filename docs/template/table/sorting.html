@@ -27,10 +27,36 @@
         </a>
       </div>
       <tab heading="Markup">
-        <%= include example-html-2.html %>
+        <pre ng-non-bindable><code data-language="html">&lt;div tasty-table bind-resource=&quot;resource&quot;&gt;
+  &lt;table class=&quot;table table-striped table-condensed&quot;&gt;
+    &lt;thead tasty-thead bind-not-sort-by=&quot;notSortBy&quot;&gt;&lt;/thead&gt;
+    &lt;tbody&gt;
+      &lt;tr ng-repeat=&quot;row in rows&quot;&gt;
+        &lt;td&gt;&lbrace;&lbrace; row.name &rbrace;&rbrace;&lt;/td&gt;
+        &lt;td&gt;&lbrace;&lbrace; row.star &rbrace;&rbrace;&lt;/td&gt;
+        &lt;td&gt;&lbrace;&lbrace; row['sf-location'] &rbrace;&rbrace;&lt;/td&gt;
+      &lt;/tr&gt;
+    &lt;/tbody&gt;
+  &lt;/table&gt;
+&lt;/div&gt;</code></pre>
       </tab>
       <tab heading="JavaScript">
-        <%= include example-js-2.html %>
+        <pre><code data-language="javascript">$scope.notSortBy = ['sf-location'];
+
+$scope.resource = {
+  "header": [
+    { "key": "name", "name": "Name", "style": {"width": "50%"} },
+    { "key": "star", "name": "Star", "style": {"width": "15%"} },
+    { "key": "sf-location", "name": "SF Location", "style": {"width": "35%"} }
+  ],
+  "rows": [
+    { "name": "Ritual Coffee Roasters", "star": "★★★★★", "sf-location": "Hayes Valley"},
+    ...
+    { "name": "Flywheel Coffee Roasters", "star": "★★★★★", "sf-location": "Upper Haight" }
+  ],
+  "sortBy": "star",
+  "sortOrder": "dsc"
+};</code></pre>
       </tab>
     </tabset>
   </div>

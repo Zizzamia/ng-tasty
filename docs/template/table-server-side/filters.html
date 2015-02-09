@@ -42,7 +42,34 @@
     </div>
     <tabset class="code">
       <tab heading="Markup">
-        <%= include example-html-4.html %>
+        <pre ng-non-bindable><code data-language="html">&lt;div class="form-group"&gt;
+  &lt;div class="col-sm-3"&gt;
+    &lt;label class="control-label">Filters by name :&lt;/label&gt;
+    &lt;input type="text" class="form-control input-sm" ng-model="filterBy.name" /&gt;
+  &lt;/div&gt;
+  &lt;div class="col-sm-3"&gt;
+    &lt;label class="control-label">Filters by SF Location :&lt;/label&gt;
+    &lt;input type="text" class="form-control input-sm" ng-model="filterBy['sf-location']" /&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+&lt;div tasty-table bind-resource-callback="getResource" bind-filters=&quot;filterBy&quot;&gt;
+  &lt;table class=&quot;table table-striped table-condensed&quot;&gt;
+    &lt;thead&gt;
+      &lt;tr&gt;
+        &lt;th&gt;Name&lt;/th&gt;
+        &lt;th&gt;Star&lt;/th&gt;
+        &lt;th&gt;SF Location&lt;/th&gt;
+      &lt;/tr&gt;
+    &lt;thead&gt;
+    &lt;tbody&gt;
+      &lt;tr ng-repeat=&quot;row in rows&quot;&gt;
+        &lt;td&gt;&lbrace;&lbrace; row.name &rbrace;&rbrace;&lt;/td&gt;
+        &lt;td&gt;&lbrace;&lbrace; row.star &rbrace;&rbrace;&lt;/td&gt;
+        &lt;td&gt;&lbrace;&lbrace; row['sf-location'] &rbrace;&rbrace;&lt;/td&gt;
+      &lt;/tr&gt;
+    &lt;/tbody&gt;
+  &lt;/table&gt;
+&lt;/div&gt;</code></pre>
       </tab>
       <tab heading="JavaScript">
         <pre><code data-language="javascript">$scope.filterBy = {
