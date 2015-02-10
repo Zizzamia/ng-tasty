@@ -106,7 +106,11 @@ gulp.task('test', function () {
     .pipe(karma({
       configFile: 'karma.conf.js',
       action: 'run',
-      browsers: ['Chrome']
+      browsers: ['Chrome'],
+      reporters: ['dots', 'coverage'],
+      preprocessors: {
+        'src/**/*.js': ['coverage']
+      }
     }));
 });
 
