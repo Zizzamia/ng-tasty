@@ -107,9 +107,14 @@ gulp.task('test', function () {
       configFile: 'karma.conf.js',
       action: 'run',
       browsers: ['Chrome'],
-      reporters: ['dots', 'coverage'],
+      reporters: ['dots', 'coverage', 'coveralls'],
       preprocessors: {
         'src/**/*.js': ['coverage']
+      },
+      coverageReporter: {
+        type: 'lcov',
+        dir: 'coverage/',
+        subdir: '.',
       }
     }));
 });

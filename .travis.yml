@@ -16,6 +16,3 @@ before_script:
 script:
   - gulp html2js
   - gulp travis
-
-after_success:
-  cat out/coverage/*/lcov.info | ./node_modules/coveralls/bin/coveralls.js
