@@ -106,16 +106,7 @@ gulp.task('test', function () {
     .pipe(karma({
       configFile: 'karma.conf.js',
       action: 'run',
-      browsers: ['Chrome'],
-      reporters: ['dots', 'coverage', 'coveralls'],
-      preprocessors: {
-        'src/**/*.js': ['coverage']
-      },
-      coverageReporter: {
-        type: 'lcov',
-        dir: 'coverage/',
-        subdir: '.',
-      }
+      browsers: ['Chrome']
     }));
 });
 
@@ -124,8 +115,16 @@ gulp.task('travis', function () {
     .pipe(karma({
       configFile: 'karma.conf.js',
       action: 'run',
-      reporters: ['dots'],
-      browsers: ['Firefox']
+      reporters: ['dots', 'coverage', 'coveralls'],
+      browsers: ['Firefox'],
+      preprocessors: {
+        'src/**/*.js': ['coverage']
+      },
+      coverageReporter: {
+        type: 'lcov',
+        dir: 'coverage/',
+        subdir: '.',
+      }
     }));
 });
 
