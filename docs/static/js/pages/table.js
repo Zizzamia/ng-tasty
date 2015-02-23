@@ -85,7 +85,18 @@ angular.module('myApp.pages.table', [])
     'sortBy': 'name',
     'sortOrder': 'asc'
   };
-  $timeout(function () {
+
+  var updateDocs = function () {
+    $scope.resourceJson = JSON.stringify($scope.resource, undefined, 2);
+    $scope.$evalAsync(function () {
+      Rainbow.color();
+    });
+  };
+  $scope.$watch('resource', updateDocs);
+  $scope.$watch('resource.sortBy', updateDocs);
+  $scope.$watch('resource.sortOrder', updateDocs);
+  $scope.$watchCollection('resource.pagination', updateDocs);
+  $scope.$evalAsync(function () {
     Rainbow.color();
   });
 })

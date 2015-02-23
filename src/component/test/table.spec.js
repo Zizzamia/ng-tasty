@@ -183,11 +183,13 @@ describe('Component: table', function () {
       tastyThead.isolateScope().sortBy(field);
       $scope.$digest();
       expect(element.scope().params.sortBy).toEqual('name');
+      expect($scope.resource.sortBy).toEqual('name');
       expect(tastyThead.isolateScope().columns[0].active).toEqual(true);
       field = {'key': 'star', 'name': 'Star', 'sortable': true};
       tastyThead.isolateScope().sortBy(field);
       $scope.$digest();
       expect(element.scope().params.sortBy).toEqual('star');
+      expect($scope.resource.sortBy).toEqual('star');
       expect(tastyThead.isolateScope().columns[1].active).toEqual(true);
     });
 
@@ -639,7 +641,21 @@ describe('Component: table', function () {
     
     it('should update params.page when page.get is clicked', function () {
       tastyPagination.isolateScope().page.get(1);
+      $scope.$digest();
       expect(element.scope().params.page).toEqual(1);
+      expect(element.scope().resource.pagination.page).toEqual(1);
+      tastyPagination.isolateScope().page.get(2);
+      $scope.$digest();
+      expect(element.scope().params.page).toEqual(2);
+      expect(element.scope().resource.pagination.page).toEqual(2);
+      tastyPagination.isolateScope().page.get(4);
+      $scope.$digest();
+      expect(element.scope().params.page).toEqual(4);
+      expect(element.scope().resource.pagination.page).toEqual(4);
+      tastyPagination.isolateScope().page.get(1);
+      $scope.$digest();
+      expect(element.scope().params.page).toEqual(1);
+      expect(element.scope().resource.pagination.page).toEqual(1);
     });
     
     it('should update params.count when page.setCount is clicked', function () {

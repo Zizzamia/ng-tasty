@@ -320,6 +320,17 @@ angular.module('ngTasty.component.table', [
   };
 
   updateClientSideResource = function (updateFrom) {
+    if ($scope.params.sortBy){
+      $scope.resource.sortBy = $scope.params.sortBy;
+    }
+    if ($scope.params.sortOrder){
+      $scope.resource.sortOrder = $scope.params.sortOrder;
+    }
+    if ($scope.params.page && $scope.params.count) {
+      $scope.resource.pagination = $scope.pagination;
+      $scope.resource.pagination.page = $scope.params.page;
+      $scope.resource.pagination.count = $scope.params.count;
+    }
     setDirectivesValues($scope.resource);
     buildClientResource(updateFrom);
   };
