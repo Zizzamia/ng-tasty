@@ -1,0 +1,113 @@
+<!doctype html>
+<html ng-app="app">
+<head>
+  <title>Benchpress test</title>
+</head>
+<body ng-controller="DataController">
+  <h2>Module benchmark</h2>
+  <form>
+    <div>
+      None:
+      <input type="radio"
+             ng-model="benchmarkType"
+             name="benchmarkType"
+             value="none"
+             id="none">
+    </div>
+    <div>
+      Case 1:
+      <input type="radio"
+             ng-model="benchmarkType"
+             name="benchmarkType"
+             value="caseOne"
+             id="caseOne">
+    </div>
+  </form>
+
+  <p>
+    <button id="destroyDom" ng-click="destroyDom()">destroyDom</button>
+    <button id="createDom" ng-click="createDom()">createDom</button>
+  </p>
+  
+  <div>
+    Debug output:
+    <ng-switch on="benchmarkType">
+      <div ng-switch-when="none"></div>
+      <div ng-switch-when="caseOne">
+        <h2>Case 1</h2>
+        <div ui-grid="resource" ui-grid-pagination style="width: 600px;"></div>
+      </div>
+    </ng-switch>
+  </div>
+
+  <script src="bower_components/angular/angular.js"></script>
+  <script src="bower_components/angular-ui-grid/ui-grid.js"></script>
+  <script type="text/javascript">
+	  angular.module('app', ['ui.grid', 'ui.grid.pagination'])
+    .config(function($compileProvider) {
+      if ($compileProvider.debugInfoEnabled) {
+        $compileProvider.debugInfoEnabled(false);
+      }
+    })
+    .controller('DataController', function($rootScope, $scope) {
+      var previousType;
+
+      $scope.benchmarkType = 'none';
+
+      $scope.end = 5000;
+      $scope.resource = {
+        paginationPageSizes: [10, 25, 50, 100],
+        paginationPageSize: 10,
+        columnDefs: [
+          { name: 'name' },
+          { name: 'star' },
+          { name: 'sf-location' }
+        ],
+        data: []
+      };
+      for (var i = 1000; i < $scope.end; i++) {
+        $scope.resource.data.push({ 
+          "name": "Ritual Coffee Roasters " + i, 
+          "star": "★★★★★  " + i, 
+          "sf-location": "Hayes Valley " + i,
+          "name2": "Ritual Coffee Roasters " + i, 
+          "star2": "★★★★★  " + i, 
+          "sf-location2": "Hayes Valley " + i,
+          "name3": "Ritual Coffee Roasters " + i, 
+          "star3": "★★★★★  " + i, 
+          "sf-location3": "Hayes Valley " + i,
+          "name4": "Ritual Coffee Roasters " + i 
+        });
+      }
+
+      $scope.destroyDom = function () {
+        $scope.$evalAsync(function() {
+          previousType = $scope.benchmarkType;
+          $scope.benchmarkType = 'none';
+        });
+      }
+
+      $scope.createDom = function () {
+        $scope.$evalAsync(function() {
+          for (var i = $scope.resource.data.length; i < $scope.end; i++) {
+            $scope.resource.data.push({ 
+              "name": "Ritual Coffee Roasters " + i, 
+              "star": "★★★★★  " + i, 
+              "sf-location": "Hayes Valley " + i,
+              "name2": "Ritual Coffee Roasters " + i, 
+              "star2": "★★★★★  " + i, 
+              "sf-location2": "Hayes Valley " + i,
+              "name3": "Ritual Coffee Roasters " + i, 
+              "star3": "★★★★★  " + i, 
+              "sf-location3": "Hayes Valley " + i,
+              "name4": "Ritual Coffee Roasters " + i 
+            });
+          }
+          $scope.benchmarkType = previousType;
+        });
+        $scope.end += 2;
+      }
+    });
+	</script>
+</body>
+</html>
