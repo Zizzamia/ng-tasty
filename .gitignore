@@ -7,6 +7,7 @@ fabfile.py
 # Build
 dist
 releases
+!benchmarks/dist
 
 # Node
 node_modules

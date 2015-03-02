@@ -1,0 +1,68 @@
+<!doctype html>
+<html ng-app="app">
+<head>
+  <title>Benchpress test</title>
+</head>
+<body ng-controller="DataController">
+  <h2>Module benchmark</h2>
+  <form>
+    <div>
+      None:
+      <input type="radio"
+             ng-model="benchmarkType"
+             name="benchmarkType"
+             value="none"
+             id="none">
+    </div>
+    <div>
+      Case 1:
+      <input type="radio"
+             ng-model="benchmarkType"
+             name="benchmarkType"
+             value="caseOne"
+             id="caseOne">
+    </div>
+  </form>
+
+  <p>
+    <button id="destroyDom" ng-click="destroyDom()">destroyDom</button>
+    <button id="createDom" ng-click="createDom()">createDom</button>
+  </p>
+  
+  <div>
+    Debug output:
+    <ng-switch on="benchmarkType">
+      <div ng-switch-when="none"></div>
+      <div ng-switch-when="caseOne">
+        <h2>Case 1</h2>
+      </div>
+    </ng-switch>
+  </div>
+
+  <script src="angular.js"></script>
+  <script type="text/javascript">
+	  angular.module('app', [])
+    .config(function($compileProvider) {
+      if ($compileProvider.debugInfoEnabled) {
+        $compileProvider.debugInfoEnabled(false);
+      }
+    })
+    .controller('DataController', function($rootScope, $scope) {
+
+      $scope.destroyDom = function () {
+        $scope.$evalAsync(function() {
+          previousType = $scope.benchmarkType;
+          $scope.benchmarkType = 'none';
+        });
+      }
+
+      $scope.createDom = function () {
+        $scope.$evalAsync(function() {
+          // ...
+          $scope.benchmarkType = previousType;
+        });
+      }
+    });
+	</script>
+</body>
+</html>
