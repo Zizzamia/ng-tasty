@@ -2,6 +2,8 @@
 <html ng-app="app">
 <head>
   <title>Benchpress test</title>
+  <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
+  <link rel="stylesheet" href="bower_components/components-font-awesome/css/font-awesome.css">
 </head>
 <body ng-controller="DataController">
   <h2>Module benchmark</h2>
@@ -35,11 +37,12 @@
       <div ng-switch-when="none"></div>
       <div ng-switch-when="caseOne">
         <h2>Case 1</h2>
+        <p ng-bind="text"></p>
       </div>
     </ng-switch>
   </div>
 
-  <script src="angular.js"></script>
+  <script src="bower_components/angular/angular.js"></script>
   <script type="text/javascript">
 	  angular.module('app', [])
     .config(function($compileProvider) {
@@ -49,6 +52,8 @@
     })
     .controller('DataController', function($rootScope, $scope) {
 
+      $scope.text = 'helloPerf';
+      
       $scope.destroyDom = function () {
         $scope.$evalAsync(function() {
           previousType = $scope.benchmarkType;

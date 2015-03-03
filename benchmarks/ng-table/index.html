@@ -2,6 +2,8 @@
 <html ng-app="app">
 <head>
   <title>Benchpress test</title>
+  <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
+  <link rel="stylesheet" href="bower_components/components-font-awesome/css/font-awesome.css">
 </head>
 <body ng-controller="DataController">
   <h2>Module benchmark</h2>
@@ -25,8 +27,10 @@
   </form>
 
   <p>
-    <button id="destroyDom" ng-click="destroyDom()">destroyDom</button>
-    <button id="createDom" ng-click="createDom()">createDom</button>
+    <button class="btn btn-primary" 
+    id="destroyDom" ng-click="destroyDom()">destroyDom</button>
+    <button class="btn btn-primary" 
+    id="createDom" ng-click="createDom()">createDom</button>
   </p>
   
   <div>
@@ -62,9 +66,6 @@
       }
     })
     .controller('DataController', function($rootScope, $scope, $filter, ngTableParams) {
-      var previousType;
-
-      $scope.benchmarkType = 'none';
 
       $scope.end = 5000;
       $scope.resource = {
@@ -98,7 +99,7 @@
           "name4": "Ritual Coffee Roasters " + i 
         });
       }
-
+      
       $scope.destroyDom = function () {
         $scope.$evalAsync(function() {
           previousType = $scope.benchmarkType;

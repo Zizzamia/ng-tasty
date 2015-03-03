@@ -21,24 +21,8 @@
       <input type="radio"
              ng-model="benchmarkType"
              name="benchmarkType"
-             value="reference"
-             id="reference">
-    </div>
-    <div>
-      collection:
-      <input type="radio"
-             ng-model="benchmarkType"
-             name="benchmarkType"
-             value="collection"
-             id="collection">
-    </div>
-    <div>
-      equality:
-      <input type="radio"
-             ng-model="benchmarkType"
-             name="benchmarkType"
-             value="equality"
-             id="equality">
+             value="caseOne"
+             id="caseOne">
     </div>
   </form>
 
@@ -53,43 +37,9 @@
     Debug output:
     <ng-switch on="benchmarkType">
       <div ng-switch-when="none"></div>
-      <div ng-switch-when="reference">
-        <h2>baseline reference</h2>
+      <div ng-switch-when="caseOne">
+        <h2>baseline table</h2>
         <div tasty-table bind-resource="resource">
-          <table class="table table-striped table-condensed">
-            <thead tasty-thead></thead>
-            <tbody>
-              <tr ng-repeat="row in rows">
-                <td>{{ row.name }}</td>
-                <td>{{ row.star }}</td>
-                <td>{{ row['sf-location'] }}</td>
-              </tr>
-            </tbody>
-          </table>
-          <div tasty-pagination bind-items-per-page="itemsPerPage" 
-          bind-list-items-per-page="listItemsPerPage"></div>
-        </div>
-      </div>
-      <div ng-switch-when="collection">
-        <h2>baseline collection</h2>
-        <div tasty-table bind-resource="resource" watch-resource="collection">
-          <table class="table table-striped table-condensed">
-            <thead tasty-thead></thead>
-            <tbody>
-              <tr ng-repeat="row in rows">
-                <td>{{ row.name }}</td>
-                <td>{{ row.star }}</td>
-                <td>{{ row['sf-location'] }}</td>
-              </tr>
-            </tbody>
-          </table>
-          <div tasty-pagination bind-items-per-page="itemsPerPage" 
-          bind-list-items-per-page="listItemsPerPage"></div>
-        </div>
-      </div>
-      <div ng-switch-when="equality">
-        <h2>baseline equality</h2>
-        <div tasty-table bind-resource="resource" watch-resource="equality">
           <table class="table table-striped table-condensed">
             <thead tasty-thead></thead>
             <tbody>
@@ -108,7 +58,7 @@
   </div>
 
   <script src="bower_components/angular/angular.js"></script>
-  <script src="../../dist/ng-tasty-tpls.js"></script>
+  <script src="bower_components/ng-tasty/ng-tasty-tpls.js"></script>
   <script type="text/javascript">
 	  angular.module('app', ['ngTasty'])
     .config(function($compileProvider) {
