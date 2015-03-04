@@ -136,11 +136,11 @@
               var orderedData = params.sorting() ?
                                 $filter('orderBy')($scope.resource.rows, params.orderBy()) :
                                 $scope.resource.rows;
+
               $defer.resolve(orderedData.slice((params.page() - 1) * params.count(), 
                                                 params.page() * params.count()));
             }
           });
-          $scope.tableParams.settings().$scope = $scope;
           $scope.benchmarkType = previousType;
         });
         $scope.end += 2;
