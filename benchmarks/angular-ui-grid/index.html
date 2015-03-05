@@ -2,6 +2,7 @@
 <html ng-app="app">
 <head>
   <title>Benchpress test</title>
+  <link rel="stylesheet" href="bower_components/angular-ui-grid/ui-grid.css" type="text/css">
 </head>
 <body ng-controller="DataController">
   <h2>Module benchmark</h2>
@@ -35,15 +36,16 @@
       <div ng-switch-when="none"></div>
       <div ng-switch-when="caseOne">
         <h2>Case 1</h2>
-        <div ui-grid="resource" ui-grid-pagination style="width: 600px;"></div>
+        <div ui-grid="resource" ui-grid-pagination class="grid"></div>
       </div>
     </ng-switch>
   </div>
 
   <script src="bower_components/angular/angular.js"></script>
   <script src="bower_components/angular-ui-grid/ui-grid.js"></script>
+  <script src="bower_components/angular-touch/angular-touch.js"></script>
   <script type="text/javascript">
-	  angular.module('app', ['ui.grid', 'ui.grid.pagination'])
+	  angular.module('app', ['ngTouch', 'ui.grid', 'ui.grid.pagination'])
     .config(function($compileProvider) {
       if ($compileProvider.debugInfoEnabled) {
         $compileProvider.debugInfoEnabled(false);
