@@ -88,20 +88,18 @@ filters supported.
 ## Benchpress
 Benchpress allows creation and sampling of macro benchmarks to compare performance of real world web applications.
 ```
-npm install -g angular-benchpress
+npm install -g benchpress
 ```
 
 Run ngTasty benchmark
-
 ```
-benchpress build
-benchpress run
+protractor benchmarks/protractor.conf.js --specs benchmarks/dist/benchmark.spec.js
 ```
 
 Open benchmark with Chrome
 ```
-benchpress launch_chrome
-http://localhost:3339/benchpress-build/
+http-server -p 8000
+http://localhost:8000/benchmarks/dist/
 ```
 
 
