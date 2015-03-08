@@ -26,7 +26,7 @@ exports.config = {
       showDir: false
     });
     server.listen('8080', 'localhost', function() {
-      var uri = 'http://localhos:8080';
+      var uri = 'http://localhost:8080';
       console.log('Starting up http-server, serving '
         + server.root
         + ' on: '
