@@ -59,7 +59,7 @@ npm start
 The easiest way to run the unit tests is to use the supplied npm script:
 
 ```
-gulp test
+npm test
 ```
 
 ## Docs
