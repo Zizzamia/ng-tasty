@@ -10,7 +10,7 @@ angular.module('ngTasty.filter.camelize', [])
   
   return function (input, first) {
     var isString = typeof input === 'string',
-      first = typeof first === 'undefined' ? false : !!first;
+        firstLetter = typeof first === 'undefined' ? false : !!first;
     
     if(typeof input === 'undefined' || 
        input === null || 
@@ -22,10 +22,14 @@ angular.module('ngTasty.filter.camelize', [])
       return '' + input;
     }
     
-    return input.trim() //remove trailing spaces
-      .replace(/ +(?= )/g,'') //remove multiple WS
-    	.replace(CAMELIZE_REGEX, function (_, character, pos) { //actual conversion
-    		return character && (first || pos > 0) ? character.toUpperCase () : character;
-    	});
+    return input.trim() // remove trailing spaces
+      .replace(/ +(?= )/g,'') // remove multiple WS
+      .replace(CAMELIZE_REGEX, function (_, character, pos) { // actual conversion
+        if (character && (firstLetter || pos > 0)) {
+          return character.toUpperCase();
+        } else {
+          return character;
+        }
+      });
   };
 });

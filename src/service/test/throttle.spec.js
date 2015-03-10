@@ -1,5 +1,3 @@
-'use strict';
-
 describe('Service: throttle', function () {
 
   // load the service's module

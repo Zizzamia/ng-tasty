@@ -1,5 +1,4 @@
 describe('Filter: slugify', function () {
-  'use strict';
 
   // load the filter's module
   beforeEach(module('ngTasty.filter.slugify'));

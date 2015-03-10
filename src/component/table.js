@@ -454,7 +454,6 @@ angular.module('ngTasty.component.table', [
       return tAttrs.templateUrl || tableConfig.templateHeadUrl;
     },
     link: function postLink(scope, element, attrs, tastyTable) {
-      'use strict';
       var newScopeName, listScopeToWatch;
       scope.bindOnce = tastyTable.bindOnce;
       scope.columns = [];
@@ -616,7 +615,6 @@ angular.module('ngTasty.component.table', [
       return tAttrs.templateUrl || tableConfig.templateUrl;
     },
     link: function postLink(scope, element, attrs, tastyTable) {
-      'use strict';
       var getPage, setCount, setPaginationRange, setPreviousRange, 
           setRemainingRange, setPaginationRanges, listScopeToWatch, newScopeName;
 

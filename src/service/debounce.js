@@ -8,7 +8,7 @@ angular.module('ngTasty.service.debounce', [])
 .factory('debounce', function ($timeout) {
   return function (func, wait, immediate) {
     var args, context, debounceTimeout, timeout;
-    var debounceTimeout = function() {
+    debounceTimeout = function() {
       timeout = null;
       if (!immediate) {
         func.apply(context, args);

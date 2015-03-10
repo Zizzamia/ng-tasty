@@ -1,5 +1,3 @@
-'use strict';
-
 describe('Service: tastyUtil', function () {
 
   // load the service's module

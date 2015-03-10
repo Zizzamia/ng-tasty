@@ -1,5 +1,3 @@
-'use strict';
-
 describe('Service: joinObjects', function () {
   
   // load the service's module

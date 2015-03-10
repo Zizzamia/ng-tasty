@@ -1,5 +1,3 @@
-'use strict';
-
 describe('Component: table', function () {
   var $rootScope, $scope, $httpBackend, $compile;
   var element, params, urlToCall, filters, createDirective, field, elm,
@@ -953,7 +951,7 @@ describe('Component: table', function () {
   describe('withs tableConfig changed', function () {
     beforeEach(function () {
       angular.mock.module('ngTasty.component.table', function ($provide) {
-        $provide.constant("tableConfig", {
+        $provide.constant('tableConfig', {
           init: {
             'count': 5,
             'page': 1,

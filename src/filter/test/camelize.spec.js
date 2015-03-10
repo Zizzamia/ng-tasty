@@ -1,5 +1,4 @@
 describe('Filter: camelize', function () {
-  'use strict';
 
   beforeEach(module('ngTasty.filter.camelize'));
 

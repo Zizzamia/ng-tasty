@@ -1,5 +1,3 @@
-'use strict';
-
 describe('Service: setProperty', function () {
 
   // load the service's module

@@ -30,22 +30,22 @@ angular.module('ngTasty.filter.slugify', [])
     }
   };
 
-  var from  = "ąàáäâãåæăćčĉęèéëêĝĥìíïîĵłľńňòóöőôõðøśșšŝťțŭùúüűûñÿýçżźž",
-      to    = "aaaaaaaaaccceeeeeghiiiijllnnoooooooossssttuuuuuunyyczzz",
+  var from  = 'ąàáäâãåæăćčĉęèéëêĝĥìíïîĵłľńňòóöőôõðøśșšŝťțŭùúüűûñÿýçżźž',
+      to    = 'aaaaaaaaaccceeeeeghiiiijllnnoooooooossssttuuuuuunyyczzz',
       regex = new RegExp(defaultToWhiteSpace(from), 'g');
 
   return function (str) {
     str = makeString(str)
-    .toString() //make sure is a string
+    .toString() // make sure is a string
     .toLowerCase()
     .replace(regex, function (c){
       var index = from.indexOf(c);
       return to.charAt(index) || '-';
-    }) //normalize some foreign characters
-    .replace(/[^\w\-\s]+/g, '') //remove unwanted characters
+    }) // normalize some foreign characters
+    .replace(/[^\w\-\s]+/g, '') // remove unwanted characters
     .trim() //trim spaces
-    .replace(/\s+/g, '-') //replace any space with a dash
-    .replace(/\-\-+/g, '-'); //remove duplicate dashes
+    .replace(/\s+/g, '-') // replace any space with a dash
+    .replace(/\-\-+/g, '-'); // remove duplicate dashes
     return str;
   };
 });

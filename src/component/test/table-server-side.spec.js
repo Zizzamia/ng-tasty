@@ -1,5 +1,3 @@
-'use strict';
-
 describe('Component: table server side', function () {
   var $rootScope, $scope, $httpBackend, $compile;
   var element, params, urlToCall, filters, createDirective, field, elm,

@@ -1,5 +1,4 @@
 describe('Filter: filterInt', function () {
-  'use strict';
 
   beforeEach(module('ngTasty.filter.filterInt'));
 

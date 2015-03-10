@@ -1,5 +1,3 @@
-'use strict';
-
 describe('Service: webSocket', function () {
 
   // load the service's module

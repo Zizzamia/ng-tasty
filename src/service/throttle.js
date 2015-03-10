@@ -8,7 +8,7 @@
 angular.module('ngTasty.service.throttle', [])
 .factory('throttle', function ($timeout) {
   return function (fn, threshhold, scope) {
-    threshhold || (threshhold = 250);
+    threshhold = threshhold || 250;
     var last, promise;
     return function throttle () {
       var context = scope || this;

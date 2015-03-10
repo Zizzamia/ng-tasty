@@ -1,5 +1,4 @@
 describe('Filter: cleanFieldName', function () {
-  'use strict';
 
   beforeEach(module('ngTasty.filter.cleanFieldName'));
 
