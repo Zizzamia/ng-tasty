@@ -4,7 +4,7 @@
   "description": "A lightweight, flexible, and tasty collection of reusable UI components for AngularJS.",
   "main": "index.js",
   "devDependencies": {
-    "benchpress": "^2.0.0-alpha.11",
+    "benchpress": "^2.0.0-alpha.12",
     "http-server": "^0.7.5",
     "protractor": "^1.7.0",
     "blueimp-md5": "^1.1.0",
@@ -51,7 +51,6 @@
   },
   "scripts": {
     "start": "node docs/server.js port=3000",
-    "postinstall": "bower install",
     "start_docs": "node docs/server.js port=25907",
     "test": "gulp test",
     "watch": "gulp watch"
