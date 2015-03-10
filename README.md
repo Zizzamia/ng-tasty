@@ -136,7 +136,7 @@ Designed and built by Leonardo Zizzamia, like grandma used to make.
 - <http://twitter.com/zizzamia>
 - <http://github.com/zizzamia>
 
-Tasty Contributors: [@proudlygeek](https://twitter.com/proudlygeek), [@wesww](https://twitter.com/w3sw), [@aganglada](https://twitter.com/aganglada), [@alexcasalboni](https://twitter.com/alex_casalboni), [@bogdan-alexandrescu](https://twitter.com/balx)
+Tasty Contributors: [@proudlygeek](https://twitter.com/proudlygeek), [@wesww](https://twitter.com/w3sw), [@aganglada](https://twitter.com/aganglada), [@alexcasalboni](https://twitter.com/alex_casalboni), [@bogdan-alexandrescu](https://twitter.com/balx), [@yagoferrer](https://twitter.com/jsYago)
 
 [bower]: https://github.com/Zizzamia/bower-ng-tasty
 [bower-badge]: https://badge.fury.io/bo/ng-tasty.svg
