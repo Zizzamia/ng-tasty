@@ -1074,11 +1074,11 @@ describe('Component: table', function () {
       $scope.resource = $scope.resourceTwo;
       $scope.$digest();
 
-      expect(element.scope().logs.buildClientResourceCount).toEqual(4);
+      expect(element.scope().logs.buildClientResourceCount).toEqual(5);
       $scope.resource.reload();
       $scope.$digest();
 
-      expect(element.scope().logs.buildClientResourceCount).toEqual(5);
+      expect(element.scope().logs.buildClientResourceCount).toEqual(6);
     });
 
     it('should watch only the collection by passing by plain text', function () {
@@ -1101,11 +1101,11 @@ describe('Component: table', function () {
       $scope.resource = $scope.resourceTwo;
       $scope.$digest();
 
-      expect(element.scope().logs.buildClientResourceCount).toEqual(4);
+      expect(element.scope().logs.buildClientResourceCount).toEqual(5);
       $scope.resource.reload();
       $scope.$digest();
 
-      expect(element.scope().logs.buildClientResourceCount).toEqual(5);
+      expect(element.scope().logs.buildClientResourceCount).toEqual(6);
     });
 
     it('should watch only the equality', function () {
@@ -1129,8 +1129,8 @@ describe('Component: table', function () {
       $scope.resource = $scope.resourceTwo;
       $scope.$digest();
 
-      expect(element.scope().logs.buildClientResourceCount).toEqual(4);
-      expect(element.scope().resource.reload).toEqual(undefined);
+      expect(element.scope().logs.buildClientResourceCount).toEqual(8);
+      expect(element.scope().resource.reload).not.toEqual(undefined);
     });
 
     it('should watch only the equality by plain text', function () {
@@ -1153,8 +1153,8 @@ describe('Component: table', function () {
       $scope.resource = $scope.resourceTwo;
       $scope.$digest();
 
-      expect(element.scope().logs.buildClientResourceCount).toEqual(4);
-      expect(element.scope().resource.reload).toEqual(undefined);
+      expect(element.scope().logs.buildClientResourceCount).toEqual(8);
+      expect(element.scope().resource.reload).not.toEqual(undefined);
     });
   });
 });

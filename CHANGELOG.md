@@ -1,6 +1,15 @@
 ## Changelog
 
-### v0.5.0 (master, released on January 31th 2015)
+### v0.5.1 (master, released on March 9th 2015)
+#### Features
+- Add custom class on table directive [#96](https://github.com/Zizzamia/ng-tasty/issues/96)
+
+#### Bug Fixes
+- Fixed table resource sync [#100](https://github.com/Zizzamia/ng-tasty/issues/100)
+- Fixed pagination during filter [#98](https://github.com/Zizzamia/ng-tasty/issues/98)
+
+
+### v0.5.0 (released on January 31th 2015)
 #### Features
 - Add filtersComparator attribute to tasty table [#94](https://github.com/Zizzamia/ng-tasty/issues/94)
 
@@ -13,7 +22,7 @@
 ### v0.4.7 (released on January 27th 2015)
 #### Features
 - Add custom template header [#90](https://github.com/Zizzamia/ng-tasty/issues/90)
-- Add bind-reload on server side table [#90](https://github.com/Zizzamia/ng-tasty/issues/89)
+- Add bind-reload on server side table [#89](https://github.com/Zizzamia/ng-tasty/issues/89)
 
 #### Bug Fixes
 - Fixed bug with bind-init [#91](https://github.com/Zizzamia/ng-tasty/issues/91)

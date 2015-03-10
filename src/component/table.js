@@ -321,10 +321,10 @@ angular.module('ngTasty.component.table', [
   };
 
   updateClientSideResource = function (updateFrom) {
-    if ($scope.params.sortBy){
+    if ($scope.params.sortBy) {
       $scope.resource.sortBy = $scope.params.sortBy;
     }
-    if ($scope.params.sortOrder){
+    if ($scope.params.sortOrder) {
       $scope.resource.sortOrder = $scope.params.sortOrder;
     }
     if ($scope.params.page && $scope.params.count) {
@@ -387,7 +387,7 @@ angular.module('ngTasty.component.table', [
         $scope.params.sortOrder = newValue.sortOrder;
         $scope.$evalAsync(updateClientSideResource('resource'));
         if (!$scope.resource.reload) {
-          $scope.resource.reload = function () {
+          $scope.resource.reload = function reloadResource () {
             $scope.$evalAsync(updateClientSideResource('resource'));
           };
         }
@@ -398,20 +398,21 @@ angular.module('ngTasty.component.table', [
     } else if ($scope.watchResource === 'collection') {
       $scope.$watchCollection('resource.header', watchResource);
       $scope.$watchCollection('resource.rows', watchResource);
-      $scope.$watchGroup(['sortBy', 
-        'sortOrder', 
-        'pagination.count',
-        'pagination.page',
-        'pagination.pages',
-        'pagination.size'], watchResource);
+      $scope.$watchGroup(['resource.sortBy', 
+        'resource.sortOrder', 
+        'resource.pagination.count',
+        'resource.pagination.page',
+        'resource.pagination.pages',
+        'resource.pagination.size'], watchResource);
     } else if ($scope.watchResource === 'equality') {
-      $scope.$watch('resource', function (newValue, oldValue){
-        if (newValue !== oldValue) {
-          $scope.params.sortBy = newValue.sortBy;
-          $scope.params.sortOrder = newValue.sortOrder;
-          $scope.$evalAsync(updateClientSideResource('resource'));
-        }
-      }, true);
+      $scope.$watch('resource.header', watchResource, true);
+      $scope.$watch('resource.rows', watchResource, true);
+      $scope.$watch('resource.sortBy', watchResource, true);
+      $scope.$watch('resource.sortOrder', watchResource, true);
+      $scope.$watch('resource.pagination.count', watchResource, true);
+      $scope.$watch('resource.pagination.page', watchResource, true);
+      $scope.$watch('resource.pagination.pages', watchResource, true);
+      $scope.$watch('resource.pagination.size', watchResource, true);
     }
   }
 })

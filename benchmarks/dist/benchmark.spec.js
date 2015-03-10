@@ -15,13 +15,13 @@ describe('deep tree baseline', function() {
     'collection',
     'equality'
   ].forEach(function(benchmarkType) {
-    it('should work '+benchmarkType, function (done) {
+    it('should work ' + benchmarkType, function (done) {
       //Tells protractor this isn't an Angular 1 application
       browser.ignoreSynchronization = true;
       //Load the benchmark
       browser.get(baseUrl+'/dist?'+benchmarkType);
       return runner.sample({
-        id: 'ngtasty.'+benchmarkType,
+        id: 'ngtasty.table.'+benchmarkType,
         execute: function () {
           $('#'+benchmarkType).click();
           $('#destroyDom').click();
