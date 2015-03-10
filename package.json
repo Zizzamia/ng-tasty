@@ -54,7 +54,7 @@
     "test": "gulp test",
     "watch": "gulp watch",
     "preprotractor": "webdriver-manager update",
-    "protractor": "protractor benchmarks/protractor.conf.js"
+    "protractor": "protractor benchmarks/protractor.conf.js --specs benchmarks/dist/benchmark.spec.js"
   },
   "repository": {
     "type": "git",
