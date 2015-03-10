@@ -57,7 +57,7 @@ angular.module('myApp.pages.table', [])
 .controller('TableSimpleHttpCtrl', function($rootScope, $scope, $http, $timeout, tableResource) {
   $rootScope.page = 'table';
   $rootScope.innerPage = 'simple-http';
-  $scope.resourceSimple = {
+  $scope.resource = {
     'header': [
       { 'name': 'Name' },
       { 'star': 'Star' },
@@ -66,9 +66,17 @@ angular.module('myApp.pages.table', [])
     'rows': []
   };
   $http.get('table.json').then(function (response) {
-    $scope.resourceSimple.rows = response.data.rows;
+    $scope.resource.rows = response.data.rows;
+    updateDocs();
   });
-  $timeout(function () {
+  var updateDocs = function (newValue) {
+    $scope.resourceJson = JSON.stringify(newValue, undefined, 2);
+    $scope.$evalAsync(function () {
+      Rainbow.color();
+    });
+  };
+  $scope.$watch('resource', updateDocs, true);
+  $scope.$evalAsync(function () {
     Rainbow.color();
   });
 })
@@ -92,10 +100,7 @@ angular.module('myApp.pages.table', [])
       Rainbow.color();
     });
   };
-  $scope.$watch('resource', updateDocs);
-  $scope.$watch('resource.sortBy', updateDocs);
-  $scope.$watch('resource.sortOrder', updateDocs);
-  $scope.$watchCollection('resource.pagination', updateDocs);
+  $scope.$watch('resource', updateDocs, true);
   $scope.$evalAsync(function () {
     Rainbow.color();
   });

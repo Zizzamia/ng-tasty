@@ -387,7 +387,7 @@ angular.module('ngTasty.component.table', [
         $scope.params.sortOrder = newValue.sortOrder;
         $scope.$evalAsync(updateClientSideResource('resource'));
         if (!$scope.resource.reload) {
-          $scope.resource.reload = function () {
+          $scope.resource.reload = function reloadResource () {
             $scope.$evalAsync(updateClientSideResource('resource'));
           };
         }
