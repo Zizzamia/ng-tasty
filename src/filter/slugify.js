@@ -20,19 +20,9 @@ angular.module('ngTasty.filter.slugify', [])
     return '' + object;
   };
 
-  var defaultToWhiteSpace = function (characters) {
-    if (characters == null) {
-      return '\\s';
-    } else if (characters.source) {
-      return characters.source;
-    } else {
-      return '[' + characters.replace(/([.*+?^=!:${}()|[\]\/\\])/g, '\\$1') + ']';
-    }
-  };
-
   var from  = 'ąàáäâãåæăćčĉęèéëêĝĥìíïîĵłľńňòóöőôõðøśșšŝťțŭùúüűûñÿýçżźž',
       to    = 'aaaaaaaaaccceeeeeghiiiijllnnoooooooossssttuuuuuunyyczzz',
-      regex = new RegExp(defaultToWhiteSpace(from), 'g');
+      regex = new RegExp('[' + from + ']', 'g');
 
   return function (str) {
     str = makeString(str)
