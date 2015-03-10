@@ -33,6 +33,7 @@ all the dependencies by `npm`, the [node package manager][npm-site].
 ```
 npm install -g gulp
 npm install
+bower install
 ```
 
 Run dev environment, it's a watch script with several task running
