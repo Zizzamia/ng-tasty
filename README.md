@@ -27,7 +27,7 @@ angular.module('myApp', ['ngTasty']);
 
 
 ## Development
-For running the dev enviroment you just need install
+For running the dev environment you just need install
 all the dependencies by `npm`, the [node package manager][npm-site]. 
 
 ```
@@ -35,7 +35,7 @@ npm install -g gulp
 npm install
 ```
 
-Run dev enviroment, it's a watch script with several task running
+Run dev environment, it's a watch script with several task running
 like jshint, html2js, build and unit test on the js build files.
 ```
 gulp build
@@ -44,7 +44,7 @@ gulp watch
 
 #### Run demo app
 
-We have preconfigured the demo with a simple development web server.  
+We have pre-configured the demo with a simple development web server.  
 The simplest way to start this server is:
 
 ```
