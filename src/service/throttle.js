@@ -12,7 +12,7 @@ angular.module('ngTasty.service.throttle', [])
     var last, promise;
     return function throttle () {
       var context = scope || this;
-      var now = +new Date,
+      var now = Date.now(),
           args = arguments;
       if (last && now < last + threshhold) {
         // hold on to it
