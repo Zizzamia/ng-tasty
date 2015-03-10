@@ -56,7 +56,7 @@ npm start
 
 #### Unit Tests
 
-The easiest way to run the unit tests is to use the supplied npm script:
+The easiest way to run the unit tests is to use the supplied gulp script:
 
 ```
 gulp test
@@ -123,7 +123,7 @@ ngtasty.table.equality
 ------------------ | ------------------ | ------------------ | ------------------
           29400.18 |           41804.02 |              12.06 |             110.55
 ```
-More about how I run this benchmark on my talk #ngTasty [Building high performance measurable directives](https://www.youtube.com/watch?v=e6J_JZaIOAQ) at ngconf
+More about how I run this benchmark on my talk [#ngTasty Building high performance measurable directives](https://www.youtube.com/watch?v=e6J_JZaIOAQ) at ngconf
 
 
 ## Changelog
