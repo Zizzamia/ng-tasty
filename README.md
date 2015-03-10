@@ -31,6 +31,7 @@ For running the dev enviroment you just need install
 all the dependencies by `npm`, the [node package manager][npm-site]. 
 
 ```
+npm install -g gulp
 npm install
 ```
 
