@@ -32,6 +32,8 @@ all the dependencies by `npm`, the [node package manager][npm-site].
 
 ```
 npm install -g gulp
+npm install -g protractor
+webdriver-manager update
 npm install
 ```
 
