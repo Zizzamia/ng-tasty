@@ -31,9 +31,7 @@ For running the dev enviroment you just need install
 all the dependencies by `npm`, the [node package manager][npm-site]. 
 
 ```
-npm install -g bower
 npm install
-bower install
 ```
 
 Run dev enviroment, it's a watch script with several task running
