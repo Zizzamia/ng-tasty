@@ -52,7 +52,9 @@
     "start": "node docs/server.js port=3000",
     "start_docs": "node docs/server.js port=25907",
     "test": "gulp test",
-    "watch": "gulp watch"
+    "watch": "gulp watch",
+    "preprotractor": "webdriver-manager update",
+    "protractor": "protractor benchmarks/protractor.conf.js"
   },
   "repository": {
     "type": "git",

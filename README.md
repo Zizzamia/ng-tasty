@@ -93,7 +93,7 @@ npm install -g benchpress
 
 Run ngTasty benchmark
 ```
-protractor benchmarks/protractor.conf.js --specs benchmarks/dist/benchmark.spec.js
+npm run protractor
 ```
 
 Open benchmark with Chrome
