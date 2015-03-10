@@ -39,7 +39,6 @@ angular.module('ngTasty.component.table', [
   watchResource: 'reference'
 })
 .controller('TableController', function($scope, $attrs, $filter, tableConfig, tastyUtil) {
-  'use strict';
   var listScopeToWatch, initTable, newScopeName, initStatus,
       updateClientSideResource, updateServerSideResource, setDirectivesValues,
       buildClientResource, buildUrl, paramsInitialCycle, initNow;
@@ -278,14 +277,16 @@ angular.module('ngTasty.component.table', [
       $scope.rows = $filter('filter')($scope.rows, $scope.filters, $scope.filtersComparator);
     }
     if ($scope.paginationDirective) {
-      if (updateFrom === 'filters') {
-        $scope.pagination.page = 1;
-      } else {
-        $scope.pagination.page = $scope.params.page;
-      }
       $scope.pagination.count = $scope.params.count;
       $scope.pagination.size = $scope.rows.length;
       $scope.pagination.pages = Math.ceil($scope.rows.length / $scope.pagination.count);
+      if (updateFrom === 'filters' || 
+          $scope.pagination.page > $scope.pagination.pages) {
+        $scope.pagination.page = 1;
+        $scope.params.page = 1;
+      } else {
+        $scope.pagination.page = $scope.params.page;
+      }
       toRow = $scope.pagination.count * $scope.pagination.page;
       fromRow = toRow - $scope.pagination.count;
       if (fromRow >= 0 && toRow >= 0) {
@@ -494,6 +495,11 @@ angular.module('ngTasty.component.table', [
         var width, i, active, sortable, sort, 
             isSorted, isSortedCaret;
         scope.columns = [];
+        if (scope.header.sortOrder === 'dsc' && 
+            scope.header.sortBy &&
+            scope.header.sortBy[0] !== '-') {
+          scope.header.sortBy = '-' + scope.header.sortBy;
+        }
         scope.header.columns.forEach(function (column, index) {
           column.style = column.style || {};
           if (!angular.isArray(column.class)) {
@@ -543,11 +549,6 @@ angular.module('ngTasty.component.table', [
             'isSortedCaret': isSortedCaret
           });
         });
-        if (scope.header.sortOrder === 'dsc' && 
-            scope.header.sortBy &&
-            scope.header.sortBy[0] !== '-') {
-          scope.header.sortBy = '-' + scope.header.sortBy;
-        }
         if (!tastyTable.start) {
           // Thead it's called
           tastyTable.initTable('thead');

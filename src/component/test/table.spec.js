@@ -460,6 +460,73 @@ describe('Component: table', function () {
       $scope.$digest();
       expect(element.scope().rows.length).toEqual(5);
     });
+
+    it('should filter after change page', function () {
+      tastyPagination.isolateScope().page.get(2);
+      $scope.filters = '';
+      $scope.$digest();
+      expect(element.scope().rows.length).toEqual(5);
+      $scope.filters = 's';
+      $scope.$digest();
+      tastyPagination.isolateScope().page.get(3);
+      $scope.$digest();
+      $scope.filters = 'bar';
+      $scope.$digest();
+      expect(element.scope().pagination.page).toEqual(1);
+      expect(element.scope().params.page).toEqual(1);
+      expect(element.scope().rows.length).toEqual(5);
+    });
+  });
+
+
+  describe('withs filters and pagination with bad settings', function () {
+    beforeEach(inject(function ($rootScope, $compile, _sortingJSON_) {
+      $scope = $rootScope.$new();
+      $scope.resource = angular.copy(_sortingJSON_);
+      $scope.resource.pagination.page = 4;
+      $scope.filters = 'rit';
+      element = angular.element(''+
+      '<div tasty-table bind-resource="resource" bind-filters="filters">'+
+      '  <table>'+
+      '    <thead tasty-thead></thead>'+
+      '    <tbody>'+
+      '      <tr ng-repeat="row in rows">'+
+      '        <td>{{ row.name }}</td>'+
+      '        <td>{{ row.star }}</td>'+
+      '        <td>{{ row[\'sf-Location\'] }}</td>'+
+      '      </tr>'+
+      '    </tbody>'+
+      '  </table>'+
+      '  <tasty-pagination></tasty-pagination>'+
+      '</div>');
+      tastyTable = $compile(element)($scope);
+      tastyThead = tastyTable.find('[tasty-thead=""]');
+      tastyPagination = tastyTable.find('tasty-pagination');
+      $scope.$digest();
+    }));
+
+    it('should have these element.scope() value as default', function () {
+      expect(element.scope().query).toEqual({
+        'page': 'page',
+        'count': 'count',
+        'sortBy': 'sort-by',
+        'sortOrder': 'sort-order',
+      });
+      expect(element.scope().url).toEqual('');
+      expect(element.scope().header.columns.length).toEqual(3);
+      expect(element.scope().rows.length).toEqual(1);
+      expect(element.scope().pagination.count).toEqual(5);
+      expect(element.scope().pagination.page).toEqual(1);
+      expect(element.scope().pagination.pages).toEqual(1);
+      expect(element.scope().pagination.size).toEqual(1);
+      expect(element.scope().params.sortBy).toEqual('name');
+      expect(element.scope().params.sortOrder).toEqual('asc');
+      expect(element.scope().params.page).toEqual(1);
+      expect(element.scope().params.count).toEqual(5);
+      expect(element.scope().params.thead).toEqual(true);
+      expect(element.scope().theadDirective).toEqual(true);
+      expect(element.scope().paginationDirective).toEqual(true);   
+    });
   });
 
 

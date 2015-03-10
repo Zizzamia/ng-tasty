@@ -28,7 +28,7 @@ app.engine('html', require('ejs').renderFile);
 app.use(express.json());       // to support JSON-encoded bodies
 app.use(express.urlencoded()); // to support URL-encoded bodies
 app.use('/static',  express.static('docs/static'));
-app.use('/components',  express.static('components'));
+app.use('/bower_components',  express.static('bower_components'));
 app.use('/dist',  express.static('dist'));
 app.use('/src',  express.static('src'));
 //app.use('/template',  express.static('dist/template'));
@@ -48,7 +48,7 @@ function dynamicSort(property) {
 var prevSortBy, prevSortOrder, base;
 if (args.port != 3000) {
   base = '/ng-tasty';
-  ngTasty = '/ng-tasty/components/ng-tasty/ng-tasty-tpls.js';
+  ngTasty = '/ng-tasty/bower_components/ng-tasty/ng-tasty-tpls.js';
 } else {
   base = '';
   ngTasty = '/dist/ng-tasty-tpls.js';

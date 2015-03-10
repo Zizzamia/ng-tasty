@@ -1,5 +1,3 @@
-'use strict';
-
 describe('Service: debounce', function () {
   
   // load the service's module

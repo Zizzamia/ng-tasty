@@ -8,6 +8,8 @@
   "eqnull": true,
   "quotmark": "single",
   "trailing": true,
+  "undef": true,
+  "browser": true,
   "globals": {
     "angular": true,
     "describe" : false,
