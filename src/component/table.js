@@ -79,9 +79,11 @@ angular.module('ngTasty.component.table', [
 
   // Default theme
   this.config = tableConfig;
-  Object.keys($scope.theme).forEach(function(key) {
-    this.config[key] = $scope.theme[key];
-  }, this);
+  if (angular.isObject($scope.theme)) {
+    Object.keys($scope.theme).forEach(function(key) {
+      this.config[key] = $scope.theme[key];
+    }, this);
+  }
 
   // Default configs
   $scope.query.page = $scope.query.page || this.config.query.page;
