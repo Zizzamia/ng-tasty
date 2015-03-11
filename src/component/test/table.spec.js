@@ -1157,4 +1157,53 @@ describe('Component: table', function () {
       expect(element.scope().resource.reload).not.toEqual(undefined);
     });
   });
+
+  describe('withs sorting and different theme', function () {
+
+    beforeEach(inject(function ($rootScope, $compile, _sortingJSON_) {
+      $scope = $rootScope.$new();
+      $scope.resource = angular.copy(_sortingJSON_);
+      $scope.resource.something = [
+        { 'name': 'Ritual Coffee Roasters' }
+      ];
+      $scope.theme = {
+        iconUp: 'active is-desc',
+        iconDown: 'active is-asc'
+      };
+      element = angular.element(''+
+      '<table tasty-table bind-resource="resource" bind-theme="theme">'+
+      '  <thead tasty-thead></thead>'+
+      '  <tbody>'+
+      '    <tr ng-repeat="row in rows">'+
+      '      <td>{{ row.name }}</td>'+
+      '      <td>{{ row.star }}</td>'+
+      '      <td>{{ row[\'sf-Location\'] }}</td>'+
+      '    </tr>'+
+      '  </tbody>'+
+      '</table>');
+      featherTable = $compile(element)($scope);
+      tastyThead = featherTable.find('[tasty-thead=""]');
+      $scope.$digest();
+    }));
+
+    it('should return true or false to indicate if a specific key is sorted up', function () {
+      field = {'key': 'star', 'name': 'star', 'sortable': true};
+      tastyThead.isolateScope().sortBy(field);
+      $scope.$digest();
+      expect(tastyThead.isolateScope().columns[1].isSorted).toEqual('active is-desc');
+      tastyThead.isolateScope().sortBy(field);
+      $scope.$digest();
+      expect(tastyThead.isolateScope().columns[1].isSorted).toEqual('active is-asc');
+    });
+
+    it('should return true or false to indicate if a specific key is sorted down', function () {
+      field = {'key': 'star', 'name': 'star', 'sortable': true};
+      tastyThead.isolateScope().sortBy(field);
+      $scope.$digest();
+      expect(tastyThead.isolateScope().columns[1].isSorted).toEqual('active is-desc');
+      tastyThead.isolateScope().sortBy(field);
+      $scope.$digest();
+      expect(tastyThead.isolateScope().columns[1].isSorted).toEqual('active is-asc');
+    });
+  });
 });
