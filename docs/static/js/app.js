@@ -76,8 +76,13 @@ angular.module('myApp', [
     title: '#ngTasty - AngularJS table directive'
   })
   .when('/directive/table-server-side', {
-    controller: 'TableServerSideCompleteCtrl',
-    templateUrl: 'table-server-side/complete.html',
+    controller: 'TableServerSideSimpleCtrl',
+    templateUrl: 'table-server-side/simple.html',
+    title: '#ngTasty - AngularJS server side table directive'
+  })
+  .when('/directive/table-server-side/simple', {
+    controller: 'TableServerSideSimpleCtrl',
+    templateUrl: 'table-server-side/simple.html',
     title: '#ngTasty - AngularJS server side table directive'
   })
   .when('/directive/table-server-side/complete', {

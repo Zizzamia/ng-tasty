@@ -79,6 +79,10 @@
             ng-class="{active:page == 'table-server-side'}">Table server side</a>
           <ul class="head-child-ul" ng-show="page == 'table-server-side'" ng-cloak>
             <li>
+              <a href="<%= base %>/directive/table-server-side/simple"
+              ng-class="{active:innerPage == 'simple'}">simple</a>
+            </li>
+            <li>
               <a href="<%= base %>/directive/table-server-side/complete"
               ng-class="{active:innerPage == 'complete'}">complete</a>
             </li>

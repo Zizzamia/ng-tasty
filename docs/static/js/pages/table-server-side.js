@@ -1,4 +1,27 @@
 angular.module('myApp.pages.tableServerSide', [])
+.controller('TableServerSideSimpleCtrl', function($rootScope, $scope, $http, $timeout) {
+  $rootScope.page = 'table-server-side';
+  $rootScope.innerPage = 'simple';
+
+  $scope.getResource = function (params, paramsObj) {
+    $scope.params = params;
+    $scope.paramsObj = paramsObj;
+    $scope.urlApi = 'table.json?' + params;
+    return $http.get($scope.urlApi).then(function (response) {
+      $scope.response = JSON.stringify(response.data, undefined, 2);
+      return {
+        'rows': response.data.rows,
+        'header': response.data.header,
+        'pagination': response.data.pagination,
+        'sortBy': response.data['sort-by'],
+        'sortOrder': response.data['sort-order']
+      };
+    });
+  };
+  $timeout(function () {
+    Rainbow.color();
+  });
+})
 .controller('TableServerSideCompleteCtrl', function($rootScope, $scope, $http, $timeout) {
   $rootScope.page = 'table-server-side';
   $rootScope.innerPage = 'complete';
@@ -20,7 +43,6 @@ angular.module('myApp.pages.tableServerSide', [])
     $scope.urlApi = 'table.json?' + params;
     return $http.get($scope.urlApi).then(function (response) {
       $scope.response = JSON.stringify(response.data, undefined, 2);
-      $scope.countTest += 1;
       return {
         'rows': response.data.rows,
         'header': response.data.header,
@@ -45,7 +67,6 @@ angular.module('myApp.pages.tableServerSide', [])
     $scope.urlApiOne = 'table.json?' + params;
     return $http.get($scope.urlApiOne).then(function (response) {
       $scope.responseTwo = JSON.stringify(response.data, undefined, 2);
-      $scope.countTest += 1;
       return {
         'rows': response.data.rows,
         'header': response.data.header,
@@ -76,7 +97,6 @@ angular.module('myApp.pages.tableServerSide', [])
     $scope.urlApiTwo = 'table.json?' + params;
     return $http.get($scope.urlApiTwo).then(function (response) {
       $scope.responseThree = JSON.stringify(response.data, undefined, 2);
-      $scope.countTest += 1;
       return {
         'rows': response.data.rows,
         'header': response.data.header,
@@ -105,7 +125,6 @@ angular.module('myApp.pages.tableServerSide', [])
     $scope.urlApiThree = 'table.json?' + params;
     return $http.get($scope.urlApiThree).then(function (response) {
       $scope.responseFour = JSON.stringify(response.data, undefined, 2);
-      $scope.countTest += 1;
       return {
         'rows': response.data.rows,
         'header': response.data.header
