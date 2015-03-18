@@ -1,6 +1,6 @@
 /**
  * @ngdoc directive
- * @name tastyTable
+ * @name ngTasty.component.tastyTable
  *
  * @example
   <table tasty-table>
@@ -447,7 +447,7 @@ angular.module('ngTasty.component.table', [
 
 /**
  * @ngdoc directive
- * @name tastyThead
+ * @name ngTasty.component.tastyThead
  *
  * @example
   <table tasty-table>
@@ -604,7 +604,7 @@ angular.module('ngTasty.component.table', [
 
 /**
  * @ngdoc directive
- * @name tastyPagination
+ * @name ngTasty.component.tastyPagination
  *
  * @example
   <div tasty-table>

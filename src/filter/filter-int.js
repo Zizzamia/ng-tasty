@@ -1,6 +1,6 @@
 /**
  * @ngdoc filter
- * @name filterInt
+ * @name ngTasty.filter.filterInt
  * @function
  *
  */

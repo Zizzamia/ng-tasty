@@ -1,6 +1,6 @@
 /**
  * @ngdoc filter
- * @name range
+ * @name ngTasty.filter.range
  * @function
  *
  * @description

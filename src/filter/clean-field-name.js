@@ -1,6 +1,6 @@
 /**
  * @ngdoc filter
- * @name cleanFieldName
+ * @name ngTasty.filter.cleanFieldName
  * @function
  *
  * @description

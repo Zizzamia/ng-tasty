@@ -1,6 +1,6 @@
 /**
  * @ngdoc filter
- * @name filterCamelize
+ * @name ngTasty.filter.filterCamelize
  * @function
  *
  */
