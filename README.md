@@ -105,25 +105,25 @@ http-server -p 8000
 http://localhost:8000/benchmarks/dist/
 ```
 
-## Latest Benchmark v0.5.1
+## Latest Benchmark v0.5.2
 
 ngtasty.table.reference
 ```
           gcAmount |   gcAmountInScript |             render |             script
 ------------------ | ------------------ | ------------------ | ------------------
-            758.58 |               0.00 |              11.38 |               9.16
+            621.10 |             194.23 |              11.14 |               9.83
 ```
 ngtasty.table.collection
 ```
           gcAmount |   gcAmountInScript |             render |             script
 ------------------ | ------------------ | ------------------ | ------------------
-            704.05 |               0.00 |              11.32 |              12.39
+            766.28 |               0.00 |              11.06 |              11.17
 ```
 ngtasty.table.equality
 ```
           gcAmount |   gcAmountInScript |             render |             script
 ------------------ | ------------------ | ------------------ | ------------------
-          29400.18 |           41804.02 |              12.06 |             110.55
+          29557.73 |           41947.09 |              10.86 |             110.40
 ```
 More about how I run this benchmark on my talk [#ngTasty Building high performance measurable directives](https://www.youtube.com/watch?v=e6J_JZaIOAQ) at ngconf
 
