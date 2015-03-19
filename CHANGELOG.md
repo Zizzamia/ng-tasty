@@ -1,6 +1,14 @@
 ## Changelog
 
-### v0.5.1 (master, released on March 9th 2015)
+### v0.5.2 (master, released on March 18th 2015
+#### Features
+- Add bind-theme to the tasty-table [#111](https://github.com/Zizzamia/ng-tasty/issues/111)
+
+#### Bug Fixes
+- Fixed filter and sorting with watch-resource [#115](https://github.com/Zizzamia/ng-tasty/issues/115)
+- Fixed bind-reload in tasty-table [#114](https://github.com/Zizzamia/ng-tasty/issues/114)
+
+### v0.5.1 (released on March 9th 2015)
 #### Features
 - Add custom class on table directive [#96](https://github.com/Zizzamia/ng-tasty/issues/96)
 
