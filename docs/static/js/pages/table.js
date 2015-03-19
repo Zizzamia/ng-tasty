@@ -221,4 +221,27 @@ angular.module('myApp.pages.table', [])
   $timeout(function () {
     Rainbow.color();
   });
+})
+.controller('TableCustomThemeCtrl', function($rootScope, $scope, $timeout, tableResource) {
+  $rootScope.page = 'table';
+  $rootScope.innerPage = 'custom-theme';
+  $scope.resource = {
+    'header': [
+      { 'name': 'Name' },
+      { 'star': 'Star' },
+      { 'sf-Location': 'SF Location' }
+    ],
+    'rows': tableResource.rows,
+    'sortBy': 'name',
+    'sortOrder': 'asc'
+  };
+  $scope.customTheme = {
+    iconUp: 'fa fa-chevron-circle-up',
+    iconDown: 'fa fa-chevron-circle-down',
+    listItemsPerPage: [5, 10, 20, 30],
+    itemsPerPage: 10
+  };
+  $timeout(function () {
+    Rainbow.color();
+  });
 });

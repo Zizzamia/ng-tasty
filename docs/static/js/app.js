@@ -70,6 +70,11 @@ angular.module('myApp', [
     templateUrl: 'table/custom-sorting.html',
     title: '#ngTasty - AngularJS table directive'
   })
+  .when('/directive/table/custom-theme', {
+    controller: 'TableCustomThemeCtrl',
+    templateUrl: 'table/custom-theme.html',
+    title: '#ngTasty - AngularJS table directive'
+  })
   .when('/directive/table/filters', {
     controller: 'TableFiltersCtrl',
     templateUrl: 'table/filters.html',

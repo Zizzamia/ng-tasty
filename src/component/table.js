@@ -78,11 +78,13 @@ angular.module('ngTasty.component.table', [
   });
 
   // Default theme
-  this.config = tableConfig;
+  this.config = {};
   if (angular.isObject($scope.theme)) {
-    Object.keys($scope.theme).forEach(function(key) {
-      this.config[key] = $scope.theme[key];
+    Object.keys(tableConfig).forEach(function(key) {
+      this.config[key] = $scope.theme[key] || tableConfig[key];
     }, this);
+  } else {
+    this.config = tableConfig;
   }
 
   // Default configs
