@@ -14,5 +14,8 @@ describe('Filter: cleanFieldName', function () {
   it('should return ...', function () {
     expect(cleanFieldName('SF Location')).toEqual('SF-Location');
   });
-
+  
+  it('should return ...', function () {
+    expect(cleanFieldName('SF_Location')).toEqual('SF_Location');
+  });
 });

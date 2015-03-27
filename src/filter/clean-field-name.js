@@ -14,6 +14,6 @@
 angular.module('ngTasty.filter.cleanFieldName', [])
 .filter('cleanFieldName', function() {
   return function (input) {
-    return input.replace(/[^a-zA-Z0-9-]+/g, '-');
+    return input.replace(/[^a-zA-Z0-9-_-]+/g, '-');
   };
 });
