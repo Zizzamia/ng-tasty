@@ -1,0 +1,157 @@
+<!doctype html>
+<html ng-app="app">
+<head>
+  <title>Benchpress test ng-class</title>
+  <link rel="stylesheet" href="../../bower_components/bootstrap/dist/css/bootstrap.css">
+  <style>
+  .red { color: red; }
+  .green { color: green; }
+  </style>
+</head>
+<body ng-controller="DataController">
+  <h2>Module benchmark</h2>
+  <form>
+    <div>
+      ngClass:
+      <input type="radio"
+             ng-model="benchmarkType"
+             name="benchmarkType"
+             value="ngClass"
+             id="ngClass">
+    </div>
+    <div>
+      ngClassInterpolation:
+      <input type="radio"
+             ng-model="benchmarkType"
+             name="benchmarkType"
+             value="ngClassInterpolation"
+             id="ngClassInterpolation">
+    </div>
+    <div>
+      ngClassFn:
+      <input type="radio"
+             ng-model="benchmarkType"
+             name="benchmarkType"
+             value="ngClassFn"
+             id="ngClassFn">
+    </div>
+    <div>
+      ngClassInterpolationFn:
+      <input type="radio"
+             ng-model="benchmarkType"
+             name="benchmarkType"
+             value="ngClassInterpolationFn"
+             id="ngClassInterpolationFn">
+    </div>
+  </form>
+
+  <p>
+    <button class="btn btn-primary" 
+    id="destroyDom" ng-click="destroyDom()">destroyDom</button>
+    <button class="btn btn-primary" 
+    id="createDom" ng-click="createDom()">createDom</button>
+  </p>
+  
+  <div>
+    Debug output:
+    <ng-switch on="benchmarkType">
+      <div ng-switch-when="ngClass">
+        <h2>baseline ng-class binding</h2>
+        <div ng-repeat="row in data">
+          <span ng-repeat="column in row">
+            <span ng-class="red">:</span>
+            <span ng-class="green">|</span>
+          </span>
+        </div>
+      </div>
+      <div ng-switch-when="ngClassInterpolation">
+        <h2>baseline ng-class interpolation</h2>
+        <div ng-repeat="row in data">
+          <span ng-repeat="column in row">
+            <span class="{{red}}">:</span>
+            <span class="{{green}}">|</span>
+          </span>
+        </div>
+      </div>
+      <div ng-switch-when="ngClassFn">
+        <h2>bindings ng-class with functions</h2>
+        <div ng-repeat="row in data">
+          <span ng-repeat="column in row">
+            <span ng-class="redFn()">:</span>
+            <span ng-class="greenFn()">|</span>
+          </span>
+        </div>
+      </div>
+      <div ng-switch-when="ngClassInterpolationFn">
+        <h2>interpolation ng-class with functions</h2>
+        <div ng-repeat="row in data">
+          <span ng-repeat="column in row">
+            <span class="{{redFn()}}">:</span>
+            <span class="{{greenFn()}}">|</span>
+          </span>
+        </div>
+      </div>
+    </ng-switch>
+  </div>
+
+  <script src="../../bower_components/angular/angular.js"></script>
+  <script type="text/javascript">
+	  angular.module('app', [])
+    .config(function($compileProvider) {
+      if ($compileProvider.debugInfoEnabled) {
+        $compileProvider.debugInfoEnabled(false);
+      }
+    })
+    .filter('noop', function() {
+      return function(input) {
+        return input;
+      };
+    })
+    .controller('DataController', function($rootScope, $scope) {
+      var previousType = 'none',
+          totalRows = 100;
+          totalColumns = 20;
+      $scope.red = 'red';
+      $scope.green = 'green';
+      
+      $scope.destroyDom = function () {
+        $scope.$evalAsync(function() {
+          previousType = $scope.benchmarkType;
+          $scope.benchmarkType = 'none';
+        });
+      };
+
+      $scope.createDom = function () {
+        $scope.$evalAsync(function() {
+          $scope.benchmarkType = previousType;
+        });
+      };
+
+      var data = $scope.data = [];
+      function iGetter() {
+        return this.i;
+      }
+      function jGetter() {
+        return this.j;
+      }
+      $scope.redFn = function () {
+        return 'red';
+      }
+      $scope.greenFn = function () {
+        return 'green';
+      }
+      for (var i = 0; i < totalRows; i++) {
+        data[i] = [];
+        for (var j = 0; j < totalColumns; j++) {
+          data[i][j] = {
+            i: i,
+            j: j,
+            iFn: iGetter,
+            jFn: jGetter
+          };
+        }
+      }
+    });
+	</script>
+</body>
+</html>

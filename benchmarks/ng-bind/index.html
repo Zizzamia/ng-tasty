@@ -1,0 +1,295 @@
+<!doctype html>
+<html ng-app="app">
+<head>
+  <title>Benchpress test ng-bind</title>
+  <link rel="stylesheet" href="../../bower_components/bootstrap/dist/css/bootstrap.css">
+</head>
+<body ng-controller="DataController">
+  <h2>Module benchmark</h2>
+  <form>
+    <div>
+      baseline binding:
+      <input type="radio"
+             ng-model="benchmarkType"
+             name="benchmarkType"
+             value="baselineBinding"
+             id="baselineBinding"
+             checked>
+    </div>
+    <div>
+      baseline interpolation:
+      <input type="radio"
+             ng-model="benchmarkType"
+             name="benchmarkType"
+             value="baselineInterpolation"
+             id="baselineInterpolation">
+    </div>
+    <div>
+      ngBind:
+      <input type="radio"
+             ng-model="benchmarkType"
+             name="benchmarkType"
+             value="ngBind"
+             id="ngBind">
+    </div>
+    <div>
+      ngBindOnce:
+      <input type="radio"
+             ng-model="benchmarkType"
+             name="benchmarkType"
+             value="ngBindOnce"
+             id="ngBindOnce">
+    </div>
+    <div>
+      interpolation:
+      <input type="radio"
+             ng-model="benchmarkType"
+             name="benchmarkType"
+             value="interpolation"
+             id="interpolation">
+    </div>
+    <div>
+      attribute interpolation:
+      <input type="radio"
+             ng-model="benchmarkType"
+             name="benchmarkType"
+             value="interpolationAttr"
+             id="interpolationAttr">
+    </div>
+    <div>
+      ngBind + fnInvocation:
+      <input type="radio"
+             ng-model="benchmarkType"
+             name="benchmarkType"
+             value="ngBindFn"
+             id="ngBindFn">
+    </div>
+    <div>
+      interpolation + fnInvocation:
+      <input type="radio"
+             ng-model="benchmarkType"
+             name="benchmarkType"
+             value="interpolationFn"
+             id="interpolationFn">
+    </div>
+    <div>
+      ngBind + filter:
+      <input type="radio"
+             ng-model="benchmarkType"
+             name="benchmarkType"
+             value="ngBindFilter"
+             id="ngBindFilter">
+    </div>
+    <div>
+      interpolation + filter:
+      <input type="radio"
+             ng-model="benchmarkType"
+             name="benchmarkType"
+             value="interpolationFilter"
+             id="interpolationFilter">
+    </div>
+  </form>
+
+  <p>
+    <button class="btn btn-primary" 
+    id="destroyDom" ng-click="destroyDom()">destroyDom</button>
+    <button class="btn btn-primary" 
+    id="createDom" ng-click="createDom()">createDom</button>
+  </p>
+  
+  <div>
+    Debug output:
+    <ng-switch on="benchmarkType">
+      <baseline-binding-table ng-switch-when="baselineBinding">
+      </baseline-binding-table>
+      <baseline-interpolation-table ng-switch-when="baselineInterpolation">
+      </baseline-interpolation-table>
+      <div ng-switch-when="ngBind">
+        <h2>baseline binding</h2>
+        <div ng-repeat="row in data">
+          <span ng-repeat="column in row">
+            <span ng-bind="column.i"></span>:<span ng-bind="column.j"></span>|
+          </span>
+        </div>
+      </div>
+      <div ng-switch-when="ngBindOnce">
+        <h2>baseline binding once</h2>
+        <div ng-repeat="row in data">
+          <span ng-repeat="column in ::row">
+            <span ng-bind="::column.i"></span>:<span ng-bind="::column.j"></span>|
+          </span>
+        </div>
+      </div>
+      <div ng-switch-when="interpolation">
+        <h2>baseline interpolation</h2>
+        <div ng-repeat="row in data">
+          <span ng-repeat="column in row">{{column.i}}:{{column.j}}|</span>
+        </div>
+      </div>
+      <div ng-switch-when="interpolationAttr">
+        <h2>attribute interpolation</h2>
+        <div ng-repeat="row in data">
+          <span ng-repeat="column in row" 
+          i="{{column.i}}" j="{{column.j}}">i,j attrs</span>
+        </div>
+      </div>
+      <div ng-switch-when="ngBindFn">
+        <h2>bindings with functions</h2>
+        <div ng-repeat="row in data">
+          <span ng-repeat="column in row">
+            <span ng-bind="column.iFn()"></span>:
+            <span ng-bind="column.jFn()"></span>|
+          </span>
+        </div>
+      </div>
+      <div ng-switch-when="interpolationFn">
+        <h2>interpolation with functions</h2>
+        <div ng-repeat="row in data">
+          <span ng-repeat="column in row">{{column.iFn()}}:{{column.jFn()}}|</span>
+        </div>
+      </div>
+      <div ng-switch-when="ngBindFilter">
+        <h2>bindings with filter</h2>
+        <div ng-repeat="row in data">
+          <span ng-repeat="column in row">
+            <span ng-bind="column.i | noop"></span>:
+            <span ng-bind="column.j | noop"></span>|
+          </span>
+        </div>
+      </div>
+      <div ng-switch-when="interpolationFilter">
+        <h2>interpolation with filter</h2>
+        <div ng-repeat="row in data">
+          <span ng-repeat="column in row">{{column.i | noop}}:{{column.j | noop}}|</span>
+        </div>
+      </div>
+    </ng-switch>
+  </div>
+
+  <script src="../../bower_components/angular/angular.js"></script>
+  <script type="text/javascript">
+	  angular.module('app', [])
+    .config(function($compileProvider) {
+      if ($compileProvider.debugInfoEnabled) {
+        $compileProvider.debugInfoEnabled(false);
+      }
+    })
+    .filter('noop', function() {
+      return function(input) {
+        return input;
+      };
+    })
+    .controller('DataController', function($rootScope, $scope) {
+      var previousType = 'none',
+          totalRows = 100;
+          totalColumns = 20;
+      
+      $scope.destroyDom = function () {
+        $scope.$evalAsync(function() {
+          previousType = $scope.benchmarkType;
+          $scope.benchmarkType = 'none';
+        });
+      };
+
+      $scope.createDom = function () {
+        $scope.$evalAsync(function() {
+          $scope.benchmarkType = previousType;
+        });
+      };
+
+      var data = $scope.data = [];
+      function iGetter() {
+        return this.i;
+      }
+      function jGetter() {
+        return this.j;
+      }
+      $scope.redFn = function () {
+        return 'red';
+      }
+      $scope.greenFn = function () {
+        return 'green';
+      }
+      for (var i = 0; i < totalRows; i++) {
+        data[i] = [];
+        for (var j = 0; j < totalColumns; j++) {
+          data[i][j] = {
+            i: i,
+            j: j,
+            iFn: iGetter,
+            jFn: jGetter
+          };
+        }
+      }
+
+    })
+    .directive('baselineBindingTable', function() {
+      return {
+        restrict: 'E',
+        link: function($scope, $element) {
+          var totalRows = 100;
+              totalColumns = 20;
+          var i,
+              j,
+              row,
+              cell,
+              comment;
+          var template = document.createElement('span');
+          template.setAttribute('ng-repeat', 'foo in foos');
+          template.classList.add('ng-scope');
+          template.appendChild(document.createElement('span'));
+          template.appendChild(document.createTextNode(':'));
+          template.appendChild(document.createElement('span'));
+          template.appendChild(document.createTextNode('|'));
+          for (i = 0; i < totalRows; i++) {
+            row = document.createElement('div');
+            $element[0].appendChild(row);
+            for (j = 0; j < totalColumns; j++) {
+              cell = template.cloneNode(true);
+              row.appendChild(cell);
+              cell.childNodes[0].textContent = i;
+              cell.childNodes[2].textContent = j;
+              cell.ng3992 = 'xxx';
+              comment = document.createComment('ngRepeat end: bar in foo');
+              row.appendChild(comment);
+            }
+            comment = document.createComment('ngRepeat end: foo in foos');
+            $element[0].appendChild(comment);
+          }
+        }
+      };
+    })
+    .directive('baselineInterpolationTable', function() {
+      return {
+        restrict: 'E',
+        link: function($scope, $element) {
+          var totalRows = 100;
+              totalColumns = 20;
+          var i,
+              j,
+              row,
+              cell,
+              comment;
+          var template = document.createElement('span');
+          template.setAttribute('ng-repeat', 'foo in foos');
+          template.classList.add('ng-scope');
+          for (i = 0; i < totalRows; i++) {
+            row = document.createElement('div');
+            $element[0].appendChild(row);
+            for (j = 0; j < totalColumns; j++) {
+              cell = template.cloneNode(true);
+              row.appendChild(cell);
+              cell.textContent = '' + i + ':' + j + '|';
+              cell.ng3992 = 'xxx';
+              comment = document.createComment('ngRepeat end: bar in foo');
+              row.appendChild(comment);
+            }
+            comment = document.createComment('ngRepeat end: foo in foos');
+            $element[0].appendChild(comment);
+          }
+        }
+      };
+    });
+	</script>
+</body>
+</html>
