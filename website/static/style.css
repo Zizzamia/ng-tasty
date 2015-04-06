@@ -1,8 +1,9 @@
-.content {
-  margin-left: 204px;
-  padding: 10px 38px;
-  max-width: 960px;
-  min-width: 700px;
+.ng-tasty-container {
+  margin-top: 70px; 
+}
+
+.container {
+  min-width: 600px;
 }
 
 h1, h2 {
@@ -283,6 +284,12 @@ footer {
   100% {
     -webkit-transform: none;
             transform: none;
+  }
+}
+
+@media (min-width: 1px) {
+  .navbar-nav > li {
+    float: left;
   }
 }
 

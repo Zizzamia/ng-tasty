@@ -8,7 +8,6 @@ fabfile.py
 dist
 releases
 docs2
-website
 !benchmarks/dist
 
 # Node

@@ -23,14 +23,14 @@ var wss = new WebSocketServer({ server: server });
 var T = new Twit(config.twitter_auth);
 
 
-app.set('views', 'docs/');
+app.set('views', '');
 app.engine('html', require('ejs').renderFile);
 app.use(express.json());       // to support JSON-encoded bodies
 app.use(express.urlencoded()); // to support URL-encoded bodies
-app.use('/static',  express.static('docs/static'));
+app.use('/static',  express.static('static'));
 app.use('/bower_components',  express.static('bower_components'));
-app.use('/dist',  express.static('dist'));
-app.use('/src',  express.static('src'));
+app.use('/dist',  express.static('../dist'));
+app.use('/src',  express.static('../src'));
 //app.use('/template',  express.static('dist/template'));
 
 function dynamicSort(property) {

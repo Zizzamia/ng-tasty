@@ -1,12 +1,13 @@
-<!doctype html>
+<!DOCTYPE html>
 <html ng-app="myApp">
-<head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-
+<head lang="en">
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
   <title ng-bind="title"></title>
   <meta name="description" content="A lightweight, flexible, and tasty collection of reusable UI components for AngularJS. ( table directive, range filter )">
-  
+
   <link rel="stylesheet" href="<%= base %>/bower_components/bootstrap/dist/css/bootstrap.css">
   <link rel="stylesheet" href="<%= base %>/bower_components/components-font-awesome/css/font-awesome.css">
   <link rel="stylesheet" href="<%= base %>/static/style.css">
@@ -14,151 +15,131 @@
   <base href="<%= base %>/" />
 </head>
 <body ng-controller="AppCtrl">
-  <div class="left-nav">
-    <a href="<%= base %>/" class="head">
-      <h1>#ngTasty</h1>
-    </a>
-    <p class="version">v<span ng-bind="version"></span></p>
-    <div class="head">
-      <ul>
-        <li>
-          <a href="<%= base %>/" ng-class="{active:page == 'home'}">Quick Start</a>
-        </li>
-        <li>
-          <a href="<%= base %>/contribute" 
-            ng-class="{active:page == 'contribute'}">Contribute</a>
-        </li>
-        <!--
-        <li>
-          <a href="<%= base %>/make-your-own" 
-            ng-class="{active:page == 'MakeYourOwn'}">Make your own</a>
-        </li>
-        -->
-      </ul>
-      <h4>Component</h4>
-      <ul>
-        <li>
-          <a href="<%= base %>/directive/table" ng-class="{active:page == 'table'}">Table</a>
-          <ul class="head-child-ul" ng-show="page == 'table'" ng-cloak>
+  <nav class="navbar navbar-default navbar-static navbar-fixed-top">
+    <div class="container">
+      <ul class="nav navbar-nav">
+        <!-- Home -->
+        <li><a href="/">Home</a></li>
+
+        <!-- ngTasty component -->
+        <li class="dropdown" dropdown>
+          <a href class="dropdown-toggle" dropdown-toggle>
+            Table <span class="caret"></span>
+          </a>
+          <ul class="dropdown-menu">
             <li>
-              <a href="<%= base %>/directive/table/simple"
-              ng-class="{active:innerPage == 'simple'}">simple</a>
+              <a href="<%= base %>/directive/table/simple">simple</a>
             </li>
             <li>
-              <a href="<%= base %>/directive/table/simple-http"
-              ng-class="{active:innerPage == 'simple-http'}">simple $http</a>
+              <a href="<%= base %>/directive/table/simple-http">simple $http</a>
             </li>
             <li>
-              <a href="<%= base %>/directive/table/complete"
-              ng-class="{active:innerPage == 'complete'}">complete</a>
+              <a href="<%= base %>/directive/table/complete">complete</a>
             </li>
             <li>
-              <a href="<%= base %>/directive/table/sorting"
-              ng-class="{active:innerPage == 'sorting'}">with sorting</a>
+              <a href="<%= base %>/directive/table/sorting">with sorting</a>
             </li>
             <li>
-              <a href="<%= base %>/directive/table/pagination"
-              ng-class="{active:innerPage == 'pagination'}">with pagination</a>
+              <a href="<%= base %>/directive/table/pagination">with pagination</a>
             </li>
             <li>
-              <a href="<%= base %>/directive/table/filters"
-              ng-class="{active:innerPage == 'filters'}">with filters</a>
+              <a href="<%= base %>/directive/table/filters">with filters</a>
             </li>
             <li>
-              <a href="<%= base %>/directive/table/custom-pagination"
-              ng-class="{active:innerPage == 'custom-pagination'}">with custom pagination</a>
+              <a href="<%= base %>/directive/table/custom-pagination">with custom pagination</a>
             </li>
             <li>
-              <a href="<%= base %>/directive/table/custom-sorting"
-              ng-class="{active:innerPage == 'custom-sorting'}">with custom sorting</a>
+              <a href="<%= base %>/directive/table/custom-sorting">with custom sorting</a>
             </li>
             <li>
-              <a href="<%= base %>/directive/table/custom-theme"
-              ng-class="{active:innerPage == 'custom-theme'}">with custom theme</a>
+              <a href="<%= base %>/directive/table/custom-theme">with custom theme</a>
             </li>
           </ul>
         </li>
-        <li>
-          <a href="<%= base %>/directive/table-server-side" 
-            ng-class="{active:page == 'table-server-side'}">Table server side</a>
-          <ul class="head-child-ul" ng-show="page == 'table-server-side'" ng-cloak>
+
+        <li class="dropdown" dropdown>
+          <a href class="dropdown-toggle" dropdown-toggle>
+            Table server side <span class="caret"></span>
+          </a>
+          <ul class="dropdown-menu">
             <li>
-              <a href="<%= base %>/directive/table-server-side/simple"
-              ng-class="{active:innerPage == 'simple'}">simple</a>
+              <a href="<%= base %>/directive/table-server-side/simple">simple</a>
             </li>
             <li>
-              <a href="<%= base %>/directive/table-server-side/complete"
-              ng-class="{active:innerPage == 'complete'}">complete</a>
+              <a href="<%= base %>/directive/table-server-side/complete">complete</a>
             </li>
             <li>
-              <a href="<%= base %>/directive/table-server-side/sorting"
-              ng-class="{active:innerPage == 'sorting'}">with sorting</a>
+              <a href="<%= base %>/directive/table-server-side/sorting">with sorting</a>
             </li>
             <li>
-              <a href="<%= base %>/directive/table-server-side/pagination"
-              ng-class="{active:innerPage == 'pagination'}">with pagination</a>
+              <a href="<%= base %>/directive/table-server-side/pagination">with pagination</a>
             </li>
             <li>
-              <a href="<%= base %>/directive/table-server-side/filters"
-              ng-class="{active:innerPage == 'filters'}">with filters</a>
+              <a href="<%= base %>/directive/table-server-side/filters">with filters</a>
             </li>
             <li>
-              <a href="<%= base %>/directive/table-server-side/reload"
-              ng-class="{active:innerPage == 'reload'}">reload callback</a>
+              <a href="<%= base %>/directive/table-server-side/reload">reload callback</a>
             </li>
           </ul>
         </li>
+
+        <!-- ngTasty service -->
+        <li class="dropdown" dropdown>
+          <a href class="dropdown-toggle" dropdown-toggle>
+            Service <span class="caret"></span>
+          </a>
+          <ul class="dropdown-menu">
+            <li>
+              <a href="<%= base %>/service/websocket">WebSocket</a>
+            </li>
+            <li>
+              <a href="<%= base %>/service/debounce">Debounce</a>
+            </li>
+            <li>
+              <a href="<%= base %>/service/throttle">Throttle</a>
+            </li>
+          </ul>
+        </li>
+
+        <!-- ngTasty filter -->
+        <li class="dropdown" dropdown>
+          <a href class="dropdown-toggle" dropdown-toggle>
+            Filter <span class="caret"></span>
+          </a>
+          <ul class="dropdown-menu">
+            <li>
+              <a href="<%= base %>/filter/filter-int">Filter Int</a>
+            </li>
+            <li>
+              <a href="<%= base %>/filter/range">Range</a>
+            </li>
+            <li>
+              <a href="<%= base %>/filter/camelize">Camelize</a>
+            </li>
+            <li>
+              <a href="<%= base %>/filter/slugify">Slugify</a>
+            </li>
+          </ul>
+        </li>
+
+        <!-- Reference -->
+        <li class="dropdown" dropdown>
+          <a href class="dropdown-toggle" dropdown-toggle>
+            Reference <span class="caret"></span>
+          </a>
+          <ul class="dropdown-menu">
+            <li><a tabindex="-1" href="/api">ngTasty API</a></li>
+            <li><a tabindex="-1" href="/contribute">Contribute</a></li>
+          </ul>
+        </li>
       </ul>
-      <h4>Service</h4>
-      <ul>
-        <li>
-          <a href="<%= base %>/service/websocket" 
-          ng-class="{active:page == 'webSocket'}">WebSocket</a>
-        </li>
-        <li>
-          <a href="<%= base %>/service/debounce"
-          ng-class="{active:page == 'debounce'}">Debounce</a>
-        </li>
-        <li>
-          <a href="<%= base %>/service/throttle"
-          ng-class="{active:page == 'throttle'}">Throttle</a>
-        </li>
-        <!--
-        <li><a href="<%= base %>/service/set-property">Set Property</a></li>
-        <li><a href="<%= base %>/service/join-objects">JoinObjects</a></li>
-        -->
-      </ul>
-      <h4>Filter</h4>
-      <ul>
-        <!--
-        <li><a href="<%= base %>/#CleanFieldName">Clean Field Name</a></li>
-        -->
-        <li>
-          <a href="<%= base %>/filter/filter-int" ng-class="{active:page == 'filter-int'}">Filter Int</a>
-        </li>
-        <li>
-          <a href="<%= base %>/filter/range" ng-class="{active:page == 'range'}">Range</a>
-        </li>
-        <li>
-          <a href="<%= base %>/filter/camelize" ng-class="{active:page == 'camelize'}">Camelize</a>
-        </li>
-        <li>
-          <a href="<%= base %>/filter/slugify" ng-class="{active:page == 'slugify'}">Slugify</a>
-        </li>
-      </ul>
-      <!--
-      <h4>Benchmark</h4>
-      <ul>
-        <li>
-          <a href="<%= base %>/benchmarks/table">Table</a>
-        </li>
-      </ul>
-      -->
     </div>
+  </nav>
+
+  <div class="container">
+    <div class="ng-tasty-container" ng-view></div>
   </div>
-  <div class="content">
-    <div ng-view></div>
-  </div>
+
   <script src="<%= base %>/bower_components/angular/angular.js"></script>
   <script src="<%= base %>/bower_components/angular-route/angular-route.js"></script>
   <script src="<%= base %>/bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
