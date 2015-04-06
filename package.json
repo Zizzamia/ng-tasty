@@ -12,9 +12,6 @@
     "camel-case": "^1.0.2",
     "chalk": "^0.5.1",
     "coveralls": "^2.11.2",
-    "ejs": "~1.0.0",
-    "exec": "0.1.2",
-    "express": "3.x",
     "generator-ngtasty": "^0.4.0",
     "gulp": "3.8.11",
     "gulp-clean": "^0.3.1",
@@ -44,14 +41,10 @@
     "run-sequence": "^0.3.6",
     "selenium-webdriver": "^2.45.0",
     "streamqueue": "^0.1.1",
-    "twit": "^1.1.18",
     "underscore": "1.6.0",
-    "ws": "^0.6.5",
     "yeoman-generator": "^0.18.5"
   },
   "scripts": {
-    "start": "node docs/server.js port=3000",
-    "start_docs": "node docs2/server.js port=5000",
     "test": "gulp test",
     "watch": "gulp watch"
   },

@@ -95,15 +95,6 @@ gulp.task('html2js', function () {
     .pipe(gulp.dest('template'))
 });
 
-gulp.task('ngdocs', [], function () {
-  var options = {
-    html5Mode: true
-  }
-  return gulp.src('./src/**/*.js')
-    .pipe(gulpDocs.process(options))
-    .pipe(gulp.dest('./docs2/template'));
-});
-
 gulp.task('test', function () {
   return gulp.src(testFiles)
     .pipe(karma({
