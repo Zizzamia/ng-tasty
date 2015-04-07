@@ -19,7 +19,11 @@
     <div class="container">
       <ul class="nav navbar-nav">
         <!-- Home -->
-        <li><a href="/">Home</a></li>
+        <li>
+          <a href="/" class="logo">
+            <h1><i class="fa fa-heart"></i> ngTasty</h1>
+          </a>
+        </li>
 
         <!-- ngTasty component -->
         <li class="dropdown" dropdown>
@@ -137,8 +141,28 @@
   </nav>
 
   <div class="container">
-    <div class="ng-tasty-container" ng-view></div>
+    <div class="ng-tasty-container" >
+      <div class="col-xs-12" ng-view></div>
+    </div>
   </div>
+
+  <footer class="container">
+    <div class="content">
+      <p>Designed and built by <a href="http://twitter.com/zizzamia" 
+      target="_blank">@zizzamia</a>, like grandma used to make.
+        A special #thankYou to all <a href="https://github.com/Zizzamia/ng-tasty/graphs/contributors" 
+        target="_blank">  contributors</a> : <a href="http://twitter.com/proudlygeek" target="_blank">@proudlygeek</a>,
+        <a href="http://twitter.com/w3sw" target="_blank">@wesww</a>, <a href="http://twitter.com/aganglada" target="_blank">@aganglada</a>, <a href="http://twitter.com/balx" target="_blank">@bogdan-alexandrescu</a>,
+        <a href="http://twitter.com/jsYago" target="_blank">@yagoferrer</a>.
+      </p>
+      <p>Code licensed under <a href="https://github.com/zizzamia/ng-tasty/blob/master/LICENSE" target="_blank">MIT</a></p>
+      <ul>
+        <li><a href="https://github.com/zizzamia/ng-tasty" target="_blank">GitHub</a></li>
+        <li><a href="https://github.com/zizzamia/ng-tasty/issues?state=open" target="_blank">Issues</a></li>
+        <li><a href="https://github.com/zizzamia/ng-tasty/releases" target="_blank">Releases</a></li>
+      </ul>
+    </div>
+  </footer>
 
   <script src="<%= base %>/bower_components/angular/angular.js"></script>
   <script src="<%= base %>/bower_components/angular-route/angular-route.js"></script>

@@ -10,8 +10,31 @@ h1, h2 {
   margin-top: 0;
 }
 
-iframe {
-  margin: 0 0 8px 0;
+a.logo h1 {
+  font-size: 18px;
+  padding: 0;
+  margin: 0;
+  color: #554433;
+}
+
+.navbar {
+  min-height: 40px;
+}
+
+.navbar-nav  > li > a {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  color: #999;
+}
+.navbar-default {
+  background-color: #f7f7f7;
+  border-bottom: 1px solid #e7e7e7;
+}
+.navbar-default .navbar-nav > li > a {
+  color: #999;
+}
+.navbar-default .navbar-nav > li > a:hover {
+  color: #8b3d13;
 }
 
 .spacer {
@@ -21,7 +44,7 @@ iframe {
 }
 
 .ng-tasty-title {
-  margin: 42px 0 60px 0;
+  margin: 0 -15px 40px;
 }
 
 .ng-tasty-title p {
@@ -32,7 +55,7 @@ iframe {
 }
 
 .ng-tasty-title-inside {
-  margin: 22px 0  20px 0;
+  margin: 0 -15px;
 }
 
 .ng-tasty-title-inside .spacer {
@@ -116,25 +139,26 @@ iframe {
 }
 
 footer {
-  margin: 50px 0 10px 0;
-  padding: 20px 0;
+  margin: 30px 0 10px 0;
   width: 100%;
-  border-top: 1px solid #e7e7e7;
 }
-.bottom {
+footer .content {
+  margin: 0 15px;
+  padding: 20px 0;
+  border-top: 1px solid #e7e7e7;
   color: #999;
   font-size: 13px;
 }
-.bottom ul {
+footer .content ul {
   display: inline;
   padding-left: 0px;
 }
-.bottom li {
+footer .content li {
   display: inline;
   padding: 0 2px;
   font-size: 13px;
 }
-.bottom li:first-child {
+footer .content li:first-child {
   padding: 0 2px 0 0;
 }
 
