@@ -29,6 +29,7 @@ angular.module('ngTasty.component.table', [
     'sortOrder': 'sort-order'
   },
   bindOnce: true,
+  loadOnInit: false,
   iconUp: 'fa fa-sort-up',
   iconDown: 'fa fa-sort-down',
   bootstrapIcon: false,
@@ -41,7 +42,7 @@ angular.module('ngTasty.component.table', [
 .controller('TableController', function($scope, $attrs, $filter, tableConfig, tastyUtil) {
   var listScopeToWatch, initTable, newScopeName, initStatus,
       updateClientSideResource, updateServerSideResource, setDirectivesValues,
-      buildClientResource, buildUrl, paramsInitialCycle, initNow;
+      buildClientResource, buildUrl, paramsInitialCycle, initNow, loadOnInit;
   this.$scope = $scope;
   initStatus = {};
   initNow = true;
@@ -94,7 +95,8 @@ angular.module('ngTasty.component.table', [
   $scope.query.sortOrder = $scope.query.sortOrder || this.config.query.sortOrder;
 
   // Set init configs
-  if ($scope.reload) {
+  loadOnInit = $attrs.hasOwnProperty('loadOnInit') || this.config.loadOnInit;
+  if ($scope.reload && !loadOnInit) {
     initNow = false;
   }
   $scope.init.count = $scope.init.count || this.config.init.count;
