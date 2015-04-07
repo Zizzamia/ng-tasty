@@ -451,14 +451,14 @@ describe('Component: table server side', function () {
         'pages' : 7, 
         'size' : 34 
       });
-      expect(tastyPagination.isolateScope().listItemsPerPageShow).toEqual([5, 25]);
+      expect(tastyPagination.isolateScope().listItemsPerPageShow).toEqual([5, 25, 50]);
       expect(tastyPagination.isolateScope().pagMinRange).toEqual(1);
       expect(tastyPagination.isolateScope().pagMaxRange).toEqual(6);
     });
 
     it('should generate page count button using ng-repeat', function () {
       elementSelected = element.find('[ng-repeat="count in listItemsPerPageShow"]');
-      expect(elementSelected.length).toEqual(2);
+      expect(elementSelected.length).toEqual(3);
     });
     
     it('should use correct class for the selected page count', function () {

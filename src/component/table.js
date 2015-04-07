@@ -742,7 +742,7 @@ angular.module('ngTasty.component.table', [
 
         for (var i = scope.listItemsPerPage.length; i >= 0; i--) {
           if (scope.pagination.size > scope.listItemsPerPage[i]) {
-            scope.listItemsPerPageShow = scope.listItemsPerPage.slice(0, (i + 1));
+            scope.listItemsPerPageShow = scope.listItemsPerPage.slice(0, (i + 2));
             break;
           }
         }

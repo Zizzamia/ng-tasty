@@ -678,14 +678,14 @@ describe('Component: table', function () {
       expect(tastyPagination.isolateScope().pagination.page).toEqual(1);
       expect(tastyPagination.isolateScope().pagination.pages).toEqual(4);
       expect(tastyPagination.isolateScope().pagination.size).toEqual(34);
-      expect(tastyPagination.isolateScope().listItemsPerPageShow).toEqual([5, 10, 20]);
+      expect(tastyPagination.isolateScope().listItemsPerPageShow).toEqual([5, 10, 20, 40]);
       expect(tastyPagination.isolateScope().pagMinRange).toEqual(1);
       expect(tastyPagination.isolateScope().pagMaxRange).toEqual(5);
     });
 
     it('should generate page count button using ng-repeat', function () {
       elementSelected = element.find('[ng-repeat="count in listItemsPerPageShow"]');
-      expect(elementSelected.length).toEqual(3);
+      expect(elementSelected.length).toEqual(4);
     });
     
     it('should use correct class for the selected page count', function () {
@@ -833,14 +833,14 @@ describe('Component: table', function () {
       expect(tastyPagination.isolateScope().pagination.page).toEqual(1);
       expect(tastyPagination.isolateScope().pagination.pages).toEqual(4);
       expect(tastyPagination.isolateScope().pagination.size).toEqual(34);
-      expect(tastyPagination.isolateScope().listItemsPerPageShow).toEqual([5, 10, 20]);
+      expect(tastyPagination.isolateScope().listItemsPerPageShow).toEqual([5, 10, 20, 40]);
       expect(tastyPagination.isolateScope().pagMinRange).toEqual(1);
       expect(tastyPagination.isolateScope().pagMaxRange).toEqual(5);
     });
 
     it('should generate page count button using ng-repeat', function () {
       elementSelected = element.find('[ng-repeat="count in listItemsPerPageShow"]');
-      expect(elementSelected.length).toEqual(3);
+      expect(elementSelected.length).toEqual(4);
     });
     
     it('should use correct class for the selected page count', function () {
