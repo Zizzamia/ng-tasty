@@ -1,6 +1,13 @@
 ## Changelog
 
-### v0.5.2 (master, released on March 18th 2015
+### v0.5.3 (master, released on April 6th 2015)
+#### Features
+- Add show all to table pagination [#121](https://github.com/Zizzamia/ng-tasty/issues/121)
+
+#### Bug Fixes
+- cleanFieldName may now contain _ and keep it, instead of replacing it [#123] (https://github.com/Zizzamia/ng-tasty/pull/123)
+
+### v0.5.2 (released on March 18th 2015)
 #### Features
 - Add bind-theme to the tasty-table [#111](https://github.com/Zizzamia/ng-tasty/issues/111)
 

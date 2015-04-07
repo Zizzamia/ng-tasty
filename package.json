@@ -1,6 +1,6 @@
 {
   "name": "ng-tasty",
-  "version": "0.5.2",
+  "version": "0.5.3",
   "description": "A lightweight, flexible, and tasty collection of reusable UI components for AngularJS.",
   "main": "index.js",
   "devDependencies": {
