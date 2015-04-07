@@ -62,6 +62,10 @@
       "url": "https://github.com/alexcasalboni"
     },
     {
+      "name": "Yago Ferrer",
+      "url": "https://github.com/yagoferrer"
+    },
+    {
       "name": "Wesley",
       "url": "https://github.com/wesww"
     },
@@ -70,12 +74,16 @@
       "url": "https://github.com/proudlygeek"
     },
     {
-      "name": "Alejandro Garcia Angada",
-      "url": "https://github.com/aganglada"
-    },
-    {
       "name": "Bogdan Alexandrescu",
       "url": "https://github.com/bogdan-alexandrescu"
+    },
+    {
+      "name": "Wahid",
+      "url": "https://github.com/wahidnory"
+    },
+    {
+      "name": "Alejandro Garcia Angada",
+      "url": "https://github.com/aganglada"
     }
   ],
   "license": "MIT",
