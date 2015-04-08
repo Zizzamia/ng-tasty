@@ -1,0 +1,220 @@
+{
+  "version": "0.5.3",
+  "items": [
+  {
+    "description": "",
+    "example": "<table tasty-table>\n    <tbody></tbody>\n  </table>",
+    "fileName": "table",
+    "name": "ngTasty.component.tastyTable",
+    "returnString": "",
+    "sourceLink": "https://github.com/angular/protractor/blob/0.5.3/lib/table.js#L1"
+  },
+  {
+    "description": "",
+    "example": "<table tasty-table>\n    <thead table-head></thead>\n    <tbody></tbody>\n  </table>",
+    "fileName": "table",
+    "name": "ngTasty.component.tastyThead",
+    "returnString": "",
+    "sourceLink": "https://github.com/angular/protractor/blob/0.5.3/lib/table.js#L459"
+  },
+  {
+    "description": "",
+    "example": "<div tasty-table>\n    <table>\n     ...\n    </table>\n    <div table-pagination></div>\n  </div>",
+    "fileName": "table",
+    "name": "ngTasty.component.tastyPagination",
+    "returnString": "",
+    "sourceLink": "https://github.com/angular/protractor/blob/0.5.3/lib/table.js#L616"
+  },
+  {
+    "description": "",
+    "fileName": "camelize",
+    "name": "ngTasty.filter.filterCamelize",
+    "returnString": "",
+    "sourceLink": "https://github.com/angular/protractor/blob/0.5.3/lib/camelize.js#L1"
+  },
+  {
+    "description": "Calling cleanFieldName will replace all \nempty space with with -",
+    "example": "ng-bind=\"key | cleanFieldName\"",
+    "fileName": "clean-field-name",
+    "name": "ngTasty.filter.cleanFieldName",
+    "returnString": "",
+    "sourceLink": "https://github.com/angular/protractor/blob/0.5.3/lib/clean-field-name.js#L1"
+  },
+  {
+    "description": "",
+    "fileName": "filter-int",
+    "name": "ngTasty.filter.filterInt",
+    "returnString": "",
+    "sourceLink": "https://github.com/angular/protractor/blob/0.5.3/lib/filter-int.js#L1"
+  },
+  {
+    "description": "Create a list containing arithmetic progressions. The arguments must \nbe plain integers. If the step argument is omitted, it defaults to 1. \nIf the start argument is omitted, it defaults to 0.",
+    "example": "ng-repeat=\"n in [] | range:1:30\"",
+    "fileName": "range",
+    "name": "ngTasty.filter.range",
+    "returnString": "",
+    "sourceLink": "https://github.com/angular/protractor/blob/0.5.3/lib/range.js#L1"
+  },
+  {
+    "description": "Transform text into an ascii slug by replacing whitespaces, accentuated, \nand special characters with the coresponding latin character or completely \nremoving them when no latin equivalent is found. This can be used safely to \ngenerate valid URLs.",
+    "fileName": "slugify",
+    "name": "ngTasty.filter.slugify",
+    "returnString": "",
+    "sourceLink": "https://github.com/angular/protractor/blob/0.5.3/lib/slugify.js#L1"
+  },
+  {
+    "description": "",
+    "fileName": "bind-to",
+    "name": "ngTasty.service.bindTo",
+    "returnString": "",
+    "sourceLink": "https://github.com/angular/protractor/blob/0.5.3/lib/bind-to.js#L1"
+  },
+  {
+    "description": "",
+    "fileName": "debounce",
+    "name": "ngTasty.service.debounce",
+    "returnString": "",
+    "sourceLink": "https://github.com/angular/protractor/blob/0.5.3/lib/debounce.js#L1"
+  },
+  {
+    "description": "",
+    "fileName": "join-objects",
+    "name": "ngTasty.service.joinObjects",
+    "returnString": "",
+    "sourceLink": "https://github.com/angular/protractor/blob/0.5.3/lib/join-objects.js#L1"
+  },
+  {
+    "description": "",
+    "fileName": "set-property",
+    "name": "ngTasty.service.setProperty",
+    "returnString": "",
+    "sourceLink": "https://github.com/angular/protractor/blob/0.5.3/lib/set-property.js#L1"
+  },
+  {
+    "description": "",
+    "fileName": "tasty-util",
+    "name": "ngTasty.service.tastyUtil",
+    "returnString": "",
+    "sourceLink": "https://github.com/angular/protractor/blob/0.5.3/lib/tasty-util.js#L1"
+  },
+  {
+    "description": "# throttle\nFactory in ngTasty.",
+    "fileName": "throttle",
+    "name": "ngTasty.service.throttle",
+    "returnString": "",
+    "sourceLink": "https://github.com/angular/protractor/blob/0.5.3/lib/throttle.js#L1"
+  },
+  {
+    "description": "# webSocket\nFactory in ngTasty.",
+    "fileName": "web-socket",
+    "name": "ngTasty.service.webSocket",
+    "returnString": "",
+    "sourceLink": "https://github.com/angular/protractor/blob/0.5.3/lib/web-socket.js#L1"
+  },
+  {
+    "description": "Creates a String[1] representing a binary blob[2] function \ncontaining the WebSocket Factory API.\n\n[1]: https://developer.mozilla.org/en-US/docs/Web/API/URL.createObjectURL\n[2]: https://developer.mozilla.org/en-US/docs/Web/API/Blob",
+    "fileName": "web-socket",
+    "name": "blobURL",
+    "returns": {
+      "tagDef": {
+        "name": "returns",
+        "aliases": [
+          "return"
+        ],
+        "transforms": [
+          null,
+          null
+        ]
+      },
+      "tagName": "return",
+      "description": "String containing the encoded script",
+      "startingLine": 17,
+      "typeExpression": "string",
+      "type": {
+        "type": "NameExpression",
+        "name": "string"
+      },
+      "typeList": [
+        "string"
+      ]
+    },
+    "returnString": "string",
+    "sourceLink": "https://github.com/angular/protractor/blob/0.5.3/lib/web-socket.js#L11"
+  },
+  {
+    "description": "Initialize a new WebSocket using\nthe provided URL parameters.",
+    "fileName": "web-socket",
+    "name": "initialize",
+    "params": [
+      {
+        "tagDef": {
+          "name": "param",
+          "multi": true,
+          "docProperty": "params",
+          "transforms": [
+            null,
+            null,
+            null
+          ]
+        },
+        "tagName": "param",
+        "description": "The WebSocket URL",
+        "startingLine": 27,
+        "typeExpression": "string",
+        "type": {
+          "type": "NameExpression",
+          "name": "string"
+        },
+        "typeList": [
+          "string"
+        ],
+        "name": "url",
+        "paramString": "string"
+      }
+    ],
+    "returnString": "",
+    "sourceLink": "https://github.com/angular/protractor/blob/0.5.3/lib/web-socket.js#L24"
+  },
+  {
+    "description": "Listens for any message coming from the WebSocket\nand send its content to the main JS thread using postMessage[1].\n\n[1]: https://developer.mozilla.org/en-US/docs/Web/API/Worker.postMessage",
+    "fileName": "web-socket",
+    "name": "on",
+    "returnString": "",
+    "sourceLink": "https://github.com/angular/protractor/blob/0.5.3/lib/web-socket.js#L34"
+  },
+  {
+    "description": "Sends data to the WebSocket.",
+    "fileName": "web-socket",
+    "name": "send",
+    "params": [
+      {
+        "tagDef": {
+          "name": "param",
+          "multi": true,
+          "docProperty": "params",
+          "transforms": [
+            null,
+            null,
+            null
+          ]
+        },
+        "tagName": "param",
+        "description": "",
+        "startingLine": 50,
+        "typeExpression": "string",
+        "type": {
+          "type": "NameExpression",
+          "name": "string"
+        },
+        "typeList": [
+          "string"
+        ],
+        "name": "data",
+        "paramString": "string"
+      }
+    ],
+    "returnString": "",
+    "sourceLink": "https://github.com/angular/protractor/blob/0.5.3/lib/web-socket.js#L48"
+  }
+]
+}

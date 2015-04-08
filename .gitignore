@@ -5,6 +5,7 @@
 fabfile.py
 
 # Build
+build
 dist
 releases
 docs2
