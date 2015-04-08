@@ -36,12 +36,12 @@
                 ng-bind="item.displayName">
             </div>
             <span ng-switch-when="child">
-              <a href="#/api?view={{item.name}}"
+              <a href="/api?view={{item.name}}"
                   class="child"
                   ng-bind="item.displayName"></a>
             </span>
             <div ng-switch-default class="parent">
-              <a href="#/api?view={{item.name}}"
+              <a href="/api?view={{item.name}}"
                   ng-bind="item.title"></a>
             </div>
         </span>
@@ -60,12 +60,12 @@
                 ng-bind="item.displayName">
             </span>
             <a ng-switch-when="child"
-                href="#/api?view={{item.name}}"
+                href="/api?view={{item.name}}"
                 class="child"
                 ng-bind="item.displayName">
             </a>
             <a ng-switch-default
-                href="#/api?view={{item.name}}"
+                href="/api?view={{item.name}}"
                 ng-bind="item.title"></a>
           </li>
         </ul>

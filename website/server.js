@@ -1,3 +1,4 @@
+var fs = require('fs');
 var http = require('http');
 var express = require('express');
 var WebSocketServer = require('ws').Server;
@@ -64,7 +65,7 @@ app.use(function(req, res, next) {
 
 var responseObj = { base: base, ngTasty: ngTasty };
 
-app.get(['/', '/contribute'], function(req, res) {
+app.get(['/', '/contribute', '/api'], function(req, res) {
   res.render('template/index.html', responseObj);
 });
 app.get('/*.html', function(req, res) {
@@ -105,7 +106,10 @@ app.get('/:nameComponent/:namePage/:typePage', function(req, res) {
 //  title = '#ngTasty - AngularJS benchmarks table';
 //  res.render('template/table/benchmarks.html', { base: base, ngTasty: ngTasty, title: title });
 //});
-
+var apiJson = JSON.parse(fs.readFileSync('build/apiDocs/toc.json', 'utf8'));
+app.get('/toc.json', function(req, res){
+  res.json(apiJson);
+});
 app.get('/table.json', function(req, res){
   var items, pagination, rows, sortBy, fromRow, toRow;
   rows = [

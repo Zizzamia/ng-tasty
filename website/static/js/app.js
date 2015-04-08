@@ -3,6 +3,7 @@ angular.module('myApp', [
   'ngTasty',
   'ui.bootstrap',
   'myApp.pages.app',
+  'myApp.pages.api',
   'myApp.pages.home',
   'myApp.pages.contribute',
   'myApp.pages.makeYourOwn',
@@ -24,6 +25,11 @@ angular.module('myApp', [
     controller: 'ContributeCtrl',
     templateUrl: 'contribute.html',
     title: '#ngTasty - Contribute'
+  })
+  .when('/api', {
+    controller: 'ApiCtrl',
+    templateUrl: 'api.html',
+    title: '#ngTasty - API'
   })
   //.when('/make-your-own', {
   //  controller: 'MakeYourOwnCtrl',

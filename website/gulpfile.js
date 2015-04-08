@@ -33,6 +33,17 @@ gulp.task('clean', function(cb) {
   del(paths.build, cb);
 });
 
+gulp.task('copyFiles', function() {
+  // html.
+  gulp.src('index.html')
+      .pipe(gulp.dest(paths.outputDir));
+  gulp.src('partials/*.html')
+      .pipe(gulp.dest(paths.outputDir + '/partials'));
+
+  // Images.
+  gulp.src('img/**')
+      .pipe(gulp.dest('build/img'));
+});
 
 // Generate the table of contents json file using Dgeni. This is output to
 // docgen/build/toc.json
@@ -81,3 +92,9 @@ gulp.task('markdown', function() {
     }))
     .pipe(gulp.dest('./build/partials'));
 });
+
+gulp.task('default', [
+  'dgeni',
+  'markdown',
+  'copyFiles'
+]);
