@@ -8,11 +8,6 @@ var minifyCSS = require('gulp-minify-css');
 var path = require('path');
 var rename = require('gulp-rename');
 var replace = require('gulp-replace');
-var server = require('gulp-express');
-
-gulp.task('run', function() {
-  server.run(['server.js']);
-});
 
 var paths = {
   build: ['build', 'docgen/build'],
