@@ -9,7 +9,7 @@ Generates the documentation for the #ngTasty website.
 cd website/
 npm install
 bower install
-npm run build
+gulp default
 ```
 
 The simplest way to start this server is:
