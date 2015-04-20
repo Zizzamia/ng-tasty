@@ -48,16 +48,8 @@ gulp watch
 #### Run demo app
 
 We have pre-configured the demo with a simple development web server.  
-The simplest way to start this server is:
+Here the [Website Readme](https://github.com/Zizzamia/ng-tasty/blob/master/website/README.md).
 
-```
-gulp build
-cd website/
-npm install 
-bower install
-npm start
-// Running on http://localhost:3000/
-```
 
 #### Unit Tests
 

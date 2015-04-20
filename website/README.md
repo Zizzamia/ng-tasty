@@ -8,8 +8,11 @@ Generates the documentation for the #ngTasty website.
 ```shell
 cd website/
 npm install
+bower install
 npm run build
 ```
+
+The simplest way to start this server is:
 
 Then copy all the files from the `build` directory to the gh-pages branch.
 If you want to run the website locally then run the following command:
