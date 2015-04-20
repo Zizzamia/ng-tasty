@@ -52,6 +52,9 @@ The simplest way to start this server is:
 
 ```
 gulp build
+cd website/
+npm install 
+bower install
 npm start
 // Running on http://localhost:3000/
 ```

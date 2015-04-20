@@ -106,7 +106,7 @@ app.get('/:nameComponent/:namePage/:typePage', function(req, res) {
 //  title = '#ngTasty - AngularJS benchmarks table';
 //  res.render('template/table/benchmarks.html', { base: base, ngTasty: ngTasty, title: title });
 //});
-var apiJson = JSON.parse(fs.readFileSync('build/apiDocs/toc.json', 'utf8'));
+var apiJson = JSON.parse(fs.readFileSync('docgen/build/toc.json', 'utf8'));
 app.get('/toc.json', function(req, res){
   res.json(apiJson);
 });
