@@ -760,6 +760,62 @@ describe('Component: table server side', function () {
     });
   });
 
+  describe('complete with load-on-init', function () {
+    beforeEach(inject(function ($rootScope, $compile, $http, _$httpBackend_, _completeJSON_) {
+      $scope = $rootScope.$new();
+      $httpBackend = _$httpBackend_;
+      completeJSON = _completeJSON_;
+      $scope.getResource = function (paramsUrl, paramsObj) {
+        return $http.get('api.json?' + paramsUrl).then(function (response) {
+          $scope.paramsUrl = paramsUrl;
+          $scope.paramsObj = paramsObj;
+          return {
+            'rows': response.data.rows,
+            'header': response.data.header,
+            'pagination': response.data.pagination,
+            'sortBy': response.data['sort-by'],
+            'sortOrder': response.data['sort-order']
+          };
+        });
+      };
+      $scope.init = {
+        'count': 20,
+        'page': 4,
+        'sortBy': 'name',
+        'sortOrder': 'dsc'
+      };
+      $scope.filterBy = {
+        'name': '',
+        'sf-location': ''
+      };
+      $scope.reloadCallback = function () {};
+      element = angular.element(''+
+      '<div tasty-table bind-resource-callback="getResource" bind-init="init"'+
+      ' load-on-init bind-filters="filterBy"'+
+      ' bind-reload="reloadCallback">'+
+      '  <table>'+
+      '    <thead tasty-thead></thead>'+
+      '    <tbody>'+
+      '    </tbody>'+
+      '  </table>'+
+      '  <div tasty-pagination></div>'+
+      '</div>');
+      $compile(element)($scope);
+    }));
+
+    afterEach(function() {
+      $httpBackend.verifyNoOutstandingExpectation();
+      $httpBackend.verifyNoOutstandingRequest();
+    });
+
+    it('should calls getResource after digest', function () {
+      urlToCall = 'api.json?sort-by=name&sort-order=dsc&page=4&count=20';
+      $httpBackend.expectGET(urlToCall).respond(completeJSON);
+      $httpBackend.flush();
+      $scope.$digest();
+    });
+  });
+
 
   describe('complete with bind-reload', function () {
     beforeEach(inject(function ($rootScope, $compile, $http, _$httpBackend_, _completeJSON_) {
