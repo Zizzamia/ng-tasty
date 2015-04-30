@@ -1,3 +1,4 @@
+
 /**
  * @ngdoc service
  * @name ngTasty.service.bindTo
@@ -5,9 +6,14 @@
  *
  */
 angular.module('ngTasty.service.bindTo', [])
-.factory('bindTo', function($parse) {
+.factory('bindTo', ["$parse", function($parse) {
   return function (scopeName, scope, attrs, newScopeName) {
-    var lastValue, parentGet, compare, parentSet, 
+      function isFunction(functionToCheck) {
+          var getType = {};
+          return functionToCheck && getType.toString.call(functionToCheck) === '[object Function]';
+      }
+    var lastValue, parentGet, compare, parentSet,
+
     parentValueWatch, isolateScopeName;
     if (!attrs[scopeName]) {
       return;
@@ -33,7 +39,10 @@ angular.module('ngTasty.service.bindTo', [])
           scope[isolateScopeName] = parentValue;
         } else {
           // if the parent can be assigned then do so
-          parentSet(scope.$parent, parentValue = scope[isolateScopeName]);
+            if(isFunction(parentSet)){
+                parentSet(scope.$parent, parentValue = scope[isolateScopeName]);
+            }
+
         }
       }
       return lastValue = parentValue;
@@ -41,4 +50,4 @@ angular.module('ngTasty.service.bindTo', [])
     parentValueWatch.$stateful = true;
     scope.$parent.$watch($parse(attrs[scopeName], parentValueWatch), null, parentGet.literal);
   };
-});
+}]);
