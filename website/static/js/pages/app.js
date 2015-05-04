@@ -7,7 +7,7 @@ angular.module('myApp.pages.app', [])
       $window.ga('send', 'pageview', { page: '/ng-tasty' + $location.path() });
     });
   }
-  $rootScope.version = '0.5.3';
+  $rootScope.version = '0.5.4';
 
   $scope.showDownloadModal = function() {
     modalInstance = $modal.open({

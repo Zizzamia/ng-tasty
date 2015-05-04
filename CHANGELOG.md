@@ -1,6 +1,10 @@
 ## Changelog
 
-### v0.5.3 (master, released on April 6th 2015)
+### v0.5.4 (master, released on May 4th 2015)
+#### Features
+- Document and refactoring of loadOnInit on server side table [#131](https://github.com/Zizzamia/ng-tasty/issues/131)
+
+### v0.5.3 (released on April 6th 2015)
 #### Features
 - Add show all to table pagination [#121](https://github.com/Zizzamia/ng-tasty/issues/121)
 
