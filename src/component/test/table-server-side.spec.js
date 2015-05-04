@@ -780,7 +780,7 @@ describe('Component: table server side', function () {
       };
       $scope.init = {
         'count': 20,
-        'page': 4,
+        'page': 1,
         'sortBy': 'name',
         'sortOrder': 'dsc'
       };
@@ -788,11 +788,17 @@ describe('Component: table server side', function () {
         'name': '',
         'sf-location': ''
       };
+      $scope.customTheme = {
+        iconUp: 'fa fa-chevron-circle-up',
+        iconDown: 'fa fa-chevron-circle-down',
+        listItemsPerPage: [5, 10, 20, 30],
+        itemsPerPage: 10,
+        loadOnInit: true
+      };
       $scope.reloadCallback = function () {};
       element = angular.element(''+
       '<div tasty-table bind-resource-callback="getResource" bind-init="init"'+
-      ' load-on-init bind-filters="filterBy"'+
-      ' bind-reload="reloadCallback">'+
+      ' bind-filters="filterBy" bind-theme="customTheme" bind-reload="reloadCallback">'+
       '  <table>'+
       '    <thead tasty-thead></thead>'+
       '    <tbody>'+
@@ -809,7 +815,7 @@ describe('Component: table server side', function () {
     });
 
     it('should calls getResource after digest', function () {
-      urlToCall = 'api.json?sort-by=name&sort-order=dsc&page=4&count=20';
+      urlToCall = 'api.json?sort-by=name&sort-order=dsc&page=1&count=20';
       $httpBackend.expectGET(urlToCall).respond(completeJSON);
       $httpBackend.flush();
       $scope.$digest();

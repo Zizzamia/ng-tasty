@@ -95,8 +95,7 @@ angular.module('ngTasty.component.table', [
   $scope.query.sortOrder = $scope.query.sortOrder || this.config.query.sortOrder;
 
   // Set init configs
-  loadOnInit = $attrs.hasOwnProperty('loadOnInit') || this.config.loadOnInit;
-  if ($scope.reload && !loadOnInit) {
+  if ($scope.reload && !this.config.loadOnInit) {
     initNow = false;
   }
   $scope.init.count = $scope.init.count || this.config.init.count;

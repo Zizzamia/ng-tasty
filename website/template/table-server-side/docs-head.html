@@ -18,6 +18,11 @@
       : The filters object.
       </p>
     </li>
+    <li ng-if="innerPage == 'complete' || innerPage == 'custom-theme'">
+      <p><code>bind-theme</code> (Defaults: {...})
+      : Be able to change the tableConfig constant object.
+      </p>
+    </li>
     <li>
       <p><code>bind-reload</code>
       : The function callback to reload manually the table when the filters are changed.

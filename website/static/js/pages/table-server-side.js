@@ -175,4 +175,46 @@ angular.module('myApp.pages.tableServerSide', [])
   $timeout(function () {
     Rainbow.color();
   });
+})
+.controller('TableServerSideCustomThemeCtrl', function($rootScope, $scope, $http, $timeout) {
+  $rootScope.page = 'table-server-side';
+  $rootScope.innerPage = 'custom-theme';
+
+  $scope.init = {
+    'count': 20,
+    'page': 1,
+    'sortBy': 'name',
+    'sortOrder': 'dsc'
+  };
+  $scope.filterBy = {
+    'name': '',
+    'sf-location': ''
+  };
+  $scope.customTheme = {
+    iconUp: 'fa fa-chevron-circle-up',
+    iconDown: 'fa fa-chevron-circle-down',
+    listItemsPerPage: [5, 10, 20, 30],
+    itemsPerPage: 10,
+    loadOnInit: true
+  };
+  $scope.reloadCallback = function () {};
+
+  $scope.getResource = function (params, paramsObj) {
+    $scope.params = params;
+    $scope.paramsObj = paramsObj;
+    $scope.urlApi = 'table.json?' + params;
+    return $http.get($scope.urlApi).then(function (response) {
+      $scope.response = JSON.stringify(response.data, undefined, 2);
+      return {
+        'rows': response.data.rows,
+        'header': response.data.header,
+        'pagination': response.data.pagination,
+        'sortBy': response.data['sort-by'],
+        'sortOrder': response.data['sort-order']
+      };
+    });
+  };
+  $timeout(function () {
+    Rainbow.color();
+  });
 });

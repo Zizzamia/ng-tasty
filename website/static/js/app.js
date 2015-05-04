@@ -79,7 +79,7 @@ angular.module('myApp', [
   .when('/directive/table/custom-theme', {
     controller: 'TableCustomThemeCtrl',
     templateUrl: 'table/custom-theme.html',
-    title: '#ngTasty - AngularJS table directive'
+    title: '#ngTasty - AngularJS table directive with custom theme'
   })
   .when('/directive/table/filters', {
     controller: 'TableFiltersCtrl',
@@ -120,6 +120,11 @@ angular.module('myApp', [
     controller: 'TableServerSideReloadCtrl',
     templateUrl: 'table-server-side/reload.html',
     title: '#ngTasty - AngularJS server side table directive'
+  })
+  .when('/directive/table-server-side/custom-theme', {
+    controller: 'TableServerSideCustomThemeCtrl',
+    templateUrl: 'table-server-side/custom-theme.html',
+    title: '#ngTasty - AngularJS server side table directive with custom theme'
   })
   .when('/filter/filter-int', {
     controller: 'FilterCtrl',
