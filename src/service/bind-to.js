@@ -3,6 +3,8 @@
  * @name ngTasty.service.bindTo
  * @description
  *
+ * Set up $watches for isolate scope and controller bindings. This process
+ * only occurs for isolate scopes and new scopes with controllerAs.
  */
 angular.module('ngTasty.service.bindTo', [])
 .factory('bindTo', function($parse) {
@@ -23,7 +25,11 @@ angular.module('ngTasty.service.bindTo', [])
     } else {
       isolateScopeName = scopeName;
     }
-    parentSet = parentGet.assign;
+    parentSet = parentGet.assign || function() {
+      // reset the change, or we will throw this exception on every $digest
+      lastValue = scope[scopeName] = parentGet(scopeName);
+      throw 'Expression ' + attrs[attrName] + ' is non-assignable!';
+    };
     lastValue = scope[isolateScopeName] = parentGet(scope.$parent);
     parentValueWatch = function parentValueWatch(parentValue) {
       if (!compare(parentValue, scope[isolateScopeName])) {
