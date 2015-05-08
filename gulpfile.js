@@ -4,8 +4,8 @@ var _ = require('underscore');
 var md5 = require('blueimp-md5').md5;
 var camelCase = require('camel-case');
 var gulp = require('gulp'); 
-var clean = require('gulp-clean');
 var concat = require("gulp-concat");
+var del = require('del');
 var file = require('gulp-file');
 var header = require('gulp-header');
 var html2js = require('gulp-ng-html2js');
@@ -57,8 +57,7 @@ var enquote = function (str) {
 
 
 gulp.task('clean', function () {  
-  return gulp.src('dist', {read: false})
-    .pipe(clean());
+  return del('dist');
 });
 
 gulp.task('clean-module', function () {  

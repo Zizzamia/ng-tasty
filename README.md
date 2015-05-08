@@ -31,7 +31,9 @@ For running the dev environment you just need install
 all the dependencies by `npm`, the [node package manager][npm-site]. 
 
 ```
+npm install -g bower
 npm install -g gulp
+npm install -g http-server
 npm install -g protractor
 webdriver-manager update
 npm install
@@ -42,6 +44,10 @@ Run dev environment, it's a watch script with several task running
 like jshint, html2js, build and unit test on the js build files.
 ```
 gulp build
+```
+
+During development keep running all main gulp task by using the `watch` task.
+```
 gulp watch
 ```
 
@@ -66,8 +72,8 @@ filters supported.
 
 #### Component
 
-- Table : http://zizzamia.com/ng-tasty/directive/table
-- Table server side : http://zizzamia.com/ng-tasty/directive/table-server-side
+- Table : http://zizzamia.com/ng-tasty/directive/table/simple
+- Table server side : http://zizzamia.com/ng-tasty/directive/table-server-side/simple
 
 #### Service
 
@@ -89,8 +95,15 @@ Benchpress allows creation and sampling of macro benchmarks to compare performan
 npm install -g benchpress
 ```
 
-Run ngTasty benchmark
+Bower install all benchmark dependencies
 ```
+cd benchmarks/dist/
+bower install
+```
+
+Run ngTasty benchmark from base folder
+```
+bower install
 protractor benchmarks/protractor.conf.js --specs benchmarks/dist/benchmark.spec.js
 ```
 
