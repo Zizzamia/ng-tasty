@@ -722,8 +722,11 @@ angular.module('ngTasty.component.table', [
         }
         scope.pagMinRange = scope.pagMaxRange;
         scope.pagMaxRange = scope.pagMinRange + scope.itemsPerPage;
-        if (scope.pagMaxRange > scope.pagination.pages) {
+        if (scope.pagMaxRange >= scope.pagination.pages) {
           scope.pagMaxRange = scope.pagination.pages;
+          scope.pagMinRange = scope.pagMaxRange - scope.itemsPerPage + 1;
+        } else {
+          scope.pagMinRange = scope.pagMaxRange - scope.itemsPerPage;
         }
         scope.pagMinRange = scope.pagMaxRange - scope.itemsPerPage;
         setPaginationRanges();
