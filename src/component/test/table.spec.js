@@ -800,6 +800,77 @@ describe('Component: table', function () {
   });
 
 
+   describe('with pagination count 1', function () {
+    beforeEach(inject(function ($rootScope, $compile, _sortingJSON_) {
+      $scope = $rootScope.$new();
+      $scope.resource = angular.copy(_sortingJSON_);
+      $scope.itemsPerPage = 1;
+      $scope.listItemsPerPage = [1, 10, 20, 40, 80];
+      element = angular.element(''+
+      '<div tasty-table bind-resource="resource">'+
+      '  <table>'+
+      '    <thead>'+
+      '      <tr>'+
+      '        <th>Name</th>'+
+      '        <th>Star</th>'+
+      '        <th>SF Location</th>'+
+      '      </tr>'+
+      '    </thead>'+
+      '    <tbody>'+
+      '      <tr ng-repeat="row in rows">'+
+      '        <td>{{ row.name }}</td>'+
+      '        <td>{{ row.star }}</td>'+
+      '        <td>{{ row[\'sf-location\'] }}</td>'+
+      '      </tr>'+
+      '    </tbody>'+
+      '  </table>'+
+      '  <tasty-pagination bind-items-per-page="itemsPerPage" '+
+      '  bind-list-items-per-page="listItemsPerPage"></tasty-pagination>'+
+      '</div>');
+      tastyTable = $compile(element)($scope);
+      tastyPagination = tastyTable.find('tasty-pagination');
+      $scope.$digest();
+    }));
+
+    it('should update pagMinRange and pagMaxRange when page.previous and page.remaining are clicked', function () {
+      expect(tastyPagination.isolateScope().pagMinRange).toEqual(1);
+      expect(tastyPagination.isolateScope().pagMaxRange).toEqual(6);
+      tastyPagination.isolateScope().page.previous();
+      expect(tastyPagination.isolateScope().pagMinRange).toEqual(1);
+      expect(tastyPagination.isolateScope().pagMaxRange).toEqual(6);
+      tastyPagination.isolateScope().page.remaining();
+      expect(tastyPagination.isolateScope().pagMinRange).toEqual(6);
+      expect(tastyPagination.isolateScope().pagMaxRange).toEqual(11);
+      tastyPagination.isolateScope().page.remaining();
+      expect(tastyPagination.isolateScope().pagMinRange).toEqual(11);
+      expect(tastyPagination.isolateScope().pagMaxRange).toEqual(16);
+      tastyPagination.isolateScope().page.remaining();
+      expect(tastyPagination.isolateScope().pagMinRange).toEqual(16);
+      expect(tastyPagination.isolateScope().pagMaxRange).toEqual(21);
+      tastyPagination.isolateScope().page.previous();
+      expect(tastyPagination.isolateScope().pagMinRange).toEqual(11);
+      expect(tastyPagination.isolateScope().pagMaxRange).toEqual(16);
+      tastyPagination.isolateScope().page.previous();
+      expect(tastyPagination.isolateScope().pagMinRange).toEqual(6);
+      expect(tastyPagination.isolateScope().pagMaxRange).toEqual(11);
+    });
+
+    it('should update rangePage when page.previous and page.remaining are clicked', function () {
+      expect(tastyPagination.isolateScope().rangePage).toEqual([1,2,3,4,5]);
+      tastyPagination.isolateScope().page.previous();
+      expect(tastyPagination.isolateScope().rangePage).toEqual([1,2,3,4,5]);
+      tastyPagination.isolateScope().page.remaining();
+      expect(tastyPagination.isolateScope().rangePage).toEqual([6,7,8,9,10]);
+      tastyPagination.isolateScope().page.remaining();
+      expect(tastyPagination.isolateScope().rangePage).toEqual([11,12,13,14,15]);
+      tastyPagination.isolateScope().page.previous();
+      expect(tastyPagination.isolateScope().rangePage).toEqual([6,7,8,9,10]);
+      tastyPagination.isolateScope().page.previous();
+      expect(tastyPagination.isolateScope().rangePage).toEqual([1,2,3,4,5]);
+    });
+  });
+
+
   describe('with pagination classic binding', function () {
     beforeEach(inject(function ($rootScope, $compile, _sortingJSON_) {
       $scope = $rootScope.$new();

@@ -498,8 +498,8 @@ describe('Component: table server side', function () {
       expect(tastyPagination.isolateScope().pagMinRange).toEqual(1);
       expect(tastyPagination.isolateScope().pagMaxRange).toEqual(6);
       tastyPagination.isolateScope().page.remaining();
-      expect(tastyPagination.isolateScope().pagMinRange).toEqual(2);
-      expect(tastyPagination.isolateScope().pagMaxRange).toEqual(7);
+      expect(tastyPagination.isolateScope().pagMinRange).toEqual(3);
+      expect(tastyPagination.isolateScope().pagMaxRange).toEqual(8);
       tastyPagination.isolateScope().page.previous();
       expect(tastyPagination.isolateScope().pagMinRange).toEqual(1);
       expect(tastyPagination.isolateScope().pagMaxRange).toEqual(6);
@@ -510,7 +510,7 @@ describe('Component: table server side', function () {
       tastyPagination.isolateScope().page.previous();
       expect(tastyPagination.isolateScope().rangePage).toEqual([1,2,3,4,5]);
       tastyPagination.isolateScope().page.remaining();
-      expect(tastyPagination.isolateScope().rangePage).toEqual([2,3,4,5,6]);
+      expect(tastyPagination.isolateScope().rangePage).toEqual([3,4,5,6,7]);
       tastyPagination.isolateScope().page.previous();
       expect(tastyPagination.isolateScope().rangePage).toEqual([1,2,3,4,5]);
     });

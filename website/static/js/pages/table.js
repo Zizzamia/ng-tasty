@@ -137,8 +137,8 @@ angular.module('myApp.pages.table', [])
       'page': 2
     }
   };
-  $scope.itemsPerPage = 20;
-  $scope.listItemsPerPage = [10, 20, 40, 80];
+  $scope.itemsPerPage = 10;
+  $scope.listItemsPerPage = [1, 10, 40, 80];
   $timeout(function () {
     Rainbow.color();
   });
