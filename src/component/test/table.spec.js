@@ -104,8 +104,11 @@ describe('Component: table', function () {
       $scope.resource.something = [
         { 'name': 'Ritual Coffee Roasters' }
       ];
+      $scope.theme = {
+        bindOnce: false
+      };
       element = angular.element(''+
-      '<table tasty-table bind-resource="resource">'+
+      '<table tasty-table bind-resource="resource" bind-theme="theme">'+
       '  <thead tasty-thead></thead>'+
       '  <tbody>'+
       '    <tr ng-repeat="row in rows">'+
@@ -238,6 +241,33 @@ describe('Component: table', function () {
     it('should return every value in resource inside the table directive scope', function () {
       $scope.$digest();
       expect(element.scope().something[0].name).toEqual('Ritual Coffee Roasters');
+    });
+
+    it('should have these element.scope() value after changing them', function () {
+      console.log($scope.resource.header)
+      //[{"key": "month","name": "Month"},{"key": "id", "name": "ID"}]
+      $scope.resource.header = [
+        {'key': 'month', 'name': 'Month'},
+        {'key': 'id', 'name': 'ID'}
+      ];
+      $scope.$digest();
+      expect(element.scope().header.columns[0]).toEqual({ 
+        'key' : 'name', 
+        'name' : 'Name',
+        'style' : { 'width' : '50%' },
+        'class': []
+      });
+      expect(element.scope().header.columns[1]).toEqual({ 
+        'key' : 'star', 
+        'name' : 'Star',
+        'style' : { 'width' : '20%' },
+        'class': [ 'text-right' ]
+      });
+      expect(element.scope().header.columns[2].key).toEqual('sf-Location');
+      expect(element.scope().header.columns[2].name).toEqual('SF Location');
+      expect(element.scope().header.columns[2].style).toEqual({ 'width' : '30%' });
+      expect(element.scope().header.columns[2].class).toEqual([]);
+      expect(element.scope().header.columns.length).toEqual(3);
     });
   });
   

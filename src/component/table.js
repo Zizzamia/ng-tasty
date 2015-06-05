@@ -80,6 +80,7 @@ angular.module('ngTasty.component.table', [
 
   // Default theme
   this.config = {};
+  console.log($scope.theme);
   if (angular.isObject($scope.theme)) {
     Object.keys(tableConfig).forEach(function(key) {
       this.config[key] = $scope.theme[key] || tableConfig[key];
@@ -223,6 +224,7 @@ angular.module('ngTasty.component.table', [
   };
 
   this.bindOnce = this.config.bindOnce;
+  console.log(this.bindOnce);
 
   setDirectivesValues = function (resource) {
     if (!angular.isObject(resource)) {

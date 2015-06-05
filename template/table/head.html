@@ -2,7 +2,8 @@
   <th ng-repeat="column in columns track by $index" 
   ng-class="classToShow(column)"
   ng-style="::column.style" ng-click="sortBy(column)">
-    <span ng-bind="::column.name"></span>
+    <span ng-if="bindOnce" ng-bind-once="column.name"></span>
+    <span ng-if="!bindOnce" ng-bind="column.name"></span>
     <span ng-class="column.isSorted">
       <span ng-class="column.isSortedCaret" ng-if="::bootstrapIcon"></span>
     </span>
