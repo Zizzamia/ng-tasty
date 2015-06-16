@@ -1,6 +1,11 @@
 ## Changelog
 
-### v0.5.4 (master, released on May 4th 2015)
+### v0.5.5 (master, released on June 15th 2015)
+#### Bug Fixes
+- Fixed client side pagination and itemsPerPage [#138](https://github.com/Zizzamia/ng-tasty/issues/138)
+- Fixed tasty-thead, how to change column title in tasty-thead [#132](https://github.com/Zizzamia/ng-tasty/issues/132)
+
+### v0.5.4 (released on May 4th 2015)
 #### Features
 - Document and refactoring of loadOnInit on server side table [#131](https://github.com/Zizzamia/ng-tasty/issues/131)
 
