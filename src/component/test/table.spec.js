@@ -1,8 +1,9 @@
 describe('Component: table', function () {
-  var $rootScope, $scope, $httpBackend, $compile;
-  var element, params, urlToCall, filters, createDirective, field, elm,
-  elementSelected, expected, completeJSON, sortingJSON, paginationJSON,
-  filtersJSON, tastyTable, tastyPagination, tastyThead, paginationJSONCount25;
+  var $rootScope, $scope, $httpBackend, $compile, $controller;
+  var element, controller, params, urlToCall, filters, createDirective, 
+  field, elm, elementSelected, expected, completeJSON, sortingJSON, 
+  paginationJSON, filtersJSON, tastyTable, tastyPagination, 
+  tastyThead, paginationJSONCount25, tableCtrl;
 
   beforeEach(module('ngMock'));
   beforeEach(module('ngTasty.filter.cleanFieldName'));
@@ -104,11 +105,9 @@ describe('Component: table', function () {
       $scope.resource.something = [
         { 'name': 'Ritual Coffee Roasters' }
       ];
-      $scope.theme = {
-        bindOnce: false
-      };
       element = angular.element(''+
-      '<table tasty-table bind-resource="resource" bind-theme="theme">'+
+      '<table tasty-table bind-resource="resource" watch-resource="collection" '+
+      '  bind-theme="theme">'+
       '  <thead tasty-thead></thead>'+
       '  <tbody>'+
       '    <tr ng-repeat="row in rows">'+
@@ -244,13 +243,69 @@ describe('Component: table', function () {
     });
 
     it('should have these element.scope() value after changing them', function () {
-      console.log($scope.resource.header)
-      //[{"key": "month","name": "Month"},{"key": "id", "name": "ID"}]
       $scope.resource.header = [
-        {'key': 'month', 'name': 'Month'},
-        {'key': 'id', 'name': 'ID'}
+        {'key': 'month', 'name': 'Month' },
+        {'key': 'id', 'name': 'ID'},
       ];
       $scope.$digest();
+      expect(element.scope().header.columns[0]).toEqual({ 
+        'key' : 'month', 
+        'name' : 'Month',
+        'style' : {}, 
+        'class' : []
+      });
+      expect(element.scope().header.columns[1]).toEqual({ 
+        'key' : 'id', 
+        'name' : 'ID',
+        'style' : {}, 
+        'class' : []
+      });
+      expect(element.scope().header.columns.length).toEqual(2);
+    });
+  });
+
+
+  describe('withs sorting with custom theme', function () {
+
+    beforeEach(inject(function ($rootScope, $compile, _sortingJSON_) {
+      $scope = $rootScope.$new();
+      $scope.resource = angular.copy(_sortingJSON_);
+      $scope.resource.something = [
+        { 'name': 'Ritual Coffee Roasters' }
+      ];
+      $scope.theme = {
+        bindOnce: false
+      };
+      element = angular.element(''+
+      '<table tasty-table bind-resource="resource" watch-resource="collection" '+
+      '  bind-theme="theme">'+
+      '  <thead tasty-thead></thead>'+
+      '  <tbody>'+
+      '    <tr ng-repeat="row in rows">'+
+      '      <td>{{ row.name }}</td>'+
+      '      <td>{{ row.star }}</td>'+
+      '      <td>{{ row[\'sf-Location\'] }}</td>'+
+      '    </tr>'+
+      '  </tbody>'+
+      '</table>');
+      tastyTable = $compile(element)($scope);
+      tastyThead = tastyTable.find('[tasty-thead=""]');
+      $scope.$digest();
+      tableCtrl = element.controller('tasty-table');
+    }));
+
+    it('should bindOnce be false', function () {
+      expect(tableCtrl.config.bindOnce).toEqual(false);
+    });
+
+    it('should have these element.scope() value as default', function () {
+      expect(element.scope().query).toEqual({
+        'page': 'page',
+        'count': 'count',
+        'sortBy': 'sort-by',
+        'sortOrder': 'sort-order',
+      });
+      expect(element.scope().url).toEqual('');
       expect(element.scope().header.columns[0]).toEqual({ 
         'key' : 'name', 
         'name' : 'Name',
@@ -268,6 +323,55 @@ describe('Component: table', function () {
       expect(element.scope().header.columns[2].style).toEqual({ 'width' : '30%' });
       expect(element.scope().header.columns[2].class).toEqual([]);
       expect(element.scope().header.columns.length).toEqual(3);
+      expect(element.scope().rows.length).toEqual(34);
+      expect(element.scope().pagination.count).toEqual(5);
+      expect(element.scope().pagination.page).toEqual(1);
+      expect(element.scope().pagination.pages).toEqual(1);
+      expect(element.scope().pagination.size).toEqual(0);
+      expect(element.scope().params.sortBy).toEqual('name');
+      expect(element.scope().params.sortOrder).toEqual('asc');
+      expect(element.scope().params.page).toEqual(1);
+      expect(element.scope().params.count).toEqual(undefined);
+      expect(element.scope().params.thead).toEqual(true);
+      expect(element.scope().theadDirective).toEqual(true);
+      expect(element.scope().paginationDirective).toEqual(false);   
+    });
+
+    it('should have these element.scope() value after changing them', function () {
+      $scope.resource.header = [
+        {'key': 'month', 'name': 'Month', 'style' : {}, 'class' : []},
+        {'key': 'id', 'name': 'ID', 'style' : {}, 'class' : []},
+      ];
+      $scope.$digest();
+      expect(element.scope().header.columns[0]).toEqual({ 
+        'key' : 'month', 
+        'name' : 'Month',
+        'style' : {}, 
+        'class' : []
+      });
+      expect(element.scope().header.columns[1]).toEqual({ 
+        'key' : 'id', 
+        'name' : 'ID',
+        'style' : {}, 
+        'class' : []
+      });
+      expect(element.scope().header.columns.length).toEqual(2);
+    });
+
+    it('should have bind value after changing them', function () {
+      var bindList = $(tastyThead).find('[ng-bind]');
+      expect(bindList[0].innerHTML).toEqual('Name');
+      expect(bindList[1].innerHTML).toEqual('Star');
+      expect(bindList.length).toEqual(3);
+      $scope.resource.header = [
+        {'key': 'month', 'name': 'Month', 'style' : {}, 'class' : []},
+        {'key': 'id', 'name': 'ID', 'style' : {}, 'class' : []},
+      ];
+      $scope.$digest();
+      bindList = $(tastyThead).find('[ng-bind]');
+      expect(bindList[0].innerHTML).toEqual('Month');
+      expect(bindList[1].innerHTML).toEqual('ID');
+      expect(bindList.length).toEqual(2);
     });
   });
   
@@ -1260,7 +1364,6 @@ describe('Component: table', function () {
   });
 
   describe('withs sorting and different theme', function () {
-
     beforeEach(inject(function ($rootScope, $compile, _sortingJSON_) {
       $scope = $rootScope.$new();
       $scope.resource = angular.copy(_sortingJSON_);
@@ -1282,10 +1385,15 @@ describe('Component: table', function () {
       '    </tr>'+
       '  </tbody>'+
       '</table>');
-      featherTable = $compile(element)($scope);
-      tastyThead = featherTable.find('[tasty-thead=""]');
-      $scope.$digest();
+      tastyTable = $compile(element)($scope);
+      tastyThead = tastyTable.find('[tasty-thead=""]');
+      $rootScope.$digest();
+      tableCtrl = element.controller('tasty-table');
     }));
+
+    it('should bindOnce be true', function () {
+      expect(tableCtrl.config.bindOnce).toEqual(true);
+    });
 
     it('should return true or false to indicate if a specific key is sorted up', function () {
       field = {'key': 'star', 'name': 'star', 'sortable': true};
