@@ -194,6 +194,18 @@ describe('Component: table server side', function () {
                  'has the property header or rows undefined';
       expect(errorFunctionWrapper).toThrow(expected);
     });
+
+    it('should change page value when filter change', function () {
+      urlToCall = 'api.json?sort-by=name&sort-order=dsc&page=2&count=5&city=sf';
+      $httpBackend.whenGET(urlToCall).respond(completeJSON);
+      $httpBackend.flush();
+      $scope.$digest();
+      $scope.filters['city'] = 'NY';
+      urlToCall = 'api.json?sort-by=name&sort-order=dsc&page=1&count=5&city=NY';
+      $httpBackend.whenGET(urlToCall).respond(completeJSON);
+      $httpBackend.flush();
+      $scope.$digest();
+    });
   });
 
 

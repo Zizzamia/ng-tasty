@@ -362,6 +362,9 @@ angular.module('ngTasty.component.table', [
   };
 
   updateServerSideResource = function (updateFrom) {
+    if (updateFrom === 'filters') {
+      $scope.params['page'] = 1;
+    }
     $scope.url = buildUrl($scope.params, $scope.filters);
     if ($scope.reload) {
       $scope.reload = function () {
@@ -370,8 +373,8 @@ angular.module('ngTasty.component.table', [
           setDirectivesValues(resource);
         });
       };
-    }
-    if (!$scope.reload || $scope.reload && updateFrom !== 'filters') {
+    } 
+    if (initNow) {
       $scope.resourceCallback($scope.url, angular.copy($scope.params))
       .then(function (resource) {
         setDirectivesValues(resource);
