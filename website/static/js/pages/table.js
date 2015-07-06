@@ -205,6 +205,26 @@ angular.module('myApp.pages.table', [])
     Rainbow.color();
   });
 })
+.controller('TableCustomFiltersCtrl', function($rootScope, $scope, $timeout, tableResource) {
+  $rootScope.page = 'table';
+  $rootScope.innerPage = 'custom-filters';
+  $scope.resource = {
+    'header': [
+      { 'name': 'Name' },
+      { 'star': 'Star' },
+      { 'sf-Location': 'SF Location' }
+    ],
+    'rows': tableResource.rows,
+  };
+  $scope.customTheme = {
+    filter: 'fa fa-chevron-circle-up'
+  };
+  $scope.filters = 'rit';
+
+  $timeout(function () {
+    Rainbow.color();
+  }); 
+})
 .controller('TableCustomSortingCtrl', function($rootScope, $scope, $timeout, tableResource) {
   $rootScope.page = 'table';
   $rootScope.innerPage = 'custom-sorting';
