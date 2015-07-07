@@ -37,14 +37,14 @@ angular.module('ngTasty.component.table', [
   templateUrl: 'template/table/pagination.html',
   listItemsPerPage: [5, 25, 50, 100],
   itemsPerPage: 5,
-  listFilters: ['filter'],
   watchResource: 'reference'
 })
 .controller('TableController', function($scope, $attrs, $filter, tableConfig, tastyUtil) {
   var listScopeToWatch, initTable, newScopeName, initStatus,
       updateClientSideResource, updateServerSideResource, setDirectivesValues,
       buildClientResource, buildUrl, paramsInitialCycle, initNow, loadOnInit;
-  this.$scope = $scope;
+  var vm = this;
+  vm.$scope = $scope;
   initStatus = {};
   initNow = true;
   paramsInitialCycle = true;
@@ -80,35 +80,34 @@ angular.module('ngTasty.component.table', [
   });
 
   // Default theme
-  this.config = {};
+  vm.config = {};
   if (angular.isObject($scope.theme)) {
     Object.keys(tableConfig).forEach(function(key) {
       if (angular.isDefined($scope.theme[key])) {
-        this.config[key] = $scope.theme[key];
+        vm.config[key] = $scope.theme[key];
       } else {
-        this.config[key] = tableConfig[key];
+        vm.config[key] = tableConfig[key];
       }
-    }, this);
-    tableConfig = this.config;
+    }, vm);
   } else {
-    this.config = tableConfig;
+    vm.config = tableConfig;
   }
 
   // Default configs
-  $scope.query.page = $scope.query.page || this.config.query.page;
-  $scope.query.count = $scope.query.count || this.config.query.count;
-  $scope.query.sortBy = $scope.query.sortBy || this.config.query.sortBy;
-  $scope.query.sortOrder = $scope.query.sortOrder || this.config.query.sortOrder;
+  $scope.query.page = $scope.query.page || vm.config.query.page;
+  $scope.query.count = $scope.query.count || vm.config.query.count;
+  $scope.query.sortBy = $scope.query.sortBy || vm.config.query.sortBy;
+  $scope.query.sortOrder = $scope.query.sortOrder || vm.config.query.sortOrder;
 
   // Set init configs
-  if ($scope.reload && !this.config.loadOnInit) {
+  if ($scope.reload && !vm.config.loadOnInit) {
     initNow = false;
   }
-  $scope.init.count = $scope.init.count || this.config.init.count;
-  $scope.init.page = $scope.init.page || this.config.init.page;
-  $scope.init.sortBy = $scope.init.sortBy || this.config.init.sortBy;
-  $scope.init.sortOrder = $scope.init.sortOrder || this.config.init.sortOrder;
-  $scope.watchResource = $scope.watchResource || this.config.watchResource;
+  $scope.init.count = $scope.init.count || vm.config.init.count;
+  $scope.init.page = $scope.init.page || vm.config.init.page;
+  $scope.init.sortBy = $scope.init.sortBy || vm.config.init.sortBy;
+  $scope.init.sortOrder = $scope.init.sortOrder || vm.config.init.sortOrder;
+  $scope.watchResource = $scope.watchResource || vm.config.watchResource;
 
   // Defualt variables
   var listImmutableKey =[
@@ -164,41 +163,41 @@ angular.module('ngTasty.component.table', [
     $scope.clientSide = false;
   }   
 
-  // In TableController, by using `this` we build an API 
-  // for other directives to talk to this one.
-  this.start = false;
+  // In TableController, by using `vm` we build an API 
+  // for other directives to talk to vm one.
+  vm.start = false;
 
-  this.activate = function(directiveName) {
+  vm.activate = function(directiveName) {
     $scope[directiveName + 'Directive'] = true;
     $scope.params[directiveName] = true;
   };
 
-  this.setParams = function(key, value) {
+  vm.setParams = function(key, value) {
     $scope.params[key] = value;
     if (['sortBy', 'sortOrder'].indexOf(key) >= 0) {
       $scope.header[key] = value;
     }
   };
 
-  this.initTable = function (keyDirective) {
+  vm.initTable = function (keyDirective) {
     initStatus[keyDirective] = true;
     if (!$scope.theadDirective && !$scope.paginationDirective) { // None of them
-      this.start = true;
+      vm.start = true;
     } else if ($scope.theadDirective && $scope.paginationDirective) { // Both directives
       if (initStatus.thead && initStatus.pagination){
-        this.start = true;
+        vm.start = true;
       }
     } else if ($scope.theadDirective && !$scope.paginationDirective) { // Only Thead directive
       if (initStatus.thead){
-        this.start = true;
+        vm.start = true;
       }
     } else if (!$scope.theadDirective && $scope.paginationDirective) { // Only Pagination directive
       if (initStatus.pagination){
-        this.start = true;
+        vm.start = true;
       }
     }
 
-    if (this.start) {
+    if (vm.start) {
       if ($scope.clientSide) {
         $scope.params.sortBy = $scope.resource.sortBy || $scope.init.sortBy;
         $scope.params.sortOrder = $scope.resource.sortOrder || $scope.init.sortOrder;
@@ -228,7 +227,7 @@ angular.module('ngTasty.component.table', [
     }
   };
 
-  this.bindOnce = this.config.bindOnce;
+  vm.bindOnce = vm.config.bindOnce;
 
   setDirectivesValues = function (resource) {
     if (!angular.isObject(resource)) {
@@ -301,9 +300,7 @@ angular.module('ngTasty.component.table', [
       }
     }
     if ($attrs.bindFilters) {
-      tableConfig.listFilters.forEach(function (filter) {
-        $scope.rows = $filter(filter)($scope.rows, $scope.filters, $scope.filtersComparator);
-      });
+      $scope.rows = $filter('filter')($scope.rows, $scope.filters, $scope.filtersComparator);
     }
     if ($scope.paginationDirective) {
       $scope.pagination.count = $scope.params.count;

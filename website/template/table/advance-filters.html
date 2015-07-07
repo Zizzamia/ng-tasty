@@ -12,7 +12,8 @@
           placeholder="Filter result" ng-model="filters" value="" />
         </div>
       </div>
-      <div tasty-table bind-resource="resource" bind-filters="filters"> 
+      <div tasty-table bind-resource="resource" bind-filters="filters"
+      	bind-filters-comparator="filtersComparator"> 
         <table class="table table-striped table-condensed">
           <thead>
             <tr>
@@ -41,7 +42,8 @@
         </a>
       </div>
       <tab heading="Markup">
-        <pre ng-non-bindable><code data-language="html">&lt;div tasty-table bind-resource=&quot;resource&quot; bind-filters=&quot;filters&quot;&gt;
+        <pre ng-non-bindable><code data-language="html">&lt;div tasty-table bind-resource=&quot;resource&quot; bind-filters=&quot;filters&quot; 
+  bind-filters-comparator=&quot;filtersComparator&quot;&gt;
   &lt;table class=&quot;table table-striped table-condensed&quot;&gt;
     &lt;thead&gt;
       &lt;tr&gt;
@@ -61,7 +63,12 @@
 &lt;/div&gt;</code></pre>
       </tab>
       <tab heading="JavaScript">
-        <pre><code data-language="javascript">$scope.filters = 'rit';
+        <pre><code data-language="javascript">$scope.filters = 'ha';
+$scope.filtersComparator = function (actual, expected) {
+  if (actual.indexOf) {
+    return actual.toLowerCase().indexOf(expected) === 0;
+  }
+};
   
 $scope.resource = {
   "header": [

@@ -160,6 +160,28 @@ angular.module('myApp.pages.table', [])
     Rainbow.color();
   }); 
 })
+.controller('TableAdvanceFiltersCtrl', function($rootScope, $scope, $timeout, tableResource) {
+  $rootScope.page = 'table';
+  $rootScope.innerPage = 'advance-filters';
+  $scope.resource = {
+    'header': [
+      { 'name': 'Name' },
+      { 'star': 'Star' },
+      { 'sf-Location': 'SF Location' }
+    ],
+    'rows': tableResource.rows,
+  };
+  $scope.filters = 'ha';
+  $scope.filtersComparator = function (actual, expected) {
+    if (actual.indexOf) {
+      return actual.toLowerCase().indexOf(expected) === 0;
+    }
+  };
+
+  $timeout(function () {
+    Rainbow.color();
+  }); 
+})
 .controller('BenchmarksTableCtrl', function($rootScope, $scope, $http, $timeout) {
   var rows = []
   for (var i = 0; i < 4000; i++) {
@@ -204,26 +226,6 @@ angular.module('myApp.pages.table', [])
   $timeout(function () {
     Rainbow.color();
   });
-})
-.controller('TableCustomFiltersCtrl', function($rootScope, $scope, $timeout, tableResource) {
-  $rootScope.page = 'table';
-  $rootScope.innerPage = 'custom-filters';
-  $scope.resource = {
-    'header': [
-      { 'name': 'Name' },
-      { 'star': 'Star' },
-      { 'sf-Location': 'SF Location' }
-    ],
-    'rows': tableResource.rows,
-  };
-  $scope.customTheme = {
-    filter: 'fa fa-chevron-circle-up'
-  };
-  $scope.filters = 'rit';
-
-  $timeout(function () {
-    Rainbow.color();
-  }); 
 })
 .controller('TableCustomSortingCtrl', function($rootScope, $scope, $timeout, tableResource) {
   $rootScope.page = 'table';

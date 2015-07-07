@@ -70,33 +70,6 @@ describe('Component: table', function () {
   });
 
 
-  describe('bad bind-filters-comparator implementation', function () {
-    beforeEach(inject(function ($rootScope, $compile) {
-      $scope = $rootScope.$new();
-      $scope.resource = {'header': [], 'rows': []};
-      element = angular.element(''+
-      '<div tasty-table bind-resource="resource" bind-filters="filters" filters-comparator="true">'+
-      '  <table>'+
-      '    <thead tasty-thead></thead>'+
-      '    <tbody>'+
-      '    </tbody>'+
-      '  </table>'+
-      '  <div tasty-pagination></div>'+
-      '</div>');
-      $compile(element)($scope);
-    }));
-
-    it('should render the table without no errors', function () {
-      $scope.$digest();
-    });
-
-    it('should be true tha value of filtersComparator', function () {
-      $scope.$digest();
-      expect(element.scope().filtersComparator).toEqual(true);
-    });
-  });
-
-
   describe('withs sorting', function () {
 
     beforeEach(inject(function ($rootScope, $compile, _sortingJSON_) {
@@ -501,6 +474,77 @@ describe('Component: table', function () {
       $scope.filters = 'll';
       $scope.$digest();
       expect(element.scope().rows.length).toEqual(11);
+      $scope.filters = '★★★★★';
+      $scope.$digest();
+      expect(element.scope().rows.length).toEqual(6);
+    });
+  });
+
+  
+  describe('bad bind-filters-comparator implementation', function () {
+    beforeEach(inject(function ($rootScope, $compile, _sortingJSON_) {
+      $scope = $rootScope.$new();
+      $scope.resource = angular.copy(_sortingJSON_);
+      $scope.filters = 'ha';
+      $scope.filtersComparator = function (actual, expected) {
+        if (actual.indexOf) {
+          return actual.toLowerCase().indexOf(expected) === 0;
+        }
+      };
+      element = angular.element(''+
+      '<div tasty-table bind-resource="resource" bind-filters="filters" '+
+      '  bind-filters-comparator="filtersComparator">'+
+      '  <table>'+
+      '    <thead tasty-thead></thead>'+
+      '    <tbody>'+
+      '    </tbody>'+
+      '  </table>'+
+      '</div>');
+      $compile(element)($scope);
+      $scope.$digest();
+    }));
+
+    it('should be defined the value of filtersComparator', function () {
+      $scope.$digest();
+      expect(element.scope().filtersComparator).toBeDefined();
+    });
+
+    it('should have these element.scope() value as default', function () {
+      expect(element.scope().query).toEqual({
+        'page': 'page',
+        'count': 'count',
+        'sortBy': 'sort-by',
+        'sortOrder': 'sort-order',
+      });
+      expect(element.scope().url).toEqual('');
+      expect(element.scope().header.columns.length).toEqual(3);
+      expect(element.scope().rows.length).toEqual(2);
+      expect(element.scope().pagination.count).toEqual(5);
+      expect(element.scope().pagination.page).toEqual(1);
+      expect(element.scope().pagination.pages).toEqual(1);
+      expect(element.scope().pagination.size).toEqual(0);
+      expect(element.scope().params.sortBy).toEqual('name');
+      expect(element.scope().params.sortOrder).toEqual('asc');
+      expect(element.scope().params.page).toEqual(1);
+      expect(element.scope().params.count).toEqual(undefined);
+      expect(element.scope().params.thead).toEqual(true);
+      expect(element.scope().theadDirective).toEqual(true);
+      expect(element.scope().paginationDirective).toEqual(false);   
+    });
+
+    it('should filter by string value', function () {
+      $scope.filters = '';
+      $scope.$digest();
+      expect(element.scope().rows.length).toEqual(34);
+      $scope.filters = 'rit';
+      $scope.$digest();
+      expect(element.scope().rows.length).toEqual(1);
+      $scope.filters = 'bl';
+      $scope.$digest();
+      expect(element.scope().rows.length).toEqual(2);
+      $scope.filters = 'll';
+      $scope.$digest();
+      expect(element.scope().rows.length).toEqual(0);
       $scope.filters = '★★★★★';
       $scope.$digest();
       expect(element.scope().rows.length).toEqual(6);

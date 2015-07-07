@@ -71,11 +71,6 @@ angular.module('myApp', [
     templateUrl: 'table/custom-pagination.html',
     title: '#ngTasty - AngularJS table directive with custom pagination'
   })
-  .when('/directive/table/custom-filters', {
-    controller: 'TableCustomFiltersCtrl',
-    templateUrl: 'table/custom-filters.html',
-    title: '#ngTasty - AngularJS table directive with custom filters'
-  })
   .when('/directive/table/custom-sorting', {
     controller: 'TableCustomSortingCtrl',
     templateUrl: 'table/custom-sorting.html',
@@ -89,7 +84,12 @@ angular.module('myApp', [
   .when('/directive/table/filters', {
     controller: 'TableFiltersCtrl',
     templateUrl: 'table/filters.html',
-    title: '#ngTasty - AngularJS table directive'
+    title: '#ngTasty - AngularJS table directive with filters'
+  })
+  .when('/directive/table/advance-filters', {
+    controller: 'TableAdvanceFiltersCtrl',
+    templateUrl: 'table/advance-filters.html',
+    title: '#ngTasty - AngularJS table directive with advance filters'
   })
   .when('/directive/table-server-side', {
     controller: 'TableServerSideSimpleCtrl',

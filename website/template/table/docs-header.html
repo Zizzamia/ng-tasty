@@ -8,14 +8,16 @@
       : The date object.
       </p>
     </li>
-    <li ng-if="innerPage == 'complete' || innerPage == 'filters' || innerPage == 'custom-filters'">
+    <li ng-if="innerPage == 'complete' || innerPage == 'filters' || innerPage == 'advance-filters'">
       <p><code>bind-filters</code> (Defaults: {})
-      : The filters object.
+      : The filter expression, check <a href="https://docs.angularjs.org/api/ng/filter/filter"
+      target="_blank">Angular Filter</a> for more info.
       </p>
     </li>
-    <li ng-if="innerPage == 'complete' || innerPage == 'filters' || innerPage == 'custom-filters'">
+    <li ng-if="innerPage == 'complete' || innerPage == 'advance-filters'">
       <p><code>bind-filters-comparator</code> (Defaults: undefined)
-      : The filter comparator could be true or false.
+      : The filter comparator, check <a href="https://docs.angularjs.org/api/ng/filter/filter"
+      target="_blank">Angular Filter</a> for more info.
       </p>
     </li>
     <li ng-if="innerPage == 'complete' || innerPage == 'custom-theme'">
