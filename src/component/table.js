@@ -37,6 +37,7 @@ angular.module('ngTasty.component.table', [
   templateUrl: 'template/table/pagination.html',
   listItemsPerPage: [5, 25, 50, 100],
   itemsPerPage: 5,
+  listFilters: ['filter'],
   watchResource: 'reference'
 })
 .controller('TableController', function($scope, $attrs, $filter, tableConfig, tastyUtil) {
@@ -88,6 +89,7 @@ angular.module('ngTasty.component.table', [
         this.config[key] = tableConfig[key];
       }
     }, this);
+    tableConfig = this.config;
   } else {
     this.config = tableConfig;
   }
@@ -299,7 +301,9 @@ angular.module('ngTasty.component.table', [
       }
     }
     if ($attrs.bindFilters) {
-      $scope.rows = $filter('filter')($scope.rows, $scope.filters, $scope.filtersComparator);
+      tableConfig.listFilters.forEach(function (filter) {
+        $scope.rows = $filter(filter)($scope.rows, $scope.filters, $scope.filtersComparator);
+      });
     }
     if ($scope.paginationDirective) {
       $scope.pagination.count = $scope.params.count;
