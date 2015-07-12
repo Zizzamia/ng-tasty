@@ -1,6 +1,10 @@
 ## Changelog
 
-### v0.5.5 (master, released on June 15th 2015)
+### v0.5.6 (master, released on July 11th 2015)
+#### Bug Fixes
+- Fixed Server Side search pagination [#142](https://github.com/Zizzamia/ng-tasty/issues/142)
+
+### v0.5.5 (released on June 15th 2015)
 #### Bug Fixes
 - Fixed client side pagination and itemsPerPage [#138](https://github.com/Zizzamia/ng-tasty/issues/138)
 - Fixed tasty-thead, how to change column title in tasty-thead [#132](https://github.com/Zizzamia/ng-tasty/issues/132)
@@ -14,7 +18,7 @@
 - Add show all to table pagination [#121](https://github.com/Zizzamia/ng-tasty/issues/121)
 
 #### Bug Fixes
-- cleanFieldName may now contain _ and keep it, instead of replacing it [#123] (https://github.com/Zizzamia/ng-tasty/pull/123)
+- cleanFieldName may now contain _ and keep it, instead of replacing it [#123](https://github.com/Zizzamia/ng-tasty/pull/123)
 
 ### v0.5.2 (released on March 18th 2015)
 #### Features
