@@ -872,9 +872,10 @@ describe('Component: table server side', function () {
       '    <tbody>'+
       '    </tbody>'+
       '  </table>'+
-      '  <div tasty-pagination></div>'+
+      '  <tasty-pagination></tasty-pagination>'+
       '</div>');
-      $compile(element)($scope);
+      tastyTable = $compile(element)($scope);
+      tastyPagination = tastyTable.find('tasty-pagination');
       $scope.$digest();
     }));
 
@@ -884,6 +885,16 @@ describe('Component: table server side', function () {
       $httpBackend.whenGET(urlToCall).respond(completeJSON);
       $httpBackend.flush();
       $scope.$digest();
+    });
+
+    it('should update params.page when page.get is clicked', function () {
+      tastyPagination.isolateScope().page.get(2);
+      $scope.$digest();
+      urlToCall = 'api.json?sort-by=name&sort-order=dsc&page=2&count=20';
+      $httpBackend.whenGET(urlToCall).respond(completeJSON);
+      $httpBackend.flush();
+      $scope.$digest();
+      expect(element.scope().params.page).toEqual(2);
     });
   });
 });

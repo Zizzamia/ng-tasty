@@ -366,6 +366,7 @@ angular.module('ngTasty.component.table', [
     if (updateFrom === 'filters') {
       $scope.params['page'] = 1;
     }
+    console.log(initNow);
     $scope.url = buildUrl($scope.params, $scope.filters);
     if ($scope.reload) {
       $scope.reload = function () {
