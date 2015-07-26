@@ -691,6 +691,7 @@ angular.module('ngTasty.component.table', [
       scope.pagMaxRange = 1;
 
       getPage = function (numPage) {
+        console.log(numPage)
         tastyTable.setParams('page', numPage);
       };
 
