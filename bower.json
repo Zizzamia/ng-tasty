@@ -1,6 +1,6 @@
 {
   "name": "ng-tasty",
-  "version": "0.5.5",
+  "version": "0.5.6",
   "homepage": "https://github.com/Zizzamia/ng-tasty",
   "authors": [
     {
@@ -14,7 +14,7 @@
     "angular-route": "^1.4.1",
     "angular-mocks": "^1.4.1",
     "bootstrap": "3.2.0",
-    "ng-tasty": "~0.5.5"
+    "ng-tasty": "~0.5.6"
   },
   "license": "MIT",
   "ignore": [
