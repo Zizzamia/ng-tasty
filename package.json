@@ -1,6 +1,6 @@
 {
   "name": "ng-tasty",
-  "version": "0.5.6",
+  "version": "0.5.7",
   "description": "A lightweight, flexible, and tasty collection of reusable UI components for AngularJS.",
   "main": "dist/ng-tasty-tpls.min.js",
   "devDependencies": {

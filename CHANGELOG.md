@@ -1,6 +1,11 @@
 ## Changelog
 
-### v0.5.6 (master, released on July 11th 2015)
+### v0.5.7 (master, released on July 26th 2015)
+#### Bug Fixes
+- Fixed Paging buttons on server side table #148 [#148](https://github.com/Zizzamia/ng-tasty/issues/148)
+- Fixed ng-tasty entry point in package.json #145 [#145](https://github.com/Zizzamia/ng-tasty/issues/145)
+
+### v0.5.6 (released on July 11th 2015)
 #### Bug Fixes
 - Fixed Server Side search pagination [#142](https://github.com/Zizzamia/ng-tasty/issues/142)
 
