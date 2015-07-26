@@ -887,9 +887,8 @@ describe('Component: table server side', function () {
       $scope.$digest();
     });
 
-    it('should update params.page when page.get is clicked', function () {
+    it('should request a different API endpoint when page.get is clicked', function () {
       tastyPagination.isolateScope().page.get(2);
-      $scope.$digest();
       urlToCall = 'api.json?sort-by=name&sort-order=dsc&page=2&count=20';
       $httpBackend.whenGET(urlToCall).respond(completeJSON);
       $httpBackend.flush();

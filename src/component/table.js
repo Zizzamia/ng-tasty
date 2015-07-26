@@ -366,7 +366,6 @@ angular.module('ngTasty.component.table', [
     if (updateFrom === 'filters') {
       $scope.params['page'] = 1;
     }
-    console.log(initNow);
     $scope.url = buildUrl($scope.params, $scope.filters);
     if ($scope.reload) {
       $scope.reload = function () {
@@ -375,8 +374,8 @@ angular.module('ngTasty.component.table', [
           setDirectivesValues(resource);
         });
       };
-    } 
-    if (initNow) {
+    }
+    if (initNow || updateFrom === 'params') {
       $scope.resourceCallback($scope.url, angular.copy($scope.params))
       .then(function (resource) {
         setDirectivesValues(resource);
@@ -404,7 +403,7 @@ angular.module('ngTasty.component.table', [
         if ($scope.clientSide) {
           $scope.$evalAsync(updateClientSideResource('params'));
         } else {
-          $scope.$evalAsync(updateServerSideResource);
+          $scope.$evalAsync(updateServerSideResource('params'));
         }
       } else {
         paramsInitialCycle = false;
@@ -691,7 +690,6 @@ angular.module('ngTasty.component.table', [
       scope.pagMaxRange = 1;
 
       getPage = function (numPage) {
-        console.log(numPage)
         tastyTable.setParams('page', numPage);
       };
 
