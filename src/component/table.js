@@ -376,7 +376,9 @@ angular.module('ngTasty.component.table', [
       };
     }
     if (initNow || updateFrom === 'params') {
-      $scope.resourceCallback($scope.url, angular.copy($scope.params))
+      var paramsObj = angular.copy($scope.params);
+      paramsObj.filters = $scope.filters;
+      $scope.resourceCallback($scope.url, paramsObj)
       .then(function (resource) {
         setDirectivesValues(resource);
       });

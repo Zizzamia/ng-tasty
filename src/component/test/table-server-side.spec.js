@@ -181,6 +181,7 @@ describe('Component: table server side', function () {
       expect($scope.paramsObj.count).toEqual(5);
       expect($scope.paramsObj.thead).toEqual(true);
       expect($scope.paramsObj.pagination).toEqual(true);
+      expect($scope.paramsObj.filters.city).toEqual('sf');
     });
 
     it('should return a throw message if the response has the property header or rows defined', function () {
