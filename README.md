@@ -141,6 +141,11 @@ More about how I run this benchmark on my talk [#ngTasty Building high performan
 [https://github.com/Zizzamia/ng-tasty/CHANGELOG.md](https://github.com/Zizzamia/ng-tasty/blob/master/CHANGELOG.md)
 
 
+## Who's using #ngTasty? 
+- [Twitter](https://twitter.com) Internal Tools
+- [Opentaste](http://opentaste.co) Admin
+
+
 ## Creator
 
 Designed and built by Leonardo Zizzamia, like grandma used to make.
