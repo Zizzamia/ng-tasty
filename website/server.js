@@ -97,6 +97,9 @@ app.get('/:nameComponent/:namePage/:typePage', function(req, res) {
   responseObj['typePage'] = req.params.typePage;
   res.render('template/index.html', responseObj);
 });
+app.get('/sitemap.xml', function(req, res){
+  res.sendfile('sitemap.xml', { root: '.' });
+});
 
 //app.get('/benchmarks/table', function(req, res) {
 //  title = '#ngTasty - AngularJS websocket service';

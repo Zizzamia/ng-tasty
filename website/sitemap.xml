@@ -1,22 +1,174 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<urlset
-      xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-      xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
-            http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
-<url>
-  <loc>http://zizzamia.com</loc>
-</url>
+<?xml version="1.0" encoding="utf-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  
 <url>
   <loc>http://zizzamia.com/ng-tasty/</loc>
+  <lastmod>2015-08-07</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>1</priority>
 </url>
 <url>
-  <loc>http://zizzamia.com/ng-tasty/directive/table</loc>
+  <loc>http://zizzamia.com/ng-tasty/directive/table/simple/</loc>
+  <lastmod>2015-08-07</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.9</priority>
 </url>
 <url>
-  <loc>http://zizzamia.com/ng-tasty/directive/table-server-side</loc>
+  <loc>http://zizzamia.com/ng-tasty/directive/table/simple-http</loc>
+  <lastmod>2015-08-07</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.9</priority>
 </url>
 <url>
-  <loc>http://zizzamia.com/ng-tasty/filter/range</loc>
+  <loc>http://zizzamia.com/ng-tasty/directive/table/complete/</loc>
+  <lastmod>2015-08-07</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.9</priority>
 </url>
+<url>
+  <loc>http://zizzamia.com/ng-tasty/directive/table/sorting/</loc>
+  <lastmod>2015-08-07</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.9</priority>
+</url>
+<url>
+  <loc>http://zizzamia.com/ng-tasty/directive/table/pagination/</loc>
+  <lastmod>2015-08-07</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.9</priority>
+</url>
+<url>
+  <loc>http://zizzamia.com/ng-tasty/directive/table/filters/</loc>
+  <lastmod>2015-08-07</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.9</priority>
+</url>
+<url>
+  <loc>http://zizzamia.com/ng-tasty/directive/table/advance-filters/</loc>
+  <lastmod>2015-08-07</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.9</priority>
+</url>
+<url>
+  <loc>http://zizzamia.com/ng-tasty/directive/table/custom-pagination/</loc>
+  <lastmod>2015-08-07</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.9</priority>
+</url>
+<url>
+  <loc>http://zizzamia.com/ng-tasty/directive/table/custom-sorting/</loc>
+  <lastmod>2015-08-07</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.9</priority>
+</url>
+<url>
+  <loc>http://zizzamia.com/ng-tasty/directive/table/custom-theme/</loc>
+  <lastmod>2015-08-07</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.9</priority>
+</url>
+
+
+<url>
+  <loc>http://zizzamia.com/ng-tasty/directive/table-server-side/simple/</loc>
+  <lastmod>2015-08-07</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.9</priority>
+</url>
+<url>
+  <loc>http://zizzamia.com/ng-tasty/directive/table-server-side/complete/</loc>
+  <lastmod>2015-08-07</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.9</priority>
+</url>
+<url>
+  <loc>http://zizzamia.com/ng-tasty/directive/table-server-side/sorting/</loc>
+  <lastmod>2015-08-07</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.9</priority>
+</url>
+<url>
+  <loc>http://zizzamia.com/ng-tasty/directive/table-server-side/pagination/</loc>
+  <lastmod>2015-08-07</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.9</priority>
+</url>
+<url>
+  <loc>http://zizzamia.com/ng-tasty/directive/table-server-side/filters/</loc>
+  <lastmod>2015-08-07</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.9</priority>
+</url>
+<url>
+  <loc>http://zizzamia.com/ng-tasty/directive/table-server-side/reload/</loc>
+  <lastmod>2015-08-07</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.9</priority>
+</url>
+<url>
+  <loc>http://zizzamia.com/ng-tasty/directive/table-server-side/custom-theme/</loc>
+  <lastmod>2015-08-07</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.9</priority>
+</url>
+
+
+<url>
+  <loc>http://zizzamia.com/ng-tasty/service/websocket/</loc>
+  <lastmod>2015-08-07</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.8</priority>
+</url>
+<url>
+  <loc>http://zizzamia.com/ng-tasty/service/debounce/</loc>
+  <lastmod>2015-08-07</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.8</priority>
+</url>
+<url>
+  <loc>http://zizzamia.com/ng-tasty/service/throttle/</loc>
+  <lastmod>2015-08-07</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.8</priority>
+</url>
+
+<url>
+  <loc>http://zizzamia.com/ng-tasty/filter/filter-int/</loc>
+  <lastmod>2015-08-07</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.8</priority>
+</url>
+<url>
+  <loc>http://zizzamia.com/ng-tasty/filter/range/</loc>
+  <lastmod>2015-08-07</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.8</priority>
+</url>
+<url>
+  <loc>http://zizzamia.com/ng-tasty/filter/camelize/</loc>
+  <lastmod>2015-08-07</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.8</priority>
+</url>
+<url>
+  <loc>http://zizzamia.com/ng-tasty/filter/slugify/</loc>
+  <lastmod>2015-08-07</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.8</priority>
+</url>
+
+
+<url>
+  <loc>http://zizzamia.com/ng-tasty/api/</loc>
+  <lastmod>2015-08-07</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.6</priority>
+</url>
+<url>
+  <loc>http://zizzamia.com/ng-tasty/contribute/</loc>
+  <lastmod>2015-08-07</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.7</priority>
+</url>
+
 </urlset>
