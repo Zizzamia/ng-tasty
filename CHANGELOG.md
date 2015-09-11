@@ -2,7 +2,10 @@
 
 ### v0.5.8 (master, released on Aug 5th 2015)
 #### Bug Fixes
-- Fixed paramsObj does not match params #148 [#153](https://github.com/Zizzamia/ng-tasty/issues/153)
+- Fixed paramsObj does not match params #153 [#153](https://github.com/Zizzamia/ng-tasty/issues/153)
+
+####Breaking Changes
+- `paramsObj` now contains `filters` object. Can cause `TypeError: Converting circular structure to JSON` error if you were adding `paramsObj` to your `filters` object on your own. [(Breaking change commit)](https://github.com/Zizzamia/ng-tasty/commit/79e2aee2e05a763be229830fd377ebf5a17dd8eb#diff-873d6b5e9a48ee9eb129d4312d28ed72R380)
 
 ### v0.5.7 (released on July 26th 2015)
 #### Bug Fixes
