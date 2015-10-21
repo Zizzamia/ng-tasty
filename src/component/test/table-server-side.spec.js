@@ -114,9 +114,10 @@ describe('Component: table server side', function () {
       '      </tr>'+
       '    </tbody>'+
       '  </table>'+
-      '  <div tasty-pagination></div>'+
+      '  <tasty-pagination></tasty-pagination>'+
       '</div>');
-      $compile(element)($scope);
+      tastyTable = $compile(element)($scope);
+      tastyPagination = tastyTable.find('tasty-pagination');
     }));
 
     it('should have these element.scope() value as default', function () {
@@ -203,6 +204,25 @@ describe('Component: table server side', function () {
       $scope.$digest();
       $scope.filters['city'] = 'NY';
       urlToCall = 'api.json?sort-by=name&sort-order=dsc&page=1&count=5&city=NY';
+      $httpBackend.whenGET(urlToCall).respond(completeJSON);
+      $httpBackend.flush();
+      $scope.$digest();
+    });
+
+    it('should change correctly the url after filtering and pagination', function () {
+      $scope.filters['city'] = '';
+      $scope.filters['name'] = '';
+      urlToCall = 'api.json?sort-by=name&sort-order=dsc&page=2&count=5';
+      $httpBackend.whenGET(urlToCall).respond(completeJSON);
+      $httpBackend.flush();
+      $scope.$digest();
+      tastyPagination.isolateScope().page.get(5);
+      urlToCall = 'api.json?sort-by=name&sort-order=dsc&page=5&count=5';
+      $httpBackend.whenGET(urlToCall).respond(completeJSON);
+      $httpBackend.flush();
+      $scope.$digest();
+      $scope.filters['name'] = 'cup';
+      urlToCall = 'api.json?sort-by=name&sort-order=dsc&page=1&count=5&name=cup';
       $httpBackend.whenGET(urlToCall).respond(completeJSON);
       $httpBackend.flush();
       $scope.$digest();
