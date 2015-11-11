@@ -51,7 +51,8 @@ angular.module('ngTasty.component.table', [
   $scope.init = {};
   $scope.query = {};
   $scope.logs = {
-    'buildClientResourceCount': 0
+    'buildClientResourceCount': 0,
+    'updateServerSideResourceRunning': 0
   };
   $scope.theme = {};
 
@@ -375,12 +376,15 @@ angular.module('ngTasty.component.table', [
         });
       };
     }
-    if (initNow || updateFrom === 'params') {
+    if ((initNow || updateFrom === 'params') &&
+        !$scope.logs.updateServerSideResourceRunning) {
+      $scope.logs.updateServerSideResourceRunning = true;
       var paramsObj = angular.copy($scope.params);
       paramsObj.filters = $scope.filters;
       $scope.resourceCallback($scope.url, paramsObj)
       .then(function (resource) {
         setDirectivesValues(resource);
+        $scope.logs.updateServerSideResourceRunning = false;
       });
     }
   };

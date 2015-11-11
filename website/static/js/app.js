@@ -1,5 +1,6 @@
 angular.module('myApp', [
   'ngRoute',
+  'ngAnimate', 'ngMaterial',
   'ngTasty',
   'ui.bootstrap',
   'myApp.pages.app',
