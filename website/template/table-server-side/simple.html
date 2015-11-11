@@ -1,17 +1,9 @@
 <%= include ../title-inside.html %>
 <%= include page-header.html %>
-
-
 <div class="row">
   <%= include docs-head.html %>
 
-  <md-card class="col-md-12 docs-body">
-            <md-card-content>
-                <md-tabs md-dynamic-height="" md-border-bottom="" md-selected="tab">
-                    <md-tab label="part List">
-                        <md-content class="md-padding">
-
-  
+  <div class="col-md-12 docs-body">
     <div class="example">
       <div tasty-table bind-resource-callback="getResource"> 
         <table class="table table-striped table-condensed">
@@ -64,12 +56,5 @@
         <pre><code data-language="javascript" ng-bind="response"></code></pre>
       </tab>
     </tabset>
-  
-
-  </md-content>
-                    </md-tab>
-                </md-tabs>
-            </md-card-content>
-        </md-card>
-
+  </div>
 </div>
