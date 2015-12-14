@@ -286,6 +286,9 @@ angular.module('ngTasty.component.table', [
         }
       }
       $scope.pagination.pages = Math.ceil($scope.pagination.size / $scope.pagination.count);
+      if ($scope.pagination.pages < $scope.pagination.page) {
+        $scope.params.page = $scope.pagination.pages;
+      }
     }
   };
 
@@ -372,7 +375,7 @@ angular.module('ngTasty.component.table', [
   updateServerSideResource = function (updateFrom) {
     if (updateFrom === 'filters') {
       if (Number.isInteger($scope.init.filterBase)) {
-        $scope.params['page'] = $scope.init.filterBase;
+        $scope.params.page = $scope.init.filterBase;
       }
     }
     $scope.url = buildUrl($scope.params, $scope.filters);

@@ -30,7 +30,8 @@ angular.module('myApp.pages.tableServerSide', [])
     'count': 5,
     'page': 1,
     'sortBy': 'name',
-    'sortOrder': 'dsc'
+    'sortOrder': 'dsc',
+    'filterBase': 1
   };
 
   $scope.filterBy = {
