@@ -20,7 +20,8 @@ angular.module('ngTasty.component.table', [
     'count': 5,
     'page': 1,
     'sortBy': undefined,
-    'sortOrder': undefined
+    'sortOrder': undefined,
+    'filterBase': 1
   },
   query: {
     'page': 'page',
@@ -28,15 +29,15 @@ angular.module('ngTasty.component.table', [
     'sortBy': 'sort-by',
     'sortOrder': 'sort-order'
   },
+  bootstrapIcon: false,
   bindOnce: true,
   loadOnInit: false,
   iconUp: 'fa fa-sort-up',
   iconDown: 'fa fa-sort-down',
-  bootstrapIcon: false,
-  templateHeadUrl: 'template/table/head.html',
-  templateUrl: 'template/table/pagination.html',
   listItemsPerPage: [5, 25, 50, 100],
   itemsPerPage: 5,
+  templateHeadUrl: 'template/table/head.html',
+  templateUrl: 'template/table/pagination.html',
   watchResource: 'reference'
 })
 .controller('TableController', function($scope, $attrs, $filter, tableConfig, tastyUtil) {
@@ -108,6 +109,11 @@ angular.module('ngTasty.component.table', [
   $scope.init.page = $scope.init.page || vm.config.init.page;
   $scope.init.sortBy = $scope.init.sortBy || vm.config.init.sortBy;
   $scope.init.sortOrder = $scope.init.sortOrder || vm.config.init.sortOrder;
+  if (!angular.isUndefined($scope.init.filterBase)) {
+    $scope.init.filterBase = $scope.init.filterBase;
+  } else {
+    $scope.init.filterBase = vm.config.init.filterBase;
+  }  
   $scope.watchResource = $scope.watchResource || vm.config.watchResource;
 
   // Defualt variables
@@ -365,7 +371,9 @@ angular.module('ngTasty.component.table', [
 
   updateServerSideResource = function (updateFrom) {
     if (updateFrom === 'filters') {
-      $scope.params['page'] = 1;
+      if (Number.isInteger($scope.init.filterBase)) {
+        $scope.params['page'] = $scope.init.filterBase;
+      }
     }
     $scope.url = buildUrl($scope.params, $scope.filters);
     if ($scope.reload) {
