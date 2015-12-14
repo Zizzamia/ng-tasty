@@ -5,7 +5,7 @@
 - Reload table on specific page [#160](https://github.com/Zizzamia/ng-tasty/issues/160)
 
 #### Bug Fixes
-- Fixed table function runs twice when it is in an Angular-Material mdTab directive #176 [#153](https://github.com/Zizzamia/ng-tasty/issues/176)
+- Fixed table function runs twice when it is in an Angular-Material mdTab directive [#176](https://github.com/Zizzamia/ng-tasty/issues/176)
 - Fixed paramsObj causing circular object JSON error [#159](https://github.com/Zizzamia/ng-tasty/issues/159)
 
 ### v0.5.8 (released on Aug 5th 2015)
