@@ -925,7 +925,7 @@ describe('Component: table server side', function () {
       $scope.$digest();
     });
 
-    it('should return paramsObj with filter value', function () {
+    it('should return paramsObj with filter value  ', function () {
       $scope.filterBy = {
         'name': 'mill',
         'sf-location': ''
@@ -939,7 +939,7 @@ describe('Component: table server side', function () {
       expect($scope.paramsUrl).toEqual('sort-by=name&sort-order=dsc&page=1&count=20&name=mill');
       expect($scope.paramsObj.sortBy).toEqual('name');
       expect($scope.paramsObj.sortOrder).toEqual('dsc');
-      expect($scope.paramsObj.page).toEqual(4);
+      expect($scope.paramsObj.page).toEqual(1);
       expect($scope.paramsObj.count).toEqual(20);
       expect($scope.paramsObj.thead).toEqual(true);
       expect($scope.paramsObj.pagination).toEqual(true);

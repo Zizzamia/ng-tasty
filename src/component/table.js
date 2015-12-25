@@ -43,7 +43,8 @@ angular.module('ngTasty.component.table', [
 .controller('TableController', function($scope, $attrs, $filter, tableConfig, tastyUtil) {
   var listScopeToWatch, initTable, newScopeName, initStatus,
       updateClientSideResource, updateServerSideResource, setDirectivesValues,
-      buildClientResource, buildUrl, paramsInitialCycle, initNow, loadOnInit;
+      buildClientResource, buildUrl, paramsInitialCycle, initNow, loadOnInit,
+      filterChangedPage;
   var vm = this;
   vm.$scope = $scope;
   initStatus = {};
@@ -375,23 +376,20 @@ angular.module('ngTasty.component.table', [
   updateServerSideResource = function (updateFrom) {
     if (updateFrom === 'filters') {
       if (Number.isInteger($scope.init.filterBase)) {
+        if ($scope.params.page !== $scope.init.filterBase) {
+          filterChangedPage = true;
+        }
         $scope.params.page = $scope.init.filterBase;
       }
     }
 
-    $scope.url = buildUrl($scope.params, $scope.filters);
-    console.log('url : ' + updateFrom, $scope.url, $scope.params);
+    // after filter
+    // change the page
 
-    if ($scope.reload) {
-      $scope.reload = function () {
-        $scope.resourceCallback($scope.url, angular.copy($scope.params))
-        .then(function (resource) {
-          setDirectivesValues(resource);
-        });
-      };
-    }
-    if ((initNow || updateFrom === 'params') &&
-        !$scope.logs.updateServerSideResourceRunning) {
+    $scope.url = buildUrl($scope.params, $scope.filters);
+    
+
+    function updateServerSideResource () {
       $scope.logs.updateServerSideResourceRunning = true;
       var paramsObj = angular.copy($scope.params);
       paramsObj.filters = $scope.filters;
@@ -400,6 +398,22 @@ angular.module('ngTasty.component.table', [
         setDirectivesValues(resource);
         $scope.logs.updateServerSideResourceRunning = false;
       });
+    }
+
+    if ($scope.reload) {
+      $scope.reload = updateServerSideResource;
+    }
+    if ((initNow || updateFrom === 'params') &&
+        !$scope.logs.updateServerSideResourceRunning) {
+
+      if ($scope.reload) {
+        if (!filterChangedPage) {
+          updateServerSideResource();
+        }
+      } else {
+        updateServerSideResource();
+        filterChangedPage = false;
+      }
     }
   };
   
@@ -417,7 +431,6 @@ angular.module('ngTasty.component.table', [
   }
   $scope.$watchCollection('params', function watchParams (newValue, oldValue){
     if (newValue !== oldValue) {
-      console.log('params', newValue, oldValue)
       // Run update resuorce only if we are on 
       // the second cycle or more of `params`
       if (paramsInitialCycle === false) {
