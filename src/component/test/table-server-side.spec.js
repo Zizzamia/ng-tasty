@@ -916,5 +916,34 @@ describe('Component: table server side', function () {
       $scope.$digest();
       expect(element.scope().params.page).toEqual(2);
     });
+
+    it('should not change the params object if changed filter values', function () {
+      $scope.filterBy = {
+        'name': 'mill',
+        'sf-location': ''
+      };
+      $scope.$digest();
+    });
+
+    it('should return paramsObj with filter value', function () {
+      $scope.filterBy = {
+        'name': 'mill',
+        'sf-location': ''
+      };
+      $scope.$digest();
+      $scope.reloadCallback();
+      urlToCall = 'api.json?sort-by=name&sort-order=dsc&page=1&count=20&name=mill';
+      $httpBackend.whenGET(urlToCall).respond(completeJSON);
+      $httpBackend.flush();
+      $scope.$digest();
+      expect($scope.paramsUrl).toEqual('sort-by=name&sort-order=dsc&page=1&count=20&name=mill');
+      expect($scope.paramsObj.sortBy).toEqual('name');
+      expect($scope.paramsObj.sortOrder).toEqual('dsc');
+      expect($scope.paramsObj.page).toEqual(4);
+      expect($scope.paramsObj.count).toEqual(20);
+      expect($scope.paramsObj.thead).toEqual(true);
+      expect($scope.paramsObj.pagination).toEqual(true);
+      expect($scope.paramsObj.filters.name).toEqual('mill');
+    });
   });
 });

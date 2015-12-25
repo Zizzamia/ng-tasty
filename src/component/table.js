@@ -378,7 +378,10 @@ angular.module('ngTasty.component.table', [
         $scope.params.page = $scope.init.filterBase;
       }
     }
+
     $scope.url = buildUrl($scope.params, $scope.filters);
+    console.log('url : ' + updateFrom, $scope.url, $scope.params);
+
     if ($scope.reload) {
       $scope.reload = function () {
         $scope.resourceCallback($scope.url, angular.copy($scope.params))
@@ -414,6 +417,7 @@ angular.module('ngTasty.component.table', [
   }
   $scope.$watchCollection('params', function watchParams (newValue, oldValue){
     if (newValue !== oldValue) {
+      console.log('params', newValue, oldValue)
       // Run update resuorce only if we are on 
       // the second cycle or more of `params`
       if (paramsInitialCycle === false) {
