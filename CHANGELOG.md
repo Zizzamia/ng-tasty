@@ -1,6 +1,13 @@
 ## Changelog
 
-### v0.5.9 (master, released on Dec 14th 2015)
+### v0.6.0 (master, released on Dec 26th 2015)
+#### Features
+- Sortable can be defined where the columns are defined [#193](https://github.com/Zizzamia/ng-tasty/issues/193)
+
+#### Bug Fixes
+- Fixed bind-reload pagination issue [#186](https://github.com/Zizzamia/ng-tasty/issues/186)
+
+### v0.5.9 (released on Dec 14th 2015)
 #### Features
 - Reload table on specific page [#160](https://github.com/Zizzamia/ng-tasty/issues/160)
 

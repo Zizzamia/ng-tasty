@@ -109,10 +109,23 @@ angular.module('myApp.pages.table', [])
   $rootScope.page = 'table';
   $rootScope.innerPage = 'sorting';
   $scope.resource = {
-    'header': [
-      { 'key': 'name', 'name': 'Name', 'style': {'width': '50%'} },
-      { 'key': 'sf-Location', 'name': 'SF Location', 'style': {'width': '35%'} },
-      { 'key': 'star', 'name': 'Star', 'style': {'width': '15%'}, 'class': ['text-right'] }
+    'header': [{ 
+        'key': 'name', 
+        'name': 'Name', 
+        'style': {'width': '50%'}
+      },
+      { 
+        'key': 'sf-Location', 
+        'name': 'SF Location', 
+        'style': {'width': '35%'},
+        'sortable': false
+      },
+      { 
+        'key': 'star', 
+        'name': 'Star', 
+        'style': {'width': '15%'}, 
+        'class': ['text-right'] 
+      }
     ],
     'rows': tableResource.rows,
     'sortBy': 'star',

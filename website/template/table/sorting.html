@@ -7,7 +7,7 @@
     <div class="example">
       <div tasty-table bind-resource="resource"> 
         <table class="table table-striped table-condensed">
-          <thead tasty-thead bind-not-sort-by="notSortBy"></thead>
+          <thead tasty-thead></thead>
           <tbody>
             <tr ng-repeat="row in rows">
               <td>{{ row.name }}</td>
@@ -44,10 +44,23 @@
         <pre><code data-language="javascript">$scope.notSortBy = ['sf-location'];
 
 $scope.resource = {
-  "header": [
-    { "key": "name", "name": "Name", "style": {"width": "50%"} },
-    { "key": "star", "name": "Star", "style": {"width": "15%"} },
-    { "key": "sf-location", "name": "SF Location", "style": {"width": "35%"} }
+  "header": [{ 
+      key: "name", 
+      name: "Name", 
+      style: { width: "50%" } 
+    },
+    { 
+      key: "sf-location", 
+      name: "SF Location", 
+      style: { width: "35%" },
+      sortable: false
+    },
+    { 
+      key: "star", 
+      name: "Star", 
+      style: { width: "15%"},
+      class: ['text-right']
+    }
   ],
   "rows": [
     { "name": "Ritual Coffee Roasters", "star": "★★★★★", "sf-location": "Hayes Valley"},
