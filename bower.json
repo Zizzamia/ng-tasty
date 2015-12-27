@@ -14,7 +14,7 @@
     "angular-route": "^1.4.1",
     "angular-mocks": "^1.4.1",
     "bootstrap": "3.2.0",
-    "ng-tasty": "~0.5.8"
+    "ng-tasty": "~0.6.0"
   },
   "license": "MIT",
   "ignore": [
