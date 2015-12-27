@@ -75,6 +75,7 @@ describe('Component: table', function () {
     beforeEach(inject(function ($rootScope, $compile, _sortingJSON_) {
       $scope = $rootScope.$new();
       $scope.resource = angular.copy(_sortingJSON_);
+      $scope.resource.header[2].sortable = false; 
       $scope.resource.something = [
         { 'name': 'Ritual Coffee Roasters' }
       ];
@@ -147,7 +148,7 @@ describe('Component: table', function () {
       expect(tastyThead.isolateScope().columns[1].sortable).toEqual(true);
       expect(tastyThead.isolateScope().columns[1].style).toEqual({ width : '20%' });
       expect(tastyThead.isolateScope().columns[2].active).toEqual(false);
-      expect(tastyThead.isolateScope().columns[2].sortable).toEqual(true);
+      expect(tastyThead.isolateScope().columns[2].sortable).toEqual(false);
       expect(tastyThead.isolateScope().columns[2].style).toEqual( { width : '30%' });
     });
 
@@ -164,6 +165,12 @@ describe('Component: table', function () {
       expect(element.scope().params.sortBy).toEqual('star');
       expect($scope.resource.sortBy).toEqual('star');
       expect(tastyThead.isolateScope().columns[1].active).toEqual(true);
+    });
+
+    it('should set the sortable property when declared', function () {
+      expect(element.scope().header.columns[0].sortable).toEqual(undefined);
+      expect(element.scope().header.columns[1].sortable).toEqual(undefined);
+      expect(element.scope().header.columns[2].sortable).toEqual(false);
     });
 
     it('should sorting ascending and descending scope.header.sortBy when scope.sortBy is clicked', function () {
