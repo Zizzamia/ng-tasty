@@ -568,11 +568,16 @@ angular.module('ngTasty.component.table', [
           isSortedCaret = '';
           // Not sort column when the key is present in the `notSortBy` list,
           // and Not sort column when `notSortBy` is an empty list
+          // If sortable property is present in column object, then use it
           if (angular.isArray(scope.notSortBy)) {
             if (scope.notSortBy.length) {
               sortable = scope.notSortBy.indexOf(column.key) < 0;
             } else {
               sortable = false;
+            }
+          } else {
+            if (angular.isDefined(column.sortable)) {
+              sortable = column.sortable === true;
             }
           }
           if (column.key === scope.header.sortBy ||
