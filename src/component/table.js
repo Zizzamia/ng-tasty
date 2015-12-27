@@ -32,6 +32,7 @@ angular.module('ngTasty.component.table', [
   bootstrapIcon: false,
   bindOnce: true,
   loadOnInit: false,
+  loadOnce: false,
   iconUp: 'fa fa-sort-up',
   iconDown: 'fa fa-sort-down',
   listItemsPerPage: [5, 25, 50, 100],
@@ -43,7 +44,7 @@ angular.module('ngTasty.component.table', [
 .controller('TableController', function($scope, $attrs, $filter, tableConfig, tastyUtil) {
   var listScopeToWatch, initTable, newScopeName, initStatus,
       updateClientSideResource, updateServerSideResource, setDirectivesValues,
-      buildClientResource, buildUrl, paramsInitialCycle, initNow, loadOnInit,
+      buildClientResource, buildUrl, paramsInitialCycle, initNow, loadOnInit,loadOnce
       filterChangedPage;
   var vm = this;
   vm.$scope = $scope;
@@ -394,6 +395,12 @@ angular.module('ngTasty.component.table', [
         $scope.logs.updateServerSideResourceRunning = false;
       });
     }
+    
+    if(vm.config.loadOnce)
+         {
+            updateServerSideResource();
+            vm.config.loadOnce = false;
+         }
 
     if ($scope.reload) {
       $scope.reload = updateServerSideResource;
