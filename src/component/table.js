@@ -382,12 +382,7 @@ angular.module('ngTasty.component.table', [
         $scope.params.page = $scope.init.filterBase;
       }
     }
-
-    // after filter
-    // change the page
-
     $scope.url = buildUrl($scope.params, $scope.filters);
-    
 
     function updateServerSideResource () {
       $scope.logs.updateServerSideResourceRunning = true;
