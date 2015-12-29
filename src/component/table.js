@@ -151,21 +151,21 @@ angular.module('ngTasty.component.table', [
    * these values by an isolate optional scope variable,
    * more info here https://github.com/angular/angular.js/issues/6404 */
   if (!angular.isDefined($attrs.bindResource) && !angular.isDefined($attrs.bindResourceCallback)) {
-    throw new Error('AngularJS tastyTable directive: need the ' +
+    throw new Error('Angular tastyTable directive: need the ' +
                     'bind-resource or bind-resource-callback attribute');
   }
   if (angular.isDefined($attrs.bindResource)) {
     if (!angular.isObject($scope.resource)) {
-      throw new Error('AngularJS tastyTable directive: the bind-resource ('+
+      throw new Error('Angular tastyTable directive: the bind-resource ('+
                       $attrs.bindResource + ') is not an object');
     } else if (!$scope.resource.header && !$scope.resource.rows) {
-      throw new Error('AngularJS tastyTable directive: the bind-resource ('+
+      throw new Error('Angular tastyTable directive: the bind-resource ('+
                       $attrs.bindResource + ') has the property header or rows undefined');
     }
   }
   if (angular.isDefined($attrs.bindResourceCallback)) {
     if (!angular.isFunction($scope.resourceCallback)) {
-      throw new Error('AngularJS tastyTable directive: the bind-resource-callback ('+
+      throw new Error('Angular tastyTable directive: the bind-resource-callback ('+
                       $attrs.bindResourceCallback + ') is not a function');
     }
     $scope.clientSide = false;
@@ -239,10 +239,10 @@ angular.module('ngTasty.component.table', [
 
   setDirectivesValues = function (resource) {
     if (!angular.isObject(resource)) {
-      throw new Error('AngularJS tastyTable directive: the resource response '+
+      throw new Error('Angular tastyTable directive: the resource response '+
                       'is not an object');
     } else if (!resource.header && !resource.rows) {
-      throw new Error('AngularJS tastyTable directive: the resource response object '+
+      throw new Error('Angular tastyTable directive: the resource response object '+
                       'has the property header or rows undefined');
     }
     Object.keys(resource).forEach(function(key) {
@@ -583,6 +583,10 @@ angular.module('ngTasty.component.table', [
           if (column.key === scope.header.sortBy ||
               '-' + column.key === scope.header.sortBy) {
             active = true;
+          }
+          if (!angular.isDefined(column.key)) {
+            throw new Error('Angular tastyTable directive: need a key value ' +
+                            'each column table header');
           }
           sort = $filter('cleanFieldName')(column.key);
           if (scope.header.sortBy === '-' + sort) {

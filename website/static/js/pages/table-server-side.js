@@ -44,15 +44,27 @@ angular.module('myApp.pages.tableServerSide', [])
     $scope.urlApi = 'table.json?' + params;
     return $http.get($scope.urlApi).then(function (response) {
       $scope.response = JSON.stringify(response.data, undefined, 2);
+      var header = response.data.header;
+      header.push({});
       return {
         'rows': response.data.rows,
-        'header': response.data.header,
+        'header': header,
         'pagination': response.data.pagination,
         'sortBy': response.data['sort-by'],
         'sortOrder': response.data['sort-order']
       };
     });
   };
+
+  $scope.removeItem = function (item) {
+    $http.post('table-delete-row.json', {
+      'name': item.name,
+      'sf-location': item.sfLocatin
+    }).then(function (response) {
+      console.log(response);
+    })
+  };
+
   $timeout(function () {
     Rainbow.color();
   });
