@@ -25,7 +25,7 @@ describe('Component: table server side', function () {
         $compile(element)($scope);
         $scope.$digest();
       }
-      expected = 'AngularJS tastyTable directive: the bind-resource-callback (getResource) is not a function';
+      expected = 'Angular tastyTable directive: the bind-resource-callback (getResource) is not a function';
       expect(errorFunctionWrapper).toThrow(expected);
     });
   });
@@ -66,7 +66,7 @@ describe('Component: table server side', function () {
         $httpBackend.flush();
         $scope.$digest();
       }
-      expected = 'AngularJS tastyTable directive: the resource response is not an object';
+      expected = 'Angular tastyTable directive: the resource response is not an object';
       expect(errorFunctionWrapper).toThrow(expected);
     });
   });
@@ -192,7 +192,7 @@ describe('Component: table server side', function () {
         $httpBackend.flush();
         $scope.$digest();
       }
-      expected = 'AngularJS tastyTable directive: the resource response object '+
+      expected = 'Angular tastyTable directive: the resource response object '+
                  'has the property header or rows undefined';
       expect(errorFunctionWrapper).toThrow(expected);
     });

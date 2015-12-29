@@ -27,7 +27,7 @@ describe('Component: table', function () {
         $compile(element)($scope);
         $scope.$digest();
       }
-      expected = 'AngularJS tastyTable directive: need the bind-resource or bind-resource-callback attribute';
+      expected = 'Angular tastyTable directive: need the bind-resource or bind-resource-callback attribute';
       expect(errorFunctionWrapper).toThrow(expected);
     });
 
@@ -37,7 +37,7 @@ describe('Component: table', function () {
         $compile(element)($scope);
         $scope.$digest();
       }
-      expected = 'AngularJS tastyTable directive: the bind-resource (getResource) is not an object';
+      expected = 'Angular tastyTable directive: the bind-resource (getResource) is not an object';
       expect(errorFunctionWrapper).toThrow(expected);
     });
   });
@@ -1464,6 +1464,38 @@ describe('Component: table', function () {
       tastyThead.isolateScope().sortBy(field);
       $scope.$digest();
       expect(tastyThead.isolateScope().columns[1].isSorted).toEqual('active is-asc');
+    });
+  });
+
+  describe('withs sorting with wrong fields', function () {
+    var sortingJSON;
+
+    beforeEach(inject(function ($rootScope, _$compile_, _sortingJSON_) {
+      $scope = $rootScope.$new();
+      $compile = _$compile_;
+      sortingJSON = _sortingJSON_;
+    }));
+
+    it('should bindOnce be false', function () {
+      function errorFunctionWrapper() {
+        $scope.resource = angular.copy(sortingJSON);
+        $scope.resource.header.push({});
+        element = angular.element(''+
+        '<table tasty-table bind-resource="resource" watch-resource="collection" >'+
+        '  <thead tasty-thead></thead>'+
+        '  <tbody>'+
+        '    <tr ng-repeat="row in rows">'+
+        '      <td>{{ row.name }}</td>'+
+        '      <td>{{ row.star }}</td>'+
+        '      <td>{{ row[\'sf-Location\'] }}</td>'+
+        '    </tr>'+
+        '  </tbody>'+
+        '</table>');
+        $compile(element)($scope);
+        $scope.$digest();
+      }
+      expected = 'Angular tastyTable directive: need a key value each column table header';
+      expect(errorFunctionWrapper).toThrow(expected);
     });
   });
 });
