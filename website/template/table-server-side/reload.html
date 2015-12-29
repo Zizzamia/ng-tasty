@@ -16,9 +16,12 @@
           <input type="text" class="form-control input-sm" 
           ng-model="filterBy['sf-location']" value="" />
         </div>
-        <div class="col-sm-3">
+        <div class="col-sm-2">
           <br />
           <button class="btn btn-primary" ng-click="search()">Search</button>
+        </div>
+        <div class="col-sm-4">
+          <p>Reload all resource in {{ timeLeft }} seconds</p>
         </div>
       </div>
       <div tasty-table bind-resource-callback="getResourceReload" bind-init="init" 
@@ -30,6 +33,10 @@
               <td>{{ row.name }}</td>
               <td>{{ row.star }}</td>
               <td>{{ row['sf-location'] }}</td>
+              <td>
+                <button class="btn btn-danger btn-xs" 
+                ng-click="removeItem(row)">Remove -</button>
+              </td>
             </tr>
           </tbody>
         </table>
@@ -63,6 +70,10 @@ bind-filters=&quot;filterBy&quot; bind-reload=&quot;reloadCallback&quot; &gt;
         &lt;td&gt;&lbrace;&lbrace; row.name &rbrace;&rbrace;&lt;/td&gt;
         &lt;td&gt;&lbrace;&lbrace; row.star &rbrace;&rbrace;&lt;/td&gt;
         &lt;td&gt;&lbrace;&lbrace; row['sf-location'] &rbrace;&rbrace;&lt;/td&gt;
+        &lt;td&gt;
+          &lt;button class=&quot;btn btn-danger btn-xs&quot; 
+          ng-click=&quot;removeItem(row)&quot;>Remove -&lt;/button&gt;
+        &lt;/td&gt;
       &lt;/tr&gt;
     &lt;/tbody&gt;
   &lt;/table&gt;
@@ -89,17 +100,32 @@ $scope.search = function () {
 };
 
 $scope.getResource = function (params, paramsObj) {
-  var urlApi = 'table.json?' + params;
+  var urlApi = 'table-tmp.json?' + params;
   return $http.get(urlApi).then(function (response) {
+    var header = response.data.header;
+    header.push({
+      'key': 'remove',
+      'name': 'Remove',
+      'sortable': false
+    });
     return {
       'rows': response.data.rows,
-      'header': response.data.header,
+      'header': header,
       'pagination': response.data.pagination,
       'sortBy': response.data['sort-by'],
       'sortOrder': response.data['sort-order']
     }
   });
-}</code></pre>
+}
+$scope.removeItem = function (item) {
+  $http.post('table-delete-row.json', {
+    'name': item.name,
+    'sf-location': item.sfLocatin
+  }).then(function (response) {
+    $scope.reloadCallback();
+  })
+};
+</code></pre>
       </tab>
       <tab heading="Response">
         <pre><code data-language="javascript" ng-bind="response"></code></pre>

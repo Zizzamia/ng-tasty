@@ -44,25 +44,14 @@ angular.module('myApp.pages.tableServerSide', [])
     $scope.urlApi = 'table.json?' + params;
     return $http.get($scope.urlApi).then(function (response) {
       $scope.response = JSON.stringify(response.data, undefined, 2);
-      var header = response.data.header;
-      header.push({});
       return {
         'rows': response.data.rows,
-        'header': header,
+        'header': response.data.header,
         'pagination': response.data.pagination,
         'sortBy': response.data['sort-by'],
         'sortOrder': response.data['sort-order']
       };
     });
-  };
-
-  $scope.removeItem = function (item) {
-    $http.post('table-delete-row.json', {
-      'name': item.name,
-      'sf-location': item.sfLocatin
-    }).then(function (response) {
-      console.log(response);
-    })
   };
 
   $timeout(function () {
@@ -148,7 +137,7 @@ angular.module('myApp.pages.tableServerSide', [])
     Rainbow.color();
   });
 })
-.controller('TableServerSideReloadCtrl', function($rootScope, $scope, $http, $timeout) {
+.controller('TableServerSideReloadCtrl', function($rootScope, $scope, $http, $timeout, $interval) {
   $rootScope.page = 'table-server-side';
   $rootScope.innerPage = 'reload';
   
@@ -169,22 +158,46 @@ angular.module('myApp.pages.tableServerSide', [])
   $scope.search = function () {
     $scope.reloadCallback();
   };
+  $scope.timeLeft = 60;
 
   $scope.getResourceReload = function (params, paramsObj) {
     $scope.params = params;
     $scope.paramsObj = paramsObj;
-    $scope.urlApi = 'table.json?' + params;
+    $scope.urlApi = 'table-tmp.json?' + params;
     return $http.get($scope.urlApi).then(function (response) {
       $scope.response = JSON.stringify(response.data, undefined, 2);
+      var header = response.data.header;
+      header.push({
+        'key': 'remove',
+        'name': 'Remove',
+        'sortable': false
+      });
+      $scope.timeLeft = response.data.timeLeft;
       return {
         'rows': response.data.rows,
-        'header': response.data.header,
+        'header': header,
         'pagination': response.data.pagination,
         'sortBy': response.data['sort-by'],
         'sortOrder': response.data['sort-order']
       };
     });
   };
+
+  $scope.removeItem = function (item) {
+    $http.post('table-delete-row.json', {
+      'name': item.name,
+      'sf-location': item.sfLocatin
+    }).then(function (response) {
+      $scope.reloadCallback();
+    })
+  };
+
+  $interval(function () {
+    if ($scope.timeLeft > 0) {
+      $scope.timeLeft -= 1;
+    }
+  }, 1000);
+
   $timeout(function () {
     Rainbow.color();
   });

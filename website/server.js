@@ -82,6 +82,7 @@ var rowsBasic = [
   { 'name': 'Starbucks', 'star': '★', 'sf-location': 'Union Square' },
   { 'name': 'Flywheel Coffee Roasters', 'star': '★★★★★', 'sf-location': 'Upper Haight' }
 ];
+var rowsTmp = rowsBasic.slice();
 
 var prevSortBy, prevSortOrder, base;
 if (args.port != 3000) {
@@ -150,9 +151,10 @@ var apiJson = JSON.parse(fs.readFileSync('build/apiDocs/toc.json', 'utf8'));
 app.get('/toc.json', function(req, res){
   res.json(apiJson);
 });
-app.get('/table.json', function(req, res){
+
+
+function loadResourceTable (rows, req, res) {
   var items, pagination, rows, sortBy, fromRow, toRow;
-  rows = rowsBasic.slice();
   count = req.query.count;
   page = req.query.page;
 
@@ -227,15 +229,40 @@ app.get('/table.json', function(req, res){
     'sort-by': req.query['sort-by'],
     'sort-order': req.query['sort-order'] || 'asc'
   };
+  return items;
+}
+
+app.get('/table.json', function (req, res) {
+  var items = loadResourceTable(rowsBasic, req, res);
   res.json(items);
 });
 
-app.post('/table-delete-row.json', function(req, res){
+var oldTimestamp = Date.now();
+app.get('/table-tmp.json', function (req, res) {
+  var timestamp = Date.now();
+  var timeToWait = 1000 * 60;
+  var timeLeft = (oldTimestamp + timeToWait) - timestamp;
 
-  var name = req.query['name'];
-  var sfLocation = req.query['sf-location'];
+  if (timeLeft <= 0) {
+    rowsTmp = rowsBasic.slice();
+    oldTimestamp = timestamp;
+  }
+  if (timeLeft > 60000) {
+    timeLeft = 60000;
+  }
 
-  console.log('Delete', name, sfLocation);
+  var items = loadResourceTable(rowsTmp, req, res);
+  items.timeLeft = parseInt(timeLeft / 1000);
+  res.json(items);
+});
+
+app.post('/table-delete-row.json', function(req, res) {
+  var name = req.body['name'];
+  var sfLocation = req.body['sf-location'];
+
+  rowsTmp = rowsTmp.filter(function(item) {
+    return item['name'] !== name && item['sf-location'] !== sfLocation;
+  });
 
   res.json({
     success: true
