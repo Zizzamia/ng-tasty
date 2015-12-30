@@ -955,7 +955,7 @@ describe('Component: table', function () {
   });
 
 
-   describe('with pagination count 1', function () {
+  describe('with pagination count 1', function () {
     beforeEach(inject(function ($rootScope, $compile, _sortingJSON_) {
       $scope = $rootScope.$new();
       $scope.resource = angular.copy(_sortingJSON_);
@@ -1414,6 +1414,7 @@ describe('Component: table', function () {
     });
   });
 
+
   describe('withs sorting and different theme', function () {
     beforeEach(inject(function ($rootScope, $compile, _sortingJSON_) {
       $scope = $rootScope.$new();
@@ -1466,6 +1467,7 @@ describe('Component: table', function () {
       expect(tastyThead.isolateScope().columns[1].isSorted).toEqual('active is-asc');
     });
   });
+
 
   describe('withs sorting with wrong fields', function () {
     var sortingJSON;

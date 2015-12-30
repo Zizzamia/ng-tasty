@@ -90,5 +90,8 @@
   "bugs": {
     "url": "https://github.com/Zizzamia/ng-tasty/issues"
   },
-  "homepage": "https://github.com/Zizzamia/ng-tasty"
+  "homepage": "https://github.com/Zizzamia/ng-tasty",
+  "dependencies": {
+    "forever": "^0.15.1"
+  }
 }

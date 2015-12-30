@@ -55,6 +55,71 @@ angular.module('mockedAPIResponse',[])
   'sortBy': 'name',
   'sortOrder': 'asc'
 })
+.value('completeDifferenHeaderJSON', {
+  'header': [
+    {
+      'key': 'name',
+      'name': 'Name',
+      'style': { 'width' : '25%' }
+    },
+    {
+      'key': 'star',
+      'name': 'Star',
+      'style': { 'width' : '25%' },
+      'class': ['text-right']
+    },
+    {
+      'key': 'sf-location',
+      'name': 'SF Location',
+      'style': { 'width' : '25%' }
+    },
+    {
+      'key': 'new-key',
+      'name': 'Name key',
+      'style': { 'width' : '25%' }
+    }
+  ],
+  'rows': [
+    {
+      'name': 'Andytown Coffee Roasters',
+      'star': '★★★',
+      'sf-location': 'Outer Sunset',
+      'new-key': '1'
+    },
+    {
+      'name': 'Beanery',
+      'star': '★★★',
+      'sf-location': 'Inner Sunset',
+      'new-key': '2'
+    },
+    {
+      'name': 'Biscoff Coffee Corner',
+      'star': '★★★',
+      'sf-location': 'Fisherman’s Wharf',
+      'new-key': '1'
+    },
+    {
+      'name': 'Blue Bottle',
+      'star': '★★★★★',
+      'sf-location': 'Hayes Valley',
+      'new-key': '2'
+    },
+    {
+      'name': 'Blue Bottle',
+      'star': '★★★★★',
+      'sf-location': 'Embarcadero',
+      'new-key': '3'
+    }
+  ],
+  'pagination': {
+    'count': 5,
+    'page': 1,
+    'pages': 7,
+    'size': 34
+  },
+  'sortBy': 'name',
+  'sortOrder': 'asc'
+})
 // sort-by=name&sort-order=asc
 .value('sortingJSON', {
   'header': [

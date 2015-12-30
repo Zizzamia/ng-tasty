@@ -30,6 +30,7 @@ describe('Component: table server side', function () {
     });
   });
 
+
   describe('bad bind-resource-callback implementation', function () {
     beforeEach(inject(function ($rootScope, $compile, $http, _$httpBackend_) {
       $scope = $rootScope.$new();
@@ -656,6 +657,7 @@ describe('Component: table server side', function () {
     });
   });
 
+
   describe('with filters', function () {
     beforeEach(inject(function ($rootScope, $compile, $http, _$httpBackend_, _filtersJSON_) {
       $scope = $rootScope.$new();
@@ -793,6 +795,7 @@ describe('Component: table server side', function () {
     });
   });
 
+
   describe('complete with load-on-init', function () {
     beforeEach(inject(function ($rootScope, $compile, $http, _$httpBackend_, _completeJSON_) {
       $scope = $rootScope.$new();
@@ -857,10 +860,14 @@ describe('Component: table server side', function () {
 
 
   describe('complete with bind-reload', function () {
-    beforeEach(inject(function ($rootScope, $compile, $http, _$httpBackend_, _completeJSON_) {
+    var completeDifferenHeaderJSON;
+
+    beforeEach(inject(function ($rootScope, $compile, $http, _$httpBackend_, 
+                                _completeJSON_, _completeDifferenHeaderJSON_) {
       $scope = $rootScope.$new();
       $httpBackend = _$httpBackend_;
       completeJSON = _completeJSON_;
+      completeDifferenHeaderJSON = _completeDifferenHeaderJSON_;
       $scope.getResource = function (paramsUrl, paramsObj) {
         return $http.get('api.json?' + paramsUrl).then(function (response) {
           $scope.paramsUrl = paramsUrl;
@@ -944,6 +951,15 @@ describe('Component: table server side', function () {
       expect($scope.paramsObj.thead).toEqual(true);
       expect($scope.paramsObj.pagination).toEqual(true);
       expect($scope.paramsObj.filters.name).toEqual('mill');
+    });
+
+    it('should update the columns when header changes', function () {
+      $scope.reloadCallback();
+      urlToCall = 'api.json?sort-by=name&sort-order=dsc&page=4&count=20';
+      $httpBackend.whenGET(urlToCall).respond(completeDifferenHeaderJSON);
+      $httpBackend.flush();
+      $scope.$digest();
+      expect(element.scope().header.columns.length).toEqual(4);
     });
   });
 });
