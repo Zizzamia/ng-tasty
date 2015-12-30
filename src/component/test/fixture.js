@@ -120,6 +120,67 @@ angular.module('mockedAPIResponse',[])
   'sortBy': 'name',
   'sortOrder': 'asc'
 })
+.value('completeWithMetadataJSON', {
+  'header': [
+    {
+      'key': 'name',
+      'name': 'Name'
+    },
+    {
+      'key': 'metadata.star',
+      'name': 'Star'
+    },
+    {
+      'key': 'metadata.sf-location',
+      'name': 'SF Location'
+    }
+  ],
+  'rows': [
+    {
+      'name': 'Andytown Coffee Roasters',
+      'metadata': {
+        'star': '★★★',
+        'sf-location': 'Outer Sunset'
+      }
+    },
+    {
+      'name': 'Beanery',
+      'metadata': {
+        'star': '★★★',
+        'sf-location': 'Inner Sunset'
+      }
+    },
+    {
+      'name': 'Biscoff Coffee Corner',
+      'metadata': {
+        'star': '★★★',
+        'sf-location': 'Fisherman’s Wharf'
+      }
+    },
+    {
+      'name': 'Blue Bottle',
+      'metadata': {
+        'star': '★★★★★',
+        'sf-location': 'Hayes Valley'
+      }
+    },
+    {
+      'name': 'Blue Bottle',
+      'metadata': {
+        'star': '★★★★★',
+        'sf-location': 'Embarcadero'
+      }
+    }
+  ],
+  'pagination': {
+    'count': 5,
+    'page': 1,
+    'pages': 7,
+    'size': 34
+  },
+  'sortBy': 'name',
+  'sortOrder': 'asc'
+})
 // sort-by=name&sort-order=asc
 .value('sortingJSON', {
   'header': [

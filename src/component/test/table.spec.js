@@ -424,6 +424,178 @@ describe('Component: table', function () {
   });
 
 
+  describe('withs sorting and different theme', function () {
+    beforeEach(inject(function ($rootScope, $compile, _sortingJSON_) {
+      $scope = $rootScope.$new();
+      $scope.resource = angular.copy(_sortingJSON_);
+      $scope.resource.something = [
+        { 'name': 'Ritual Coffee Roasters' }
+      ];
+      $scope.theme = {
+        iconUp: 'active is-desc',
+        iconDown: 'active is-asc'
+      };
+      element = angular.element(''+
+      '<table tasty-table bind-resource="resource" bind-theme="theme">'+
+      '  <thead tasty-thead></thead>'+
+      '  <tbody>'+
+      '    <tr ng-repeat="row in rows">'+
+      '      <td>{{ row.name }}</td>'+
+      '      <td>{{ row.star }}</td>'+
+      '      <td>{{ row[\'sf-Location\'] }}</td>'+
+      '    </tr>'+
+      '  </tbody>'+
+      '</table>');
+      tastyTable = $compile(element)($scope);
+      tastyThead = tastyTable.find('[tasty-thead=""]');
+      $rootScope.$digest();
+      tableCtrl = element.controller('tasty-table');
+    }));
+
+    it('should bindOnce be true', function () {
+      expect(tableCtrl.config.bindOnce).toEqual(true);
+    });
+
+    it('should return true or false to indicate if a specific key is sorted up', function () {
+      field = {'key': 'star', 'name': 'star', 'sortable': true};
+      tastyThead.isolateScope().sortBy(field);
+      $scope.$digest();
+      expect(tastyThead.isolateScope().columns[1].isSorted).toEqual('active is-desc');
+      tastyThead.isolateScope().sortBy(field);
+      $scope.$digest();
+      expect(tastyThead.isolateScope().columns[1].isSorted).toEqual('active is-asc');
+    });
+
+    it('should return true or false to indicate if a specific key is sorted down', function () {
+      field = {'key': 'star', 'name': 'star', 'sortable': true};
+      tastyThead.isolateScope().sortBy(field);
+      $scope.$digest();
+      expect(tastyThead.isolateScope().columns[1].isSorted).toEqual('active is-desc');
+      tastyThead.isolateScope().sortBy(field);
+      $scope.$digest();
+      expect(tastyThead.isolateScope().columns[1].isSorted).toEqual('active is-asc');
+    });
+  });
+
+
+  describe('withs sorting with wrong fields', function () {
+    var sortingJSON;
+
+    beforeEach(inject(function ($rootScope, _$compile_, _sortingJSON_) {
+      $scope = $rootScope.$new();
+      $compile = _$compile_;
+      sortingJSON = _sortingJSON_;
+    }));
+
+    it('should bindOnce be false', function () {
+      function errorFunctionWrapper() {
+        $scope.resource = angular.copy(sortingJSON);
+        $scope.resource.header.push({});
+        element = angular.element(''+
+        '<table tasty-table bind-resource="resource" watch-resource="collection" >'+
+        '  <thead tasty-thead></thead>'+
+        '  <tbody>'+
+        '    <tr ng-repeat="row in rows">'+
+        '      <td>{{ row.name }}</td>'+
+        '      <td>{{ row.star }}</td>'+
+        '      <td>{{ row[\'sf-Location\'] }}</td>'+
+        '    </tr>'+
+        '  </tbody>'+
+        '</table>');
+        $compile(element)($scope);
+        $scope.$digest();
+      }
+      expected = 'Angular tastyTable directive: need a key value each column table header';
+      expect(errorFunctionWrapper).toThrow(expected);
+    });
+  });
+
+
+  describe('withs sorting with subobjects', function () {
+    beforeEach(inject(function ($rootScope, $compile, _completeWithMetadataJSON_) {
+      $scope = $rootScope.$new();
+      $scope.resource = angular.copy(_completeWithMetadataJSON_);
+      element = angular.element(''+
+      '<table tasty-table bind-resource="resource">'+
+      '  <thead tasty-thead></thead>'+
+      '  <tbody>'+
+      '    <tr ng-repeat="row in rows">'+
+      '      <td>{{ row.name }}</td>'+
+      '      <td>{{ row.star }}</td>'+
+      '      <td>{{ row[\'sf-Location\'] }}</td>'+
+      '    </tr>'+
+      '  </tbody>'+
+      '</table>');
+      tastyTable = $compile(element)($scope);
+      tastyThead = tastyTable.find('[tasty-thead=""]');
+      $scope.$digest();
+    }));
+
+    it('should have these element.scope() value as default', function () {
+      expect(element.scope().query).toEqual({
+        'page': 'page',
+        'count': 'count',
+        'sortBy': 'sort-by',
+        'sortOrder': 'sort-order',
+      });
+      expect(element.scope().url).toEqual('');
+      expect(element.scope().header.columns[0].key).toEqual('name');
+      expect(element.scope().header.columns[1].key).toEqual('metadata.star');
+      expect(element.scope().header.columns[2].key).toEqual('metadata.sf-location');
+      expect(element.scope().header.columns.length).toEqual(3);
+      expect(element.scope().rows.length).toEqual(5);
+      expect(element.scope().pagination.count).toEqual(5);
+      expect(element.scope().pagination.page).toEqual(1);
+      expect(element.scope().pagination.pages).toEqual(1);
+      expect(element.scope().pagination.size).toEqual(0);
+      expect(element.scope().params.sortBy).toEqual('name');
+      expect(element.scope().params.sortOrder).toEqual('asc');
+      expect(element.scope().params.page).toEqual(1);
+      expect(element.scope().params.count).toEqual(undefined);
+      expect(element.scope().params.thead).toEqual(true);
+      expect(element.scope().theadDirective).toEqual(true);
+      expect(element.scope().paginationDirective).toEqual(false);   
+    });
+
+    it('should set params.sortBy when scope.sortBy is clicked', function () {
+      field = {'key': 'name', 'name': 'Name', 'sortable': true};
+      tastyThead.isolateScope().sortBy(field);
+      $scope.$digest();
+      expect(element.scope().params.sortBy).toEqual('name');
+      expect($scope.resource.sortBy).toEqual('name');
+      expect(tastyThead.isolateScope().columns[0].active).toEqual(true);
+      field = {'key': 'metadata.star', 'name': 'Star', 'sortable': true};
+      tastyThead.isolateScope().sortBy(field);
+      $scope.$digest();
+      expect(element.scope().params.sortBy).toEqual('metadata.star');
+      expect($scope.resource.sortBy).toEqual('metadata.star');
+      expect(tastyThead.isolateScope().columns[1].active).toEqual(true);
+    });
+
+    it('should sorting ascending and descending with a key contains a dash (-)', function () {
+      field = { 'key': 'metadata.sf-location', 'name': 'SF Location', 'sortable': true};
+      tastyThead.isolateScope().sortBy(field);
+      $scope.$digest();
+      expect(tastyThead.isolateScope().header.sortBy).toEqual('metadata.sf-location');
+      expect(element.scope().rows[0].name).toEqual('CoffeeShop');
+      tastyThead.isolateScope().sortBy(field);
+      $scope.$digest();
+      expect(tastyThead.isolateScope().header.sortBy).toEqual('-metadata.sf-location');
+      expect(element.scope().rows[0].name).toEqual('Flywheel Coffee Roasters');
+    });
+
+    it('should return true or false to indicate if a specific key is sorted up', function () {
+      field = {'key': 'metadata.star', 'name': 'star', 'sortable': true};
+      tastyThead.isolateScope().sortBy(field);
+      $scope.$digest();
+      expect(tastyThead.isolateScope().columns[1].isSorted).toEqual('fa fa-sort-up');
+      tastyThead.isolateScope().sortBy(field);
+      $scope.$digest();
+      expect(tastyThead.isolateScope().columns[1].isSorted).toEqual('fa fa-sort-down');
+    });
+  });
+
+
   describe('withs filters', function () {
     beforeEach(inject(function ($rootScope, $compile, _sortingJSON_) {
       $scope = $rootScope.$new();
@@ -1411,93 +1583,6 @@ describe('Component: table', function () {
 
       expect(element.scope().logs.buildClientResourceCount).toEqual(8);
       expect(element.scope().resource.reload).not.toEqual(undefined);
-    });
-  });
-
-
-  describe('withs sorting and different theme', function () {
-    beforeEach(inject(function ($rootScope, $compile, _sortingJSON_) {
-      $scope = $rootScope.$new();
-      $scope.resource = angular.copy(_sortingJSON_);
-      $scope.resource.something = [
-        { 'name': 'Ritual Coffee Roasters' }
-      ];
-      $scope.theme = {
-        iconUp: 'active is-desc',
-        iconDown: 'active is-asc'
-      };
-      element = angular.element(''+
-      '<table tasty-table bind-resource="resource" bind-theme="theme">'+
-      '  <thead tasty-thead></thead>'+
-      '  <tbody>'+
-      '    <tr ng-repeat="row in rows">'+
-      '      <td>{{ row.name }}</td>'+
-      '      <td>{{ row.star }}</td>'+
-      '      <td>{{ row[\'sf-Location\'] }}</td>'+
-      '    </tr>'+
-      '  </tbody>'+
-      '</table>');
-      tastyTable = $compile(element)($scope);
-      tastyThead = tastyTable.find('[tasty-thead=""]');
-      $rootScope.$digest();
-      tableCtrl = element.controller('tasty-table');
-    }));
-
-    it('should bindOnce be true', function () {
-      expect(tableCtrl.config.bindOnce).toEqual(true);
-    });
-
-    it('should return true or false to indicate if a specific key is sorted up', function () {
-      field = {'key': 'star', 'name': 'star', 'sortable': true};
-      tastyThead.isolateScope().sortBy(field);
-      $scope.$digest();
-      expect(tastyThead.isolateScope().columns[1].isSorted).toEqual('active is-desc');
-      tastyThead.isolateScope().sortBy(field);
-      $scope.$digest();
-      expect(tastyThead.isolateScope().columns[1].isSorted).toEqual('active is-asc');
-    });
-
-    it('should return true or false to indicate if a specific key is sorted down', function () {
-      field = {'key': 'star', 'name': 'star', 'sortable': true};
-      tastyThead.isolateScope().sortBy(field);
-      $scope.$digest();
-      expect(tastyThead.isolateScope().columns[1].isSorted).toEqual('active is-desc');
-      tastyThead.isolateScope().sortBy(field);
-      $scope.$digest();
-      expect(tastyThead.isolateScope().columns[1].isSorted).toEqual('active is-asc');
-    });
-  });
-
-
-  describe('withs sorting with wrong fields', function () {
-    var sortingJSON;
-
-    beforeEach(inject(function ($rootScope, _$compile_, _sortingJSON_) {
-      $scope = $rootScope.$new();
-      $compile = _$compile_;
-      sortingJSON = _sortingJSON_;
-    }));
-
-    it('should bindOnce be false', function () {
-      function errorFunctionWrapper() {
-        $scope.resource = angular.copy(sortingJSON);
-        $scope.resource.header.push({});
-        element = angular.element(''+
-        '<table tasty-table bind-resource="resource" watch-resource="collection" >'+
-        '  <thead tasty-thead></thead>'+
-        '  <tbody>'+
-        '    <tr ng-repeat="row in rows">'+
-        '      <td>{{ row.name }}</td>'+
-        '      <td>{{ row.star }}</td>'+
-        '      <td>{{ row[\'sf-Location\'] }}</td>'+
-        '    </tr>'+
-        '  </tbody>'+
-        '</table>');
-        $compile(element)($scope);
-        $scope.$digest();
-      }
-      expected = 'Angular tastyTable directive: need a key value each column table header';
-      expect(errorFunctionWrapper).toThrow(expected);
     });
   });
 });
