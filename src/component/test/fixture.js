@@ -69,13 +69,13 @@ angular.module('mockedAPIResponse',[])
       'class': ['text-right']
     },
     {
-      'key': 'sf-location',
-      'name': 'SF Location',
+      'key': 'new-key',
+      'name': 'Name key',
       'style': { 'width' : '25%' }
     },
     {
-      'key': 'new-key',
-      'name': 'Name key',
+      'key': 'sf-location',
+      'name': 'SF Location',
       'style': { 'width' : '25%' }
     }
   ],

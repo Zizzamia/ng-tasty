@@ -19,7 +19,7 @@
       </p>
     </li>
     <li ng-if="innerPage == 'complete' || innerPage == 'custom-theme'">
-      <p><code>bind-theme</code> (Defaults: {...})
+      <p><code>bind-theme</code> (Defaults: { ... }}</code></pre>)
       : Be able to change the tableConfig constant object.
       </p>
     </li>
@@ -74,6 +74,36 @@
         </p>
       </li>
     </ul>
+  </div>
+  <div class="bs-callout bs-callout-primary" 
+  ng-if="innerPage == 'complete' || innerPage == 'custom-theme'">
+    <h4>bind-theme</h4>
+    <p>Below the defaults values</p>
+    <pre><code data-language="javascript">{
+  init: {
+    'count': 5,
+    'page': 1,
+    'sortBy': undefined,
+    'sortOrder': undefined,
+    'filterBase': 1
+  },
+  query: {
+    'page': 'page',
+    'count': 'count',
+    'sortBy': 'sort-by',
+    'sortOrder': 'sort-order'
+  },
+  bootstrapIcon: false,
+  bindOnce: true,
+  loadOnInit: false,
+  iconUp: 'fa fa-sort-up',
+  iconDown: 'fa fa-sort-down',
+  listItemsPerPage: [5, 25, 50, 100],
+  itemsPerPage: 5,
+  templateHeadUrl: 'template/table/head.html',
+  templateUrl: 'template/table/pagination.html',
+  watchResource: 'reference'
+}</code></pre>
   </div>
   <div class="bs-callout bs-callout-primary">
     <h4>bind-</h4>

@@ -145,7 +145,8 @@ angular.module('myApp.pages.tableServerSide', [])
     'count': 5,
     'page': 1,
     'sortBy': 'name',
-    'sortOrder': 'dsc'
+    'sortOrder': 'dsc',
+    'bindOnce': false
   };
 
   $scope.reloadCallback = function () {};
@@ -223,7 +224,6 @@ angular.module('myApp.pages.tableServerSide', [])
     itemsPerPage: 10,
     loadOnInit: true
   };
-  $scope.reloadCallback = function () {};
 
   $scope.getResource = function (params, paramsObj) {
     $scope.params = params;

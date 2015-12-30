@@ -959,6 +959,10 @@ describe('Component: table server side', function () {
       $httpBackend.whenGET(urlToCall).respond(completeDifferenHeaderJSON);
       $httpBackend.flush();
       $scope.$digest();
+      expect(element.scope().header.columns[0].name).toEqual('Name');
+      expect(element.scope().header.columns[1].name).toEqual('Star');
+      expect(element.scope().header.columns[2].name).toEqual('Name key');
+      expect(element.scope().header.columns[3].name).toEqual('SF Location');
       expect(element.scope().header.columns.length).toEqual(4);
     });
   });
