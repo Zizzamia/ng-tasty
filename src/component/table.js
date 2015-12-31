@@ -589,14 +589,15 @@ angular.module('ngTasty.component.table', [
                             'each column table header');
           }
           sort = $filter('cleanFieldName')(column.key);
-          if (scope.header.sortBy === '-' + sort) {
+          var headerSortBy = scope.header.sortBy? $filter('cleanFieldName')(scope.header.sortBy) : null;
+          if (headerSortBy === '-' + sort) {
             if (tastyTable.config.bootstrapIcon) {
               isSorted = '';
               isSortedCaret = 'caret';
             } else {
               isSorted = scope.iconDown;
             }
-          } else if (scope.header.sortBy === sort) {
+          } else if (headerSortBy === sort) {
             if (tastyTable.config.bootstrapIcon) {
               isSorted = 'dropup';
               isSortedCaret = 'caret';
@@ -627,7 +628,8 @@ angular.module('ngTasty.component.table', [
         }
         var columnName, sortOrder;
         columnName = $filter('cleanFieldName')(column.key);
-        if (scope.header.sortBy === columnName) {
+        var headerSortBy = scope.header.sortBy? $filter('cleanFieldName')(scope.header.sortBy) : null;
+        if (headerSortBy === columnName) {
           sortOrder = 'dsc';
         } else {
           sortOrder = 'asc';
