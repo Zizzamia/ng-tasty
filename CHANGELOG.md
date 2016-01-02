@@ -1,6 +1,12 @@
 ## Changelog
 
-### v0.6.0 (master, released on Dec 26th 2015)
+### v0.6.1 (master, released on January 1th 2016)
+#### Bug Fixes
+- Fixed cleanFieldName issue when there are no header value [#196](https://github.com/Zizzamia/ng-tasty/issues/196)
+
+- Fixed subobjects sortable issue [#140](https://github.com/Zizzamia/ng-tasty/issues/140)
+
+### v0.6.0 (released on Dec 26th 2015)
 #### Features
 - Sortable can be defined where the columns are defined [#193](https://github.com/Zizzamia/ng-tasty/issues/193)
 
