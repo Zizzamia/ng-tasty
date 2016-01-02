@@ -137,17 +137,10 @@ angular.module('mockedAPIResponse',[])
   ],
   'rows': [
     {
-      'name': 'Andytown Coffee Roasters',
+      'name': 'Blue Bottle',
       'metadata': {
-        'star': '★★★',
-        'sf-location': 'Outer Sunset'
-      }
-    },
-    {
-      'name': 'Beanery',
-      'metadata': {
-        'star': '★★★',
-        'sf-location': 'Inner Sunset'
+        'star': '★★★★★',
+        'sf-location': 'Hayes Valley'
       }
     },
     {
@@ -158,10 +151,31 @@ angular.module('mockedAPIResponse',[])
       }
     },
     {
-      'name': 'Blue Bottle',
+      'name': 'Flywheel Coffee Roasters',
       'metadata': {
         'star': '★★★★★',
-        'sf-location': 'Hayes Valley'
+        'sf-Location': 'Upper Haight'
+      }
+    },
+    {
+      'name': 'Beanery',
+      'metadata': {
+        'star': '★★★',
+        'sf-location': 'Inner Sunset'
+      }
+    },
+    {
+      'name': 'Andytown Coffee Roasters',
+      'metadata': {
+        'star': '★★★',
+        'sf-location': 'Outer Sunset'
+      }
+    },
+    {
+      'name': 'CoffeeShop',
+      'metadata': {
+        'star': '★★★',
+        'sf-location': 'Bernal Heights'
       }
     },
     {

@@ -521,8 +521,8 @@ describe('Component: table', function () {
       '  <tbody>'+
       '    <tr ng-repeat="row in rows">'+
       '      <td>{{ row.name }}</td>'+
-      '      <td>{{ row.star }}</td>'+
-      '      <td>{{ row[\'sf-Location\'] }}</td>'+
+      '      <td>{{ row.metadata.star }}</td>'+
+      '      <td>{{ row.metadata[\'sf-Location\'] }}</td>'+
       '    </tr>'+
       '  </tbody>'+
       '</table>');
@@ -543,7 +543,7 @@ describe('Component: table', function () {
       expect(element.scope().header.columns[1].key).toEqual('metadata.star');
       expect(element.scope().header.columns[2].key).toEqual('metadata.sf-location');
       expect(element.scope().header.columns.length).toEqual(3);
-      expect(element.scope().rows.length).toEqual(5);
+      expect(element.scope().rows.length).toEqual(7);
       expect(element.scope().pagination.count).toEqual(5);
       expect(element.scope().pagination.page).toEqual(1);
       expect(element.scope().pagination.pages).toEqual(1);

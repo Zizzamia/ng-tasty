@@ -299,11 +299,17 @@ angular.module('ngTasty.component.table', [
     if ($scope.theadDirective && $scope.header.columns.length) {
       reverse = $scope.header.sortOrder === 'asc' ? false : true;
       listSortBy = [function(item) {
-        return item[$scope.header.sortBy];
+        return $scope.header.sortBy.split('.')
+        .reduce(function (previousValue, currentValue) {
+          return previousValue[currentValue];
+        }, item);
       }];
       if ($scope.header.columns[0].key !== $scope.header.sortBy) {
         listSortBy.push(function(item) {
-          return item[$scope.header.columns[0].key];
+          return $scope.header.columns[0].key.split('.')
+          .reduce(function (previousValue, currentValue) {
+            return previousValue[currentValue];
+          }, item);
         });
       }
       if ($scope.header.sortBy) {
@@ -548,6 +554,13 @@ angular.module('ngTasty.component.table', [
         });
       }
 
+      function cleanSortBy (sortBy) {
+        if (sortBy) {
+          return $filter('cleanFieldName')(sortBy);
+        }
+        return undefined;
+      }
+
       scope.setColumns = function () {
         var width, i, active, sortable, sort, 
             isSorted, isSortedCaret;
@@ -589,14 +602,14 @@ angular.module('ngTasty.component.table', [
                             'each column table header');
           }
           sort = $filter('cleanFieldName')(column.key);
-          if (scope.header.sortBy === '-' + sort) {
+          if (cleanSortBy(scope.header.sortBy) === '-' + sort) {
             if (tastyTable.config.bootstrapIcon) {
               isSorted = '';
               isSortedCaret = 'caret';
             } else {
               isSorted = scope.iconDown;
             }
-          } else if (scope.header.sortBy === sort) {
+          } else if (cleanSortBy(scope.header.sortBy) === sort) {
             if (tastyTable.config.bootstrapIcon) {
               isSorted = 'dropup';
               isSortedCaret = 'caret';
@@ -627,7 +640,7 @@ angular.module('ngTasty.component.table', [
         }
         var columnName, sortOrder;
         columnName = $filter('cleanFieldName')(column.key);
-        if (scope.header.sortBy === columnName) {
+        if (cleanSortBy(scope.header.sortBy) === columnName) {
           sortOrder = 'dsc';
         } else {
           sortOrder = 'asc';
