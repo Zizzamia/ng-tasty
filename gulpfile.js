@@ -3,14 +3,14 @@
 var _ = require('underscore');
 var md5 = require('blueimp-md5').md5;
 var camelCase = require('camel-case');
-var gulp = require('gulp'); 
+var gulp = require('gulp');
 var concat = require("gulp-concat");
 var del = require('del');
 var file = require('gulp-file');
 var header = require('gulp-header');
 var html2js = require('gulp-ng-html2js');
 var jshint = require('gulp-jshint');
-var karma = require('gulp-karma');
+var karma = require('karma').Server;
 var ngAnnotate = require('gulp-ng-annotate');
 var ngcompile = require('gulp-ngcompile');
 var gulpDocs = require('gulp-ngdocs');
@@ -56,16 +56,16 @@ var enquote = function (str) {
 }
 
 
-gulp.task('clean', function () {  
+gulp.task('clean', function () {
   return del('dist');
 });
 
-gulp.task('clean-module', function () {  
+gulp.task('clean-module', function () {
   return gulp.src('dist/module', {read: false})
     .pipe(clean());
 });
 
-gulp.task('move-template', function () {  
+gulp.task('move-template', function () {
   gulp.src('template/**/*.html')
     .pipe(gulp.dest('dist/template/'));
 });
@@ -94,93 +94,104 @@ gulp.task('html2js', function () {
     .pipe(gulp.dest('template'))
 });
 
-gulp.task('test', function () {
-  return gulp.src(testFiles)
-    .pipe(karma({
-      configFile: 'karma.conf.js',
-      action: 'run',
-      browsers: ['Chrome']
-    }));
+gulp.task('test', function (done) {
+  new karma({
+    configFile: __dirname + '/karma.conf.js',
+    browsers: ['Chrome'],
+    files: testFiles,
+    singleRun: true
+  }, done).start();
 });
 
-gulp.task('travis', function () {
-  return gulp.src(testFiles)
-    .pipe(karma({
-      configFile: 'karma.conf.js',
-      action: 'run',
-      reporters: ['dots', 'coverage', 'coveralls'],
-      browsers: ['Firefox'],
-      preprocessors: {
-        'src/**/*.js': ['coverage']
-      },
-      coverageReporter: {
-        type: 'lcov',
-        dir: 'coverage/',
-        subdir: '.',
-      }
-    }));
+gulp.task('travis', function (done) {
+  new karma({
+    configFile: __dirname + '/karma.conf.js',
+    action: 'run',
+    reporters: ['dots', 'coverage', 'coveralls'],
+    browsers: ['Firefox'],
+    preprocessors: {
+      'src/**/*.js': ['coverage']
+    },
+    coverageReporter: {
+      type: 'lcov',
+      dir: 'coverage/',
+      subdir: '.',
+    },
+    files: testFiles,
+    singleRun: true
+  }, done).start();
+});
+
+gulp.task('test-tasty-dev', function(done) {
+  new karma({
+    configFile: __dirname + '/karma.conf.js',
+    files: [
+      'bower_components/jquery/dist/jquery.min.js',
+      'bower_components/angular/angular.min.js',
+      'bower_components/angular-mocks/angular-mocks.js',
+      'src/*/test/*.js',
+      'dist/ng-tasty.js',
+      'template/**/*.html.js'
+    ],
+    singleRun: true,
+    reporters: ['dots'],
+    browsers: ['Firefox']
+  }, done).start();
+});
+
+gulp.task('test-tasty-min', function(done) {
+  new karma({
+    configFile: __dirname + '/karma.conf.js',
+    files: [
+      'bower_components/jquery/dist/jquery.min.js',
+      'bower_components/angular/angular.min.js',
+      'bower_components/angular-mocks/angular-mocks.js',
+      'src/*/test/*.js',
+      'dist/ng-tasty.min.js',
+      'template/**/*.html.js'
+    ],
+    singleRun: true,
+    reporters: ['dots'],
+    browsers: ['Firefox']
+  }, done).start();
+});
+
+gulp.task('test-tpls-dev', function(done) {
+  new karma({
+    configFile: __dirname + '/karma.conf.js',
+    files: [
+      'bower_components/jquery/dist/jquery.min.js',
+      'bower_components/angular/angular.min.js',
+      'bower_components/angular-mocks/angular-mocks.js',
+      'src/*/test/*.js',
+      'dist/ng-tasty-tpls.js',
+      'template/**/*.html.js'
+    ],
+    singleRun: true,
+    reporters: ['dots'],
+    browsers: ['Firefox']
+  }, done).start();
+});
+
+gulp.task('test-tpls-min', function(done) {
+  new karma({
+    configFile: __dirname + '/karma.conf.js',
+    files: [
+      'bower_components/jquery/dist/jquery.min.js',
+      'bower_components/angular/angular.min.js',
+      'bower_components/angular-mocks/angular-mocks.js',
+      'src/*/test/*.js',
+      'dist/ng-tasty-tpls.min.js',
+      'template/**/*.html.js'
+    ],
+    singleRun: true,
+    reporters: ['dots'],
+    browsers: ['Firefox']
+  }, done).start();
 });
 
 gulp.task('full-test', function () {
-  gulp.src([
-    'bower_components/jquery/dist/jquery.min.js',
-    'bower_components/angular/angular.min.js',
-    'bower_components/angular-mocks/angular-mocks.js',
-    'src/*/test/*.js',
-    'dist/ng-tasty.js',
-    'template/**/*.html.js'
-  ])
-    .pipe(karma({
-      configFile: 'karma.conf.js',
-      action: 'run',
-      reporters: ['dots'],
-      browsers: ['Firefox']
-    }));
-
-  gulp.src([
-    'bower_components/jquery/dist/jquery.min.js',
-    'bower_components/angular/angular.min.js',
-    'bower_components/angular-mocks/angular-mocks.js',
-    'src/*/test/*.js',
-    'dist/ng-tasty.min.js',
-    'template/**/*.html.js'
-  ])
-    .pipe(karma({
-      configFile: 'karma.conf.js',
-      action: 'run',
-      reporters: ['dots'],
-      browsers: ['Firefox']
-    }));
-
-  gulp.src([
-    'bower_components/jquery/dist/jquery.min.js',
-    'bower_components/angular/angular.min.js',
-    'bower_components/angular-mocks/angular-mocks.js',
-    'src/*/test/*.js',
-    'dist/ng-tasty-tpls.js',
-    'template/**/*.html.js'
-  ])
-    .pipe(karma({
-      configFile: 'karma.conf.js',
-      action: 'run',
-      reporters: ['dots'],
-      browsers: ['Firefox']
-    }));
-
-  gulp.src([
-    'bower_components/jquery/dist/jquery.min.js',
-    'bower_components/angular/angular.min.js',
-    'bower_components/angular-mocks/angular-mocks.js',
-    'src/*/test/*.js',
-    'dist/ng-tasty-tpls.min.js',
-    'template/**/*.html.js'
-  ])
-    .pipe(karma({
-      configFile: 'karma.conf.js',
-      action: 'run',
-      reporters: ['dots'],
-      browsers: ['Firefox']
-    }));
+  gulp.run('test-tasty-dev', 'test-tasty-min', 'test-tpls-dev', 'test-tpls-min');
 });
 
 gulp.task('get-modules-name', function () {
@@ -202,7 +213,7 @@ gulp.task('get-modules-name', function () {
       if (!files) {
         return;
       }
-      files = files.filter(function (file) { 
+      files = files.filter(function (file) {
         return path.extname(file) === '.html';
       });
       files.forEach(function (file) {
@@ -228,7 +239,7 @@ gulp.task('build-dist', function () {
   var dist = 'dist';
   var modules = [];
 
-  tplModules = tplModules.filter(function (tpls) { 
+  tplModules = tplModules.filter(function (tpls) {
     return tpls.length > 0;
   });
 
@@ -250,7 +261,7 @@ gulp.task('build-dist', function () {
     .pipe(rename({extname: '.min.js'}))
     .pipe(gulp.dest(dist));
 
-  var metaHeader = banner + 
+  var metaHeader = banner +
                    meta.all + '\n' +
                    meta.tplmodules + '\n';
 
@@ -297,7 +308,7 @@ gulp.task('create-module-file', function () {
 });
 
 gulp.task('create-module', function () {
-  return gulp.src(['src/**/*.js', 
+  return gulp.src(['src/**/*.js',
     'template/**/*.html.js',
     'dist/module/ng-tasty-tpls.js'])
     .pipe(ngcompile('ngTasty'))
@@ -339,13 +350,13 @@ gulp.task('watch', function () {
     .pipe(jshint.reporter('default'));
   });
 
-  gulp.src(testFiles)
-    .pipe(karma({
-      configFile: 'karma.conf.js',
-      action: 'watch',
-      browsers: ['Chrome'],
-      reporters: ['dots']
-    }));
+  new karma({
+    configFile: __dirname + '/karma.conf.js',
+    browsers: ['Chrome'],
+    reporters: ['dots'],
+    files: testFiles,
+    autoWatch: true
+  }).start();
 });
 
 gulp.task('default', ['watch']);

@@ -1,5 +1,5 @@
 describe('Service: bindTo', function () {
-  
+
   // load the service's module
   beforeEach(module('ngTasty.service.bindTo'));
 
@@ -9,7 +9,7 @@ describe('Service: bindTo', function () {
     bindTo = _bindTo_;
   }));
 
-  it('should do something"', function () {
+  it('should do something', function () {
     expect(!!bindTo).toBe(true);
   });
 });
