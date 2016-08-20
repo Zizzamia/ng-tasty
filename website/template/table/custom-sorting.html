@@ -5,7 +5,7 @@
 
   <div class="col-md-12 docs-body">
     <div class="example">
-      <div tasty-table bind-resource="resource"> 
+      <div tasty-table bind-resource="resource">
         <table class="table table-striped table-condensed">
           <thead tasty-thead not-sort-by="['sf-Location']"
           template-url="localTemplateThead.html"></thead>
@@ -19,11 +19,11 @@
         </table>
         <script type="text/ng-template" id="localTemplateThead.html">
           <tr>
-            <th ng-repeat="column in columns track by $index" 
+            <th ng-repeat="column in columns track by $index"
             ng-class="classToShow(column)"
             ng-style="::column.style" ng-click="sortBy(column)">
               Custom <span ng-bind="::column.name"></span>
-            </th> 
+            </th>
           </tr>
         </script>
       </div>
@@ -33,7 +33,7 @@
         <pre ng-non-bindable><code data-language="html">&lt;div tasty-table bind-resource=&quot;resource&quot;&gt;
   &lt;table class=&quot;table table-striped table-condensed&quot;&gt;
     &lt;thead tasty-thead not-sort-by=&quot;['sf-location']&quot;
-    template-url&quot;localTemplateThead.html&quot;&gt;&lt;/thead&gt;
+    template-url=&quot;&#39;localTemplateThead.html&#39;&quot;&gt;&lt;/thead&gt;
     &lt;tbody&gt;
       &lt;tr ng-repeat=&quot;row in rows&quot;&gt;
         &lt;td&gt;&lbrace;&lbrace; row.name &rbrace;&rbrace;&lt;/td&gt;
