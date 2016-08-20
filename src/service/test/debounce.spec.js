@@ -1,5 +1,5 @@
 describe('Service: debounce', function () {
-  
+
   // load the service's module
   beforeEach(module('ngTasty.service.debounce'));
 
@@ -10,7 +10,7 @@ describe('Service: debounce', function () {
     $timeout = _$timeout_;
   }));
 
-  it('should do something"', function () {
+  it('should do something', function () {
     expect(!!debounce).toBe(true);
   });
 
