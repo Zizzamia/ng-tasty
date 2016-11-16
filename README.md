@@ -144,6 +144,7 @@ More about how I run this benchmark on my talk [#ngTasty Building high performan
 ## Who's using #ngTasty? 
 - [Twitter](https://twitter.com) Internal Tools
 - [Opentaste](http://opentaste.co) Admin
+- [Persado GO](https://persado.com/platform/persado-go/)
 
 
 ## Creator
