@@ -62,7 +62,7 @@ Here the [Website Readme](https://github.com/Zizzamia/ng-tasty/blob/master/websi
 The easiest way to run the unit tests is to use the supplied gulp script:
 
 ```
-gulp test
+npm test
 ```
 
 ## Docs
