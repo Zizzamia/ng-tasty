@@ -23,7 +23,7 @@
     "lodash": "^4.17.20",
     "minijasminenode": "^1.1.1",
     "twit": "^1.1.18",
-    "ws": "^0.6.5"
+    "ws": "^7.3.1"
   },
   "scripts": {
     "prepublish": "./node_modules/bower/bin/bower install",
